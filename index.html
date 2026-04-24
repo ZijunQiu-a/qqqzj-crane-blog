@@ -23,6 +23,7 @@
           <a href="#growth">News 动态</a>
           <a href="#notes">Notes 笔记</a>
           <a href="#life">Life 生活</a>
+          <a href="#archive">Archive 归档</a>
         </nav>
       </header>
 
@@ -81,7 +82,28 @@
                     <strong id="index-videos">0</strong>
                     <small>Life Log</small>
                   </a>
+                  <a href="#archive">
+                    <span>Archive 归档</span>
+                    <strong id="index-total">0</strong>
+                    <small>All posts</small>
+                  </a>
                 </nav>
+              </section>
+
+              <section class="discovery-section" aria-labelledby="discovery-title">
+                <div class="section-heading">
+                  <p class="eyebrow">Find 查找</p>
+                  <h2 id="discovery-title">Search & Tags 搜索与标签</h2>
+                </div>
+                <div class="search-panel">
+                  <label class="search-field" for="post-search">
+                    <span>Search posts / 搜索文章</span>
+                    <input id="post-search" type="search" placeholder="Title, tag, keyword..." autocomplete="off" />
+                  </label>
+                  <button class="clear-search-button" id="clear-search" type="button">Clear / 清空</button>
+                  <div class="filter-status" id="filter-status">0 posts</div>
+                  <div class="tag-filter" id="tag-filter" aria-label="Tag filters / 标签筛选"></div>
+                </div>
               </section>
 
               <!-- About me：静态个人简介，直接改 HTML 就能更新。 -->
@@ -134,6 +156,14 @@
                 </div>
                 <div class="video-grid" id="video-list"></div>
               </section>
+
+              <section class="archive-section" id="archive" aria-labelledby="archive-title">
+                <div class="section-heading">
+                  <p class="eyebrow">Archive 归档</p>
+                  <h2 id="archive-title">All Posts 全部文章</h2>
+                </div>
+                <div class="archive-list" id="archive-list"></div>
+              </section>
             </div>
           </section>
         </div>
@@ -146,6 +176,7 @@
               <h1 id="post-detail-title"></h1>
               <div class="post-detail-meta" id="post-detail-meta"></div>
               <div class="post-detail-body" id="post-detail-body"></div>
+              <nav class="post-neighbor-nav" id="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章"></nav>
             </article>
           </div>
         </section>

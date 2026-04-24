@@ -24,6 +24,7 @@ const directoryCounts = {
   growth: document.querySelector("#index-growth"),
   notes: document.querySelector("#index-notes"),
   videos: document.querySelector("#index-videos"),
+  total: document.querySelector("#index-total"),
 };
 
 const views = {
@@ -33,23 +34,46 @@ const views = {
   detailTitle: document.querySelector("#post-detail-title"),
   detailMeta: document.querySelector("#post-detail-meta"),
   detailBody: document.querySelector("#post-detail-body"),
+  neighborNav: document.querySelector("#post-neighbor-nav"),
+};
+
+const discovery = {
+  search: document.querySelector("#post-search"),
+  clear: document.querySelector("#clear-search"),
+  status: document.querySelector("#filter-status"),
+  tags: document.querySelector("#tag-filter"),
+  archive: document.querySelector("#archive-list"),
+};
+
+const filters = {
+  query: "",
+  tag: "all",
 };
 
 // 总渲染入口：三类内容列表和顶部统计都在这里更新。
 function render() {
-  const growthEntries = entriesFor("growth");
-  const noteEntries = entriesFor("notes");
-  const videoEntries = entriesFor("videos");
+  const growthTotal = entriesFor("growth");
+  const noteTotal = entriesFor("notes");
+  const videoTotal = entriesFor("videos");
+  const allPosts = allEntries();
+  const filteredPosts = allPosts.filter(matchesFilters);
+  const growthEntries = filteredPosts.filter((entry) => entry.kind === "growth");
+  const noteEntries = filteredPosts.filter((entry) => entry.kind === "notes");
+  const videoEntries = filteredPosts.filter((entry) => entry.kind === "videos");
 
   renderGrowth(growthEntries);
   renderNotes(noteEntries);
   renderVideos(videoEntries);
-  stats.growth.textContent = growthEntries.length;
-  stats.notes.textContent = noteEntries.length;
-  stats.videos.textContent = videoEntries.length;
-  directoryCounts.growth.textContent = growthEntries.length;
-  directoryCounts.notes.textContent = noteEntries.length;
-  directoryCounts.videos.textContent = videoEntries.length;
+  renderTagFilters(allPosts);
+  renderArchive(filteredPosts);
+  renderFilterStatus(filteredPosts.length, allPosts.length);
+  stats.growth.textContent = growthTotal.length;
+  stats.notes.textContent = noteTotal.length;
+  stats.videos.textContent = videoTotal.length;
+  directoryCounts.growth.textContent = growthTotal.length;
+  directoryCounts.notes.textContent = noteTotal.length;
+  directoryCounts.videos.textContent = videoTotal.length;
+  directoryCounts.total.textContent = allPosts.length;
   renderRoute();
 }
 
@@ -260,7 +284,97 @@ function postKey(entry) {
 }
 
 function allEntries() {
-  return ["growth", "notes", "videos"].flatMap((kind) => entriesFor(kind));
+  return ["growth", "notes", "videos"]
+    .flatMap((kind) => published[kind])
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+}
+
+function matchesFilters(entry) {
+  const query = filters.query.trim().toLowerCase();
+  const tagMatches = filters.tag === "all" || entry.tag === filters.tag;
+  if (!tagMatches) return false;
+  if (!query) return true;
+
+  return searchableText(entry).toLowerCase().includes(query);
+}
+
+function searchableText(entry) {
+  return [
+    entry.title,
+    entry.tag,
+    entry.stage,
+    kindLabel(entry.kind),
+    entry.excerpt,
+    stripHtml(entry.html || ""),
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
+function renderTagFilters(entries) {
+  const tags = ["all", ...new Set(entries.map((entry) => entry.tag).filter(Boolean))];
+  discovery.tags.replaceChildren();
+
+  tags.forEach((tag) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = tag === filters.tag ? "is-active" : "";
+    button.textContent = tag === "all" ? "All 全部" : tag;
+    button.addEventListener("click", () => {
+      filters.tag = tag;
+      render();
+    });
+    discovery.tags.append(button);
+  });
+}
+
+function renderArchive(entries) {
+  discovery.archive.replaceChildren();
+  if (!entries.length) {
+    discovery.archive.append(emptyState("Archive / 归档"));
+    return;
+  }
+
+  const groups = new Map();
+  entries.forEach((entry) => {
+    const month = archiveMonth(entry.createdAt);
+    if (!groups.has(month)) groups.set(month, []);
+    groups.get(month).push(entry);
+  });
+
+  groups.forEach((posts, month) => {
+    const group = document.createElement("section");
+    group.className = "archive-group";
+    group.innerHTML = `
+      <h3>${escapeHtml(month)}</h3>
+      <div class="archive-items">
+        ${posts.map(archiveItemMarkup).join("")}
+      </div>
+    `;
+    discovery.archive.append(group);
+  });
+}
+
+function archiveItemMarkup(entry) {
+  return `
+    <a href="${postHref(entry)}">
+      <span>${escapeHtml(formatDate(entry.createdAt))}</span>
+      <strong>${escapeHtml(entry.title)}</strong>
+      <small>${escapeHtml(entry.tag || kindLabel(entry.kind))}</small>
+    </a>
+  `;
+}
+
+function renderFilterStatus(filteredCount, totalCount) {
+  discovery.status.textContent = `${filteredCount} / ${totalCount} posts`;
+  discovery.clear.disabled = !filters.query && filters.tag === "all";
+}
+
+function archiveMonth(value) {
+  return new Intl.DateTimeFormat("zh-CN", {
+    year: "numeric",
+    month: "long",
+  }).format(new Date(value));
 }
 
 function renderRoute() {
@@ -299,8 +413,33 @@ function showPostDetail(entry) {
     ${entry.url ? `<div class="detail-video-frame">${videoMarkup(entry.url, entry.title)}</div>` : ""}
     ${bodyMarkup(entry)}
   `;
+  renderNeighborNav(entry);
   document.title = `${entry.title} · qqqzj@Crane`;
   window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function renderNeighborNav(entry) {
+  const posts = allEntries();
+  const index = posts.findIndex((post) => postKey(post) === postKey(entry));
+  const newer = posts[index - 1];
+  const older = posts[index + 1];
+
+  views.neighborNav.replaceChildren();
+  if (!newer && !older) return;
+
+  views.neighborNav.innerHTML = `
+    ${newer ? neighborLinkMarkup(newer, "Newer / 上一篇") : "<span></span>"}
+    ${older ? neighborLinkMarkup(older, "Older / 下一篇") : "<span></span>"}
+  `;
+}
+
+function neighborLinkMarkup(entry, label) {
+  return `
+    <a href="${postHref(entry)}">
+      <span>${escapeHtml(label)}</span>
+      <strong>${escapeHtml(entry.title)}</strong>
+    </a>
+  `;
 }
 
 function kindLabel(kind) {
@@ -334,6 +473,18 @@ mascotWidget?.addEventListener("click", () => {
   mascotTimer = window.setTimeout(() => {
     mascotWidget.classList.remove("is-speaking", "is-excited");
   }, 2600);
+});
+
+discovery.search?.addEventListener("input", (event) => {
+  filters.query = event.target.value;
+  render();
+});
+
+discovery.clear?.addEventListener("click", () => {
+  filters.query = "";
+  filters.tag = "all";
+  discovery.search.value = "";
+  render();
 });
 
 // 根据链接类型输出展示内容：可嵌入平台用 iframe，视频文件用 video，其它用外链。
