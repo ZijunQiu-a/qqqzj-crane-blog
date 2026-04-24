@@ -486,6 +486,7 @@ function kindLabel(kind) {
 // 互动小人的台词和点击动画。
 const mascotWidget = document.querySelector("#mascot-widget");
 const mascotBubble = document.querySelector("#mascot-bubble");
+const helloBurst = document.querySelector("#hello-burst");
 const mascotLines = [
   "今日也要优雅记录 / Keep it elegant.",
   "水面会记得每一次前进 / Every ripple counts.",
@@ -495,6 +496,7 @@ const mascotLines = [
 ];
 let mascotLineIndex = 0;
 let mascotTimer;
+const helloWords = ["HELLO", "你好", "Salut", "Hi"];
 
 // 重新触发动画的小技巧：移除 class，读取 offsetWidth，再加回 class。
 mascotWidget?.addEventListener("click", () => {
@@ -508,7 +510,30 @@ mascotWidget?.addEventListener("click", () => {
   mascotTimer = window.setTimeout(() => {
     mascotWidget.classList.remove("is-speaking", "is-excited");
   }, 2600);
+
+  playHelloBurst();
 });
+
+function playHelloBurst() {
+  if (!helloBurst) return;
+
+  helloBurst.replaceChildren();
+  helloWords.forEach((word, index) => {
+    const spark = document.createElement("span");
+    spark.className = "hello-spark";
+    spark.textContent = word;
+    spark.style.setProperty("--dx", `${-34 + index * 22}px`);
+    spark.style.setProperty("--dy", `${-42 - (index % 2) * 20}px`);
+    spark.style.setProperty("--delay", `${index * 42}ms`);
+    helloBurst.append(spark);
+  });
+
+  window.setTimeout(() => {
+    helloBurst.replaceChildren();
+  }, 950);
+}
+
+window.setTimeout(playHelloBurst, 520);
 
 discovery.search?.addEventListener("input", (event) => {
   filters.query = event.target.value;

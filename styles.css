@@ -56,6 +56,24 @@ button {
   margin: 0 auto;
 }
 
+.site-footer {
+  display: grid;
+  gap: 4px;
+  margin: 34px 0 96px;
+  border: 1px solid rgba(16, 35, 46, 0.1);
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: rgba(255, 254, 253, 0.62);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+  backdrop-filter: blur(16px);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
 /* 顶部导航：sticky 让导航滚动时吸附在顶部。 */
 .topbar {
   position: sticky;
@@ -1199,6 +1217,30 @@ h3 {
   box-shadow: 0 14px 34px rgba(16, 35, 46, 0.13);
 }
 
+.hello-burst {
+  position: absolute;
+  inset: 44% auto auto 28%;
+  pointer-events: none;
+}
+
+.hello-spark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px solid rgba(20, 123, 145, 0.18);
+  border-radius: 999px;
+  padding: 3px 7px;
+  background: rgba(255, 254, 253, 0.9);
+  color: var(--teal-dark);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0;
+  white-space: nowrap;
+  opacity: 0;
+  box-shadow: 0 10px 22px rgba(16, 35, 46, 0.14);
+  animation: hello-float 860ms ease-out var(--delay) both;
+}
+
 /* 小人的气泡文案，默认隐藏，交互时显示。 */
 .mascot-widget:hover .mascot-bubble,
 .mascot-widget:focus-visible .mascot-bubble,
@@ -1259,6 +1301,22 @@ h3 {
   to {
     opacity: 0;
     transform: scale(5);
+  }
+}
+
+@keyframes hello-float {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.76);
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(1.04);
   }
 }
 
