@@ -1,0 +1,394 @@
+/*
+ * physics-lab.css — Typora 主题
+ * 仿浙江大学物理实验教学中心 Word 模板排版
+ */
+
+/* ===== 页面设置 (导出PDF时生效) ===== */
+@media print {
+    @page {
+        size: A4;
+        margin: 2.54cm 1.91cm;
+    }
+}
+
+/* ===== 基础排版 ===== */
+:root {
+    --font-song: "宋体", "SimSun", "Songti SC", serif;
+    --font-hei: "黑体", "SimHei", "Heiti SC", sans-serif;
+    --font-fang: "仿宋", "FangSong", "STFangsong", serif;
+    --font-latin: "Times New Roman", Times, serif;
+    --base-size: 12pt;
+}
+
+html {
+    font-size: var(--base-size);
+}
+
+body {
+    font-family: var(--font-song);
+    font-size: var(--base-size);
+    color: #000;
+    background: #fff;
+    -webkit-font-smoothing: auto;
+}
+
+#write {
+    max-width: 21cm;
+    padding: 2.54cm 1.91cm;
+    font-family: var(--font-song);
+    font-size: var(--base-size);
+    line-height: 1.5;
+    color: #000;
+}
+
+/* ===== 封面页 ===== */
+#write .cover {
+    text-align: center;
+    padding-top: 2.5cm;
+    page-break-after: always;
+    break-after: page;
+}
+
+#write .cover h1 {
+    font-family: var(--font-song);
+    font-size: 36pt;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 3cm;
+    padding-bottom: 0;
+    border-bottom: none;
+    line-height: 1.4;
+    color: #000;
+}
+
+#write .cover-group-lg p {
+    font-family: var(--font-song);
+    font-size: 16pt;
+    font-weight: bold;
+    line-height: 2;
+    margin: 0;
+    text-align: center;
+}
+
+#write .cover-group-sm p {
+    font-family: var(--font-song);
+    font-size: 16pt;
+    font-weight: bold;
+    line-height: 2;
+    margin: 0;
+    text-align: center;
+}
+
+#write .cover-group-lg {
+    width: 13cm;
+    margin: 0 auto 1.5cm auto;
+}
+
+#write .cover-group-sm {
+    width: 13cm;
+    margin: 0 auto 1.5cm auto;
+}
+
+#write .cover-footer {
+    font-family: var(--font-song);
+    font-size: 14pt;
+    font-weight: normal;
+    margin-top: 1cm;
+}
+
+#write .cover-footer p {
+    font-size: 14pt;
+    font-weight: normal;
+    text-align: center;
+}
+
+/* ===== 标题层级 ===== */
+
+/* h1 — 封面大标题: 宋体 36pt 加粗居中 */
+#write h1 {
+    font-family: var(--font-song);
+    font-size: 36pt;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    padding-bottom: 0;
+    border-bottom: none;
+    line-height: 1.4;
+    color: #000;
+}
+
+/* h2 — 大节标题(一、二、三、四): 黑体 16pt 加粗 */
+#write h2 {
+    font-family: var(--font-hei);
+    font-size: 16pt;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0;
+    border-bottom: none;
+    line-height: 1.5;
+    color: #000;
+}
+
+/* h3 — 小节标题(1. 2. 3.): 宋体 14pt 加粗 */
+#write h3 {
+    font-family: var(--font-song);
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 0.8em;
+    margin-bottom: 0.4em;
+    line-height: 1.5;
+    color: #000;
+}
+
+/* h4/h5/h6 备用 */
+#write h4, #write h5, #write h6 {
+    font-family: var(--font-song);
+    font-size: 12pt;
+    font-weight: bold;
+    color: #000;
+}
+
+/* ===== 段落与正文 ===== */
+#write p {
+    font-family: var(--font-song);
+    font-size: var(--base-size);
+    line-height: 1.5;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+    text-align: justify;
+    color: #000;
+}
+
+/* 加粗文字 — 封面字段等 */
+#write p strong {
+    font-weight: bold;
+}
+
+/* ===== 居中块 (封面标题、落款) ===== */
+#write div[align="center"] {
+    text-align: center;
+}
+
+#write div[align="center"] p {
+    text-align: center;
+}
+
+/* ===== 分页控制 ===== */
+#write div[style*="page-break-after"] {
+    page-break-after: always !important;
+    break-after: page !important;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+@media print {
+    div[style*="page-break-after"] {
+        page-break-after: always !important;
+        break-after: page !important;
+    }
+}
+
+/* ===== 有序列表 — 注意事项区 (仿宋) ===== */
+#write ol {
+    font-family: var(--font-fang);
+    font-size: var(--base-size);
+    line-height: 20pt;
+    padding-left: 1.5em;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+#write ol li {
+    font-family: var(--font-fang);
+    font-size: var(--base-size);
+    line-height: 20pt;
+    margin-bottom: 0.2em;
+}
+
+/* ===== 无序列表 ===== */
+#write ul {
+    font-family: var(--font-song);
+    font-size: var(--base-size);
+    line-height: 1.5;
+    padding-left: 1.5em;
+}
+
+/* ===== 水平分割线 — 隐藏(用分页替代) ===== */
+#write hr {
+    display: none;
+}
+
+/* ===== 表格 — 三线表风格 ===== */
+#write table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-song);
+    font-size: var(--base-size);
+    margin: 1em 0;
+}
+
+#write table thead {
+    border-top: 2px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+#write table thead th {
+    font-weight: bold;
+    text-align: center;
+    padding: 6px 8px;
+    border: none;
+}
+
+#write table tbody td {
+    text-align: center;
+    padding: 4px 8px;
+    border: none;
+}
+
+#write table tbody tr:last-child {
+    border-bottom: 2px solid #000;
+}
+
+/* ===== 图片 ===== */
+#write img {
+    max-width: 90%;
+    display: block;
+    margin: 1em auto;
+}
+
+/* ===== 代码块(备用) ===== */
+#write code {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 11pt;
+    background: #f5f5f5;
+    padding: 1px 4px;
+    border-radius: 2px;
+}
+
+#write pre {
+    background: #f5f5f5;
+    padding: 0.8em 1em;
+    border-radius: 3px;
+    overflow-x: auto;
+}
+
+#write pre code {
+    background: none;
+    padding: 0;
+}
+
+/* ===== 链接 ===== */
+#write a {
+    color: #000;
+    text-decoration: underline;
+}
+
+@media print {
+    #write a {
+        color: #000;
+        text-decoration: none;
+    }
+}
+
+/* ===== 块引用 ===== */
+#write blockquote {
+    border-left: 3px solid #999;
+    padding-left: 1em;
+    margin-left: 0;
+    color: #333;
+    font-style: normal;
+}
+
+/* ===== 公式全部居中 ===== */
+#write [mdtype="math_block"],
+#write .md-math-block,
+#write .md-rawblock[mdtype="math_block"],
+#write .md-rawblock-container,
+#write .mathjax-block,
+#write .MathJax,
+#write .MathJax_Display,
+#write .MathJax_SVG_Display,
+#write mjx-container,
+#write mjx-container[display="true"],
+#write mjx-container[jax="SVG"],
+#write .katex-display,
+#write .katex-html,
+#write [contenteditable="false"][class*="math"] {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+#write .MathJax,
+#write .MathJax_Display,
+#write .MathJax_SVG_Display,
+#write mjx-container {
+    display: block !important;
+    margin: 0.5em auto !important;
+}
+
+#write .md-math-block mjx-container,
+#write [mdtype="math_block"] mjx-container {
+    display: block !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+}
+
+/* 行内公式保持 inline */
+#write mjx-container:not([display="true"]) {
+    display: inline !important;
+    margin: 0 !important;
+}
+
+/* ===== 思考题区域 — 答案楷体五号(10.5pt) ===== */
+#write .thinking-questions {
+    font-family: "楷体", "KaiTi", "STKaiti", "Kaiti SC", serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+
+#write .thinking-questions p {
+    font-family: "楷体", "KaiTi", "STKaiti", "Kaiti SC", serif;
+    font-size: 10.5pt;
+}
+
+#write .thinking-questions strong {
+    font-family: var(--font-song);
+    font-size: var(--base-size);
+}
+
+#write .thinking-questions ul,
+#write .thinking-questions ol,
+#write .thinking-questions li {
+    font-family: "楷体", "KaiTi", "STKaiti", "Kaiti SC", serif;
+    font-size: 10.5pt;
+}
+
+/* ===== 打印优化 ===== */
+@media print {
+    html, body {
+        background: #fff;
+    }
+
+    #write {
+        max-width: none;
+        padding: 0;
+    }
+
+    h2, h3 {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+
+    table, figure, img {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+}

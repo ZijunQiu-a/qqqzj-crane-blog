@@ -13,7 +13,20 @@ window.PUBLISHED_POSTS = {
       "createdAt": "2026-04-24T00:00:00.000Z"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "id": "2026-04-24-physics-lab-markdown-template.md",
+      "source": "post",
+      "kind": "notes",
+      "title": "普物实验docx模版(❌)markdown(☑️)",
+      "stage": "Notes 笔记",
+      "tag": "普物实验",
+      "url": "",
+      "html": "<p>我弄了这个 Markdown 模版，之后写普物实验报告就不用再被 docx 格式卡住了。</p><p>文件放在这里，直接下载就能用。</p><div class=\"entry-file\"><a class=\"download-button\" href=\"files/2026-04-24-physics-lab-template/电子物理实验报告-模板.md\" download><span>下载实验报告 Markdown 模版</span><small>电子物理实验报告-模板.md</small></a></div><div class=\"entry-file\"><a class=\"download-button\" href=\"files/2026-04-24-physics-lab-template/电子物理实验预习报告-模板.md\" download><span>下载预习报告 Markdown 模版</span><small>电子物理实验预习报告-模板.md</small></a></div><div class=\"entry-file\"><a class=\"download-button\" href=\"files/2026-04-24-physics-lab-template/physics-lab.css\" download><span>下载配套 CSS 样式</span><small>physics-lab.css</small></a></div>",
+      "excerpt": "我弄了这个 Markdown 模版，之后写普物实验报告就不用再被 docx 格式卡住了。 文件放在这里，直接下载就能用。 下载实验报告 Markdown 模版 下载预习报告 Markdown 模版 下载配套 CSS 样式",
+      "createdAt": "2026-04-24T00:00:00.000Z"
+    }
+  ],
   "videos": [
     {
       "id": "2026-04-24-04-travel-jinan&taishan.md",
