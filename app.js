@@ -400,7 +400,7 @@ function archiveItemMarkup(entry) {
 
 function renderFilterStatus(filteredCount, totalCount) {
   discovery.status.textContent = `${filteredCount} / ${totalCount} posts`;
-  discovery.clear.disabled = !filters.query && filters.tag === "all";
+  discovery.clear.disabled = !filters.query && filters.tag === "all" && filters.noteCategory === "all";
 }
 
 function archiveMonth(value) {
