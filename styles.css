@@ -1,0 +1,902 @@
+/* 全站主题变量：颜色、阴影等统一放在这里，后面用 var(...) 复用。 */
+:root {
+  color-scheme: light;
+  --paper: #f3f7f8;
+  --paper-strong: #fffefd;
+  --ink: #10232e;
+  --muted: #5c6f78;
+  --line: #d5e3e8;
+  --teal: #147b91;
+  --teal-dark: #0e4e66;
+  --coral: #c35d6f;
+  --moss: #5b796d;
+  --gold: #caa14c;
+  --violet: #6761a8;
+  --shadow: 0 22px 70px rgba(16, 35, 46, 0.14);
+}
+
+/* 基础重置：让盒模型和默认字体更可控。 */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 16% 12%, rgba(20, 123, 145, 0.14), transparent 28%),
+    radial-gradient(circle at 84% 20%, rgba(103, 97, 168, 0.12), transparent 26%),
+    linear-gradient(315deg, rgba(195, 93, 111, 0.09), transparent 28%),
+    var(--paper);
+  color: var(--ink);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  line-height: 1.5;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* 页面外壳：限制最大宽度，并在小屏幕上保留左右边距。 */
+.site-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+/* 顶部导航：sticky 让导航滚动时吸附在顶部。 */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+  border-bottom: 1px solid rgba(16, 35, 46, 0.08);
+  background: rgba(243, 247, 248, 0.82);
+  backdrop-filter: blur(18px);
+}
+
+/* 品牌区：头像标和 qqqzj@Crane 文本。 */
+.brand,
+.nav-links a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  position: relative;
+  width: 52px;
+  height: 52px;
+  overflow: visible;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 254, 253, 0.72);
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 254, 253, 0.22), transparent 28%),
+    linear-gradient(135deg, var(--teal-dark), var(--violet) 58%, var(--gold));
+  box-shadow:
+    0 8px 22px rgba(20, 123, 145, 0.24),
+    inset 0 0 0 1px rgba(255, 254, 253, 0.2);
+}
+
+/* 头像比圆底稍大一点，形成贴纸感，而不是被硬裁成小圆图。 */
+.brand-avatar img {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 62px;
+  height: 62px;
+  max-width: none;
+  object-fit: contain;
+  object-position: center center;
+  transform: translateY(0) scale(1);
+  transform-origin: center center;
+}
+
+.brand:hover .brand-avatar img,
+.brand:focus-visible .brand-avatar img {
+  animation: avatar-bounce 620ms ease both;
+}
+
+/* 主导航胶囊按钮。 */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(16, 35, 46, 0.12);
+  border-radius: 999px;
+  padding: 5px;
+  background: rgba(255, 253, 248, 0.72);
+}
+
+.nav-links a {
+  padding: 8px 13px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  background: var(--teal-dark);
+  color: var(--paper-strong);
+  outline: 0;
+}
+
+/* 首页首屏：图片铺满，文字和装饰层叠在上方。 */
+.studio-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(360px, 1.18fr);
+  min-height: clamp(360px, 56vh, 570px);
+  overflow: hidden;
+  border: 1px solid rgba(16, 35, 46, 0.14);
+  border-radius: 28px;
+  background: #10232e;
+  box-shadow: var(--shadow);
+}
+
+/* 叠加深色蒙版，让白色标题在图片上更清楚。 */
+.studio-panel::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(9, 29, 45, 0.94), rgba(14, 78, 102, 0.58) 43%, rgba(16, 35, 46, 0.08)),
+    radial-gradient(circle at 38% 24%, rgba(202, 161, 76, 0.22), transparent 22%);
+  pointer-events: none;
+}
+
+/* 右下角的水滴/剧场感装饰，不影响点击。 */
+.studio-panel::before {
+  position: absolute;
+  right: clamp(18px, 4vw, 54px);
+  bottom: clamp(18px, 4vw, 54px);
+  z-index: 1;
+  width: clamp(82px, 12vw, 140px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 254, 253, 0.5);
+  border-radius: 56% 44% 62% 38% / 42% 58% 42% 58%;
+  content: "";
+  background:
+    linear-gradient(135deg, rgba(255, 254, 253, 0.18), transparent 48%),
+    radial-gradient(circle at 34% 40%, rgba(255, 254, 253, 0.72) 0 8%, transparent 9%),
+    radial-gradient(circle at 66% 40%, rgba(255, 254, 253, 0.72) 0 8%, transparent 9%),
+    linear-gradient(135deg, rgba(20, 123, 145, 0.28), rgba(103, 97, 168, 0.22));
+  box-shadow: 0 18px 50px rgba(9, 29, 45, 0.28);
+  pointer-events: none;
+}
+
+.studio-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.studio-copy {
+  position: relative;
+  z-index: 1;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  align-self: center;
+  width: min(760px, 100%);
+  padding: clamp(28px, 5vw, 60px);
+  color: var(--paper-strong);
+}
+
+.studio-copy::before {
+  display: block;
+  width: 78px;
+  height: 5px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  content: "";
+  background: linear-gradient(90deg, var(--gold), var(--teal), var(--violet));
+}
+
+/* eyebrow 是每个区块上方的小标签文字。 */
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--coral);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+/* 防止长英文、链接或中英混排撑破容器。 */
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: anywhere;
+}
+
+h1 {
+  margin: 0;
+  max-width: 12ch;
+  font-size: clamp(42px, 5.5vw, 70px);
+  line-height: 1.03;
+  letter-spacing: 0;
+}
+
+.studio-copy h1 {
+  max-width: 100%;
+  font-size: clamp(30px, 6.5vw, 76px);
+  overflow-wrap: normal;
+  white-space: nowrap;
+  word-break: normal;
+}
+
+h2 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+h3 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+/* 首屏统计卡片，数量由 app.js 自动填入。 */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  width: min(520px, 100%);
+  margin-top: 34px;
+}
+
+.stats-strip div {
+  border: 1px solid rgba(255, 254, 253, 0.22);
+  border-radius: 16px;
+  padding: 14px;
+  background: rgba(255, 254, 253, 0.12);
+}
+
+.stats-strip strong {
+  display: block;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.stats-strip span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(255, 254, 253, 0.8);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* 主内容区：公开站点保持只读，只展示正式文章。 */
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 28px 0 54px;
+}
+
+/* 通用区块标题：左侧 eyebrow，右侧主标题。 */
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+/* 内容列：About、News、Notes、Life 从上到下排列。 */
+.content-stack {
+  display: grid;
+  gap: 24px;
+  width: min(100%, 980px);
+  margin: 0 auto;
+}
+
+.directory-section,
+.about-section,
+.timeline-section,
+.notes-section,
+.video-section {
+  padding: 28px 0 6px;
+  scroll-margin-top: 86px;
+}
+
+.directory-section {
+  padding-top: 4px;
+}
+
+.directory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.directory-grid a {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  min-height: 132px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 35, 46, 0.12);
+  border-radius: 8px;
+  padding: 16px;
+  background:
+    linear-gradient(135deg, rgba(20, 123, 145, 0.1), transparent 48%),
+    rgba(255, 254, 253, 0.92);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 0 12px 28px rgba(16, 35, 46, 0.07);
+}
+
+.directory-grid a::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  border-radius: 8px 0 0 8px;
+  content: "";
+  background: linear-gradient(var(--gold), var(--teal), var(--violet));
+}
+
+.directory-grid a:hover,
+.directory-grid a:focus-visible {
+  border-color: rgba(14, 78, 102, 0.32);
+  transform: translateY(-2px);
+  outline: 0;
+}
+
+.directory-grid span,
+.directory-grid small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.directory-grid strong {
+  align-self: end;
+  color: var(--teal-dark);
+  font-size: clamp(22px, 2.6vw, 32px);
+  line-height: 1.05;
+}
+
+/* About me 卡片。 */
+.about-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr);
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(16, 35, 46, 0.12);
+  border-radius: 8px;
+  padding: 22px;
+  background:
+    linear-gradient(135deg, rgba(20, 123, 145, 0.12), transparent 48%),
+    linear-gradient(315deg, rgba(103, 97, 168, 0.1), transparent 40%),
+    rgba(255, 254, 253, 0.92);
+  box-shadow: 0 12px 28px rgba(16, 35, 46, 0.07);
+}
+
+.about-panel::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  border-radius: 8px 0 0 8px;
+  content: "";
+  background: linear-gradient(var(--gold), var(--teal), var(--violet));
+}
+
+/* About 文字和标签区；标签会在窄屏自动换行。 */
+.about-copy {
+  display: grid;
+  gap: 12px;
+}
+
+.about-copy p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.about-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
+  gap: 10px;
+}
+
+.about-tags span {
+  display: inline-flex;
+  border: 1px solid rgba(20, 123, 145, 0.16);
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: rgba(255, 254, 253, 0.7);
+  color: var(--teal-dark);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+/* 内容卡片的通用外观：白底、细边框、轻阴影。 */
+.timeline {
+  display: grid;
+  gap: 14px;
+}
+
+.timeline-item,
+.note-card,
+.video-card {
+  position: relative;
+  border: 1px solid rgba(16, 35, 46, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 254, 253, 0.92);
+  box-shadow: 0 12px 28px rgba(16, 35, 46, 0.07);
+}
+
+.timeline-item::before,
+.note-card::before,
+.video-card::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  border-radius: 8px 0 0 8px;
+  content: "";
+  background: linear-gradient(var(--teal), var(--violet), var(--gold));
+}
+
+/* News 用时间线样式：左边日期，右边正文。 */
+.timeline-item {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 18px;
+  padding: 18px;
+}
+
+.date-pill {
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.tag {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(20, 123, 145, 0.12);
+  color: var(--teal-dark);
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* 文章正文区域，min-width: 0 可以避免网格里的长文本撑破布局。 */
+.entry-copy {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.entry-copy p,
+.note-card p,
+.video-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Markdown 正式文章会被 app.js 转成 entry-body 里的 HTML。 */
+.entry-body {
+  display: grid;
+  gap: 9px;
+  color: var(--muted);
+}
+
+.entry-body h4,
+.entry-body p,
+.entry-body ul {
+  margin: 0;
+}
+
+.entry-body h4 {
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.entry-body ul {
+  padding-left: 20px;
+}
+
+.entry-body a {
+  color: var(--teal-dark);
+  font-weight: 850;
+}
+
+.note-grid,
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* Notes 和 Life 在桌面端使用双列网格。 */
+.note-card {
+  display: grid;
+  gap: 14px;
+  min-height: 190px;
+  padding: 20px;
+}
+
+/* 卡片标题区：Notes 和 Life 共用。 */
+.note-card header,
+.video-card header {
+  display: grid;
+  gap: 8px;
+}
+
+.note-card .tag {
+  background: rgba(195, 93, 111, 0.14);
+  color: var(--coral);
+}
+
+.video-card {
+  overflow: hidden;
+}
+
+/* Life 视频区域：支持 iframe、video 或外链播放按钮。 */
+.video-frame {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  background:
+    linear-gradient(90deg, #10232e 0 8%, #f8fbfb 8% 12%, #10232e 12% 18%, #f8fbfb 18% 25%, #10232e 25% 32%, #f8fbfb 32% 100%),
+    radial-gradient(circle at 66% 30%, rgba(20, 123, 145, 0.5), transparent 28%),
+    #10232e;
+}
+
+.video-frame iframe,
+.video-frame video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #111;
+}
+
+.video-frame a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--paper-strong);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: 900;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.2);
+}
+
+.life-post-mark {
+  display: inline-grid;
+  place-items: center;
+  width: min(50%, 120px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 254, 253, 0.42);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 32%, rgba(255, 254, 253, 0.75), transparent 8%),
+    radial-gradient(circle at 64% 32%, rgba(255, 254, 253, 0.75), transparent 8%),
+    linear-gradient(135deg, rgba(20, 123, 145, 0.42), rgba(103, 97, 168, 0.34));
+  color: var(--paper-strong);
+  font-weight: 900;
+}
+
+.video-body {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+
+/* 卡片底部：时间和发布状态。 */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.published-badge {
+  border-radius: 999px;
+  background: rgba(91, 121, 109, 0.14);
+  color: var(--moss);
+  padding: 5px 9px;
+}
+
+/* 没有内容时显示的占位状态。 */
+.empty-state {
+  display: grid;
+  place-items: center;
+  min-height: 160px;
+  border: 1px dashed rgba(16, 35, 46, 0.24);
+  border-radius: 8px;
+  color: var(--muted);
+  background: rgba(255, 254, 253, 0.5);
+  text-align: center;
+}
+
+.empty-state span {
+  display: block;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--teal), var(--violet));
+}
+
+/* 右下角互动小人：fixed 表示永远固定在窗口右下角。 */
+.mascot-widget {
+  position: fixed;
+  right: max(16px, calc((100vw - 1180px) / 2));
+  bottom: 18px;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  width: clamp(92px, 13vw, 142px);
+  min-height: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  padding: 0;
+  filter: drop-shadow(0 16px 26px rgba(16, 35, 46, 0.24));
+}
+
+.mascot-widget img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: 50% 92%;
+  animation: mascot-float 4s ease-in-out infinite;
+}
+
+/* hover、键盘聚焦或点击时切换成弹跳动画。 */
+.mascot-widget:hover img,
+.mascot-widget:focus-visible img,
+.mascot-widget.is-excited img {
+  animation: mascot-pop 520ms ease both;
+}
+
+.mascot-widget:focus-visible {
+  outline: 3px solid rgba(20, 123, 145, 0.34);
+  outline-offset: 6px;
+}
+
+.mascot-bubble {
+  position: absolute;
+  right: 74%;
+  bottom: 72%;
+  width: max-content;
+  max-width: min(230px, calc(100vw - 156px));
+  border: 1px solid rgba(16, 35, 46, 0.14);
+  border-radius: 8px;
+  padding: 9px 11px;
+  background: rgba(255, 254, 253, 0.96);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.3;
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+  pointer-events: none;
+  box-shadow: 0 14px 34px rgba(16, 35, 46, 0.13);
+}
+
+/* 小人的气泡文案，默认隐藏，交互时显示。 */
+.mascot-widget:hover .mascot-bubble,
+.mascot-widget:focus-visible .mascot-bubble,
+.mascot-widget.is-speaking .mascot-bubble {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* 点击小人时出现的水波反馈。 */
+.mascot-widget::after {
+  position: absolute;
+  inset: auto 16% 8% auto;
+  width: 18px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  content: "";
+  background: rgba(20, 123, 145, 0.45);
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.mascot-widget.is-excited::after {
+  animation: ripple 620ms ease-out;
+}
+
+/* 动画定义区。 */
+@keyframes mascot-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(1deg);
+  }
+}
+
+@keyframes mascot-pop {
+  0% {
+    transform: translateY(0) scale(1) rotate(0);
+  }
+
+  45% {
+    transform: translateY(-10px) scale(1.08) rotate(-4deg);
+  }
+
+  100% {
+    transform: translateY(0) scale(1) rotate(0);
+  }
+}
+
+@keyframes ripple {
+  from {
+    opacity: 0.55;
+    transform: scale(0.2);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(5);
+  }
+}
+
+@keyframes avatar-bounce {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  45% {
+    transform: translateY(-3px) scale(1.08);
+  }
+}
+
+/* 平板宽度：首屏变成单列。 */
+@media (max-width: 900px) {
+  .studio-panel {
+    grid-template-columns: 1fr;
+    min-height: 520px;
+  }
+
+  .studio-panel::after {
+    background: linear-gradient(0deg, rgba(9, 29, 45, 0.94), rgba(14, 78, 102, 0.5), rgba(16, 35, 46, 0.12));
+  }
+
+  .studio-copy {
+    grid-column: 1 / -1;
+    align-self: end;
+  }
+
+  .studio-copy h1 {
+    max-width: 100%;
+  }
+
+  .workspace-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .directory-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 手机宽度：导航、统计卡片和内容卡片都改成更窄的布局。 */
+@media (max-width: 680px) {
+  .site-shell {
+    width: min(100% - 20px, 1180px);
+  }
+
+  .topbar {
+    align-items: flex-start;
+    gap: 12px;
+    flex-direction: column;
+    padding: 12px 0;
+  }
+
+  .nav-links {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links a {
+    flex: 1;
+    min-width: fit-content;
+    padding: 8px 9px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .studio-panel {
+    min-height: 480px;
+    border-radius: 18px;
+  }
+
+  .stats-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .directory-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .directory-grid a {
+    min-height: 104px;
+  }
+
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .note-grid,
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .mascot-widget {
+    width: 56px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .mascot-bubble {
+    right: 70%;
+    max-width: min(210px, calc(100vw - 106px));
+  }
+}

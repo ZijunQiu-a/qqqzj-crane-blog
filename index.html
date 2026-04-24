@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>qqqzj@Crane</title>
+    <link rel="icon" href="assets/furina-avatar.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- site-shell 用来限制整页最大宽度，让内容在大屏上不会铺得太散。 -->
+    <div class="site-shell">
+      <!-- 顶部导航：左边是个人品牌，右边是页面内锚点导航。 -->
+      <header class="topbar">
+        <a class="brand" href="#home" aria-label="Back to home / 回到首页">
+          <span class="brand-mark brand-avatar" aria-hidden="true">
+            <img src="assets/furina-avatar.png" alt="" />
+          </span>
+          <span>qqqzj@Crane</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation / 主导航">
+          <a href="#about">About me</a>
+          <a href="#growth">News 动态</a>
+          <a href="#notes">Notes 笔记</a>
+          <a href="#life">Life 生活</a>
+        </nav>
+      </header>
+
+      <main id="home">
+        <!-- 首屏主视觉：包含标题、统计数字和背景图。 -->
+        <section class="studio-panel" aria-labelledby="page-title">
+          <div class="studio-copy">
+            <p class="eyebrow">News 动态 / Notes 笔记 / Life 生活</p>
+            <h1 id="page-title">qqqzj@Crane</h1>
+            <!-- 这些数字由 app.js 根据当前内容数量自动更新。 -->
+            <div class="stats-strip" aria-label="Content statistics / 内容统计">
+              <div>
+                <strong id="stat-growth">0</strong>
+                <span>News 动态</span>
+              </div>
+              <div>
+                <strong id="stat-notes">0</strong>
+                <span>Notes 笔记</span>
+              </div>
+              <div>
+                <strong id="stat-videos">0</strong>
+                <span>Life 生活</span>
+              </div>
+            </div>
+          </div>
+          <img src="assets/blog-studio.png" alt="Opera-inspired desk, notes, water ribbons, piano keys and gold structural motifs" />
+        </section>
+
+        <!-- 内容区：公开页面只展示 posts/*.md 里的正式文章。 -->
+        <section class="workspace-grid" aria-label="Published content / 已发布内容">
+          <div class="content-stack">
+            <section class="directory-section" aria-labelledby="directory-title">
+              <div class="section-heading">
+                <p class="eyebrow">Index 目录</p>
+                <h2 id="directory-title">Content Map 内容索引</h2>
+              </div>
+              <nav class="directory-grid" aria-label="Content directory / 内容目录">
+                <a href="#about">
+                  <span>About me</span>
+                  <strong>qqqzj@Crane</strong>
+                  <small>Profile</small>
+                </a>
+                <a href="#growth">
+                  <span>News 动态</span>
+                  <strong id="index-growth">0</strong>
+                  <small>Updates</small>
+                </a>
+                <a href="#notes">
+                  <span>Notes 笔记</span>
+                  <strong id="index-notes">0</strong>
+                  <small>Notebook</small>
+                </a>
+                <a href="#life">
+                  <span>Life 生活</span>
+                  <strong id="index-videos">0</strong>
+                  <small>Life Log</small>
+                </a>
+              </nav>
+            </section>
+
+            <!-- About me：静态个人简介，直接改 HTML 就能更新。 -->
+            <section class="about-section" id="about" aria-labelledby="about-title">
+              <div class="section-heading">
+                <p class="eyebrow">About me 关于我</p>
+                <h2 id="about-title">qqqzj@Crane</h2>
+              </div>
+              <div class="about-panel">
+                <div class="about-copy">
+                  <p>
+                    Hi, I am qqqzj. This is my small archive for growth, notes, and daily moments.
+                    这里会存放我的发展记录、想法笔记和生活片段。
+                  </p>
+                  <p>
+                    I like quiet systems, beautiful interfaces, and the feeling of slowly becoming better.
+                    我也喜欢带一点水蓝歌剧感的页面氛围。
+                  </p>
+                </div>
+                <div class="about-tags" aria-label="About tags / 关于标签">
+                  <span>Growth 成长</span>
+                  <span>Notes 笔记</span>
+                  <span>Life 生活</span>
+                  <span>Hydro Opera 水蓝歌剧</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- 下面三个列表的内容都由 app.js 渲染：正式文章来自 posts/*.md。 -->
+            <section class="timeline-section" id="growth" aria-labelledby="growth-title">
+              <div class="section-heading">
+                <p class="eyebrow">Bulletin 公告板</p>
+                <h2 id="growth-title">News 动态</h2>
+              </div>
+              <div class="timeline" id="growth-list"></div>
+            </section>
+
+            <section class="notes-section" id="notes" aria-labelledby="notes-title">
+              <div class="section-heading">
+                <p class="eyebrow">Notebook 笔记本</p>
+                <h2 id="notes-title">Notes 笔记</h2>
+              </div>
+              <div class="note-grid" id="note-list"></div>
+            </section>
+
+            <section class="video-section" id="life" aria-labelledby="life-title">
+              <div class="section-heading">
+                <p class="eyebrow">Life 生活</p>
+                <h2 id="life-title">Life Log 生活记录</h2>
+              </div>
+              <div class="video-grid" id="video-list"></div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- 空状态模板：JS 会复制这个 template，用在没有内容的列表里。 -->
+    <template id="empty-template">
+      <div class="empty-state">
+        <span></span>
+        <p></p>
+      </div>
+    </template>
+
+    <!-- 右下角可点击互动小人，点击文案和动画由 app.js 控制。 -->
+    <button class="mascot-widget" id="mascot-widget" type="button" aria-label="Talk to the chibi mascot / 和Q版小人互动">
+      <span class="mascot-bubble" id="mascot-bubble">Bonjour / 你好呀</span>
+      <img src="assets/furina-chibi.png" alt="Q版芙宁娜风格互动小人" />
+    </button>
+
+    <script src="published-posts.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
