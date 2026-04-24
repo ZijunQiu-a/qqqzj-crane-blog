@@ -633,8 +633,11 @@ h3 {
 }
 
 .entry-body h4,
+.entry-body h5,
 .entry-body p,
-.entry-body ul {
+.entry-body ul,
+.entry-body ol,
+.entry-body .math-display {
   margin: 0;
 }
 
@@ -643,8 +646,20 @@ h3 {
   font-size: 15px;
 }
 
-.entry-body ul {
+.entry-body h5 {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.entry-body ul,
+.entry-body ol {
   padding-left: 20px;
+}
+
+.entry-body .math-display {
+  overflow-x: auto;
+  color: var(--ink);
+  white-space: pre-wrap;
 }
 
 .entry-body a {
@@ -1009,6 +1024,11 @@ h3 {
 .post-detail-body .entry-body h4 {
   margin-top: 8px;
   font-size: 22px;
+}
+
+.post-detail-body .entry-body h5 {
+  margin-top: 4px;
+  font-size: 18px;
 }
 
 .post-detail-body .entry-media {

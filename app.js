@@ -398,6 +398,7 @@ function showHome() {
   views.home.hidden = false;
   views.detail.hidden = true;
   document.title = "qqqzj@Crane";
+  typesetMath();
 }
 
 function showPostDetail(entry) {
@@ -415,6 +416,7 @@ function showPostDetail(entry) {
   `;
   renderNeighborNav(entry);
   document.title = `${entry.title} · qqqzj@Crane`;
+  typesetMath();
   window.scrollTo({ top: 0, behavior: "auto" });
 }
 
@@ -553,11 +555,18 @@ function markdownToHtml(markdown) {
       const media = mediaMarkdown(block);
       if (media) return media;
 
+      if (/^\$\$[\s\S]*\$\$$/.test(block)) {
+        return `<div class="math-display">${escapeHtml(block)}</div>`;
+      }
+
+      if (/^####\s+/.test(block)) return `<h5>${inlineMarkdown(block.replace(/^####\s+/, ""))}</h5>`;
       if (/^###\s+/.test(block)) return `<h4>${inlineMarkdown(block.replace(/^###\s+/, ""))}</h4>`;
       if (/^##\s+/.test(block)) return `<h4>${inlineMarkdown(block.replace(/^##\s+/, ""))}</h4>`;
       if (/^#\s+/.test(block)) return `<h4>${inlineMarkdown(block.replace(/^#\s+/, ""))}</h4>`;
 
-      if (/^[-*]\s+/m.test(block)) {
+      const lines = block.split("\n").filter(Boolean);
+
+      if (lines.length > 0 && lines.every((line) => /^[-*]\s+/.test(line))) {
         const items = block
           .split("\n")
           .filter((line) => /^[-*]\s+/.test(line))
@@ -566,9 +575,29 @@ function markdownToHtml(markdown) {
         return `<ul>${items}</ul>`;
       }
 
-      return `<p>${inlineMarkdown(block).replaceAll("\n", "<br />")}</p>`;
+      if (lines.length > 0 && lines.every((line) => /^\d+\.\s+/.test(line))) {
+        const items = block
+          .split("\n")
+          .filter((line) => /^\d+\.\s+/.test(line))
+          .map((line) => `<li>${inlineMarkdown(line.replace(/^\d+\.\s+/, ""))}</li>`)
+          .join("");
+        return `<ol>${items}</ol>`;
+      }
+
+      return paragraphMarkdown(block);
     })
     .join("");
+}
+
+function paragraphMarkdown(block) {
+  const html = inlineMarkdown(block);
+  if (block.includes("$$")) return `<p>${html}</p>`;
+  return `<p>${html.replaceAll("\n", "<br />")}</p>`;
+}
+
+function typesetMath() {
+  if (!window.MathJax || typeof window.MathJax.typesetPromise !== "function") return;
+  window.MathJax.typesetPromise([document.body]).catch(() => {});
 }
 
 function fileMarkdown(block) {
