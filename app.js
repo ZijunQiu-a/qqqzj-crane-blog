@@ -396,6 +396,9 @@ function markdownToHtml(markdown) {
 
   return blocks
     .map((block) => {
+      const file = fileMarkdown(block);
+      if (file) return file;
+
       const media = mediaMarkdown(block);
       if (media) return media;
 
@@ -415,6 +418,21 @@ function markdownToHtml(markdown) {
       return `<p>${inlineMarkdown(block).replaceAll("\n", "<br />")}</p>`;
     })
     .join("");
+}
+
+function fileMarkdown(block) {
+  const match = block.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+  if (!match) return "";
+
+  const [, label, rawUrl] = match;
+  const url = normalizeFileUrl(rawUrl);
+  if (!url) return "";
+
+  const fileName = url.split("/").pop() || "download";
+  const isExternal = /^https?:\/\//i.test(url);
+  const target = isExternal ? ' target="_blank" rel="noreferrer"' : " download";
+
+  return `<div class="entry-file"><a class="download-button" href="${escapeAttribute(url)}"${target}><span>${escapeHtml(label)}</span><small>${escapeHtml(fileName)}</small></a></div>`;
 }
 
 function excerptFromMarkdown(markdown) {
@@ -491,6 +509,14 @@ function normalizeMediaUrl(value) {
   if (/^media\//i.test(value)) return `posts/${value}`;
   if (/^\.\/media\//i.test(value)) return value.replace(/^\.\/media\//i, "posts/media/");
   if (/^posts\/media\//i.test(value)) return value;
+  return "";
+}
+
+function normalizeFileUrl(value) {
+  if (/^https?:\/\//i.test(value)) return value;
+  if (/^files\//i.test(value)) return `posts/${value}`;
+  if (/^\.\/files\//i.test(value)) return value.replace(/^\.\/files\//i, "posts/files/");
+  if (/^posts\/files\//i.test(value)) return value;
   return "";
 }
 

@@ -589,6 +589,41 @@ h3 {
   font-size: 12px;
 }
 
+.entry-file {
+  display: flex;
+  margin: 4px 0;
+}
+
+.download-button {
+  display: inline-grid;
+  gap: 3px;
+  max-width: 100%;
+  border: 1px solid rgba(20, 123, 145, 0.2);
+  border-radius: 8px;
+  padding: 11px 14px;
+  background: linear-gradient(135deg, rgba(20, 123, 145, 0.12), rgba(255, 254, 253, 0.82));
+  color: var(--teal-dark);
+  text-decoration: none;
+  box-shadow: 0 10px 22px rgba(16, 35, 46, 0.07);
+}
+
+.download-button:hover,
+.download-button:focus-visible {
+  border-color: rgba(14, 78, 102, 0.36);
+  outline: 0;
+}
+
+.download-button span {
+  font-weight: 900;
+}
+
+.download-button small {
+  overflow-wrap: anywhere;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .note-grid,
 .video-grid {
   display: grid;
