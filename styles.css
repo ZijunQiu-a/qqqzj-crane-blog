@@ -590,7 +590,8 @@ h3 {
 }
 
 .entry-file {
-  display: flex;
+  display: grid;
+  gap: 10px;
   margin: 4px 0;
 }
 
@@ -622,6 +623,45 @@ h3 {
   color: var(--muted);
   font-size: 12px;
   font-weight: 800;
+}
+
+.file-preview {
+  overflow: hidden;
+  border: 1px solid rgba(16, 35, 46, 0.12);
+  border-radius: 8px;
+  background: rgba(248, 251, 251, 0.78);
+}
+
+.file-preview summary {
+  cursor: pointer;
+  padding: 10px 12px;
+  color: var(--teal-dark);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.file-preview pre,
+.file-preview iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-top: 1px solid rgba(16, 35, 46, 0.1);
+  margin: 0;
+  background: #fffefd;
+}
+
+.file-preview pre {
+  max-height: 420px;
+  overflow: auto;
+  padding: 14px;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.file-preview iframe {
+  height: min(70vh, 620px);
 }
 
 .note-grid,

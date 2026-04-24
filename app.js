@@ -431,8 +431,9 @@ function fileMarkdown(block) {
   const fileName = url.split("/").pop() || "download";
   const isExternal = /^https?:\/\//i.test(url);
   const target = isExternal ? ' target="_blank" rel="noreferrer"' : " download";
+  const preview = filePreviewMarkup(url, fileName);
 
-  return `<div class="entry-file"><a class="download-button" href="${escapeAttribute(url)}"${target}><span>${escapeHtml(label)}</span><small>${escapeHtml(fileName)}</small></a></div>`;
+  return `<div class="entry-file"><a class="download-button" href="${escapeAttribute(url)}"${target}><span>${escapeHtml(label)}</span><small>${escapeHtml(fileName)}</small></a>${preview}</div>`;
 }
 
 function excerptFromMarkdown(markdown) {
@@ -518,6 +519,17 @@ function normalizeFileUrl(value) {
   if (/^\.\/files\//i.test(value)) return value.replace(/^\.\/files\//i, "posts/files/");
   if (/^posts\/files\//i.test(value)) return value;
   return "";
+}
+
+function filePreviewMarkup(url, fileName) {
+  const extension = fileExtension(url);
+  if (!["pdf", "md", "markdown", "txt", "css", "csv", "json", "html", "js"].includes(extension)) return "";
+
+  return `<details class="file-preview"><summary>Preview / 预览</summary><iframe src="${escapeAttribute(url)}" title="${escapeAttribute(fileName)}" loading="lazy"></iframe></details>`;
+}
+
+function fileExtension(value) {
+  return (value.split("?")[0].split("#")[0].split(".").pop() || "").toLowerCase();
 }
 
 // 日期格式化：例如 2026年4月24日。
