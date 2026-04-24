@@ -510,8 +510,6 @@ mascotWidget?.addEventListener("click", () => {
   mascotTimer = window.setTimeout(() => {
     mascotWidget.classList.remove("is-speaking", "is-excited");
   }, 2600);
-
-  playHelloBurst();
 });
 
 function playHelloBurst() {
