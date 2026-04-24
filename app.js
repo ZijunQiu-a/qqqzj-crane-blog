@@ -496,7 +496,7 @@ const mascotLines = [
 ];
 let mascotLineIndex = 0;
 let mascotTimer;
-const helloWords = ["HELLO", "你好", "Salut", "Hi"];
+const helloWords = ["HELLO!", "你好呀", "Welcome"];
 
 // 重新触发动画的小技巧：移除 class，读取 offsetWidth，再加回 class。
 mascotWidget?.addEventListener("click", () => {
@@ -522,18 +522,18 @@ function playHelloBurst() {
     const spark = document.createElement("span");
     spark.className = "hello-spark";
     spark.textContent = word;
-    spark.style.setProperty("--dx", `${-34 + index * 22}px`);
-    spark.style.setProperty("--dy", `${-42 - (index % 2) * 20}px`);
-    spark.style.setProperty("--delay", `${index * 42}ms`);
+    spark.style.setProperty("--dx", `${-78 + index * 70}px`);
+    spark.style.setProperty("--dy", `${-52 - (index % 2) * 18}px`);
+    spark.style.setProperty("--delay", `${index * 80}ms`);
     helloBurst.append(spark);
   });
 
   window.setTimeout(() => {
     helloBurst.replaceChildren();
-  }, 950);
+  }, 1700);
 }
 
-window.setTimeout(playHelloBurst, 520);
+window.setTimeout(playHelloBurst, 700);
 
 discovery.search?.addEventListener("input", (event) => {
   filters.query = event.target.value;

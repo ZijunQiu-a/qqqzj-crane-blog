@@ -1218,8 +1218,12 @@ h3 {
 }
 
 .hello-burst {
-  position: absolute;
-  inset: 44% auto auto 28%;
+  position: fixed;
+  right: max(88px, calc((100vw - 1180px) / 2 + 96px));
+  bottom: clamp(132px, 17vw, 196px);
+  z-index: 30;
+  width: 220px;
+  height: 118px;
   pointer-events: none;
 }
 
@@ -1227,18 +1231,18 @@ h3 {
   position: absolute;
   left: 0;
   top: 0;
-  border: 1px solid rgba(20, 123, 145, 0.18);
+  border: 1px solid rgba(20, 123, 145, 0.28);
   border-radius: 999px;
-  padding: 3px 7px;
-  background: rgba(255, 254, 253, 0.9);
+  padding: 6px 12px;
+  background: rgba(255, 254, 253, 0.96);
   color: var(--teal-dark);
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 950;
   letter-spacing: 0;
   white-space: nowrap;
   opacity: 0;
-  box-shadow: 0 10px 22px rgba(16, 35, 46, 0.14);
-  animation: hello-float 860ms ease-out var(--delay) both;
+  box-shadow: 0 16px 34px rgba(16, 35, 46, 0.18);
+  animation: hello-float 1400ms cubic-bezier(0.16, 1, 0.3, 1) var(--delay) both;
 }
 
 /* 小人的气泡文案，默认隐藏，交互时显示。 */
@@ -1307,16 +1311,20 @@ h3 {
 @keyframes hello-float {
   0% {
     opacity: 0;
-    transform: translate(0, 0) scale(0.76);
+    transform: translate(36px, 50px) scale(0.72) rotate(-2deg);
   }
 
   18% {
     opacity: 1;
   }
 
+  62% {
+    opacity: 1;
+  }
+
   100% {
     opacity: 0;
-    transform: translate(var(--dx), var(--dy)) scale(1.04);
+    transform: translate(var(--dx), var(--dy)) scale(1.08) rotate(2deg);
   }
 }
 
