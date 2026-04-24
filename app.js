@@ -43,11 +43,13 @@ const discovery = {
   status: document.querySelector("#filter-status"),
   tags: document.querySelector("#tag-filter"),
   archive: document.querySelector("#archive-list"),
+  noteCategories: document.querySelector("#note-category-tabs"),
 };
 
 const filters = {
   query: "",
   tag: "all",
+  noteCategory: "all",
 };
 
 // 总渲染入口：三类内容列表和顶部统计都在这里更新。
@@ -58,10 +60,12 @@ function render() {
   const allPosts = allEntries();
   const filteredPosts = allPosts.filter(matchesFilters);
   const growthEntries = filteredPosts.filter((entry) => entry.kind === "growth");
-  const noteEntries = filteredPosts.filter((entry) => entry.kind === "notes");
+  const noteBaseEntries = filteredPosts.filter((entry) => entry.kind === "notes");
+  const noteEntries = noteBaseEntries.filter(matchesNoteCategory);
   const videoEntries = filteredPosts.filter((entry) => entry.kind === "videos");
 
   renderGrowth(growthEntries);
+  renderNoteCategories(noteBaseEntries);
   renderNotes(noteEntries);
   renderVideos(videoEntries);
   renderTagFilters(allPosts);
@@ -298,6 +302,10 @@ function matchesFilters(entry) {
   return searchableText(entry).toLowerCase().includes(query);
 }
 
+function matchesNoteCategory(entry) {
+  return filters.noteCategory === "all" || entry.tag === filters.noteCategory;
+}
+
 function searchableText(entry) {
   return [
     entry.title,
@@ -325,6 +333,31 @@ function renderTagFilters(entries) {
       render();
     });
     discovery.tags.append(button);
+  });
+}
+
+function renderNoteCategories(entries) {
+  if (!discovery.noteCategories) return;
+
+  const categories = [...new Set(entries.map((entry) => entry.tag).filter(Boolean))];
+  if (!categories.includes(filters.noteCategory)) filters.noteCategory = "all";
+
+  const tabs = ["all", ...categories];
+  discovery.noteCategories.replaceChildren();
+
+  tabs.forEach((category) => {
+    const count = category === "all"
+      ? entries.length
+      : entries.filter((entry) => entry.tag === category).length;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = category === filters.noteCategory ? "is-active" : "";
+    button.textContent = category === "all" ? `全部笔记 ${count}` : `${category} ${count}`;
+    button.addEventListener("click", () => {
+      filters.noteCategory = category;
+      render();
+    });
+    discovery.noteCategories.append(button);
   });
 }
 
@@ -485,6 +518,7 @@ discovery.search?.addEventListener("input", (event) => {
 discovery.clear?.addEventListener("click", () => {
   filters.query = "";
   filters.tag = "all";
+  filters.noteCategory = "all";
   discovery.search.value = "";
   render();
 });

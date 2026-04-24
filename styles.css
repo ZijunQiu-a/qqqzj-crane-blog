@@ -475,6 +475,32 @@ h3 {
   outline: 0;
 }
 
+.note-category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.note-category-tabs button {
+  border: 1px solid rgba(16, 35, 46, 0.12);
+  border-radius: 8px;
+  padding: 8px 11px;
+  background: rgba(255, 254, 253, 0.88);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.note-category-tabs button:hover,
+.note-category-tabs button:focus-visible,
+.note-category-tabs button.is-active {
+  border-color: rgba(195, 93, 111, 0.34);
+  background: rgba(195, 93, 111, 0.12);
+  color: var(--coral);
+  outline: 0;
+}
+
 /* About me 卡片。 */
 .about-panel {
   display: grid;
