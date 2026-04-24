@@ -26,6 +26,15 @@ const directoryCounts = {
   videos: document.querySelector("#index-videos"),
 };
 
+const views = {
+  home: document.querySelector("#home-view"),
+  detail: document.querySelector("#post-detail"),
+  detailKind: document.querySelector("#post-detail-kind"),
+  detailTitle: document.querySelector("#post-detail-title"),
+  detailMeta: document.querySelector("#post-detail-meta"),
+  detailBody: document.querySelector("#post-detail-body"),
+};
+
 // 总渲染入口：三类内容列表和顶部统计都在这里更新。
 function render() {
   const growthEntries = entriesFor("growth");
@@ -41,6 +50,7 @@ function render() {
   directoryCounts.growth.textContent = growthEntries.length;
   directoryCounts.notes.textContent = noteEntries.length;
   directoryCounts.videos.textContent = videoEntries.length;
+  renderRoute();
 }
 
 // 正式 Markdown 文章按时间从新到旧排序。
@@ -57,8 +67,9 @@ function renderGrowth(entries) {
   }
 
   entries.forEach((entry) => {
-    const item = document.createElement("article");
-    item.className = "timeline-item";
+    const item = document.createElement("a");
+    item.className = "timeline-item post-card";
+    item.href = postHref(entry);
     item.innerHTML = `
       <div class="date-pill">
         <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
@@ -66,10 +77,10 @@ function renderGrowth(entries) {
       </div>
       <div class="entry-copy">
         <h3>${escapeHtml(entry.title)}</h3>
-        ${bodyMarkup(entry)}
+        ${bodyPreviewMarkup(entry)}
         <div class="card-footer">
           <span>${footerTime(entry)}</span>
-          ${publishedBadge()}
+          ${readMoreLabel()}
         </div>
       </div>
     `;
@@ -86,17 +97,18 @@ function renderNotes(entries) {
   }
 
   entries.forEach((entry) => {
-    const item = document.createElement("article");
-    item.className = "note-card";
+    const item = document.createElement("a");
+    item.className = "note-card post-card";
+    item.href = postHref(entry);
     item.innerHTML = `
       <header>
         <span class="tag">${escapeHtml(entry.tag)}</span>
         <h3>${escapeHtml(entry.title)}</h3>
       </header>
-      ${bodyMarkup(entry)}
+      ${bodyPreviewMarkup(entry)}
       <div class="card-footer">
         <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
-        ${publishedBadge()}
+        ${readMoreLabel()}
       </div>
     `;
     lists.notes.append(item);
@@ -112,18 +124,19 @@ function renderVideos(entries) {
   }
 
   entries.forEach((entry) => {
-    const item = document.createElement("article");
-    item.className = "video-card";
+    const item = document.createElement("a");
+    item.className = "video-card post-card";
+    item.href = postHref(entry);
     item.innerHTML = `
-      <div class="video-frame">${entry.url ? videoMarkup(entry.url, entry.title) : lifePostMarkup(entry.title)}</div>
+      <div class="video-frame video-frame-preview">${previewVisualMarkup(entry)}</div>
       <div class="video-body">
         <header>
           <h3>${escapeHtml(entry.title)}</h3>
-          ${bodyMarkup(entry, "Life moment / 生活片段")}
+          ${bodyPreviewMarkup(entry, "Life moment / 生活片段")}
         </header>
         <div class="card-footer">
           <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
-          ${publishedBadge()}
+          ${readMoreLabel()}
         </div>
       </div>
     `;
@@ -178,6 +191,7 @@ async function loadPostFile(file) {
     url: meta.url || "",
     body,
     html: markdownToHtml(body),
+    excerpt: excerptFromMarkdown(body),
     createdAt: new Date(meta.date || Date.now()).toISOString(),
   };
 }
@@ -211,12 +225,88 @@ function bodyMarkup(entry, fallback = "") {
   return `<p>${escapeHtml(entry.body || fallback)}</p>`;
 }
 
+function bodyPreviewMarkup(entry, fallback = "") {
+  return `<p class="post-preview">${escapeHtml(previewText(entry, fallback))}</p>`;
+}
+
+function previewText(entry, fallback = "") {
+  const text = entry.excerpt || stripHtml(entry.html || "") || markdownToPlainText(entry.body || "") || fallback;
+  return truncateText(text, 88);
+}
+
+function previewVisualMarkup(entry) {
+  const image = firstImageFromHtml(entry.html || "");
+  if (image) {
+    return `<img class="video-preview-image" src="${escapeAttribute(image.src)}" alt="${escapeAttribute(image.alt)}" loading="lazy" />`;
+  }
+
+  return lifePostMarkup(entry.title);
+}
+
 function footerTime() {
   return "Published / 已发布";
 }
 
-function publishedBadge() {
-  return '<span class="published-badge">Post 文章</span>';
+function readMoreLabel() {
+  return '<span class="published-badge">Read more / 详情</span>';
+}
+
+function postHref(entry) {
+  return `#post/${encodeURIComponent(postKey(entry))}`;
+}
+
+function postKey(entry) {
+  return String(entry.id || "").replace(/^posts\//, "");
+}
+
+function allEntries() {
+  return ["growth", "notes", "videos"].flatMap((kind) => entriesFor(kind));
+}
+
+function renderRoute() {
+  const match = window.location.hash.match(/^#post\/(.+)$/);
+  if (!match) {
+    showHome();
+    return;
+  }
+
+  const key = decodeURIComponent(match[1]);
+  const entry = allEntries().find((post) => postKey(post) === key);
+  if (!entry) {
+    showHome();
+    return;
+  }
+
+  showPostDetail(entry);
+}
+
+function showHome() {
+  views.home.hidden = false;
+  views.detail.hidden = true;
+  document.title = "qqqzj@Crane";
+}
+
+function showPostDetail(entry) {
+  views.home.hidden = true;
+  views.detail.hidden = false;
+  views.detailKind.textContent = kindLabel(entry.kind);
+  views.detailTitle.textContent = entry.title;
+  views.detailMeta.innerHTML = `
+    <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
+    <span>${escapeHtml(entry.tag || entry.stage || "")}</span>
+  `;
+  views.detailBody.innerHTML = `
+    ${entry.url ? `<div class="detail-video-frame">${videoMarkup(entry.url, entry.title)}</div>` : ""}
+    ${bodyMarkup(entry)}
+  `;
+  document.title = `${entry.title} · qqqzj@Crane`;
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function kindLabel(kind) {
+  if (kind === "growth") return "News 动态";
+  if (kind === "videos") return "Life Log 生活记录";
+  return "Notes 笔记";
 }
 
 // 互动小人的台词和点击动画。
@@ -327,6 +417,47 @@ function markdownToHtml(markdown) {
     .join("");
 }
 
+function excerptFromMarkdown(markdown) {
+  return truncateText(markdownToPlainText(markdown), 120);
+}
+
+function markdownToPlainText(markdown) {
+  return String(markdown)
+    .split("\n")
+    .filter((line) => !/^!\[[^\]]*\]\([^)]+\)$/.test(line.trim()))
+    .map((line) => line.replace(/^#{1,6}\s+/, "").replace(/^[-*]\s+/, ""))
+    .join(" ")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_`>]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function stripHtml(html) {
+  return String(html)
+    .replace(/<figure[\s\S]*?<\/figure>/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function truncateText(value, limit) {
+  const text = String(value).trim();
+  if (text.length <= limit) return text;
+  return `${text.slice(0, limit).trim()}...`;
+}
+
+function firstImageFromHtml(html) {
+  const match = String(html).match(/<img\s+src="([^"]+)"\s+alt="([^"]*)"/);
+  if (!match) return null;
+  return { src: match[1], alt: match[2] };
+}
+
 function mediaMarkdown(block) {
   const match = block.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
   if (!match) return "";
@@ -355,8 +486,10 @@ function inlineMarkdown(value) {
 
 function normalizeMediaUrl(value) {
   if (/^https?:\/\//i.test(value)) return value;
-  if (/^(media|assets)\//i.test(value)) return value;
-  if (/^\.\/(media|assets)\//i.test(value)) return value.replace(/^\.\//, "");
+  if (/^assets\//i.test(value)) return value;
+  if (/^\.\/assets\//i.test(value)) return value.replace(/^\.\//, "");
+  if (/^media\//i.test(value)) return `posts/${value}`;
+  if (/^\.\/media\//i.test(value)) return value.replace(/^\.\/media\//i, "posts/media/");
   if (/^posts\/media\//i.test(value)) return value;
   return "";
 }
@@ -386,5 +519,6 @@ function escapeAttribute(value) {
 }
 
 // 页面第一次加载时渲染已有数据。
+window.addEventListener("hashchange", renderRoute);
 render();
 loadPublishedPosts();

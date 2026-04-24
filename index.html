@@ -27,112 +27,126 @@
       </header>
 
       <main id="home">
-        <!-- 首屏主视觉：包含标题、统计数字和背景图。 -->
-        <section class="studio-panel" aria-labelledby="page-title">
-          <div class="studio-copy">
-            <p class="eyebrow">News 动态 / Notes 笔记 / Life 生活</p>
-            <h1 id="page-title">qqqzj@Crane</h1>
-            <!-- 这些数字由 app.js 根据当前内容数量自动更新。 -->
-            <div class="stats-strip" aria-label="Content statistics / 内容统计">
-              <div>
-                <strong id="stat-growth">0</strong>
-                <span>News 动态</span>
-              </div>
-              <div>
-                <strong id="stat-notes">0</strong>
-                <span>Notes 笔记</span>
-              </div>
-              <div>
-                <strong id="stat-videos">0</strong>
-                <span>Life 生活</span>
+        <div class="home-view" id="home-view">
+          <!-- 首屏主视觉：包含标题、统计数字和背景图。 -->
+          <section class="studio-panel" aria-labelledby="page-title">
+            <div class="studio-copy">
+              <p class="eyebrow">News 动态 / Notes 笔记 / Life 生活</p>
+              <h1 id="page-title">qqqzj@Crane</h1>
+              <!-- 这些数字由 app.js 根据当前内容数量自动更新。 -->
+              <div class="stats-strip" aria-label="Content statistics / 内容统计">
+                <div>
+                  <strong id="stat-growth">0</strong>
+                  <span>News 动态</span>
+                </div>
+                <div>
+                  <strong id="stat-notes">0</strong>
+                  <span>Notes 笔记</span>
+                </div>
+                <div>
+                  <strong id="stat-videos">0</strong>
+                  <span>Life 生活</span>
+                </div>
               </div>
             </div>
-          </div>
-          <img src="assets/blog-studio.png" alt="Opera-inspired desk, notes, water ribbons, piano keys and gold structural motifs" />
-        </section>
+            <img src="assets/blog-studio.png" alt="Opera-inspired desk, notes, water ribbons, piano keys and gold structural motifs" />
+          </section>
 
-        <!-- 内容区：公开页面只展示 posts/*.md 里的正式文章。 -->
-        <section class="workspace-grid" aria-label="Published content / 已发布内容">
-          <div class="content-stack">
-            <section class="directory-section" aria-labelledby="directory-title">
-              <div class="section-heading">
-                <p class="eyebrow">Index 目录</p>
-                <h2 id="directory-title">Content Map 内容索引</h2>
-              </div>
-              <nav class="directory-grid" aria-label="Content directory / 内容目录">
-                <a href="#about">
-                  <span>About me</span>
-                  <strong>qqqzj@Crane</strong>
-                  <small>Profile</small>
-                </a>
-                <a href="#growth">
-                  <span>News 动态</span>
-                  <strong id="index-growth">0</strong>
-                  <small>Updates</small>
-                </a>
-                <a href="#notes">
-                  <span>Notes 笔记</span>
-                  <strong id="index-notes">0</strong>
-                  <small>Notebook</small>
-                </a>
-                <a href="#life">
-                  <span>Life 生活</span>
-                  <strong id="index-videos">0</strong>
-                  <small>Life Log</small>
-                </a>
-              </nav>
-            </section>
-
-            <!-- About me：静态个人简介，直接改 HTML 就能更新。 -->
-            <section class="about-section" id="about" aria-labelledby="about-title">
-              <div class="section-heading">
-                <p class="eyebrow">About me 关于我</p>
-                <h2 id="about-title">qqqzj@Crane</h2>
-              </div>
-              <div class="about-panel">
-                <div class="about-copy">
-                  <p>
-                    Hi, I am qqqzj. This is my small archive for growth, notes, and daily moments.
-                    这里会存放我的发展记录、想法笔记和生活片段。
-                  </p>
-                  <p>
-                    I like quiet systems, beautiful interfaces, and the feeling of slowly becoming better.
-                    我也喜欢带一点水蓝歌剧感的页面氛围。
-                  </p>
+          <!-- 内容区：首页只展示正式文章预览，详情由 app.js 切换。 -->
+          <section class="workspace-grid" aria-label="Published content / 已发布内容">
+            <div class="content-stack">
+              <section class="directory-section" aria-labelledby="directory-title">
+                <div class="section-heading">
+                  <p class="eyebrow">Index 目录</p>
+                  <h2 id="directory-title">Content Map 内容索引</h2>
                 </div>
-                <div class="about-tags" aria-label="About tags / 关于标签">
-                  <span>Growth 成长</span>
-                  <span>Notes 笔记</span>
-                  <span>Life 生活</span>
-                  <span>Hydro Opera 水蓝歌剧</span>
+                <nav class="directory-grid" aria-label="Content directory / 内容目录">
+                  <a href="#about">
+                    <span>About me</span>
+                    <strong>qqqzj@Crane</strong>
+                    <small>Profile</small>
+                  </a>
+                  <a href="#growth">
+                    <span>News 动态</span>
+                    <strong id="index-growth">0</strong>
+                    <small>Updates</small>
+                  </a>
+                  <a href="#notes">
+                    <span>Notes 笔记</span>
+                    <strong id="index-notes">0</strong>
+                    <small>Notebook</small>
+                  </a>
+                  <a href="#life">
+                    <span>Life 生活</span>
+                    <strong id="index-videos">0</strong>
+                    <small>Life Log</small>
+                  </a>
+                </nav>
+              </section>
+
+              <!-- About me：静态个人简介，直接改 HTML 就能更新。 -->
+              <section class="about-section" id="about" aria-labelledby="about-title">
+                <div class="section-heading">
+                  <p class="eyebrow">About me 关于我</p>
+                  <h2 id="about-title">qqqzj@Crane</h2>
                 </div>
-              </div>
-            </section>
+                <div class="about-panel">
+                  <div class="about-copy">
+                    <p>
+                      Hi, I am qqqzj. This is my small archive for growth, notes, and daily moments.
+                      这里会存放我的发展记录、想法笔记和生活片段。
+                    </p>
+                    <p>
+                      I like quiet systems, beautiful interfaces, and the feeling of slowly becoming better.
+                      我也喜欢带一点水蓝歌剧感的页面氛围。
+                    </p>
+                  </div>
+                  <div class="about-tags" aria-label="About tags / 关于标签">
+                    <span>Growth 成长</span>
+                    <span>Notes 笔记</span>
+                    <span>Life 生活</span>
+                    <span>Hydro Opera 水蓝歌剧</span>
+                  </div>
+                </div>
+              </section>
 
-            <!-- 下面三个列表的内容都由 app.js 渲染：正式文章来自 posts/*.md。 -->
-            <section class="timeline-section" id="growth" aria-labelledby="growth-title">
-              <div class="section-heading">
-                <p class="eyebrow">Bulletin 公告板</p>
-                <h2 id="growth-title">News 动态</h2>
-              </div>
-              <div class="timeline" id="growth-list"></div>
-            </section>
+              <!-- 下面三个列表的内容都由 app.js 渲染：正式文章来自 posts/*.md。 -->
+              <section class="timeline-section" id="growth" aria-labelledby="growth-title">
+                <div class="section-heading">
+                  <p class="eyebrow">Bulletin 公告板</p>
+                  <h2 id="growth-title">News 动态</h2>
+                </div>
+                <div class="timeline" id="growth-list"></div>
+              </section>
 
-            <section class="notes-section" id="notes" aria-labelledby="notes-title">
-              <div class="section-heading">
-                <p class="eyebrow">Notebook 笔记本</p>
-                <h2 id="notes-title">Notes 笔记</h2>
-              </div>
-              <div class="note-grid" id="note-list"></div>
-            </section>
+              <section class="notes-section" id="notes" aria-labelledby="notes-title">
+                <div class="section-heading">
+                  <p class="eyebrow">Notebook 笔记本</p>
+                  <h2 id="notes-title">Notes 笔记</h2>
+                </div>
+                <div class="note-grid" id="note-list"></div>
+              </section>
 
-            <section class="video-section" id="life" aria-labelledby="life-title">
-              <div class="section-heading">
-                <p class="eyebrow">Life 生活</p>
-                <h2 id="life-title">Life Log 生活记录</h2>
-              </div>
-              <div class="video-grid" id="video-list"></div>
-            </section>
+              <section class="video-section" id="life" aria-labelledby="life-title">
+                <div class="section-heading">
+                  <p class="eyebrow">Life 生活</p>
+                  <h2 id="life-title">Life Log 生活记录</h2>
+                </div>
+                <div class="video-grid" id="video-list"></div>
+              </section>
+            </div>
+          </section>
+        </div>
+
+        <section class="post-detail-section" id="post-detail" aria-live="polite" hidden>
+          <div class="post-detail-shell">
+            <a class="back-link" href="#home">Back to home / 返回首页</a>
+            <article class="post-detail-card">
+              <p class="eyebrow" id="post-detail-kind"></p>
+              <h1 id="post-detail-title"></h1>
+              <div class="post-detail-meta" id="post-detail-meta"></div>
+              <div class="post-detail-body" id="post-detail-body"></div>
+            </article>
           </div>
         </section>
       </main>

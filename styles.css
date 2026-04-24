@@ -458,6 +458,23 @@ h3 {
   box-shadow: 0 12px 28px rgba(16, 35, 46, 0.07);
 }
 
+.post-card {
+  color: var(--ink);
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.post-card:hover,
+.post-card:focus-visible {
+  border-color: rgba(14, 78, 102, 0.34);
+  box-shadow: 0 18px 36px rgba(16, 35, 46, 0.11);
+  outline: 0;
+  transform: translateY(-2px);
+}
+
 .timeline-item::before,
 .note-card::before,
 .video-card::before {
@@ -509,6 +526,15 @@ h3 {
 .video-card p {
   margin: 0;
   color: var(--muted);
+}
+
+.post-preview {
+  display: -webkit-box;
+  min-height: 3.4em;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-height: 1.7;
 }
 
 /* Markdown 正式文章会被 app.js 转成 entry-body 里的 HTML。 */
@@ -613,6 +639,16 @@ h3 {
   background: #111;
 }
 
+.video-frame-preview {
+  overflow: hidden;
+}
+
+.video-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .video-frame a {
   display: inline-flex;
   align-items: center;
@@ -666,6 +702,124 @@ h3 {
   background: rgba(91, 121, 109, 0.14);
   color: var(--moss);
   padding: 5px 9px;
+}
+
+.post-detail-section {
+  padding: 24px 0 64px;
+}
+
+.post-detail-shell {
+  display: grid;
+  gap: 16px;
+  width: min(100%, 860px);
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  border: 1px solid rgba(20, 123, 145, 0.16);
+  border-radius: 999px;
+  padding: 9px 13px;
+  background: rgba(255, 254, 253, 0.78);
+  color: var(--teal-dark);
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  border-color: rgba(14, 78, 102, 0.34);
+  outline: 0;
+}
+
+.post-detail-card {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 35, 46, 0.12);
+  border-radius: 8px;
+  padding: clamp(22px, 5vw, 44px);
+  background: rgba(255, 254, 253, 0.94);
+  box-shadow: 0 18px 42px rgba(16, 35, 46, 0.1);
+}
+
+.post-detail-card::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  border-radius: 8px 0 0 8px;
+  content: "";
+  background: linear-gradient(var(--teal), var(--violet), var(--gold));
+}
+
+.post-detail-card h1 {
+  max-width: 780px;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(30px, 5vw, 54px);
+  line-height: 1.06;
+}
+
+.post-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.post-detail-meta span,
+.post-detail-meta time {
+  border-radius: 999px;
+  background: rgba(20, 123, 145, 0.1);
+  padding: 6px 10px;
+}
+
+.post-detail-body {
+  display: grid;
+  gap: 18px;
+}
+
+.post-detail-body .entry-body {
+  gap: 16px;
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.post-detail-body .entry-body h4 {
+  margin-top: 8px;
+  font-size: 22px;
+}
+
+.post-detail-body .entry-media {
+  gap: 8px;
+  margin: 4px 0 10px;
+}
+
+.post-detail-body .entry-media img,
+.post-detail-body .entry-media video {
+  max-height: 680px;
+  object-fit: contain;
+}
+
+.detail-video-frame {
+  overflow: hidden;
+  border-radius: 8px;
+  aspect-ratio: 16 / 9;
+  background: #10232e;
+}
+
+.detail-video-frame iframe,
+.detail-video-frame video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #111;
 }
 
 /* 没有内容时显示的占位状态。 */
