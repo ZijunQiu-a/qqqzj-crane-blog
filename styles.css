@@ -467,6 +467,54 @@ h3 {
   text-align: right;
 }
 
+.search-results {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(16, 35, 46, 0.1);
+  border-radius: 8px;
+  padding: 8px;
+  background: rgba(248, 251, 251, 0.72);
+}
+
+.search-results[hidden] {
+  display: none;
+}
+
+.search-results a,
+.search-results p {
+  margin: 0;
+}
+
+.search-results a {
+  display: grid;
+  gap: 3px;
+  border-radius: 8px;
+  padding: 10px 11px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.search-results a:hover,
+.search-results a:focus-visible {
+  background: rgba(20, 123, 145, 0.1);
+  outline: 0;
+}
+
+.search-results span,
+.search-results small,
+.search-results p {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.search-results strong {
+  color: var(--teal-dark);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
 .tag-filter {
   grid-column: 1 / -1;
   display: flex;

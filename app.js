@@ -41,6 +41,7 @@ const discovery = {
   search: document.querySelector("#post-search"),
   clear: document.querySelector("#clear-search"),
   status: document.querySelector("#filter-status"),
+  results: document.querySelector("#search-results"),
   tags: document.querySelector("#tag-filter"),
   archive: document.querySelector("#archive-list"),
   noteCategories: document.querySelector("#note-category-tabs"),
@@ -71,6 +72,7 @@ function render() {
   renderTagFilters(allPosts);
   renderArchive(filteredPosts);
   renderFilterStatus(filteredPosts.length, allPosts.length);
+  renderSearchResults(filteredPosts);
   stats.growth.textContent = growthTotal.length;
   stats.notes.textContent = noteTotal.length;
   stats.videos.textContent = videoTotal.length;
@@ -403,6 +405,33 @@ function renderFilterStatus(filteredCount, totalCount) {
   discovery.clear.disabled = !filters.query && filters.tag === "all" && filters.noteCategory === "all";
 }
 
+function renderSearchResults(entries) {
+  if (!discovery.results) return;
+
+  const query = filters.query.trim();
+  discovery.results.replaceChildren();
+  discovery.results.hidden = !query;
+  if (!query) return;
+
+  if (!entries.length) {
+    const empty = document.createElement("p");
+    empty.textContent = "No matching posts / 没有匹配文章";
+    discovery.results.append(empty);
+    return;
+  }
+
+  entries.slice(0, 8).forEach((entry) => {
+    const link = document.createElement("a");
+    link.href = postHref(entry);
+    link.innerHTML = `
+      <span>${escapeHtml(kindLabel(entry.kind))} · ${escapeHtml(entry.tag || "")}</span>
+      <strong>${escapeHtml(entry.title)}</strong>
+      <small>${escapeHtml(previewText(entry, "Open post / 打开文章"))}</small>
+    `;
+    discovery.results.append(link);
+  });
+}
+
 function archiveMonth(value) {
   return new Intl.DateTimeFormat("zh-CN", {
     year: "numeric",
@@ -536,6 +565,16 @@ window.setTimeout(playHelloBurst, 700);
 discovery.search?.addEventListener("input", (event) => {
   filters.query = event.target.value;
   render();
+});
+
+discovery.search?.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
+
+  const [firstMatch] = allEntries().filter(matchesFilters);
+  if (!firstMatch) return;
+
+  event.preventDefault();
+  window.location.hash = postHref(firstMatch);
 });
 
 discovery.clear?.addEventListener("click", () => {
