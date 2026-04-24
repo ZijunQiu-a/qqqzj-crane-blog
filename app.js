@@ -300,12 +300,15 @@ function emptyState(label) {
   return node;
 }
 
-// 迷你 Markdown 转换器：支持标题、段落、列表、链接、粗体和斜体。
+// 迷你 Markdown 转换器：支持标题、段落、列表、媒体、链接、粗体和斜体。
 function markdownToHtml(markdown) {
   const blocks = markdown.split(/\n{2,}/).map((block) => block.trim()).filter(Boolean);
 
   return blocks
     .map((block) => {
+      const media = mediaMarkdown(block);
+      if (media) return media;
+
       if (/^###\s+/.test(block)) return `<h4>${inlineMarkdown(block.replace(/^###\s+/, ""))}</h4>`;
       if (/^##\s+/.test(block)) return `<h4>${inlineMarkdown(block.replace(/^##\s+/, ""))}</h4>`;
       if (/^#\s+/.test(block)) return `<h4>${inlineMarkdown(block.replace(/^#\s+/, ""))}</h4>`;
@@ -324,11 +327,38 @@ function markdownToHtml(markdown) {
     .join("");
 }
 
+function mediaMarkdown(block) {
+  const match = block.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
+  if (!match) return "";
+
+  const [, altText, rawUrl] = match;
+  const url = normalizeMediaUrl(rawUrl);
+  if (!url) return "";
+
+  const alt = altText.replace(/^video:/i, "").trim();
+  const escapedUrl = escapeAttribute(url);
+  const escapedAlt = escapeAttribute(alt);
+
+  if (/^video:/i.test(altText) || /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url)) {
+    return `<figure class="entry-media entry-video"><video src="${escapedUrl}" controls preload="metadata"></video>${alt ? `<figcaption>${escapeHtml(alt)}</figcaption>` : ""}</figure>`;
+  }
+
+  return `<figure class="entry-media"><img src="${escapedUrl}" alt="${escapedAlt}" loading="lazy" />${alt ? `<figcaption>${escapeHtml(alt)}</figcaption>` : ""}</figure>`;
+}
+
 function inlineMarkdown(value) {
   return escapeHtml(value)
     .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+}
+
+function normalizeMediaUrl(value) {
+  if (/^https?:\/\//i.test(value)) return value;
+  if (/^(media|assets)\//i.test(value)) return value;
+  if (/^\.\/(media|assets)\//i.test(value)) return value.replace(/^\.\//, "");
+  if (/^posts\/media\//i.test(value)) return value;
+  return "";
 }
 
 // 日期格式化：例如 2026年4月24日。
