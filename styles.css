@@ -836,6 +836,65 @@ h3 {
   font-weight: 850;
 }
 
+.entry-body code {
+  border-radius: 6px;
+  padding: 0.12em 0.32em;
+  background: rgba(20, 123, 145, 0.1);
+  color: var(--teal-dark);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+}
+
+.entry-body blockquote {
+  margin: 0;
+  border-left: 4px solid rgba(20, 123, 145, 0.34);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: rgba(20, 123, 145, 0.08);
+  color: var(--muted);
+}
+
+.entry-body hr {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid rgba(16, 35, 46, 0.12);
+  margin: 6px 0;
+}
+
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid rgba(16, 35, 46, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 254, 253, 0.72);
+}
+
+.entry-body table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.entry-body th,
+.entry-body td {
+  border-bottom: 1px solid rgba(16, 35, 46, 0.1);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.entry-body th {
+  color: var(--ink);
+  font-weight: 950;
+  background: rgba(20, 123, 145, 0.08);
+}
+
+.entry-body tr:last-child td {
+  border-bottom: 0;
+}
+
 .entry-body h4,
 .entry-body h5 {
   scroll-margin-top: 92px;

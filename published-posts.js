@@ -742,7 +742,7 @@ window.PUBLISHED_POSTS = {
       "stage": "Notes 笔记",
       "tag": "数学",
       "url": "",
-      "html": "<p>&gt; 来源：`数分I复习.pdf`。  <br />&gt; 参考校订：`数学分析 上.pdf`、`《数学分析》辅导.pdf`。  <br />&gt; 本文件按复习页内容整理为考前提纲，公式已按标准表述校正。</p><h4 id=\"1-实数完备性与确界\">1. 实数完备性与确界<a class=\"heading-anchor\" href=\"#1-实数完备性与确界\" data-heading-id=\"1-实数完备性与确界\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"确界原理\">确界原理<a class=\"heading-anchor\" href=\"#确界原理\" data-heading-id=\"确界原理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>非空有上界数集必有上确界；非空有下界数集必有下确界。</p><p>等价完备性命题：</p><ul><li>单调有界定理；</li><li>区间套定理；</li><li>Bolzano-Weierstrass 聚点定理；</li><li>Heine-Borel 有限覆盖定理；</li><li>Cauchy 收敛准则。</li></ul><h4 id=\"2-数列极限\">2. 数列极限<a class=\"heading-anchor\" href=\"#2-数列极限\" data-heading-id=\"2-数列极限\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"定义\">定义<a class=\"heading-anchor\" href=\"#定义\" data-heading-id=\"定义\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"math-display\">$$\n\\lim_{n\\to\\infty}a_n=A\n$$\n当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists N,\\ \\forall n&gt;N,\\quad |a_n-A|&lt;\\varepsilon.\n$$</div><h4 id=\"基本性质\">基本性质<a class=\"heading-anchor\" href=\"#基本性质\" data-heading-id=\"基本性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>收敛数列具有：</p><ul><li>极限唯一性；</li><li>有界性；</li><li>保号性；</li><li>保序性；</li><li>夹逼定理；</li><li>四则运算法则。</li></ul><p>落在任意邻域 $U(A,\\varepsilon)$ 外的项只有有限项。</p><h4 id=\"子列判别\">子列判别<a class=\"heading-anchor\" href=\"#子列判别\" data-heading-id=\"子列判别\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>数列收敛于 $A$，当且仅当它的任意子列都收敛于 $A$。</p><p>若两个子列极限不同，则原数列发散。</p><h4 id=\"单调有界定理\">单调有界定理<a class=\"heading-anchor\" href=\"#单调有界定理\" data-heading-id=\"单调有界定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>单调且有界的数列必收敛。</p><h4 id=\"cauchy-收敛准则\">Cauchy 收敛准则<a class=\"heading-anchor\" href=\"#cauchy-收敛准则\" data-heading-id=\"cauchy-收敛准则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>数列 $\\{a_n\\}$ 收敛，当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists N,\\ \\forall m,n&gt;N,\\quad |a_m-a_n|&lt;\\varepsilon.\n$$</p><h4 id=\"stolz-定理\">Stolz 定理<a class=\"heading-anchor\" href=\"#stolz-定理\" data-heading-id=\"stolz-定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $b_n$ 严格递增且 $b_n\\to+\\infty$，并且\n$$\n\\lim_{n\\to\\infty}\\frac{a_n-a_{n-1}}{b_n-b_{n-1}}=L,\n$$\n则\n$$\n\\lim_{n\\to\\infty}\\frac{a_n}{b_n}=L.\n$$</p><p>使用时先确认 $b_n$ 的单调性和趋于 $+\\infty$；它本质上是“差商极限推出商极限”。</p><h4 id=\"3-函数极限\">3. 函数极限<a class=\"heading-anchor\" href=\"#3-函数极限\" data-heading-id=\"3-函数极限\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"varepsilon-delta-定义\">$\\varepsilon$-$\\delta$ 定义<a class=\"heading-anchor\" href=\"#varepsilon-delta-定义\" data-heading-id=\"varepsilon-delta-定义\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"math-display\">$$\n\\lim_{x\\to x_0}f(x)=A\n$$\n当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists \\delta&gt;0,\\quad\n0&lt;|x-x_0|&lt;\\delta \\Rightarrow |f(x)-A|&lt;\\varepsilon.\n$$</div><p>无穷远处极限：\n$$\n\\lim_{x\\to+\\infty}f(x)=A\n$$\n当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists M&gt;0,\\quad x&gt;M\\Rightarrow |f(x)-A|&lt;\\varepsilon.\n$$</p><h4 id=\"heine-归结原则\">Heine 归结原则<a class=\"heading-anchor\" href=\"#heine-归结原则\" data-heading-id=\"heine-归结原则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$\\lim_{x\\to x_0}f(x)=A$ 当且仅当对任意满足 $x_n\\ne x_0$ 且 $x_n\\to x_0$ 的数列，都有\n$$\n\\lim_{n\\to\\infty}f(x_n)=A.\n$$</p><h4 id=\"cauchy-准则\">Cauchy 准则<a class=\"heading-anchor\" href=\"#cauchy-准则\" data-heading-id=\"cauchy-准则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$\\lim_{x\\to x_0}f(x)$ 存在，当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists \\delta&gt;0,\\quad\n0&lt;|x_1-x_0|&lt;\\delta,\\ 0&lt;|x_2-x_0|&lt;\\delta\n\\Rightarrow |f(x_1)-f(x_2)|&lt;\\varepsilon.\n$$</p><h4 id=\"无穷小-无穷大与渐近线\">无穷小、无穷大与渐近线<a class=\"heading-anchor\" href=\"#无穷小-无穷大与渐近线\" data-heading-id=\"无穷小-无穷大与渐近线\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>- $f(x)\\to0$ 称为无穷小；\n- $|f(x)|\\to+\\infty$ 称为无穷大；\n- 若\n  $$\n  \\lim_{x\\to\\infty}\\bigl[f(x)-(kx+b)\\bigr]=0,\n  $$\n  则 $y=kx+b$ 为斜渐近线。</p><h4 id=\"4-连续函数\">4. 连续函数<a class=\"heading-anchor\" href=\"#4-连续函数\" data-heading-id=\"4-连续函数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"连续定义\">连续定义<a class=\"heading-anchor\" href=\"#连续定义\" data-heading-id=\"连续定义\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$f$ 在 $x_0$ 连续，当且仅当\n$$\n\\lim_{x\\to x_0}f(x)=f(x_0).\n$$</p><p>等价地：\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists\\delta&gt;0,\\quad |x-x_0|&lt;\\delta\n\\Rightarrow |f(x)-f(x_0)|&lt;\\varepsilon.\n$$</p><h4 id=\"间断点分类\">间断点分类<a class=\"heading-anchor\" href=\"#间断点分类\" data-heading-id=\"间断点分类\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>可去间断点：左右极限相等且有限，但函数值缺失或不等于该极限；</li><li>跳跃间断点：左右极限均存在且有限，但不相等；</li><li>第二类间断点：至少一个单侧极限不存在或为无穷。</li></ol><p>若函数仅有有限个第一类间断点，常称为分段连续函数。</p><h4 id=\"闭区间连续函数性质\">闭区间连续函数性质<a class=\"heading-anchor\" href=\"#闭区间连续函数性质\" data-heading-id=\"闭区间连续函数性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f\\in C[a,b]$，则：</p><ul><li>有界性定理；</li><li>最大最小值定理；</li><li>零点存在定理；</li><li>介值定理；</li><li>一致连续性定理。</li></ul><h4 id=\"一致连续\">一致连续<a class=\"heading-anchor\" href=\"#一致连续\" data-heading-id=\"一致连续\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$f$ 在 $D$ 上一致连续，当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists\\delta&gt;0,\\quad\nx,y\\in D,\\ |x-y|&lt;\\delta\\Rightarrow |f(x)-f(y)|&lt;\\varepsilon.\n$$</p><p>闭区间上连续函数必一致连续。</p><p>若 $f$ 在 $(a,b)$ 连续，则常用判别：<br />若 $f(a+)$ 与 $f(b-)$ 均存在且有限，则 $f$ 在 $(a,b)$ 上一致连续。</p><p>常见充分条件：</p><ul><li>Lipschitz 条件；</li><li>导数有界；</li><li>Cantor 定理，即闭区间连续推出一致连续。</li></ul><h4 id=\"5-导数与微分\">5. 导数与微分<a class=\"heading-anchor\" href=\"#5-导数与微分\" data-heading-id=\"5-导数与微分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"导数\">导数<a class=\"heading-anchor\" href=\"#导数\" data-heading-id=\"导数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"math-display\">$$\nf&#039;(x_0)=\\lim_{x\\to x_0}\\frac{f(x)-f(x_0)}{x-x_0}\n=\\lim_{\\Delta x\\to0}\\frac{f(x_0+\\Delta x)-f(x_0)}{\\Delta x}.\n$$</div><p>可导必连续，连续未必可导。</p><h4 id=\"费马定理\">费马定理<a class=\"heading-anchor\" href=\"#费马定理\" data-heading-id=\"费马定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f$ 在 $x_0$ 可导，且 $x_0$ 是局部极值点，则\n$$\nf&#039;(x_0)=0.\n$$</p><h4 id=\"微分\">微分<a class=\"heading-anchor\" href=\"#微分\" data-heading-id=\"微分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$f$ 在 $x_0$ 可微，当且仅当\n$$\nf(x_0+\\Delta x)-f(x_0)=A\\Delta x+o(\\Delta x).\n$$</p><p>此时\n$$\nA=f&#039;(x_0),\\qquad dy=f&#039;(x_0)\\,dx.\n$$</p><h4 id=\"6-微分中值定理\">6. 微分中值定理<a class=\"heading-anchor\" href=\"#6-微分中值定理\" data-heading-id=\"6-微分中值定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"rolle-定理\">Rolle 定理<a class=\"heading-anchor\" href=\"#rolle-定理\" data-heading-id=\"rolle-定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f\\in C[a,b]$，在 $(a,b)$ 可导，且 $f(a)=f(b)$，则存在 $\\xi\\in(a,b)$，使\n$$\nf&#039;(\\xi)=0.\n$$</p><h4 id=\"lagrange-中值定理\">Lagrange 中值定理<a class=\"heading-anchor\" href=\"#lagrange-中值定理\" data-heading-id=\"lagrange-中值定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f\\in C[a,b]$，在 $(a,b)$ 可导，则存在 $\\xi\\in(a,b)$，使\n$$\nf&#039;(\\xi)=\\frac{f(b)-f(a)}{b-a}.\n$$</p><h4 id=\"cauchy-中值定理\">Cauchy 中值定理<a class=\"heading-anchor\" href=\"#cauchy-中值定理\" data-heading-id=\"cauchy-中值定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f,g\\in C[a,b]$，在 $(a,b)$ 可导，且 $g&#039;(x)\\ne0$，则存在 $\\xi\\in(a,b)$，使\n$$\n\\frac{f(b)-f(a)}{g(b)-g(a)}=\\frac{f&#039;(\\xi)}{g&#039;(\\xi)}.\n$$</p><h4 id=\"darboux-定理\">Darboux 定理<a class=\"heading-anchor\" href=\"#darboux-定理\" data-heading-id=\"darboux-定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>导函数具有介值性。即若 $f$ 在区间上可导，则 $f&#039;$ 虽不一定连续，但不能有跳跃间断。</p><h4 id=\"7-l-hospital-法则与-taylor-公式\">7. L&#039;Hospital 法则与 Taylor 公式<a class=\"heading-anchor\" href=\"#7-l-hospital-法则与-taylor-公式\" data-heading-id=\"7-l-hospital-法则与-taylor-公式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"l-hospital-法则\">L&#039;Hospital 法则<a class=\"heading-anchor\" href=\"#l-hospital-法则\" data-heading-id=\"l-hospital-法则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f,g$ 在 $x_0$ 的去心邻域内可导，$g&#039;(x)\\ne0$，并且属于 $0/0$ 或 $\\infty/\\infty$ 型，且\n$$\n\\lim_{x\\to x_0}\\frac{f&#039;(x)}{g&#039;(x)}=L,\n$$\n则\n$$\n\\lim_{x\\to x_0}\\frac{f(x)}{g(x)}=L\n$$\n在相应条件下成立。</p><p>洛必达法则必须先判定未定式；若原极限不是 $0/0$ 或 $\\infty/\\infty$ 型，应先化简或使用其他极限法则。</p><h4 id=\"taylor-公式\">Taylor 公式<a class=\"heading-anchor\" href=\"#taylor-公式\" data-heading-id=\"taylor-公式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>Peano 余项：\n若 $f$ 在 $x_0$ 处有 $n$ 阶导数，则\n$$\nf(x)=\\sum_{k=0}^{n}\\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k+o\\bigl((x-x_0)^n\\bigr).\n$$</p><p>Lagrange 余项：\n若 $f$ 在 $x_0$ 与 $x$ 间有 $n+1$ 阶导数，则\n$$\nf(x)=\\sum_{k=0}^{n}\\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k\n+\\frac{f^{(n+1)}(\\xi)}{(n+1)!}(x-x_0)^{n+1}.\n$$</p><p>常用展开：</p><div class=\"math-display\">$$\ne^x=1+x+\\frac{x^2}{2!}+\\cdots+\\frac{x^n}{n!}+o(x^n),\n$$</div><div class=\"math-display\">$$\n\\ln(1+x)=x-\\frac{x^2}{2}+\\frac{x^3}{3}-\\cdots+(-1)^{n-1}\\frac{x^n}{n}+o(x^n).\n$$</div><h4 id=\"8-极值-单调性与凸性\">8. 极值、单调性与凸性<a class=\"heading-anchor\" href=\"#8-极值-单调性与凸性\" data-heading-id=\"8-极值-单调性与凸性\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"极值判别\">极值判别<a class=\"heading-anchor\" href=\"#极值判别\" data-heading-id=\"极值判别\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>一阶充分条件：若 $f&#039;$ 在 $x_0$ 两侧变号，则 $x_0$ 为极值点。</p><p>二阶充分条件：若\n$$\nf&#039;(x_0)=0,\\qquad f&#039;&#039;(x_0)&gt;0,\n$$\n则 $x_0$ 为局部极小点；若 $f&#039;&#039;(x_0)&lt;0$，则为局部极大点。</p><h4 id=\"单调性\">单调性<a class=\"heading-anchor\" href=\"#单调性\" data-heading-id=\"单调性\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f&#039;(x)\\ge0$，则 $f$ 单调不减；若 $f&#039;(x)&gt;0$，则 $f$ 严格递增。</p><h4 id=\"凸函数\">凸函数<a class=\"heading-anchor\" href=\"#凸函数\" data-heading-id=\"凸函数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$f$ 在区间 $I$ 上为凸函数，当且仅当对任意 $x,y\\in I$ 与 $\\lambda\\in[0,1]$，\n$$\nf(\\lambda x+(1-\\lambda)y)\n\\le \\lambda f(x)+(1-\\lambda)f(y).\n$$</p><p>若 $f$ 二阶可导，则\n$$\nf&#039;&#039;(x)\\ge0\n$$\n是凸函数的充要条件。</p><p>Jensen 不等式：\n若 $f$ 凸，$\\lambda_i\\ge0$，$\\sum\\lambda_i=1$，则\n$$\nf\\left(\\sum_{i=1}^n\\lambda_i x_i\\right)\n\\le \\sum_{i=1}^n\\lambda_i f(x_i).\n$$</p><h4 id=\"9-不定积分\">9. 不定积分<a class=\"heading-anchor\" href=\"#9-不定积分\" data-heading-id=\"9-不定积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $F&#039;(x)=f(x)$，则 $F$ 是 $f$ 的原函数，\n$$\n\\int f(x)\\,dx=F(x)+C.\n$$</p><p>常用方法：</p><p>- 第一换元法；\n- 第二换元法；\n- 分部积分：\n  $$\n  \\int u\\,dv=uv-\\int v\\,du.\n  $$</p><p>常见积分：</p><div class=\"math-display\">$$\n\\int \\frac{1}{x}\\,dx=\\ln|x|+C,\\qquad\n\\int \\sec^2x\\,dx=\\tan x+C,\n$$</div><div class=\"math-display\">$$\n\\int \\csc^2x\\,dx=-\\cot x+C.\n$$</div><h4 id=\"10-定积分\">10. 定积分<a class=\"heading-anchor\" href=\"#10-定积分\" data-heading-id=\"10-定积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"riemann-可积\">Riemann 可积<a class=\"heading-anchor\" href=\"#riemann-可积\" data-heading-id=\"riemann-可积\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>设 $f$ 在 $[a,b]$ 有界。若当分割细度 $|T|\\to0$ 时，任意积分和\n$$\n\\sum_{i=1}^n f(\\xi_i)\\Delta x_i\n$$\n极限存在且与分割和取点无关，则 $f$ 在 $[a,b]$ 可积。</p><p>记作\n$$\n\\int_a^b f(x)\\,dx.\n$$</p><p>可积条件：</p><ul><li>连续函数可积；</li><li>单调函数可积；</li><li>有界且仅有限个间断点的函数可积；</li><li>可积函数必有界。</li></ul><p>Darboux 判别常用形式：\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists T,\\quad U(T)-L(T)&lt;\\varepsilon.\n$$</p><h4 id=\"newton-leibniz-公式\">Newton-Leibniz 公式<a class=\"heading-anchor\" href=\"#newton-leibniz-公式\" data-heading-id=\"newton-leibniz-公式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f\\in C[a,b]$，且 $F&#039;=f$，则\n$$\n\\int_a^b f(x)\\,dx=F(b)-F(a).\n$$</p><h4 id=\"积分中值定理\">积分中值定理<a class=\"heading-anchor\" href=\"#积分中值定理\" data-heading-id=\"积分中值定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f,g\\in C[a,b]$ 且 $g$ 不变号，则存在 $\\xi\\in[a,b]$，使\n$$\n\\int_a^b f(x)g(x)\\,dx=f(\\xi)\\int_a^b g(x)\\,dx.\n$$</p><h4 id=\"变上限积分\">变上限积分<a class=\"heading-anchor\" href=\"#变上限积分\" data-heading-id=\"变上限积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f$ 在 $[a,b]$ 上可积，定义\n$$\nF(x)=\\int_a^x f(t)\\,dt,\n$$\n则 $F$ 连续；若 $f$ 在 $x$ 连续，则\n$$\nF&#039;(x)=f(x).\n$$</p><h4 id=\"11-定积分应用\">11. 定积分应用<a class=\"heading-anchor\" href=\"#11-定积分应用\" data-heading-id=\"11-定积分应用\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>面积：\n$$\nS=\\int_a^b f(x)\\,dx\n$$\n或两曲线之间\n$$\nS=\\int_a^b |f(x)-g(x)|\\,dx.\n$$</p><p>参数曲线弧长：\n若\n$$\nx=x(t),\\quad y=y(t),\\quad t\\in[\\alpha,\\beta],\n$$\n则\n$$\ns=\\int_\\alpha^\\beta\n\\sqrt{(x&#039;(t))^2+(y&#039;(t))^2}\\,dt.\n$$</p><p>旋转体体积常用：\n$$\nV=\\pi\\int_a^b [f(x)]^2\\,dx.\n$$</p><h4 id=\"12-反常积分\">12. 反常积分<a class=\"heading-anchor\" href=\"#12-反常积分\" data-heading-id=\"12-反常积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"无穷区间积分\">无穷区间积分<a class=\"heading-anchor\" href=\"#无穷区间积分\" data-heading-id=\"无穷区间积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"math-display\">$$\n\\int_a^{+\\infty}f(x)\\,dx\n=\\lim_{A\\to+\\infty}\\int_a^A f(x)\\,dx.\n$$</div><p>若极限存在且有限，则称收敛。</p><h4 id=\"瑕积分\">瑕积分<a class=\"heading-anchor\" href=\"#瑕积分\" data-heading-id=\"瑕积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f$ 在 $a$ 附近无界，则\n$$\n\\int_a^b f(x)\\,dx\n=\\lim_{\\varepsilon\\to0+}\\int_{a+\\varepsilon}^b f(x)\\,dx.\n$$</p><h4 id=\"cauchy-收敛准则-2\">Cauchy 收敛准则<a class=\"heading-anchor\" href=\"#cauchy-收敛准则-2\" data-heading-id=\"cauchy-收敛准则-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"math-display\">$$\n\\int_a^{+\\infty}f(x)\\,dx\n$$\n收敛，当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists A,\\ \\forall A_1,A_2&gt;A,\\quad\n\\left|\\int_{A_1}^{A_2}f(x)\\,dx\\right|&lt;\\varepsilon.\n$$</div><h4 id=\"判别法\">判别法<a class=\"heading-anchor\" href=\"#判别法\" data-heading-id=\"判别法\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>比较判别：<br />若 $0\\le f(x)\\le g(x)$，且 $\\int_a^\\infty g(x)\\,dx$ 收敛，则 $\\int_a^\\infty f(x)\\,dx$ 收敛。</p><p>绝对收敛：\n若\n$$\n\\int_a^\\infty |f(x)|\\,dx\n$$\n收敛，则\n$$\n\\int_a^\\infty f(x)\\,dx\n$$\n收敛。</p><p>Dirichlet 判别：\n若\n$$\nF(A)=\\int_a^A f(x)\\,dx\n$$\n有界，$g(x)$ 单调且 $g(x)\\to0$，则\n$$\n\\int_a^\\infty f(x)g(x)\\,dx\n$$\n收敛。</p><p>Abel 判别：\n若 $\\int_a^\\infty f(x)\\,dx$ 收敛，$g(x)$ 单调有界，则\n$$\n\\int_a^\\infty f(x)g(x)\\,dx\n$$\n收敛。</p><h4 id=\"附件\">附件<a class=\"heading-anchor\" href=\"#附件\" data-heading-id=\"附件\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"entry-file\"><a class=\"download-button\" href=\"files/2026-04-24-main-math-notes/数学分析I复习提纲.pdf\" download><span>下载 / 预览 PDF</span><small>数学分析I复习提纲.pdf</small></a><details class=\"file-preview\"><summary>Preview / 预览</summary><iframe src=\"files/2026-04-24-main-math-notes/数学分析I复习提纲.pdf\" title=\"数学分析I复习提纲.pdf\" loading=\"lazy\"></iframe></details></div>",
+      "html": "<blockquote>来源：<code>数分I复习.pdf</code>。  <br />参考校订：<code>数学分析 上.pdf</code>、<code>《数学分析》辅导.pdf</code>。  <br />本文件按复习页内容整理为考前提纲，公式已按标准表述校正。</blockquote><h4 id=\"1-实数完备性与确界\">1. 实数完备性与确界<a class=\"heading-anchor\" href=\"#1-实数完备性与确界\" data-heading-id=\"1-实数完备性与确界\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"确界原理\">确界原理<a class=\"heading-anchor\" href=\"#确界原理\" data-heading-id=\"确界原理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>非空有上界数集必有上确界；非空有下界数集必有下确界。</p><p>等价完备性命题：</p><ul><li>单调有界定理；</li><li>区间套定理；</li><li>Bolzano-Weierstrass 聚点定理；</li><li>Heine-Borel 有限覆盖定理；</li><li>Cauchy 收敛准则。</li></ul><h4 id=\"2-数列极限\">2. 数列极限<a class=\"heading-anchor\" href=\"#2-数列极限\" data-heading-id=\"2-数列极限\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"定义\">定义<a class=\"heading-anchor\" href=\"#定义\" data-heading-id=\"定义\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"math-display\">$$\n\\lim_{n\\to\\infty}a_n=A\n$$\n当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists N,\\ \\forall n&gt;N,\\quad |a_n-A|&lt;\\varepsilon.\n$$</div><h4 id=\"基本性质\">基本性质<a class=\"heading-anchor\" href=\"#基本性质\" data-heading-id=\"基本性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>收敛数列具有：</p><ul><li>极限唯一性；</li><li>有界性；</li><li>保号性；</li><li>保序性；</li><li>夹逼定理；</li><li>四则运算法则。</li></ul><p>落在任意邻域 $U(A,\\varepsilon)$ 外的项只有有限项。</p><h4 id=\"子列判别\">子列判别<a class=\"heading-anchor\" href=\"#子列判别\" data-heading-id=\"子列判别\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>数列收敛于 $A$，当且仅当它的任意子列都收敛于 $A$。</p><p>若两个子列极限不同，则原数列发散。</p><h4 id=\"单调有界定理\">单调有界定理<a class=\"heading-anchor\" href=\"#单调有界定理\" data-heading-id=\"单调有界定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>单调且有界的数列必收敛。</p><h4 id=\"cauchy-收敛准则\">Cauchy 收敛准则<a class=\"heading-anchor\" href=\"#cauchy-收敛准则\" data-heading-id=\"cauchy-收敛准则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>数列 $\\{a_n\\}$ 收敛，当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists N,\\ \\forall m,n&gt;N,\\quad |a_m-a_n|&lt;\\varepsilon.\n$$</p><h4 id=\"stolz-定理\">Stolz 定理<a class=\"heading-anchor\" href=\"#stolz-定理\" data-heading-id=\"stolz-定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $b_n$ 严格递增且 $b_n\\to+\\infty$，并且\n$$\n\\lim_{n\\to\\infty}\\frac{a_n-a_{n-1}}{b_n-b_{n-1}}=L,\n$$\n则\n$$\n\\lim_{n\\to\\infty}\\frac{a_n}{b_n}=L.\n$$</p><p>使用时先确认 $b_n$ 的单调性和趋于 $+\\infty$；它本质上是“差商极限推出商极限”。</p><h4 id=\"3-函数极限\">3. 函数极限<a class=\"heading-anchor\" href=\"#3-函数极限\" data-heading-id=\"3-函数极限\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"varepsilon-delta-定义\">$\\varepsilon$-$\\delta$ 定义<a class=\"heading-anchor\" href=\"#varepsilon-delta-定义\" data-heading-id=\"varepsilon-delta-定义\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"math-display\">$$\n\\lim_{x\\to x_0}f(x)=A\n$$\n当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists \\delta&gt;0,\\quad\n0&lt;|x-x_0|&lt;\\delta \\Rightarrow |f(x)-A|&lt;\\varepsilon.\n$$</div><p>无穷远处极限：\n$$\n\\lim_{x\\to+\\infty}f(x)=A\n$$\n当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists M&gt;0,\\quad x&gt;M\\Rightarrow |f(x)-A|&lt;\\varepsilon.\n$$</p><h4 id=\"heine-归结原则\">Heine 归结原则<a class=\"heading-anchor\" href=\"#heine-归结原则\" data-heading-id=\"heine-归结原则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$\\lim_{x\\to x_0}f(x)=A$ 当且仅当对任意满足 $x_n\\ne x_0$ 且 $x_n\\to x_0$ 的数列，都有\n$$\n\\lim_{n\\to\\infty}f(x_n)=A.\n$$</p><h4 id=\"cauchy-准则\">Cauchy 准则<a class=\"heading-anchor\" href=\"#cauchy-准则\" data-heading-id=\"cauchy-准则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$\\lim_{x\\to x_0}f(x)$ 存在，当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists \\delta&gt;0,\\quad\n0&lt;|x_1-x_0|&lt;\\delta,\\ 0&lt;|x_2-x_0|&lt;\\delta\n\\Rightarrow |f(x_1)-f(x_2)|&lt;\\varepsilon.\n$$</p><h4 id=\"无穷小-无穷大与渐近线\">无穷小、无穷大与渐近线<a class=\"heading-anchor\" href=\"#无穷小-无穷大与渐近线\" data-heading-id=\"无穷小-无穷大与渐近线\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>- $f(x)\\to0$ 称为无穷小；\n- $|f(x)|\\to+\\infty$ 称为无穷大；\n- 若\n  $$\n  \\lim_{x\\to\\infty}\\bigl[f(x)-(kx+b)\\bigr]=0,\n  $$\n  则 $y=kx+b$ 为斜渐近线。</p><h4 id=\"4-连续函数\">4. 连续函数<a class=\"heading-anchor\" href=\"#4-连续函数\" data-heading-id=\"4-连续函数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"连续定义\">连续定义<a class=\"heading-anchor\" href=\"#连续定义\" data-heading-id=\"连续定义\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$f$ 在 $x_0$ 连续，当且仅当\n$$\n\\lim_{x\\to x_0}f(x)=f(x_0).\n$$</p><p>等价地：\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists\\delta&gt;0,\\quad |x-x_0|&lt;\\delta\n\\Rightarrow |f(x)-f(x_0)|&lt;\\varepsilon.\n$$</p><h4 id=\"间断点分类\">间断点分类<a class=\"heading-anchor\" href=\"#间断点分类\" data-heading-id=\"间断点分类\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>可去间断点：左右极限相等且有限，但函数值缺失或不等于该极限；</li><li>跳跃间断点：左右极限均存在且有限，但不相等；</li><li>第二类间断点：至少一个单侧极限不存在或为无穷。</li></ol><p>若函数仅有有限个第一类间断点，常称为分段连续函数。</p><h4 id=\"闭区间连续函数性质\">闭区间连续函数性质<a class=\"heading-anchor\" href=\"#闭区间连续函数性质\" data-heading-id=\"闭区间连续函数性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f\\in C[a,b]$，则：</p><ul><li>有界性定理；</li><li>最大最小值定理；</li><li>零点存在定理；</li><li>介值定理；</li><li>一致连续性定理。</li></ul><h4 id=\"一致连续\">一致连续<a class=\"heading-anchor\" href=\"#一致连续\" data-heading-id=\"一致连续\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$f$ 在 $D$ 上一致连续，当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists\\delta&gt;0,\\quad\nx,y\\in D,\\ |x-y|&lt;\\delta\\Rightarrow |f(x)-f(y)|&lt;\\varepsilon.\n$$</p><p>闭区间上连续函数必一致连续。</p><p>若 $f$ 在 $(a,b)$ 连续，则常用判别：<br />若 $f(a+)$ 与 $f(b-)$ 均存在且有限，则 $f$ 在 $(a,b)$ 上一致连续。</p><p>常见充分条件：</p><ul><li>Lipschitz 条件；</li><li>导数有界；</li><li>Cantor 定理，即闭区间连续推出一致连续。</li></ul><h4 id=\"5-导数与微分\">5. 导数与微分<a class=\"heading-anchor\" href=\"#5-导数与微分\" data-heading-id=\"5-导数与微分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"导数\">导数<a class=\"heading-anchor\" href=\"#导数\" data-heading-id=\"导数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"math-display\">$$\nf&#039;(x_0)=\\lim_{x\\to x_0}\\frac{f(x)-f(x_0)}{x-x_0}\n=\\lim_{\\Delta x\\to0}\\frac{f(x_0+\\Delta x)-f(x_0)}{\\Delta x}.\n$$</div><p>可导必连续，连续未必可导。</p><h4 id=\"费马定理\">费马定理<a class=\"heading-anchor\" href=\"#费马定理\" data-heading-id=\"费马定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f$ 在 $x_0$ 可导，且 $x_0$ 是局部极值点，则\n$$\nf&#039;(x_0)=0.\n$$</p><h4 id=\"微分\">微分<a class=\"heading-anchor\" href=\"#微分\" data-heading-id=\"微分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$f$ 在 $x_0$ 可微，当且仅当\n$$\nf(x_0+\\Delta x)-f(x_0)=A\\Delta x+o(\\Delta x).\n$$</p><p>此时\n$$\nA=f&#039;(x_0),\\qquad dy=f&#039;(x_0)\\,dx.\n$$</p><h4 id=\"6-微分中值定理\">6. 微分中值定理<a class=\"heading-anchor\" href=\"#6-微分中值定理\" data-heading-id=\"6-微分中值定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"rolle-定理\">Rolle 定理<a class=\"heading-anchor\" href=\"#rolle-定理\" data-heading-id=\"rolle-定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f\\in C[a,b]$，在 $(a,b)$ 可导，且 $f(a)=f(b)$，则存在 $\\xi\\in(a,b)$，使\n$$\nf&#039;(\\xi)=0.\n$$</p><h4 id=\"lagrange-中值定理\">Lagrange 中值定理<a class=\"heading-anchor\" href=\"#lagrange-中值定理\" data-heading-id=\"lagrange-中值定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f\\in C[a,b]$，在 $(a,b)$ 可导，则存在 $\\xi\\in(a,b)$，使\n$$\nf&#039;(\\xi)=\\frac{f(b)-f(a)}{b-a}.\n$$</p><h4 id=\"cauchy-中值定理\">Cauchy 中值定理<a class=\"heading-anchor\" href=\"#cauchy-中值定理\" data-heading-id=\"cauchy-中值定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f,g\\in C[a,b]$，在 $(a,b)$ 可导，且 $g&#039;(x)\\ne0$，则存在 $\\xi\\in(a,b)$，使\n$$\n\\frac{f(b)-f(a)}{g(b)-g(a)}=\\frac{f&#039;(\\xi)}{g&#039;(\\xi)}.\n$$</p><h4 id=\"darboux-定理\">Darboux 定理<a class=\"heading-anchor\" href=\"#darboux-定理\" data-heading-id=\"darboux-定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>导函数具有介值性。即若 $f$ 在区间上可导，则 $f&#039;$ 虽不一定连续，但不能有跳跃间断。</p><h4 id=\"7-l-hospital-法则与-taylor-公式\">7. L&#039;Hospital 法则与 Taylor 公式<a class=\"heading-anchor\" href=\"#7-l-hospital-法则与-taylor-公式\" data-heading-id=\"7-l-hospital-法则与-taylor-公式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"l-hospital-法则\">L&#039;Hospital 法则<a class=\"heading-anchor\" href=\"#l-hospital-法则\" data-heading-id=\"l-hospital-法则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f,g$ 在 $x_0$ 的去心邻域内可导，$g&#039;(x)\\ne0$，并且属于 $0/0$ 或 $\\infty/\\infty$ 型，且\n$$\n\\lim_{x\\to x_0}\\frac{f&#039;(x)}{g&#039;(x)}=L,\n$$\n则\n$$\n\\lim_{x\\to x_0}\\frac{f(x)}{g(x)}=L\n$$\n在相应条件下成立。</p><p>洛必达法则必须先判定未定式；若原极限不是 $0/0$ 或 $\\infty/\\infty$ 型，应先化简或使用其他极限法则。</p><h4 id=\"taylor-公式\">Taylor 公式<a class=\"heading-anchor\" href=\"#taylor-公式\" data-heading-id=\"taylor-公式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>Peano 余项：\n若 $f$ 在 $x_0$ 处有 $n$ 阶导数，则\n$$\nf(x)=\\sum_{k=0}^{n}\\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k+o\\bigl((x-x_0)^n\\bigr).\n$$</p><p>Lagrange 余项：\n若 $f$ 在 $x_0$ 与 $x$ 间有 $n+1$ 阶导数，则\n$$\nf(x)=\\sum_{k=0}^{n}\\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k\n+\\frac{f^{(n+1)}(\\xi)}{(n+1)!}(x-x_0)^{n+1}.\n$$</p><p>常用展开：</p><div class=\"math-display\">$$\ne^x=1+x+\\frac{x^2}{2!}+\\cdots+\\frac{x^n}{n!}+o(x^n),\n$$</div><div class=\"math-display\">$$\n\\ln(1+x)=x-\\frac{x^2}{2}+\\frac{x^3}{3}-\\cdots+(-1)^{n-1}\\frac{x^n}{n}+o(x^n).\n$$</div><h4 id=\"8-极值-单调性与凸性\">8. 极值、单调性与凸性<a class=\"heading-anchor\" href=\"#8-极值-单调性与凸性\" data-heading-id=\"8-极值-单调性与凸性\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"极值判别\">极值判别<a class=\"heading-anchor\" href=\"#极值判别\" data-heading-id=\"极值判别\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>一阶充分条件：若 $f&#039;$ 在 $x_0$ 两侧变号，则 $x_0$ 为极值点。</p><p>二阶充分条件：若\n$$\nf&#039;(x_0)=0,\\qquad f&#039;&#039;(x_0)&gt;0,\n$$\n则 $x_0$ 为局部极小点；若 $f&#039;&#039;(x_0)&lt;0$，则为局部极大点。</p><h4 id=\"单调性\">单调性<a class=\"heading-anchor\" href=\"#单调性\" data-heading-id=\"单调性\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f&#039;(x)\\ge0$，则 $f$ 单调不减；若 $f&#039;(x)&gt;0$，则 $f$ 严格递增。</p><h4 id=\"凸函数\">凸函数<a class=\"heading-anchor\" href=\"#凸函数\" data-heading-id=\"凸函数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>$f$ 在区间 $I$ 上为凸函数，当且仅当对任意 $x,y\\in I$ 与 $\\lambda\\in[0,1]$，\n$$\nf(\\lambda x+(1-\\lambda)y)\n\\le \\lambda f(x)+(1-\\lambda)f(y).\n$$</p><p>若 $f$ 二阶可导，则\n$$\nf&#039;&#039;(x)\\ge0\n$$\n是凸函数的充要条件。</p><p>Jensen 不等式：\n若 $f$ 凸，$\\lambda_i\\ge0$，$\\sum\\lambda_i=1$，则\n$$\nf\\left(\\sum_{i=1}^n\\lambda_i x_i\\right)\n\\le \\sum_{i=1}^n\\lambda_i f(x_i).\n$$</p><h4 id=\"9-不定积分\">9. 不定积分<a class=\"heading-anchor\" href=\"#9-不定积分\" data-heading-id=\"9-不定积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $F&#039;(x)=f(x)$，则 $F$ 是 $f$ 的原函数，\n$$\n\\int f(x)\\,dx=F(x)+C.\n$$</p><p>常用方法：</p><p>- 第一换元法；\n- 第二换元法；\n- 分部积分：\n  $$\n  \\int u\\,dv=uv-\\int v\\,du.\n  $$</p><p>常见积分：</p><div class=\"math-display\">$$\n\\int \\frac{1}{x}\\,dx=\\ln|x|+C,\\qquad\n\\int \\sec^2x\\,dx=\\tan x+C,\n$$</div><div class=\"math-display\">$$\n\\int \\csc^2x\\,dx=-\\cot x+C.\n$$</div><h4 id=\"10-定积分\">10. 定积分<a class=\"heading-anchor\" href=\"#10-定积分\" data-heading-id=\"10-定积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"riemann-可积\">Riemann 可积<a class=\"heading-anchor\" href=\"#riemann-可积\" data-heading-id=\"riemann-可积\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>设 $f$ 在 $[a,b]$ 有界。若当分割细度 $|T|\\to0$ 时，任意积分和\n$$\n\\sum_{i=1}^n f(\\xi_i)\\Delta x_i\n$$\n极限存在且与分割和取点无关，则 $f$ 在 $[a,b]$ 可积。</p><p>记作\n$$\n\\int_a^b f(x)\\,dx.\n$$</p><p>可积条件：</p><ul><li>连续函数可积；</li><li>单调函数可积；</li><li>有界且仅有限个间断点的函数可积；</li><li>可积函数必有界。</li></ul><p>Darboux 判别常用形式：\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists T,\\quad U(T)-L(T)&lt;\\varepsilon.\n$$</p><h4 id=\"newton-leibniz-公式\">Newton-Leibniz 公式<a class=\"heading-anchor\" href=\"#newton-leibniz-公式\" data-heading-id=\"newton-leibniz-公式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f\\in C[a,b]$，且 $F&#039;=f$，则\n$$\n\\int_a^b f(x)\\,dx=F(b)-F(a).\n$$</p><h4 id=\"积分中值定理\">积分中值定理<a class=\"heading-anchor\" href=\"#积分中值定理\" data-heading-id=\"积分中值定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f,g\\in C[a,b]$ 且 $g$ 不变号，则存在 $\\xi\\in[a,b]$，使\n$$\n\\int_a^b f(x)g(x)\\,dx=f(\\xi)\\int_a^b g(x)\\,dx.\n$$</p><h4 id=\"变上限积分\">变上限积分<a class=\"heading-anchor\" href=\"#变上限积分\" data-heading-id=\"变上限积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f$ 在 $[a,b]$ 上可积，定义\n$$\nF(x)=\\int_a^x f(t)\\,dt,\n$$\n则 $F$ 连续；若 $f$ 在 $x$ 连续，则\n$$\nF&#039;(x)=f(x).\n$$</p><h4 id=\"11-定积分应用\">11. 定积分应用<a class=\"heading-anchor\" href=\"#11-定积分应用\" data-heading-id=\"11-定积分应用\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>面积：\n$$\nS=\\int_a^b f(x)\\,dx\n$$\n或两曲线之间\n$$\nS=\\int_a^b |f(x)-g(x)|\\,dx.\n$$</p><p>参数曲线弧长：\n若\n$$\nx=x(t),\\quad y=y(t),\\quad t\\in[\\alpha,\\beta],\n$$\n则\n$$\ns=\\int_\\alpha^\\beta\n\\sqrt{(x&#039;(t))^2+(y&#039;(t))^2}\\,dt.\n$$</p><p>旋转体体积常用：\n$$\nV=\\pi\\int_a^b [f(x)]^2\\,dx.\n$$</p><h4 id=\"12-反常积分\">12. 反常积分<a class=\"heading-anchor\" href=\"#12-反常积分\" data-heading-id=\"12-反常积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"无穷区间积分\">无穷区间积分<a class=\"heading-anchor\" href=\"#无穷区间积分\" data-heading-id=\"无穷区间积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"math-display\">$$\n\\int_a^{+\\infty}f(x)\\,dx\n=\\lim_{A\\to+\\infty}\\int_a^A f(x)\\,dx.\n$$</div><p>若极限存在且有限，则称收敛。</p><h4 id=\"瑕积分\">瑕积分<a class=\"heading-anchor\" href=\"#瑕积分\" data-heading-id=\"瑕积分\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>若 $f$ 在 $a$ 附近无界，则\n$$\n\\int_a^b f(x)\\,dx\n=\\lim_{\\varepsilon\\to0+}\\int_{a+\\varepsilon}^b f(x)\\,dx.\n$$</p><h4 id=\"cauchy-收敛准则-2\">Cauchy 收敛准则<a class=\"heading-anchor\" href=\"#cauchy-收敛准则-2\" data-heading-id=\"cauchy-收敛准则-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"math-display\">$$\n\\int_a^{+\\infty}f(x)\\,dx\n$$\n收敛，当且仅当\n$$\n\\forall \\varepsilon&gt;0,\\ \\exists A,\\ \\forall A_1,A_2&gt;A,\\quad\n\\left|\\int_{A_1}^{A_2}f(x)\\,dx\\right|&lt;\\varepsilon.\n$$</div><h4 id=\"判别法\">判别法<a class=\"heading-anchor\" href=\"#判别法\" data-heading-id=\"判别法\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>比较判别：<br />若 $0\\le f(x)\\le g(x)$，且 $\\int_a^\\infty g(x)\\,dx$ 收敛，则 $\\int_a^\\infty f(x)\\,dx$ 收敛。</p><p>绝对收敛：\n若\n$$\n\\int_a^\\infty |f(x)|\\,dx\n$$\n收敛，则\n$$\n\\int_a^\\infty f(x)\\,dx\n$$\n收敛。</p><p>Dirichlet 判别：\n若\n$$\nF(A)=\\int_a^A f(x)\\,dx\n$$\n有界，$g(x)$ 单调且 $g(x)\\to0$，则\n$$\n\\int_a^\\infty f(x)g(x)\\,dx\n$$\n收敛。</p><p>Abel 判别：\n若 $\\int_a^\\infty f(x)\\,dx$ 收敛，$g(x)$ 单调有界，则\n$$\n\\int_a^\\infty f(x)g(x)\\,dx\n$$\n收敛。</p><h4 id=\"附件\">附件<a class=\"heading-anchor\" href=\"#附件\" data-heading-id=\"附件\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"entry-file\"><a class=\"download-button\" href=\"files/2026-04-24-main-math-notes/数学分析I复习提纲.pdf\" download><span>下载 / 预览 PDF</span><small>数学分析I复习提纲.pdf</small></a><details class=\"file-preview\"><summary>Preview / 预览</summary><iframe src=\"files/2026-04-24-main-math-notes/数学分析I复习提纲.pdf\" title=\"数学分析I复习提纲.pdf\" loading=\"lazy\"></iframe></details></div>",
       "headings": [
         {
           "id": "1-实数完备性与确界",
@@ -1544,6 +1544,633 @@ window.PUBLISHED_POSTS = {
       "excerpt": "线性方程组与行简化阶梯形 行简化阶梯形 行简化阶梯矩阵满足： 1. 零行在非零行下方； 2. 每个非零行首个非零元为 $1$； 3. 主元所在列其余元素全为 $0$； 4. 主元位置从上到下向右移动。 线性方程组化为简化阶梯形后： 出现 $...",
       "readingMinutes": 19,
       "createdAt": "2026-04-24T00:00:00.000Z"
+    },
+    {
+      "id": "2026-04-25-physics-i-midterm-review-outline.md",
+      "slug": "2026-04-25-physics-i-midterm-review-outline",
+      "source": "post",
+      "kind": "notes",
+      "title": "普物 I 期中复习提纲（重点速览版）",
+      "stage": "Notes 笔记",
+      "tag": "普物 I",
+      "url": "",
+      "html": "<blockquote>Based on / 依据：<code>slides</code> 课件、<code>homework</code> 作业、<code>midterm</code> 历年期中卷。  <br />Focus / 重点：mechanics, rotation, oscillation, waves / 力学、转动、振动、波动。</blockquote><h4 id=\"0-exam-map-考点地图\">0. Exam Map / 考点地图<a class=\"heading-anchor\" href=\"#0-exam-map-考点地图\" data-heading-id=\"0-exam-map-考点地图\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"table-scroll\"><table><thead><tr><th>Module / 模块</th><th>Core ideas / 核心知识</th><th>Typical problems / 常见题型</th></tr></thead><tbody><tr><td>Kinematics and vectors / 运动学与矢量</td><td>displacement, velocity, acceleration; components; projectile motion / 位移、速度、加速度、分量、抛体运动</td><td>Graph reading; integrate/differentiate motion functions / 图像读数、由函数求运动量</td></tr><tr><td>Newton&#039;s laws / 牛顿定律</td><td>free-body diagram, constraints, friction, drag / 受力图、约束、摩擦、阻力</td><td>Connected blocks, circular motion, inclined plane / 连接体、圆周运动、斜面</td></tr><tr><td>Work and energy / 功和能</td><td>work-energy theorem, conservative force, potential energy / 动能定理、保守力、势能</td><td>Variable force, spring, effective potential / 变力做功、弹簧、等效势</td></tr><tr><td>Momentum / 动量</td><td>impulse, conservation of momentum, center of mass / 冲量、动量守恒、质心</td><td>Collision, many-particle system, variable mass / 碰撞、多粒子、变质量</td></tr><tr><td>Gravitation and central force / 万有引力与中心力</td><td>inverse-square force, circular orbit, effective potential / 反平方力、圆轨道、等效势</td><td>Perturbed circular orbit / 受扰圆轨道</td></tr><tr><td>Rotation / 刚体转动</td><td>angular kinematics, torque, moment of inertia, rolling / 角运动学、力矩、转动惯量、滚动</td><td>Pulley, rolling cylinder, rod rotation / 滑轮、圆柱滚动、杆转动</td></tr><tr><td>Angular momentum and equilibrium / 角动量与平衡</td><td>torque-angular momentum relation, static equilibrium / 力矩与角动量、静力平衡</td><td>Hinged rod, ladder, beam / 铰接杆、梯子、梁</td></tr><tr><td>Oscillation / 振动</td><td>SHM, small oscillation, normal modes / 简谐运动、小振动、简正模</td><td>Coupled masses or pendulums / 耦合滑块或摆</td></tr><tr><td>Waves / 波动</td><td>wave equation, sinusoidal wave, standing wave, beats, Doppler-like observation / 波动方程、正弦波、驻波、拍、运动观察者</td><td>Rope/string waves, reflection, superposition / 绳波、反射、叠加</td></tr></tbody></table></div><h4 id=\"1-kinematics-and-vectors-运动学与矢量\">1. Kinematics and Vectors / 运动学与矢量<a class=\"heading-anchor\" href=\"#1-kinematics-and-vectors-运动学与矢量\" data-heading-id=\"1-kinematics-and-vectors-运动学与矢量\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点\" data-heading-id=\"knowledge-points-知识点\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Displacement / 位移：<code>Delta x = x_f - x_i</code>; distance / 路程不同于 displacement / 位移。</li><li>Average velocity / 平均速度：<code>v_bar = Delta x / Delta t</code>; average speed / 平均速率：<code>total distance / total time</code>。</li><li>Instantaneous velocity / 瞬时速度：<code>v = dx/dt</code>; acceleration / 加速度：<code>a = dv/dt = d^2x/dt^2</code>。</li><li>Constant acceleration equations / 匀加速公式：</li><li><code>v = v0 + at</code></li><li><code>x = x0 + v0 t + (1/2) a t^2</code></li><li><code>v^2 = v0^2 + 2a(x - x0)</code></li><li>Vector decomposition / 矢量分解：<code>A = A_x i + A_y j (+ A_z k)</code>; magnitude / 大小：<code>|A| = sqrt(A_x^2 + A_y^2)</code>。</li><li>Projectile motion / 抛体运动：horizontal and vertical motions are independent / 水平与竖直方向独立。</li></ul><h4 id=\"problem-method-解题方法\">Problem Method / 解题方法<a class=\"heading-anchor\" href=\"#problem-method-解题方法\" data-heading-id=\"problem-method-解题方法\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Choose axes / 选坐标轴：让加速度或约束方向尽量落在坐标轴上。</li><li>Write component equations / 写分量方程：<code>x</code> and <code>y</code> directions separately / 分方向处理。</li><li>Use graph meaning / 用图像意义：<code>v-t</code> 图面积是位移，斜率是加速度；<code>x-t</code> 图斜率是速度。</li><li>Check units / 检查单位：最后必须补回 SI unit / 国际单位制单位。</li></ol><h4 id=\"vocabulary-生词\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词\" data-heading-id=\"vocabulary-生词\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>displacement：位移</li><li>distance：路程</li><li>instantaneous：瞬时的</li><li>derivative：导数</li><li>component：分量</li><li>trajectory：轨迹</li><li>projectile：抛体</li></ul><h4 id=\"2-newton-s-laws-and-force-analysis-牛顿定律与受力分析\">2. Newton&#039;s Laws and Force Analysis / 牛顿定律与受力分析<a class=\"heading-anchor\" href=\"#2-newton-s-laws-and-force-analysis-牛顿定律与受力分析\" data-heading-id=\"2-newton-s-laws-and-force-analysis-牛顿定律与受力分析\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点-2\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点-2\" data-heading-id=\"knowledge-points-知识点-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Newton&#039;s first law / 牛顿第一定律：inertial frame / 惯性系中，net force / 合外力为零则 <code>a = 0</code>。</li><li>Newton&#039;s second law / 牛顿第二定律：<code>sum F = ma</code>，必须是矢量方程。</li><li>Newton&#039;s third law / 牛顿第三定律：action-reaction pair / 作用力与反作用力等大反向，作用在不同物体上。</li><li>Weight / 重力：<code>mg</code>; normal force / 支持力：垂直接触面；tension / 张力：沿绳方向。</li><li>Friction / 摩擦：</li><li>Static friction / 静摩擦：<code>f_s &lt;= mu_s N</code></li><li>Kinetic friction / 动摩擦：<code>f_k = mu_k N</code></li><li>Circular motion / 圆周运动：radial acceleration / 向心加速度 <code>a_r = v^2/r = omega^2 r</code>。</li><li>Drag / 阻力：low speed often <code>R = bv</code>; high speed often <code>R = cv^2</code>。</li></ul><h4 id=\"problem-method-解题方法-2\">Problem Method / 解题方法<a class=\"heading-anchor\" href=\"#problem-method-解题方法-2\" data-heading-id=\"problem-method-解题方法-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Draw a free-body diagram / 画受力图：每个物体单独画。</li><li>Identify constraints / 找约束：同一根不可伸长绳、无滑动滚动、同加速度或角加速度关系。</li><li>Project Newton&#039;s law / 投影牛顿第二定律：沿斜面、垂直斜面、径向/切向。</li><li>Do not mix action-reaction / 不要把作用反作用力放进同一个物体的受力平衡中。</li></ol><h4 id=\"vocabulary-生词-2\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-2\" data-heading-id=\"vocabulary-生词-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>force：力</li><li>net force：合力</li><li>inertial frame：惯性参考系</li><li>free-body diagram：受力图</li><li>constraint：约束</li><li>tension：张力</li><li>normal force：支持力</li><li>friction：摩擦力</li><li>radial：径向的</li><li>tangential：切向的</li></ul><h4 id=\"3-work-energy-and-effective-potential-功-能量与等效势\">3. Work, Energy, and Effective Potential / 功、能量与等效势<a class=\"heading-anchor\" href=\"#3-work-energy-and-effective-potential-功-能量与等效势\" data-heading-id=\"3-work-energy-and-effective-potential-功-能量与等效势\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点-3\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点-3\" data-heading-id=\"knowledge-points-知识点-3\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Work / 功：<code>W = integral F . dr</code>; constant force / 恒力时 <code>W = F d cos theta</code>。</li><li>Work-kinetic energy theorem / 动能定理：<code>W_net = Delta K</code>。</li><li>Conservative force / 保守力：work independent of path / 做功与路径无关；<code>F = -dU/dx</code>。</li><li>Mechanical energy / 机械能：<code>E = K + U</code>; if only conservative forces act / 只有保守力时守恒。</li><li>Spring potential / 弹簧势能：<code>U_s = (1/2)kx^2</code>。</li><li>Gravitational potential near Earth / 近地重力势能：<code>U_g = mgy</code>。</li><li>Effective potential / 等效势：把角动量项写进势能，如中心力问题</li><li><code>E = (1/2)m r_dot^2 + L^2/(2mr^2) + V(r)</code></li><li><code>U_eff(r) = L^2/(2mr^2) + V(r)</code></li></ul><h4 id=\"problem-method-解题方法-3\">Problem Method / 解题方法<a class=\"heading-anchor\" href=\"#problem-method-解题方法-3\" data-heading-id=\"problem-method-解题方法-3\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>1. Decide whether energy conservation applies / 判断机械能是否守恒：有非保守力做功时要加 <code>W_nc</code>。<br />2. For variable force / 变力：优先积分 <code>W = integral F dx</code> 或用势能差。<br />3. For circular central-force motion / 中心力圆轨道：<br />   - first impose equilibrium / 先用平衡条件 <code>dU_eff/dr = 0</code>;<br />   - then expand around equilibrium / 再在平衡点附近二阶展开；<br />   - small oscillation frequency / 小振动角频率：<code>omega^2 = U_eff&#039;&#039;(r0)/m</code>。</p><h4 id=\"vocabulary-生词-3\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-3\" data-heading-id=\"vocabulary-生词-3\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>work：功</li><li>kinetic energy：动能</li><li>potential energy：势能</li><li>conservative force：保守力</li><li>non-conservative force：非保守力</li><li>mechanical energy：机械能</li><li>effective potential：等效势</li><li>perturbation：扰动</li><li>approximation：近似</li></ul><h4 id=\"4-momentum-center-of-mass-and-collision-动量-质心与碰撞\">4. Momentum, Center of Mass, and Collision / 动量、质心与碰撞<a class=\"heading-anchor\" href=\"#4-momentum-center-of-mass-and-collision-动量-质心与碰撞\" data-heading-id=\"4-momentum-center-of-mass-and-collision-动量-质心与碰撞\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点-4\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点-4\" data-heading-id=\"knowledge-points-知识点-4\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Momentum / 动量：<code>p = mv</code>; impulse / 冲量：<code>J = integral F dt = Delta p</code>。</li><li>Conservation of momentum / 动量守恒：external impulse zero / 外冲量为零。</li><li>Center of mass / 质心：</li><li><code>R_cm = (sum m_i r_i)/(sum m_i)</code></li><li><code>M a_cm = F_ext</code></li><li>Elastic collision / 弹性碰撞：momentum and kinetic energy both conserved / 动量和动能都守恒。</li><li>Perfectly inelastic collision / 完全非弹性碰撞：objects stick together / 粘在一起，动能不守恒。</li><li>Variable mass idea / 变质量思想：系统边界要选清楚；可对“仍在运动的部分”写动量变化率。</li></ul><h4 id=\"problem-method-解题方法-4\">Problem Method / 解题方法<a class=\"heading-anchor\" href=\"#problem-method-解题方法-4\" data-heading-id=\"problem-method-解题方法-4\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Define the system / 选系统：系统内力不影响总动量，外力才影响。</li><li>Use momentum conservation only in allowed directions / 只在外冲量为零的方向用动量守恒。</li><li>Collision problems / 碰撞题：先动量，若弹性再加动能；一维弹性可用相对速度反向。</li><li>Falling string type / 落绳题：可用能量求速度，再用动量流或质心运动求支持力。</li></ol><h4 id=\"vocabulary-生词-4\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-4\" data-heading-id=\"vocabulary-生词-4\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>momentum：动量</li><li>impulse：冲量</li><li>center of mass：质心</li><li>collision：碰撞</li><li>elastic：弹性的</li><li>inelastic：非弹性的</li><li>variable mass：变质量</li><li>external force：外力</li></ul><h4 id=\"5-gravitation-and-central-force-万有引力与中心力\">5. Gravitation and Central Force / 万有引力与中心力<a class=\"heading-anchor\" href=\"#5-gravitation-and-central-force-万有引力与中心力\" data-heading-id=\"5-gravitation-and-central-force-万有引力与中心力\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点-5\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点-5\" data-heading-id=\"knowledge-points-知识点-5\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Universal gravitation / 万有引力：<code>F = GmM/r^2</code>。</li><li>Gravitational potential energy / 引力势能：<code>U = -GmM/r</code>。</li><li>Circular orbit / 圆轨道：<code>GMm/r^2 = mv^2/r = m omega^2 r</code>。</li><li>Escape speed / 逃逸速度：<code>v_esc = sqrt(2GM/R)</code>。</li><li>Kepler&#039;s third law / 开普勒第三定律：<code>T^2 proportional to r^3</code> for circular orbit / 圆轨道下成立。</li><li>For central force / 中心力：angular momentum <code>L = mr^2 theta_dot</code> is conserved / 角动量守恒。</li></ul><h4 id=\"problem-method-解题方法-5\">Problem Method / 解题方法<a class=\"heading-anchor\" href=\"#problem-method-解题方法-5\" data-heading-id=\"problem-method-解题方法-5\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>In central-force problems / 中心力题，先写守恒量：<code>E</code> and <code>L</code>。</li><li>Replace angular motion / 消去角运动：<code>theta_dot = L/(mr^2)</code>。</li><li>Convert to one-dimensional radial motion / 化为一维径向运动：<code>E = (1/2)m r_dot^2 + U_eff(r)</code>。</li><li>For small radial perturbation / 径向小扰动：对 <code>U_eff</code> 在 <code>r0</code> 处二阶展开。</li></ol><h4 id=\"vocabulary-生词-5\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-5\" data-heading-id=\"vocabulary-生词-5\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>gravitation：引力</li><li>orbit：轨道</li><li>central force：中心力</li><li>radial coordinate：径向坐标</li><li>angular momentum：角动量</li><li>escape speed：逃逸速度</li></ul><h4 id=\"6-rotation-and-rolling-刚体转动与滚动\">6. Rotation and Rolling / 刚体转动与滚动<a class=\"heading-anchor\" href=\"#6-rotation-and-rolling-刚体转动与滚动\" data-heading-id=\"6-rotation-and-rolling-刚体转动与滚动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点-6\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点-6\" data-heading-id=\"knowledge-points-知识点-6\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Angular displacement / 角位移：<code>theta</code>; angular velocity / 角速度：<code>omega = dtheta/dt</code>; angular acceleration / 角加速度：<code>alpha = domega/dt</code>。</li><li>Linear-angular relations / 线量与角量：</li><li><code>s = r theta</code></li><li><code>v = r omega</code></li><li><code>a_t = r alpha</code></li><li><code>a_r = r omega^2</code></li><li>Torque / 力矩：<code>tau = r x F</code>; magnitude / 大小 <code>tau = rF sin theta</code>。</li><li>Moment of inertia / 转动惯量：<code>I = integral r^2 dm</code>。</li><li>Uniform disk/cylinder / 均匀圆盘或实心圆柱：<code>I = (1/2)MR^2</code></li><li>Rod about center / 杆绕中心：<code>I = (1/12)ML^2</code></li><li>Rod about end / 杆绕端点：<code>I = (1/3)ML^2</code></li><li>Rotational dynamics / 转动定律：<code>sum tau = I alpha</code>。</li><li>Rotational kinetic energy / 转动动能：<code>K_rot = (1/2)I omega^2</code>。</li><li>Rolling without slipping / 无滑动滚动：<code>v_cm = R omega</code>, <code>a_cm = R alpha</code>。</li></ul><h4 id=\"problem-method-解题方法-6\">Problem Method / 解题方法<a class=\"heading-anchor\" href=\"#problem-method-解题方法-6\" data-heading-id=\"problem-method-解题方法-6\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>1. For pulley and rod / 滑轮和杆：分别写平动方程、转动方程、绳约束。<br />2. For rolling down incline / 斜面滚动：<br />   - along incline / 沿斜面：<code>Mg sin theta - f = Ma</code>;<br />   - torque about CM / 绕质心：<code>fR = I alpha</code>;<br />   - no slip / 无滑动：<code>a = R alpha</code>。<br />3. If the surface becomes frictionless / 若进入光滑面：friction is zero, torque about CM is zero, so <code>omega</code> stays constant; check whether <code>v_cm = R omega</code> still holds / 无摩擦无力矩，角速度不变，检查滚动条件是否仍成立。<br />4. Use energy when constraints do no work / 约束力不做功时优先用能量。</p><h4 id=\"vocabulary-生词-6\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-6\" data-heading-id=\"vocabulary-生词-6\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>rigid body：刚体</li><li>angular velocity：角速度</li><li>angular acceleration：角加速度</li><li>torque：力矩</li><li>moment of inertia：转动惯量</li><li>rolling without slipping：无滑动滚动</li><li>pulley：滑轮</li><li>cylinder：圆柱</li><li>incline：斜面</li></ul><h4 id=\"7-angular-momentum-and-static-equilibrium-角动量与静力平衡\">7. Angular Momentum and Static Equilibrium / 角动量与静力平衡<a class=\"heading-anchor\" href=\"#7-angular-momentum-and-static-equilibrium-角动量与静力平衡\" data-heading-id=\"7-angular-momentum-and-static-equilibrium-角动量与静力平衡\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点-7\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点-7\" data-heading-id=\"knowledge-points-知识点-7\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Angular momentum / 角动量：<code>L = r x p</code>; fixed-axis rigid body / 定轴刚体：<code>L = I omega</code>。</li><li>Torque-angular momentum relation / 力矩与角动量：<code>sum tau = dL/dt</code>。</li><li>Conservation of angular momentum / 角动量守恒：if external torque is zero / 外力矩为零。</li><li>Static equilibrium / 静力平衡：</li><li>Translational equilibrium / 平动平衡：<code>sum F = 0</code></li><li>Rotational equilibrium / 转动平衡：<code>sum tau = 0</code></li><li>Center of gravity / 重心：uniform gravitational field / 匀强重力场中与质心重合。</li></ul><h4 id=\"problem-method-解题方法-7\">Problem Method / 解题方法<a class=\"heading-anchor\" href=\"#problem-method-解题方法-7\" data-heading-id=\"problem-method-解题方法-7\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Choose torque origin smartly / 巧选力矩参考点：让未知力的力臂为零。</li><li>Write <code>sum F_x = 0</code>, <code>sum F_y = 0</code>, <code>sum tau = 0</code> / 三类方程配合。</li><li>For just-about-to-slip or lift / 临界滑动或刚要抬起：对应支持力或静摩擦取临界值。</li><li>Check sign convention / 检查正负方向：顺时针和逆时针力矩不要混。</li></ol><h4 id=\"vocabulary-生词-7\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-7\" data-heading-id=\"vocabulary-生词-7\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>angular momentum：角动量</li><li>equilibrium：平衡</li><li>static equilibrium：静力平衡</li><li>translational：平动的</li><li>rotational：转动的</li><li>center of gravity：重心</li><li>pivot：转轴、支点</li><li>moment arm：力臂</li></ul><h4 id=\"8-simple-harmonic-motion-and-coupled-oscillators-简谐运动与耦合振动\">8. Simple Harmonic Motion and Coupled Oscillators / 简谐运动与耦合振动<a class=\"heading-anchor\" href=\"#8-simple-harmonic-motion-and-coupled-oscillators-简谐运动与耦合振动\" data-heading-id=\"8-simple-harmonic-motion-and-coupled-oscillators-简谐运动与耦合振动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点-8\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点-8\" data-heading-id=\"knowledge-points-知识点-8\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Stable equilibrium / 稳定平衡：<code>dU/dx = 0</code>, <code>d^2U/dx^2 &gt; 0</code>。</li><li>Near stable equilibrium / 稳定点附近：</li><li><code>U(x) approx U(x0) + (1/2)k_eff (x - x0)^2</code></li><li><code>k_eff = U&#039;&#039;(x0)</code></li><li>Simple harmonic motion / 简谐运动：</li><li>Equation / 方程：<code>x&#039;&#039; + omega^2 x = 0</code></li><li>Solution / 解：<code>x = A cos(omega t + phi)</code></li><li><code>T = 2pi/omega</code>, <code>f = 1/T</code></li><li>Energy of SHM / 简谐振动能量：<code>E = (1/2)kA^2 = (1/2)m omega^2 A^2</code>。</li><li>Simple pendulum small angle / 单摆小角近似：<code>theta&#039;&#039; + (g/L)theta = 0</code>, so <code>omega = sqrt(g/L)</code>。</li><li>Coupled oscillator / 耦合振子：normal modes / 简正模通常用 <code>x1 + x2</code>, <code>x1 - x2</code> 或矩阵特征值求。</li></ul><h4 id=\"problem-method-解题方法-8\">Problem Method / 解题方法<a class=\"heading-anchor\" href=\"#problem-method-解题方法-8\" data-heading-id=\"problem-method-解题方法-8\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>1. Linearize / 线性化：small angle means <code>sin theta approx theta</code>, <code>cos theta approx 1</code>。<br />2. Write equations of motion / 写运动方程：保留一阶小量，忽略二阶及更高阶。<br />3. Find normal coordinates / 找简正坐标：常见对称系统用<br />   - in-phase mode / 同相模：<code>theta1 + theta2</code><br />   - out-of-phase mode / 反相模：<code>theta1 - theta2</code><br />4. Use initial conditions / 用初始条件：把一般解中的 amplitude / 振幅 和 phase / 相位 解出来。<br />5. For coupled pendulums with spring / 弹簧耦合双摆：弹簧伸长通常约为 <code>L(theta2 - theta1)</code>。</p><h4 id=\"vocabulary-生词-8\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-8\" data-heading-id=\"vocabulary-生词-8\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>oscillation：振动</li><li>simple harmonic motion：简谐运动</li><li>amplitude：振幅</li><li>phase：相位</li><li>angular frequency：角频率</li><li>period：周期</li><li>frequency：频率</li><li>stable equilibrium：稳定平衡</li><li>normal mode：简正模</li><li>coupled oscillator：耦合振子</li><li>small-angle approximation：小角近似</li></ul><h4 id=\"9-wave-motion-波动\">9. Wave Motion / 波动<a class=\"heading-anchor\" href=\"#9-wave-motion-波动\" data-heading-id=\"9-wave-motion-波动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点-9\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点-9\" data-heading-id=\"knowledge-points-知识点-9\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Wave equation / 波动方程：<code>partial^2 y / partial t^2 = v^2 partial^2 y / partial x^2</code>。</li><li>General traveling waves / 行波通解：</li><li>right-moving / 向右传播：<code>y = f(x - vt)</code></li><li>left-moving / 向左传播：<code>y = f(x + vt)</code></li><li>Sinusoidal wave / 正弦波：<code>y = A cos(kx - omega t + phi)</code>。</li><li>Relation / 关系：<code>v = omega/k = lambda f</code>, <code>k = 2pi/lambda</code>, <code>omega = 2pi f</code>。</li><li>String wave speed / 弦波速度：<code>v = sqrt(T/mu)</code>。</li><li>Superposition / 叠加原理：linear medium / 线性介质中位移代数相加。</li><li>Standing wave / 驻波：opposite directions, same frequency and amplitude / 反向等频等振幅波叠加。</li><li>Beats / 拍：close frequencies / 频率接近时，<code>f_beat = |f1 - f2|</code>。</li><li>Energy density / 能量密度：small-amplitude string wave has kinetic energy density <code>u_K = (1/2)mu(partial y/partial t)^2</code>。</li><li>Reflection at fixed end / 固定端反射：boundary condition / 边界条件 <code>y(x0,t)=0</code>，反射波相位要满足端点位移恒为零。</li><li>Moving observer / 运动观察者：replace coordinates / 坐标替换，如 observer moving at <code>v0</code>: <code>x = x&#039; + v0 t</code>。</li></ul><h4 id=\"problem-method-解题方法-9\">Problem Method / 解题方法<a class=\"heading-anchor\" href=\"#problem-method-解题方法-9\" data-heading-id=\"problem-method-解题方法-9\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Determine direction / 判断传播方向：<code>kx - omega t</code> 向 <code>+x</code>，<code>kx + omega t</code> 向 <code>-x</code>。</li><li>Verify wave equation / 验证波动方程：分别求二阶时间导数和空间导数，得到 <code>omega^2 = v^2 k^2</code>。</li><li>Reflection problem / 反射题：写入射波 + 反射波，再代固定端或自由端边界条件。</li><li>Superposition problem / 叠加题：使用三角恒等式把和化积，判断是否 standing wave / 驻波。</li><li>Moving observer problem / 运动观察者题：先做 Galilean transformation / 伽利略变换，再读出新频率。</li></ol><h4 id=\"vocabulary-生词-9\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-9\" data-heading-id=\"vocabulary-生词-9\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>wave：波</li><li>transverse wave：横波</li><li>longitudinal wave：纵波</li><li>wave equation：波动方程</li><li>sinusoidal wave：正弦波</li><li>wavelength：波长</li><li>wave number：波数</li><li>superposition：叠加</li><li>interference：干涉</li><li>standing wave：驻波</li><li>beat：拍</li><li>boundary condition：边界条件</li><li>reflection：反射</li><li>linear mass density：线密度</li></ul><h4 id=\"10-high-frequency-problem-templates-高频题型模板\">10. High-Frequency Problem Templates / 高频题型模板<a class=\"heading-anchor\" href=\"#10-high-frequency-problem-templates-高频题型模板\" data-heading-id=\"10-high-frequency-problem-templates-高频题型模板\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"a-perturbed-circular-motion-受扰圆周运动\">A. Perturbed Circular Motion / 受扰圆周运动<a class=\"heading-anchor\" href=\"#a-perturbed-circular-motion-受扰圆周运动\" data-heading-id=\"a-perturbed-circular-motion-受扰圆周运动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>1. Conserved quantities / 守恒量：central force gives angular momentum conservation / 中心力使角动量守恒；若冲击是瞬时径向，角动量通常仍不变，但机械能可能改变。<br />2. Energy form / 能量式：<br />   - <code>E = (1/2)m r_dot^2 + L^2/(2mr^2) + V(r)</code><br />3. Circular orbit condition / 圆轨道条件：<br />   - <code>dU_eff/dr | r0 = 0</code><br />4. Small oscillation / 小振动：<br />   - <code>omega_r^2 = U_eff&#039;&#039;(r0)/m</code><br />5. Compare with orbital frequency / 和轨道角频率比较：用 <code>omega_orb = L/(mr0^2)</code>。</p><h4 id=\"b-rolling-cylinder-on-incline-圆柱斜面滚动\">B. Rolling Cylinder on Incline / 圆柱斜面滚动<a class=\"heading-anchor\" href=\"#b-rolling-cylinder-on-incline-圆柱斜面滚动\" data-heading-id=\"b-rolling-cylinder-on-incline-圆柱斜面滚动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>1. Top rough half / 上半段有摩擦：use rolling constraint / 用滚动约束。<br />2. Friction direction / 摩擦方向：提供转动所需力矩，通常沿斜面向上。<br />3. Energy at halfway / 到中点能量：<br />   - <code>Mgh/2 = (1/2)Mv^2 + (1/2)Iomega^2</code><br />   - with <code>I = (1/2)MR^2</code>, <code>v=Romega</code><br />4. Bottom smooth half / 下半段光滑：no torque about CM / 对质心无力矩，<code>omega</code> 不变；gravity changes translational kinetic energy / 重力只增加平动动能。<br />5. Check no-slip / 检查无滑动：若 <code>v != Romega</code>，则不再无滑动滚动。</p><h4 id=\"c-coupled-oscillators-耦合振动\">C. Coupled Oscillators / 耦合振动<a class=\"heading-anchor\" href=\"#c-coupled-oscillators-耦合振动\" data-heading-id=\"c-coupled-oscillators-耦合振动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Write linear equations / 写线性方程。</li><li>Try normal modes / 尝试简正模：<code>x1 = x2</code> and <code>x1 = -x2</code> for symmetric cases / 对称系统先试同相、反相。</li><li>Get eigenfrequencies / 求本征频率。</li><li>Superpose modes / 叠加简正模。</li><li>Use initial conditions / 套初始条件确定振幅和相位。</li></ol><h4 id=\"d-rope-or-string-wave-绳波题\">D. Rope or String Wave / 绳波题<a class=\"heading-anchor\" href=\"#d-rope-or-string-wave-绳波题\" data-heading-id=\"d-rope-or-string-wave-绳波题\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>1. Use a small element / 取小段 <code>dx</code>。<br />2. Vertical force from tension / 张力竖直分量差：<br />   - <code>mu dx partial^2 y/partial t^2 = T[partial y/partial x | x+dx - partial y/partial x | x]</code><br />3. Obtain wave equation / 得到波动方程：<br />   - <code>partial^2 y/partial t^2 = (T/mu) partial^2 y/partial x^2</code><br />4. If tension changes with position / 若张力随位置变：<code>T = T(x)</code>，不能直接用正弦波作为一般解。</p><h4 id=\"11-quick-checklist-before-exam-考前检查清单\">11. Quick Checklist Before Exam / 考前检查清单<a class=\"heading-anchor\" href=\"#11-quick-checklist-before-exam-考前检查清单\" data-heading-id=\"11-quick-checklist-before-exam-考前检查清单\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Can I draw a correct free-body diagram? / 我能否画出正确受力图？</li><li>Can I choose the system and conserved quantity? / 我能否选系统并判断守恒量？</li><li>Can I distinguish force, torque, work, impulse? / 我能否区分力、力矩、功、冲量？</li><li>Can I switch between linear and angular variables? / 我能否在线量和角量之间转换？</li><li>Can I linearize small oscillations? / 我能否做小振动线性化？</li><li>Can I derive the wave equation from a small string element? / 我能否由绳元推出波动方程？</li><li>Can I use boundary conditions for reflected waves? / 我能否用边界条件处理反射波？</li></ul><h4 id=\"12-last-day-formula-sheet-考前公式速记\">12. Last-Day Formula Sheet / 考前公式速记<a class=\"heading-anchor\" href=\"#12-last-day-formula-sheet-考前公式速记\" data-heading-id=\"12-last-day-formula-sheet-考前公式速记\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li><code>v = dx/dt</code>, <code>a = dv/dt</code></li><li><code>sum F = ma</code></li><li><code>W = integral F . dr</code>, <code>W_net = Delta K</code></li><li><code>E = K + U</code>, <code>F = -dU/dx</code></li><li><code>p = mv</code>, <code>J = Delta p</code></li><li><code>R_cm = sum m_i r_i / sum m_i</code></li><li><code>F_g = GmM/r^2</code>, <code>U_g = -GmM/r</code></li><li><code>tau = r x F</code>, <code>sum tau = I alpha</code></li><li><code>I_disk = (1/2)MR^2</code>, <code>I_rod,end = (1/3)ML^2</code></li><li><code>K_rot = (1/2)Iomega^2</code></li><li>rolling: <code>v_cm = Romega</code>, <code>a_cm = Ralpha</code></li><li><code>L = r x p</code>, fixed axis: <code>L = Iomega</code></li><li>SHM: <code>x&#039;&#039; + omega^2 x = 0</code>, <code>x = A cos(omega t + phi)</code></li><li>pendulum: <code>omega = sqrt(g/L)</code></li><li>wave equation: <code>y_tt = v^2 y_xx</code></li><li>string wave speed: <code>v = sqrt(T/mu)</code></li><li>sinusoidal wave: <code>y = A cos(kx - omega t + phi)</code>, <code>v = omega/k</code></li></ul><h4 id=\"附件\">附件<a class=\"heading-anchor\" href=\"#附件\" data-heading-id=\"附件\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"entry-file\"><a class=\"download-button\" href=\"files/2026-04-25-physics-i-midterm-review/普物I期中复习提纲-重点速览版.pdf\" download><span>下载 / 预览 PDF</span><small>普物I期中复习提纲-重点速览版.pdf</small></a><details class=\"file-preview\"><summary>Preview / 预览</summary><iframe src=\"files/2026-04-25-physics-i-midterm-review/普物I期中复习提纲-重点速览版.pdf\" title=\"普物I期中复习提纲-重点速览版.pdf\" loading=\"lazy\"></iframe></details></div>",
+      "headings": [
+        {
+          "id": "0-exam-map-考点地图",
+          "title": "0. Exam Map / 考点地图",
+          "level": 4
+        },
+        {
+          "id": "1-kinematics-and-vectors-运动学与矢量",
+          "title": "1. Kinematics and Vectors / 运动学与矢量",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-method-解题方法",
+          "title": "Problem Method / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "2-newton-s-laws-and-force-analysis-牛顿定律与受力分析",
+          "title": "2. Newton's Laws and Force Analysis / 牛顿定律与受力分析",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点-2",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-method-解题方法-2",
+          "title": "Problem Method / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-2",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "3-work-energy-and-effective-potential-功-能量与等效势",
+          "title": "3. Work, Energy, and Effective Potential / 功、能量与等效势",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点-3",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-method-解题方法-3",
+          "title": "Problem Method / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-3",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "4-momentum-center-of-mass-and-collision-动量-质心与碰撞",
+          "title": "4. Momentum, Center of Mass, and Collision / 动量、质心与碰撞",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点-4",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-method-解题方法-4",
+          "title": "Problem Method / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-4",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "5-gravitation-and-central-force-万有引力与中心力",
+          "title": "5. Gravitation and Central Force / 万有引力与中心力",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点-5",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-method-解题方法-5",
+          "title": "Problem Method / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-5",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "6-rotation-and-rolling-刚体转动与滚动",
+          "title": "6. Rotation and Rolling / 刚体转动与滚动",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点-6",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-method-解题方法-6",
+          "title": "Problem Method / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-6",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "7-angular-momentum-and-static-equilibrium-角动量与静力平衡",
+          "title": "7. Angular Momentum and Static Equilibrium / 角动量与静力平衡",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点-7",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-method-解题方法-7",
+          "title": "Problem Method / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-7",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "8-simple-harmonic-motion-and-coupled-oscillators-简谐运动与耦合振动",
+          "title": "8. Simple Harmonic Motion and Coupled Oscillators / 简谐运动与耦合振动",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点-8",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-method-解题方法-8",
+          "title": "Problem Method / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-8",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "9-wave-motion-波动",
+          "title": "9. Wave Motion / 波动",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点-9",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-method-解题方法-9",
+          "title": "Problem Method / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-9",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "10-high-frequency-problem-templates-高频题型模板",
+          "title": "10. High-Frequency Problem Templates / 高频题型模板",
+          "level": 4
+        },
+        {
+          "id": "a-perturbed-circular-motion-受扰圆周运动",
+          "title": "A. Perturbed Circular Motion / 受扰圆周运动",
+          "level": 4
+        },
+        {
+          "id": "b-rolling-cylinder-on-incline-圆柱斜面滚动",
+          "title": "B. Rolling Cylinder on Incline / 圆柱斜面滚动",
+          "level": 4
+        },
+        {
+          "id": "c-coupled-oscillators-耦合振动",
+          "title": "C. Coupled Oscillators / 耦合振动",
+          "level": 4
+        },
+        {
+          "id": "d-rope-or-string-wave-绳波题",
+          "title": "D. Rope or String Wave / 绳波题",
+          "level": 4
+        },
+        {
+          "id": "11-quick-checklist-before-exam-考前检查清单",
+          "title": "11. Quick Checklist Before Exam / 考前检查清单",
+          "level": 4
+        },
+        {
+          "id": "12-last-day-formula-sheet-考前公式速记",
+          "title": "12. Last-Day Formula Sheet / 考前公式速记",
+          "level": 4
+        },
+        {
+          "id": "附件",
+          "title": "附件",
+          "level": 4
+        }
+      ],
+      "excerpt": "Based on / 依据：slides 课件、homework 作业、midterm 历年期中卷。 Focus / 重点：mechanics, rotation, oscillation, waves / 力学、转动、振动、波动。 0....",
+      "readingMinutes": 8,
+      "createdAt": "2026-04-25T00:00:00.000Z"
+    },
+    {
+      "id": "2026-04-25-physics-i-midterm-mechanics-complete-review.md",
+      "slug": "2026-04-25-physics-i-midterm-mechanics-complete-review",
+      "source": "post",
+      "kind": "notes",
+      "title": "普物 I 期中复习提纲（力学全覆盖版）",
+      "stage": "Notes 笔记",
+      "tag": "普物 I",
+      "url": "",
+      "html": "<blockquote>Main reference / 主参考：<code>普物I/reference books/mechanics_0306.pdf</code>  <br />Supplement / 补充参考：<code>slides</code> 课件、<code>homework</code> 作业、<code>midterm</code> 历年期中卷。  <br />Goal / 目标：按教学参考书 <code>General Physics I Classical Mechanics</code> 的章节尽量完整覆盖知识点，同时保留期中常考解题方法。</blockquote><h4 id=\"how-to-use-this-outline-使用方式\">How To Use This Outline / 使用方式<a class=\"heading-anchor\" href=\"#how-to-use-this-outline-使用方式\" data-heading-id=\"how-to-use-this-outline-使用方式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>First pass / 第一遍：按 Chapter 1-10 顺序扫知识点，补齐概念。</li><li>Second pass / 第二遍：只看 <code>Problem Methods / 解题方法</code> 和 <code>Formula Checklist / 公式清单</code>。</li><li>Final pass / 考前最后一遍：看每章 <code>Vocabulary / 生词</code>，确保英文题干能读懂。</li></ul><h4 id=\"reference-book-coverage-map-参考书覆盖地图\">Reference Book Coverage Map / 参考书覆盖地图<a class=\"heading-anchor\" href=\"#reference-book-coverage-map-参考书覆盖地图\" data-heading-id=\"reference-book-coverage-map-参考书覆盖地图\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"table-scroll\"><table><thead><tr><th>Book chapter / 讲义章节</th><th>Sections / 小节</th><th>Covered here / 本提纲位置</th></tr></thead><tbody><tr><td>1 Kinematics / 运动学</td><td>1.1 1D motion; 1.2 vectors; 1.3 higher-dimensional motion; 1.4 frame of reference</td><td>Ch. 1</td></tr><tr><td>2 Newton&#039;s Laws / 牛顿定律</td><td>three laws; inertial/non-inertial frames; applications; drag</td><td>Ch. 2</td></tr><tr><td>3 Work and Energy / 功和能</td><td>generic forces; work; power; work-energy theorem; potential; conservation; equilibrium</td><td>Ch. 3</td></tr><tr><td>4 Momentum / 动量</td><td>momentum from Newton&#039;s law; conservation; collisions; many-particle system</td><td>Ch. 4</td></tr><tr><td>5 Gravitation / 万有引力</td><td>Kepler&#039;s laws; Newtonian gravity; satellites; escape speed</td><td>Ch. 5</td></tr><tr><td>6 Rigid Bodies / 刚体</td><td>rotational kinematics; rotational dynamics; rolling</td><td>Ch. 6</td></tr><tr><td>7 Angular Momentum / 角动量</td><td>particle angular momentum; torque; conservation; rigid bodies</td><td>Ch. 7</td></tr><tr><td>8 Simple Harmonic Motion / 简谐运动</td><td>equilibrium; SHM; stable equilibrium; damped; forced; coupled; molecules and solids</td><td>Ch. 8</td></tr><tr><td>9 Wave Motion / 波动</td><td>wave function; superposition; reflection; waves in solid; wave equation</td><td>Ch. 9</td></tr><tr><td>10 Sinusoidal Waves / 正弦波</td><td>sinusoidal waves; energy transfer; beating; standing waves; Fourier; Doppler</td><td>Ch. 10</td></tr></tbody></table></div><hr /><h4 id=\"ch-1-kinematics-运动学\">Ch. 1 Kinematics / 运动学<a class=\"heading-anchor\" href=\"#ch-1-kinematics-运动学\" data-heading-id=\"ch-1-kinematics-运动学\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"1-1-motion-in-one-dimension-一维运动\">1.1 Motion in One Dimension / 一维运动<a class=\"heading-anchor\" href=\"#1-1-motion-in-one-dimension-一维运动\" data-heading-id=\"1-1-motion-in-one-dimension-一维运动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p><strong>Knowledge Points / 知识点</strong></p><ul><li>Particle approximation / 质点近似：object size is negligible compared with other length scales / 物体尺寸相对问题尺度可忽略。</li><li>Position / 位置：<code>x(t)</code>; displacement / 位移：<code>Delta x = x_f - x_i</code>。</li><li>Distance / 路程：path length / 路径长度，总是非负；displacement / 位移可正可负。</li><li>Average velocity / 平均速度：<code>v_bar = Delta x / Delta t</code>。</li><li>Average speed / 平均速率：<code>distance / time</code>。</li><li>Instantaneous velocity / 瞬时速度：<code>v = dx/dt</code>。</li><li>Acceleration / 加速度：<code>a = dv/dt = d^2x/dt^2</code>。</li><li>Integral relations / 积分关系：<code>v(t) = v0 + integral a(t)dt</code>; <code>x(t) = x0 + integral v(t)dt</code>。</li><li>Constant acceleration / 匀加速：</li><li><code>v = v0 + at</code></li><li><code>x = x0 + v0 t + (1/2)at^2</code></li><li><code>v^2 = v0^2 + 2a(x - x0)</code></li><li>SI units and dimensions / 国际单位与量纲：length <code>L</code>, mass <code>M</code>, time <code>T</code>; dimension check / 量纲检查是防错工具。</li></ul><p><strong>Problem Methods / 解题方法</strong></p><ol><li>For function problems / 函数题：differentiate to get velocity and acceleration / 求导得速度、加速度。</li><li>For graph problems / 图像题：slope gives derivative / 斜率给导数；area gives integral / 面积给积分。</li><li>For constant acceleration / 匀加速题：先判断 <code>a</code> 是否常量，不要乱用匀加速公式。</li><li>Always attach units / 最后补单位；中间统一化成 SI units / 国际单位。</li></ol><h4 id=\"1-2-vectors-矢量\">1.2 Vectors / 矢量<a class=\"heading-anchor\" href=\"#1-2-vectors-矢量\" data-heading-id=\"1-2-vectors-矢量\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p><strong>Knowledge Points / 知识点</strong></p><ul><li>Vector / 矢量：has magnitude and direction and obeys vector algebra / 有大小方向且满足矢量代数。</li><li>Scalar / 标量：has magnitude only / 只有大小。</li><li>Unit vector / 单位矢量：<code>A_hat = A/|A|</code>。</li><li>Vector addition / 矢量加法：head-to-tail rule / 首尾相接法；component addition / 分量相加。</li><li>Cartesian components / 笛卡尔分量：<code>A = A_x i + A_y j + A_z k</code>。</li><li>Magnitude / 大小：<code>|A| = sqrt(A_x^2 + A_y^2 + A_z^2)</code>。</li><li>Polar coordinates / 极坐标：<code>x = r cos phi</code>, <code>y = r sin phi</code>。</li><li>Polar unit vectors / 极坐标单位矢量：<code>u_r</code> radial / 径向，<code>u_phi</code> tangential / 切向；their directions change with <code>phi</code> / 方向随角度变化。</li></ul><p><strong>Problem Methods / 解题方法</strong></p><ol><li>Decompose first / 先分解：把矢量写成分量再算。</li><li>Use polar coordinates for circular/central motion / 圆周或中心力问题优先考虑极坐标。</li><li>Be careful with time-dependent unit vectors / 注意随时间变化的单位矢量，极坐标不能像固定基矢那样直接忽略导数。</li></ol><h4 id=\"1-3-motion-in-higher-dimensions-高维运动\">1.3 Motion in Higher Dimensions / 高维运动<a class=\"heading-anchor\" href=\"#1-3-motion-in-higher-dimensions-高维运动\" data-heading-id=\"1-3-motion-in-higher-dimensions-高维运动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p><strong>Knowledge Points / 知识点</strong></p><ul><li>Position vector / 位置矢量：<code>r = x i + y j + z k</code>。</li><li>Velocity vector / 速度矢量：<code>v = dr/dt</code>。</li><li>Acceleration vector / 加速度矢量：<code>a = dv/dt</code>。</li><li>Component equations / 分量方程：<code>x</code>, <code>y</code>, <code>z</code> directions are independent when axes are orthogonal / 正交方向可分别处理。</li><li>Projectile motion / 抛体运动：<code>a_x = 0</code>, <code>a_y = -g</code> when air resistance is ignored / 忽略空气阻力。</li><li>Uniform circular motion / 匀速圆周运动：<code>a_r = -v^2/R = -omega^2 R</code> toward center / 指向圆心。</li><li>General circular motion / 一般圆周运动：<code>a = a_r + a_t</code>, with <code>a_t = R alpha</code> / 加速度分径向和切向。</li></ul><p><strong>Problem Methods / 解题方法</strong></p><ol><li>Vector equation first / 先写矢量式，再投影。</li><li>For projectile motion / 抛体运动：水平匀速，竖直匀加速。</li><li>For circular motion / 圆周运动：径向负责速度方向变化，切向负责速率变化。</li></ol><h4 id=\"1-4-frame-of-reference-参考系\">1.4 Frame of Reference / 参考系<a class=\"heading-anchor\" href=\"#1-4-frame-of-reference-参考系\" data-heading-id=\"1-4-frame-of-reference-参考系\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p><strong>Knowledge Points / 知识点</strong></p><ul><li>Frame of reference / 参考系：observer + coordinate system + clock / 观察者、坐标系、时钟。</li><li>Galilean transformation / 伽利略变换：if <code>S&#039;</code> moves with velocity <code>V</code> relative to <code>S</code>, then <code>r = r&#039; + Vt</code>。</li><li>Relative velocity / 相对速度：<code>v = v&#039; + V</code>。</li><li>Acceleration invariance / 加速度不变性：in inertial frames with constant relative velocity, <code>a = a&#039;</code>。</li><li>Inertial frame / 惯性系：Newton&#039;s laws hold without fictitious forces / 牛顿定律可直接使用。</li></ul><p><strong>Problem Methods / 解题方法</strong></p><ol><li>Choose the easiest inertial frame / 选择最方便的惯性系。</li><li>Relative motion problems / 相对运动题：先写 <code>r_A - r_B</code> 或速度关系。</li><li>Do not use Newton&#039;s second law directly in accelerating frames unless adding fictitious force / 加速参考系要加伪力。</li></ol><p><strong>Vocabulary / 生词</strong></p><ul><li>kinematics：运动学</li><li>dynamics：动力学</li><li>particle approximation：质点近似</li><li>displacement：位移</li><li>distance：路程</li><li>instantaneous：瞬时的</li><li>derivative：导数</li><li>integral：积分</li><li>dimension：量纲</li><li>vector：矢量</li><li>scalar：标量</li><li>unit vector：单位矢量</li><li>Cartesian coordinate：笛卡尔坐标</li><li>polar coordinate：极坐标</li><li>frame of reference：参考系</li><li>Galilean transformation：伽利略变换</li></ul><hr /><h4 id=\"ch-2-newton-s-laws-of-motion-牛顿运动定律\">Ch. 2 Newton&#039;s Laws of Motion / 牛顿运动定律<a class=\"heading-anchor\" href=\"#ch-2-newton-s-laws-of-motion-牛顿运动定律\" data-heading-id=\"ch-2-newton-s-laws-of-motion-牛顿运动定律\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点\" data-heading-id=\"knowledge-points-知识点\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Newton&#039;s first law / 牛顿第一定律：no net external force means constant velocity / 无合外力则速度恒定。</li><li>Inertia / 惯性：resistance to change of velocity / 抵抗速度改变的性质。</li><li>Newton&#039;s second law / 牛顿第二定律：<code>sum F = ma</code>; vector equation / 矢量方程。</li><li>Newton&#039;s third law / 牛顿第三定律：<code>F_12 = -F_21</code>; action-reaction pair acts on different bodies / 作用反作用力作用在不同物体。</li><li>Mass vs weight / 质量与重量：mass is intrinsic / 质量是物体属性；weight is gravitational force / 重量是重力。</li><li>Non-inertial force / 非惯性力、伪力：in frame accelerating with <code>a_frame</code>, add <code>F_fictitious = -m a_frame</code>。</li><li>Galilean invariance / 伽利略不变性：Newton&#039;s second law has the same form in all inertial frames / 牛顿第二定律在各惯性系同形式。</li><li>Common forces / 常见力：</li><li>gravity / 重力：<code>mg</code></li><li>normal force / 支持力：perpendicular to surface / 垂直接触面</li><li>tension / 张力：along string / 沿绳</li><li>friction / 摩擦力：static <code>f_s &lt;= mu_s N</code>; kinetic <code>f_k = mu_k N</code></li><li>drag / 阻力：<code>R = bv</code> or <code>R = cv^2</code>, opposite velocity / 方向与速度相反</li><li>Terminal speed / 终端速度：drag balances gravity / 阻力与重力平衡时速度不再增加。</li></ul><h4 id=\"problem-methods-解题方法\">Problem Methods / 解题方法<a class=\"heading-anchor\" href=\"#problem-methods-解题方法\" data-heading-id=\"problem-methods-解题方法\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Choose inertial frame and axes / 选择惯性系和坐标轴。</li><li>Draw a free-body diagram for each object / 每个物体单独画受力图。</li><li>Write <code>sum F = ma</code> in components / 分量写牛顿第二定律。</li><li>Add constraints / 加约束：same rope tension if massless rope and frictionless pulley / 理想绳滑轮张力相同；same acceleration magnitude for connected bodies / 连接体加速度大小相关。</li><li>For circular motion / 圆周运动：radial equation often <code>sum F_r = mv^2/r</code>。</li><li>For drag / 阻力题：写微分方程，如 falling with linear drag <code>mg - bv = m dv/dt</code>，终端速度 <code>v_t = mg/b</code>。</li></ol><h4 id=\"vocabulary-生词\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词\" data-heading-id=\"vocabulary-生词\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>force：力</li><li>net external force：合外力</li><li>inertia：惯性</li><li>inertial frame：惯性系</li><li>non-inertial frame：非惯性系</li><li>fictitious force：伪力</li><li>Galilean invariance：伽利略不变性</li><li>tension：张力</li><li>normal force：支持力</li><li>friction：摩擦</li><li>drag force：阻力</li><li>terminal speed：终端速度</li></ul><hr /><h4 id=\"ch-3-work-and-energy-功和能量\">Ch. 3 Work and Energy / 功和能量<a class=\"heading-anchor\" href=\"#ch-3-work-and-energy-功和能量\" data-heading-id=\"ch-3-work-and-energy-功和能量\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"3-1-generic-forces-一般力下的运动\">3.1 Generic Forces / 一般力下的运动<a class=\"heading-anchor\" href=\"#3-1-generic-forces-一般力下的运动\" data-heading-id=\"3-1-generic-forces-一般力下的运动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p><strong>Knowledge Points / 知识点</strong></p><ul><li>If force depends on position / 若力依赖位置：use <code>a = v dv/dx</code> to transform <code>m dv/dt = F(x)</code> into <code>m v dv/dx = F(x)</code>。</li><li>If force depends on time / 若力依赖时间：integrate acceleration over time / 对时间积分。</li><li>If force depends on velocity / 若力依赖速度：solve differential equation / 解微分方程。</li></ul><h4 id=\"3-2-work-and-power-功和功率\">3.2 Work and Power / 功和功率<a class=\"heading-anchor\" href=\"#3-2-work-and-power-功和功率\" data-heading-id=\"3-2-work-and-power-功和功率\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p><strong>Knowledge Points / 知识点</strong></p><ul><li>Work / 功：<code>W = integral F . dr</code>。</li><li>Constant force / 恒力：<code>W = Fd cos theta</code>。</li><li>Power / 功率：<code>P = dW/dt = F . v</code>。</li><li>Work is scalar / 功是标量；positive work increases kinetic energy / 正功增加动能。</li></ul><h4 id=\"3-3-work-kinetic-energy-theorem-动能定理\">3.3 Work-Kinetic Energy Theorem / 动能定理<a class=\"heading-anchor\" href=\"#3-3-work-kinetic-energy-theorem-动能定理\" data-heading-id=\"3-3-work-kinetic-energy-theorem-动能定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Kinetic energy / 动能：<code>K = (1/2)mv^2</code>。</li><li>Work-kinetic theorem / 动能定理：<code>W_net = Delta K</code>。</li></ul><h4 id=\"3-4-3-6-potential-and-energy-conservation-势能与能量守恒\">3.4-3.6 Potential and Energy Conservation / 势能与能量守恒<a class=\"heading-anchor\" href=\"#3-4-3-6-potential-and-energy-conservation-势能与能量守恒\" data-heading-id=\"3-4-3-6-potential-and-energy-conservation-势能与能量守恒\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Conservative force / 保守力：work independent of path / 做功与路径无关。</li><li>Potential energy / 势能：<code>Delta U = -W_conservative</code>。</li><li>Force from potential / 由势能求力：<code>F_x = -dU/dx</code>; in vector form / 矢量形式 <code>F = -grad U</code>。</li><li>Near-Earth gravity / 近地重力势能：<code>U = mgy</code>。</li><li>Spring / 弹簧：<code>F = -kx</code>, <code>U = (1/2)kx^2</code>。</li><li>Mechanical energy / 机械能：<code>E = K + U</code>。</li><li>Energy with non-conservative work / 有非保守力做功：<code>Delta K + Delta U = W_nc</code>。</li></ul><h4 id=\"3-7-equilibrium-平衡\">3.7 Equilibrium / 平衡<a class=\"heading-anchor\" href=\"#3-7-equilibrium-平衡\" data-heading-id=\"3-7-equilibrium-平衡\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Equilibrium / 平衡：<code>F = 0</code> or <code>dU/dx = 0</code>。</li><li>Stable equilibrium / 稳定平衡：<code>U</code> minimum, <code>d^2U/dx^2 &gt; 0</code>。</li><li>Unstable equilibrium / 不稳定平衡：<code>U</code> maximum, <code>d^2U/dx^2 &lt; 0</code>。</li><li>Neutral equilibrium / 随遇平衡：nearby potential nearly flat / 附近势能近似平坦。</li></ul><h4 id=\"problem-methods-解题方法-2\">Problem Methods / 解题方法<a class=\"heading-anchor\" href=\"#problem-methods-解题方法-2\" data-heading-id=\"problem-methods-解题方法-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Ask first: force method or energy method? / 先判断用力还是能量。</li><li>For displacement-dependent force / 位移相关力：<code>W = integral F dx</code>。</li><li>For path-independent force / 保守力：use potential energy / 用势能。</li><li>For friction / 有摩擦：write <code>W_friction</code> explicitly / 显式写摩擦做功。</li><li>For equilibrium / 平衡题：solve <code>dU/dx=0</code>; judge stability by second derivative / 二阶导判断稳定性。</li></ol><h4 id=\"vocabulary-生词-2\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-2\" data-heading-id=\"vocabulary-生词-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>work：功</li><li>power：功率</li><li>kinetic energy：动能</li><li>potential energy：势能</li><li>conservative force：保守力</li><li>non-conservative force：非保守力</li><li>path independent：路径无关</li><li>equilibrium：平衡</li><li>stable：稳定的</li><li>unstable：不稳定的</li></ul><hr /><h4 id=\"ch-4-momentum-动量\">Ch. 4 Momentum / 动量<a class=\"heading-anchor\" href=\"#ch-4-momentum-动量\" data-heading-id=\"ch-4-momentum-动量\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点-2\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点-2\" data-heading-id=\"knowledge-points-知识点-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Momentum / 动量：<code>p = mv</code>。</li><li>Newton&#039;s second law in momentum form / 动量形式牛顿第二定律：<code>F_net = dp/dt</code>。</li><li>Impulse / 冲量：<code>J = integral F dt = Delta p</code>。</li><li>Conservation of momentum / 动量守恒：if total external force or impulse is zero / 外力或外冲量为零。</li><li>Inelastic collision / 非弹性碰撞：kinetic energy not conserved / 动能不守恒。</li><li>Perfectly inelastic collision / 完全非弹性碰撞：objects stick together / 碰后粘在一起。</li><li>Elastic collision / 弹性碰撞：momentum and kinetic energy both conserved / 动量、动能都守恒。</li><li>Center of mass / 质心：<code>R_cm = (sum m_i r_i)/M</code>。</li><li>Center-of-mass motion / 质心运动：<code>M a_cm = F_ext</code>。</li><li>Internal forces / 内力：cancel in total momentum if Newton&#039;s third law holds / 对总动量相互抵消。</li></ul><h4 id=\"problem-methods-解题方法-3\">Problem Methods / 解题方法<a class=\"heading-anchor\" href=\"#problem-methods-解题方法-3\" data-heading-id=\"problem-methods-解题方法-3\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Choose system / 选系统：判断哪些力是外力。</li><li>Use conservation component-wise / 分方向使用守恒：外冲量为零的方向才守恒。</li><li>Collision sequence / 碰撞顺序：先动量，再看是否能量守恒。</li><li>For many-particle systems / 多粒子系统：用质心方程简化整体运动。</li><li>For variable-mass-looking problems / 类变质量题：小心系统边界和动量流。</li></ol><h4 id=\"vocabulary-生词-3\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-3\" data-heading-id=\"vocabulary-生词-3\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>momentum：动量</li><li>impulse：冲量</li><li>collision：碰撞</li><li>elastic collision：弹性碰撞</li><li>inelastic collision：非弹性碰撞</li><li>center of mass：质心</li><li>internal force：内力</li><li>external force：外力</li></ul><hr /><h4 id=\"ch-5-the-law-of-gravitation-万有引力定律\">Ch. 5 The Law of Gravitation / 万有引力定律<a class=\"heading-anchor\" href=\"#ch-5-the-law-of-gravitation-万有引力定律\" data-heading-id=\"ch-5-the-law-of-gravitation-万有引力定律\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点-3\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点-3\" data-heading-id=\"knowledge-points-知识点-3\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Kepler&#039;s first law / 开普勒第一定律：planet orbits are ellipses with the Sun at one focus / 行星绕太阳椭圆运动，太阳在焦点。</li><li>Kepler&#039;s second law / 开普勒第二定律：equal areas in equal times / 相等时间扫过相等面积。</li><li>Kepler&#039;s third law / 开普勒第三定律：<code>T^2 proportional to a^3</code> / 周期平方与半长轴三次方成正比。</li><li>Universal gravitation / 万有引力：<code>F = Gm1m2/r^2</code>。</li><li>Gravitational field / 引力场：<code>g = GM/r^2</code> toward mass / 指向引力源。</li><li>Shell theorem idea / 球壳定理思想：outside a spherical mass distribution acts like point mass at center / 球外等效为中心点质量。</li><li>Satellite circular orbit / 卫星圆轨道：<code>GMm/r^2 = mv^2/r</code>。</li><li>Orbital speed / 轨道速度：<code>v = sqrt(GM/r)</code>。</li><li>Orbital period / 轨道周期：<code>T = 2pi sqrt(r^3/GM)</code>。</li><li>Gravitational potential energy / 引力势能：<code>U = -GMm/r</code>。</li><li>Escape speed / 逃逸速度：<code>v_esc = sqrt(2GM/R)</code>。</li></ul><h4 id=\"problem-methods-解题方法-4\">Problem Methods / 解题方法<a class=\"heading-anchor\" href=\"#problem-methods-解题方法-4\" data-heading-id=\"problem-methods-解题方法-4\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Circular orbit / 圆轨道：set gravity equal to centripetal force / 万有引力提供向心力。</li><li>Escape problem / 逃逸题：set final energy at infinity to zero / 无穷远处总能量取零。</li><li>Satellite period / 卫星周期：combine <code>v = 2pi r/T</code> with gravity equation。</li><li>Central-force small perturbation / 中心力小扰动：write effective potential / 写等效势。</li></ol><h4 id=\"vocabulary-生词-4\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-4\" data-heading-id=\"vocabulary-生词-4\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>gravitation：引力</li><li>universal gravitation：万有引力</li><li>orbit：轨道</li><li>ellipse：椭圆</li><li>focus：焦点</li><li>satellite：卫星</li><li>escape speed：逃逸速度</li><li>gravitational potential energy：引力势能</li></ul><hr /><h4 id=\"ch-6-rigid-bodies-刚体\">Ch. 6 Rigid Bodies / 刚体<a class=\"heading-anchor\" href=\"#ch-6-rigid-bodies-刚体\" data-heading-id=\"ch-6-rigid-bodies-刚体\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"6-1-rotational-kinematics-转动运动学\">6.1 Rotational Kinematics / 转动运动学<a class=\"heading-anchor\" href=\"#6-1-rotational-kinematics-转动运动学\" data-heading-id=\"6-1-rotational-kinematics-转动运动学\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Rigid body / 刚体：distances between all mass elements remain fixed / 各质点间距离不变。</li><li>Angular displacement / 角位移：<code>theta</code>。</li><li>Angular velocity / 角速度：<code>omega = dtheta/dt</code>。</li><li>Angular acceleration / 角加速度：<code>alpha = domega/dt</code>。</li><li>Constant angular acceleration / 匀角加速度公式：</li><li><code>omega = omega0 + alpha t</code></li><li><code>theta = theta0 + omega0 t + (1/2)alpha t^2</code></li><li><code>omega^2 = omega0^2 + 2alpha(theta - theta0)</code></li><li>Linear-angular relations / 线量角量关系：</li><li><code>s = r theta</code></li><li><code>v_t = r omega</code></li><li><code>a_t = r alpha</code></li><li><code>a_r = r omega^2</code></li></ul><h4 id=\"6-2-rotational-dynamics-转动动力学\">6.2 Rotational Dynamics / 转动动力学<a class=\"heading-anchor\" href=\"#6-2-rotational-dynamics-转动动力学\" data-heading-id=\"6-2-rotational-dynamics-转动动力学\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Torque / 力矩：<code>tau = r x F</code>, magnitude <code>tau = rF sin theta</code>。</li><li>Moment of inertia / 转动惯量：<code>I = integral r^2 dm</code>。</li><li>Rotational Newton&#039;s law / 转动牛顿第二定律：<code>sum tau = I alpha</code> for fixed axis / 定轴转动。</li><li>Rotational kinetic energy / 转动动能：<code>K = (1/2)Iomega^2</code>。</li><li>Work by torque / 力矩做功：<code>W = integral tau dtheta</code>。</li><li>Power in rotation / 转动功率：<code>P = tau omega</code>。</li><li>Parallel-axis theorem / 平行轴定理：<code>I = I_cm + Md^2</code>。</li><li>Common moments of inertia / 常见转动惯量：</li><li>point mass / 质点：<code>I = mr^2</code></li><li>hoop / 圆环：<code>I = MR^2</code></li><li>solid disk or cylinder / 实心圆盘或圆柱：<code>I = (1/2)MR^2</code></li><li>solid sphere / 实心球：<code>I = (2/5)MR^2</code></li><li>thin spherical shell / 薄球壳：<code>I = (2/3)MR^2</code></li><li>rod about center / 杆绕中心：<code>I = (1/12)ML^2</code></li><li>rod about end / 杆绕端点：<code>I = (1/3)ML^2</code></li></ul><h4 id=\"6-3-rolling-滚动\">6.3 Rolling / 滚动<a class=\"heading-anchor\" href=\"#6-3-rolling-滚动\" data-heading-id=\"6-3-rolling-滚动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Rolling without slipping / 无滑动滚动：<code>v_cm = R omega</code>, <code>a_cm = R alpha</code>。</li><li>Rolling kinetic energy / 滚动动能：<code>K = (1/2)Mv_cm^2 + (1/2)I_cm omega^2</code>。</li><li>Static friction in rolling / 滚动中的静摩擦：may do no work for pure rolling on fixed ground / 对固定地面纯滚动可不做功，但提供力矩。</li></ul><h4 id=\"problem-methods-解题方法-5\">Problem Methods / 解题方法<a class=\"heading-anchor\" href=\"#problem-methods-解题方法-5\" data-heading-id=\"problem-methods-解题方法-5\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Separate translation and rotation / 平动和转动分开写。</li><li>For rolling incline / 斜面滚动：<code>Mg sin theta - f = Ma</code>, <code>fR = Ialpha</code>, <code>a = Ralpha</code>。</li><li>For pulleys / 滑轮题：block equation + pulley torque equation + no-slip string constraint。</li><li>Use energy when rolling constraint holds / 无滑动滚动且静摩擦不耗能时可用能量。</li><li>If surface is frictionless / 光滑面：no torque about CM, angular speed may remain constant / 对质心无力矩，角速度不变。</li></ol><h4 id=\"vocabulary-生词-5\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-5\" data-heading-id=\"vocabulary-生词-5\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>rigid body：刚体</li><li>rotational kinematics：转动运动学</li><li>torque：力矩</li><li>moment of inertia：转动惯量</li><li>parallel-axis theorem：平行轴定理</li><li>rolling：滚动</li><li>rolling without slipping：无滑动滚动</li><li>angular acceleration：角加速度</li></ul><hr /><h4 id=\"ch-7-angular-momentum-角动量\">Ch. 7 Angular Momentum / 角动量<a class=\"heading-anchor\" href=\"#ch-7-angular-momentum-角动量\" data-heading-id=\"ch-7-angular-momentum-角动量\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"knowledge-points-知识点-4\">Knowledge Points / 知识点<a class=\"heading-anchor\" href=\"#knowledge-points-知识点-4\" data-heading-id=\"knowledge-points-知识点-4\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Angular momentum of a particle / 质点角动量：<code>L = r x p</code>。</li><li>Torque / 力矩：<code>tau = r x F</code>。</li><li>Torque-angular momentum theorem / 力矩-角动量定理：<code>tau_net = dL/dt</code>。</li><li>Conservation of angular momentum / 角动量守恒：if net external torque is zero / 合外力矩为零。</li><li>System of particles / 质点系：internal torques cancel under central internal forces / 中心内力下内力矩抵消。</li><li>Rigid body fixed-axis angular momentum / 刚体定轴角动量：<code>L = Iomega</code>。</li><li>Central force / 中心力：torque about center is zero, so angular momentum is conserved / 关于力心力矩为零，角动量守恒。</li></ul><h4 id=\"problem-methods-解题方法-6\">Problem Methods / 解题方法<a class=\"heading-anchor\" href=\"#problem-methods-解题方法-6\" data-heading-id=\"problem-methods-解题方法-6\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Choose origin / 选参考点：角动量和力矩都依赖参考点。</li><li>If force passes through origin / 若力过原点：torque is zero / 力矩为零。</li><li>Use angular momentum conservation for sudden events / 突然事件、碰撞、径向冲击常用角动量守恒。</li><li>For rigid bodies / 刚体题：connect <code>tau = Ialpha</code>, <code>L = Iomega</code>, <code>K = (1/2)Iomega^2</code>。</li></ol><h4 id=\"vocabulary-生词-6\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-6\" data-heading-id=\"vocabulary-生词-6\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>angular momentum：角动量</li><li>torque：力矩</li><li>external torque：外力矩</li><li>central force：中心力</li><li>fixed axis：定轴</li><li>conservation：守恒</li></ul><hr /><h4 id=\"ch-8-simple-harmonic-motion-简谐运动\">Ch. 8 Simple Harmonic Motion / 简谐运动<a class=\"heading-anchor\" href=\"#ch-8-simple-harmonic-motion-简谐运动\" data-heading-id=\"ch-8-simple-harmonic-motion-简谐运动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"8-1-equilibrium-平衡\">8.1 Equilibrium / 平衡<a class=\"heading-anchor\" href=\"#8-1-equilibrium-平衡\" data-heading-id=\"8-1-equilibrium-平衡\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Equilibrium of point mass / 质点平衡：<code>sum F = 0</code>。</li><li>Extended body equilibrium / 刚体平衡：<code>sum F = 0</code> and <code>sum tau = 0</code>。</li><li>Static equilibrium / 静力平衡：linear and angular acceleration both zero, object at rest / 线加速度和角加速度为零且静止。</li></ul><h4 id=\"8-2-harmonic-oscillator-and-shm-谐振子与简谐运动\">8.2 Harmonic Oscillator and SHM / 谐振子与简谐运动<a class=\"heading-anchor\" href=\"#8-2-harmonic-oscillator-and-shm-谐振子与简谐运动\" data-heading-id=\"8-2-harmonic-oscillator-and-shm-谐振子与简谐运动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Hooke&#039;s law / 胡克定律：<code>F = -kx</code>。</li><li>SHM equation / 简谐方程：<code>m x&#039;&#039; = -kx</code>, or <code>x&#039;&#039; + omega^2 x = 0</code>。</li><li>Angular frequency / 角频率：<code>omega = sqrt(k/m)</code>。</li><li>Solution / 解：<code>x = A cos(omega t + phi)</code>。</li><li>Velocity and acceleration / 速度与加速度：</li><li><code>v = -Aomega sin(omega t + phi)</code></li><li><code>a = -omega^2 x</code></li><li>Energy / 能量：<code>E = (1/2)kA^2 = (1/2)mv^2 + (1/2)kx^2</code>。</li></ul><h4 id=\"8-3-motion-near-stable-equilibrium-稳定平衡附近的小振动\">8.3 Motion Near Stable Equilibrium / 稳定平衡附近的小振动<a class=\"heading-anchor\" href=\"#8-3-motion-near-stable-equilibrium-稳定平衡附近的小振动\" data-heading-id=\"8-3-motion-near-stable-equilibrium-稳定平衡附近的小振动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Taylor expansion / 泰勒展开：</li><li><code>U(x) approx U(x0) + (1/2)U&#039;&#039;(x0)(x-x0)^2</code></li><li>Effective spring constant / 等效劲度系数：<code>k_eff = U&#039;&#039;(x0)</code>。</li><li>Small oscillation frequency / 小振动频率：<code>omega = sqrt(k_eff/m)</code>。</li><li>Pendulum small angle / 单摆小角：<code>theta&#039;&#039; + (g/L)theta = 0</code>, <code>omega = sqrt(g/L)</code>。</li></ul><h4 id=\"8-4-damped-oscillator-阻尼振动\">8.4 Damped Oscillator / 阻尼振动<a class=\"heading-anchor\" href=\"#8-4-damped-oscillator-阻尼振动\" data-heading-id=\"8-4-damped-oscillator-阻尼振动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Damping force / 阻尼力：often <code>F_d = -b v</code>。</li><li>Equation / 方程：<code>m x&#039;&#039; + b x&#039; + kx = 0</code>。</li><li>Underdamped / 欠阻尼：oscillates with decaying amplitude / 振幅衰减但仍振动。</li><li>Critical damping / 临界阻尼：returns fastest without oscillating / 不振荡最快回平衡。</li><li>Overdamped / 过阻尼：no oscillation, slow return / 不振荡且回归慢。</li><li>Damping reduces mechanical energy / 阻尼使机械能耗散。</li></ul><h4 id=\"8-5-forced-oscillator-受迫振动\">8.5 Forced Oscillator / 受迫振动<a class=\"heading-anchor\" href=\"#8-5-forced-oscillator-受迫振动\" data-heading-id=\"8-5-forced-oscillator-受迫振动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Driving force / 驱动力：often <code>F(t)=F0 cos(omega_d t)</code>。</li><li>Equation / 方程：<code>m x&#039;&#039; + b x&#039; + kx = F0 cos(omega_d t)</code>。</li><li>Transient response / 暂态响应：depends on initial condition and decays / 与初始条件有关并衰减。</li><li>Steady-state response / 稳态响应：oscillates at driving frequency / 以驱动频率振动。</li><li>Resonance / 共振：amplitude becomes large when driving frequency is near natural frequency / 驱动频率接近固有频率时振幅大。</li></ul><h4 id=\"8-6-coupled-oscillators-and-normal-modes-耦合振子与简正模\">8.6 Coupled Oscillators and Normal Modes / 耦合振子与简正模<a class=\"heading-anchor\" href=\"#8-6-coupled-oscillators-and-normal-modes-耦合振子与简正模\" data-heading-id=\"8-6-coupled-oscillators-and-normal-modes-耦合振子与简正模\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Coupled oscillator / 耦合振子：motion of one coordinate affects another / 坐标间相互影响。</li><li>Normal mode / 简正模：all parts oscillate at same frequency with fixed relative amplitude and phase / 各部分同频且相对振幅相位固定。</li><li>In-phase mode / 同相模：coordinates move together / 同向运动。</li><li>Out-of-phase mode / 反相模：coordinates move oppositely / 反向运动。</li><li>General motion / 一般运动：superposition of normal modes / 简正模叠加。</li></ul><h4 id=\"8-7-molecules-and-solids-分子与固体\">8.7 Molecules and Solids / 分子与固体<a class=\"heading-anchor\" href=\"#8-7-molecules-and-solids-分子与固体\" data-heading-id=\"8-7-molecules-and-solids-分子与固体\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Around potential minimum / 势能极小值附近：interatomic potential can be approximated as harmonic / 原子间势可近似为谐振子。</li><li>Elastic properties / 弹性性质 come from microscopic restoring forces / 来自微观恢复力。</li><li>Young&#039;s modulus / 杨氏模量：stretch/compression stiffness / 拉伸压缩刚度。</li><li>Shear modulus / 剪切模量：shear stiffness / 抗剪刚度。</li><li>Bulk modulus / 体积模量：compression stiffness / 抗体积压缩刚度。</li></ul><h4 id=\"problem-methods-解题方法-7\">Problem Methods / 解题方法<a class=\"heading-anchor\" href=\"#problem-methods-解题方法-7\" data-heading-id=\"problem-methods-解题方法-7\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Identify equilibrium / 找平衡点。</li><li>Linearize / 线性化：small angle, small displacement, ignore higher-order terms / 小量近似，忽略高阶项。</li><li>Match to SHM form / 化为 <code>q&#039;&#039; + omega^2 q = 0</code>。</li><li>For coupled oscillators / 耦合振子：write matrix equations or add/subtract equations to find normal coordinates / 写矩阵或加减方程找简正坐标。</li><li>For forced/damped systems / 阻尼受迫：先区分 natural frequency, driving frequency, damping / 区分固有频率、驱动频率、阻尼。</li></ol><h4 id=\"vocabulary-生词-7\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-7\" data-heading-id=\"vocabulary-生词-7\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>simple harmonic motion：简谐运动</li><li>oscillator：振子</li><li>damping：阻尼</li><li>damped oscillator：阻尼振子</li><li>forced oscillator：受迫振子</li><li>resonance：共振</li><li>transient：暂态的</li><li>steady state：稳态</li><li>normal mode：简正模</li><li>in-phase：同相</li><li>out-of-phase：反相</li><li>Young&#039;s modulus：杨氏模量</li><li>shear modulus：剪切模量</li><li>bulk modulus：体积模量</li></ul><hr /><h4 id=\"ch-9-wave-motion-波动\">Ch. 9 Wave Motion / 波动<a class=\"heading-anchor\" href=\"#ch-9-wave-motion-波动\" data-heading-id=\"ch-9-wave-motion-波动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"9-1-9-2-introduction-and-wave-function-波的引入与波函数\">9.1-9.2 Introduction and Wave Function / 波的引入与波函数<a class=\"heading-anchor\" href=\"#9-1-9-2-introduction-and-wave-function-波的引入与波函数\" data-heading-id=\"9-1-9-2-introduction-and-wave-function-波的引入与波函数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Wave / 波：propagation of disturbance and energy through a medium / 扰动和能量在介质中传播。</li><li>Mechanical wave / 机械波：needs medium / 需要介质。</li><li>Transverse wave / 横波：disturbance perpendicular to propagation direction / 振动方向垂直传播方向。</li><li>Longitudinal wave / 纵波：disturbance parallel to propagation direction / 振动方向平行传播方向。</li><li>Wave function / 波函数：<code>y(x,t)</code> or <code>u(x,t)</code> describes displacement / 描述介质位移。</li><li>Right-moving wave / 右行波：<code>f(x - vt)</code>。</li><li>Left-moving wave / 左行波：<code>f(x + vt)</code>。</li></ul><h4 id=\"9-3-superposition-and-interference-叠加与干涉\">9.3 Superposition and Interference / 叠加与干涉<a class=\"heading-anchor\" href=\"#9-3-superposition-and-interference-叠加与干涉\" data-heading-id=\"9-3-superposition-and-interference-叠加与干涉\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Superposition principle / 叠加原理：in linear medium, resultant displacement is algebraic sum / 线性介质中位移代数相加。</li><li>Constructive interference / 相长干涉：waves reinforce / 波增强。</li><li>Destructive interference / 相消干涉：waves cancel partly or completely / 波相互抵消。</li></ul><h4 id=\"9-4-transmission-and-reflection-透射与反射\">9.4 Transmission and Reflection / 透射与反射<a class=\"heading-anchor\" href=\"#9-4-transmission-and-reflection-透射与反射\" data-heading-id=\"9-4-transmission-and-reflection-透射与反射\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Reflection / 反射：wave returns at boundary / 波在边界返回。</li><li>Transmission / 透射：wave continues into another medium / 波进入另一介质。</li><li>Fixed end reflection / 固定端反射：inverted pulse / 脉冲反相。</li><li>Free end reflection / 自由端反射：not inverted / 不反相。</li><li>Boundary condition / 边界条件 determines phase / 边界条件决定反射相位。</li></ul><h4 id=\"9-5-waves-in-a-solid-固体中的波\">9.5 Waves in a Solid / 固体中的波<a class=\"heading-anchor\" href=\"#9-5-waves-in-a-solid-固体中的波\" data-heading-id=\"9-5-waves-in-a-solid-固体中的波\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Atomic chain model / 原子链模型：atoms connected by effective springs / 原子由等效弹簧连接。</li><li>Continuum approximation / 连续介质近似：wavelength much larger than atomic spacing / 波长远大于原子间距。</li><li>Longitudinal wave in solid / 固体纵波：displacement along propagation direction / 位移沿传播方向。</li><li>Wave speed increases with stiffness and decreases with mass density / 波速随刚度增大而增大，随密度增大而减小。</li></ul><h4 id=\"9-6-linear-wave-equation-线性波动方程\">9.6 Linear Wave Equation / 线性波动方程<a class=\"heading-anchor\" href=\"#9-6-linear-wave-equation-线性波动方程\" data-heading-id=\"9-6-linear-wave-equation-线性波动方程\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Linear wave equation / 线性波动方程：</li><li><code>partial^2 y / partial t^2 = v^2 partial^2 y / partial x^2</code></li><li>String transverse wave speed / 弦横波速度：<code>v = sqrt(T/mu)</code>。</li><li>Derivation idea / 推导思路：take small string element <code>dx</code>; use vertical tension component difference / 取小绳元，利用张力竖直分量差。</li></ul><h4 id=\"problem-methods-解题方法-8\">Problem Methods / 解题方法<a class=\"heading-anchor\" href=\"#problem-methods-解题方法-8\" data-heading-id=\"problem-methods-解题方法-8\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Identify wave direction from argument / 由函数自变量判断方向：<code>x - vt</code> 右行，<code>x + vt</code> 左行。</li><li>To derive wave equation / 推导波动方程：小段受力 + 牛顿第二定律 + 小角近似。</li><li>Reflection questions / 反射题：write incident plus reflected wave and apply boundary condition / 入射波加反射波并套边界条件。</li><li>If medium parameters vary / 若介质参数变化：波速和波形可能随位置变，正弦波不一定仍是解。</li></ol><h4 id=\"vocabulary-生词-8\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-8\" data-heading-id=\"vocabulary-生词-8\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>wave：波</li><li>medium：介质</li><li>transverse wave：横波</li><li>longitudinal wave：纵波</li><li>wave function：波函数</li><li>superposition：叠加</li><li>interference：干涉</li><li>constructive：相长的</li><li>destructive：相消的</li><li>reflection：反射</li><li>transmission：透射</li><li>boundary condition：边界条件</li><li>continuum approximation：连续介质近似</li></ul><hr /><h4 id=\"ch-10-sinusoidal-waves-正弦波\">Ch. 10 Sinusoidal Waves / 正弦波<a class=\"heading-anchor\" href=\"#ch-10-sinusoidal-waves-正弦波\" data-heading-id=\"ch-10-sinusoidal-waves-正弦波\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"10-1-sinusoidal-wave-function-正弦波函数\">10.1 Sinusoidal Wave Function / 正弦波函数<a class=\"heading-anchor\" href=\"#10-1-sinusoidal-wave-function-正弦波函数\" data-heading-id=\"10-1-sinusoidal-wave-function-正弦波函数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Sinusoidal wave / 正弦波：<code>y = A sin(kx - omega t + phi)</code> or <code>A cos(kx - omega t + phi)</code>。</li><li>Amplitude / 振幅：<code>A</code>。</li><li>Wave number / 波数：<code>k = 2pi/lambda</code>。</li><li>Wavelength / 波长：<code>lambda</code>。</li><li>Angular frequency / 角频率：<code>omega = 2pi f</code>。</li><li>Period / 周期：<code>T = 1/f</code>。</li><li>Wave speed / 波速：<code>v = omega/k = lambda f</code>。</li><li>Medium particles perform SHM / 介质质点做简谐运动，但波形传播 / 质点振动，波传播。</li></ul><h4 id=\"10-2-energy-transfer-能量传输\">10.2 Energy Transfer / 能量传输<a class=\"heading-anchor\" href=\"#10-2-energy-transfer-能量传输\" data-heading-id=\"10-2-energy-transfer-能量传输\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Kinetic energy density / 动能密度：<code>u_K = (1/2)mu(partial y/partial t)^2</code>。</li><li>Potential energy density / 势能密度：from stretching of string / 来自弦被拉伸。</li><li>Average energy density / 平均能量密度 for sinusoidal string wave：proportional to <code>mu omega^2 A^2</code> / 与 <code>mu omega^2 A^2</code> 成正比。</li><li>Energy propagates with wave / 能量随波传播。</li></ul><h4 id=\"10-3-interference-and-beating-干涉与拍\">10.3 Interference and Beating / 干涉与拍<a class=\"heading-anchor\" href=\"#10-3-interference-and-beating-干涉与拍\" data-heading-id=\"10-3-interference-and-beating-干涉与拍\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Same frequency and direction / 同频同向叠加：resultant amplitude depends on phase difference / 合振幅取决于相位差。</li><li>Phase difference / 相位差：<code>Delta phi</code>。</li><li>Constructive interference / 相长干涉：<code>Delta phi = 2n pi</code>。</li><li>Destructive interference / 相消干涉：<code>Delta phi = (2n+1)pi</code>。</li><li>Beating / 拍：two close frequencies superpose / 两个接近频率叠加。</li><li>Beat frequency / 拍频：<code>f_beat = |f1 - f2|</code>。</li></ul><h4 id=\"10-4-standing-waves-驻波\">10.4 Standing Waves / 驻波<a class=\"heading-anchor\" href=\"#10-4-standing-waves-驻波\" data-heading-id=\"10-4-standing-waves-驻波\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Standing wave / 驻波：two equal-amplitude waves traveling opposite directions / 两列等幅反向波叠加。</li><li>Typical form / 典型形式：<code>y = 2A sin(kx) cos(omega t)</code>。</li><li>Node / 波节：always zero displacement / 位移恒为零。</li><li>Antinode / 波腹：maximum amplitude / 振幅最大。</li><li>String fixed at both ends / 两端固定弦：</li><li><code>lambda_n = 2L/n</code></li><li><code>f_n = n v/(2L)</code></li><li>fundamental frequency / 基频：<code>f_1 = v/(2L)</code></li><li>harmonics / 谐波：<code>f_n = n f_1</code></li></ul><h4 id=\"10-5-fourier-analysis-傅里叶分析\">10.5 Fourier Analysis / 傅里叶分析<a class=\"heading-anchor\" href=\"#10-5-fourier-analysis-傅里叶分析\" data-heading-id=\"10-5-fourier-analysis-傅里叶分析\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Fourier idea / 傅里叶思想：periodic functions can be written as sums of sinusoidal functions / 周期函数可分解为正弦余弦叠加。</li><li>Harmonic / 谐波：integer multiple of fundamental frequency / 基频整数倍。</li><li>Square wave / 方波 often needs odd harmonics / 常由奇次谐波叠加表示。</li><li>Physical meaning / 物理意义：complex waveforms are superpositions of simple sinusoidal waves / 复杂波形可分解成简单正弦波。</li></ul><h4 id=\"10-6-doppler-effect-多普勒效应\">10.6 Doppler Effect / 多普勒效应<a class=\"heading-anchor\" href=\"#10-6-doppler-effect-多普勒效应\" data-heading-id=\"10-6-doppler-effect-多普勒效应\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>Doppler effect / 多普勒效应：observed frequency changes due to relative motion / 相对运动导致观测频率改变。</li><li>Moving observer / 观察者运动：toward source increases frequency / 靠近声源频率升高。</li><li>Moving source / 波源运动：toward observer shortens wavelength / 靠近观察者波长变短。</li><li>For sound / 对声波：wave speed is relative to medium / 波速相对介质决定。</li><li>Useful convention / 常用记号：<code>v</code> wave speed, <code>v_O</code> observer speed, <code>v_S</code> source speed; signs depend on whether moving toward each other / 符号取决于是否相向运动。</li></ul><h4 id=\"problem-methods-解题方法-9\">Problem Methods / 解题方法<a class=\"heading-anchor\" href=\"#problem-methods-解题方法-9\" data-heading-id=\"problem-methods-解题方法-9\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Read <code>kx - omega t</code> / 读波函数：方向、<code>A</code>, <code>k</code>, <code>omega</code>, <code>lambda</code>, <code>f</code>, <code>v</code>。</li><li>Verify wave equation / 验证波动方程：compute second derivatives and require <code>omega^2 = v^2 k^2</code>。</li><li>Superposition / 叠加题：use trig identities / 用三角恒等式。</li><li>Standing wave boundary / 驻波边界：fixed end means node / 固定端是波节。</li><li>Fourier questions / 傅里叶题：先判断奇偶性，odd functions use sine series / 奇函数用正弦级数。</li><li>Doppler questions / 多普勒题：先分清 source moving or observer moving / 先分清波源动还是观察者动。</li></ol><h4 id=\"vocabulary-生词-9\">Vocabulary / 生词<a class=\"heading-anchor\" href=\"#vocabulary-生词-9\" data-heading-id=\"vocabulary-生词-9\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li>sinusoidal：正弦的</li><li>amplitude：振幅</li><li>wavelength：波长</li><li>wave number：波数</li><li>angular frequency：角频率</li><li>energy density：能量密度</li><li>phase difference：相位差</li><li>beating：拍</li><li>standing wave：驻波</li><li>node：波节</li><li>antinode：波腹</li><li>harmonic：谐波</li><li>Fourier analysis：傅里叶分析</li><li>Doppler effect：多普勒效应</li></ul><hr /><h4 id=\"high-frequency-exam-templates-高频考试题型模板\">High-Frequency Exam Templates / 高频考试题型模板<a class=\"heading-anchor\" href=\"#high-frequency-exam-templates-高频考试题型模板\" data-heading-id=\"high-frequency-exam-templates-高频考试题型模板\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"template-a-free-body-and-constraint-problems-受力与约束题\">Template A: Free-Body and Constraint Problems / 受力与约束题<a class=\"heading-anchor\" href=\"#template-a-free-body-and-constraint-problems-受力与约束题\" data-heading-id=\"template-a-free-body-and-constraint-problems-受力与约束题\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Draw free-body diagram / 画受力图。</li><li>Choose axes / 选轴：斜面题沿斜面和垂直斜面，圆周题径向和切向。</li><li>Write Newton&#039;s second law / 写 <code>sum F = ma</code>。</li><li>Add constraint equations / 加约束方程。</li><li>Solve and check limiting cases / 求解并检查极限情况。</li></ol><h4 id=\"template-b-energy-problems-能量题\">Template B: Energy Problems / 能量题<a class=\"heading-anchor\" href=\"#template-b-energy-problems-能量题\" data-heading-id=\"template-b-energy-problems-能量题\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Identify conservative and non-conservative forces / 区分保守力和非保守力。</li><li>Write <code>K_i + U_i + W_nc = K_f + U_f</code> / 写能量方程。</li><li>For rotation / 转动加上 <code>K_rot</code>。</li><li>For rolling / 滚动加上 <code>v = Romega</code>。</li></ol><h4 id=\"template-c-collision-problems-碰撞题\">Template C: Collision Problems / 碰撞题<a class=\"heading-anchor\" href=\"#template-c-collision-problems-碰撞题\" data-heading-id=\"template-c-collision-problems-碰撞题\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Momentum conservation first / 先动量守恒。</li><li>If elastic / 若弹性，再加动能守恒。</li><li>If perfectly inelastic / 若完全非弹性，碰后共同速度。</li><li>Check direction signs / 检查方向正负。</li></ol><h4 id=\"template-d-central-force-and-perturbed-orbit-中心力与受扰轨道\">Template D: Central Force and Perturbed Orbit / 中心力与受扰轨道<a class=\"heading-anchor\" href=\"#template-d-central-force-and-perturbed-orbit-中心力与受扰轨道\" data-heading-id=\"template-d-central-force-and-perturbed-orbit-中心力与受扰轨道\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>1. Conserved angular momentum / 中心力下角动量守恒：<code>L = mr^2 theta_dot</code>。<br />2. Write effective radial energy / 写径向等效能量：<br />   - <code>E = (1/2)m r_dot^2 + L^2/(2mr^2) + V(r)</code><br />3. Circular orbit condition / 圆轨道条件：<code>dU_eff/dr = 0</code>。<br />4. Small oscillation / 小振动：<code>omega_r^2 = U_eff&#039;&#039;(r0)/m</code>。</p><h4 id=\"template-e-rolling-rigid-body-滚动刚体\">Template E: Rolling Rigid Body / 滚动刚体<a class=\"heading-anchor\" href=\"#template-e-rolling-rigid-body-滚动刚体\" data-heading-id=\"template-e-rolling-rigid-body-滚动刚体\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Translation / 平动：<code>sum F = Ma_cm</code>。</li><li>Rotation / 转动：<code>sum tau_cm = I_cm alpha</code>。</li><li>Constraint / 约束：<code>a_cm = Ralpha</code> if no slipping / 无滑动时。</li><li>Energy / 能量：<code>K = (1/2)Mv_cm^2 + (1/2)I_cm omega^2</code>。</li></ol><h4 id=\"template-f-coupled-oscillators-耦合振动\">Template F: Coupled Oscillators / 耦合振动<a class=\"heading-anchor\" href=\"#template-f-coupled-oscillators-耦合振动\" data-heading-id=\"template-f-coupled-oscillators-耦合振动\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Write linear equations / 写线性方程。</li><li>Try normal coordinates / 尝试 <code>x1+x2</code>, <code>x1-x2</code> 或 <code>theta1+theta2</code>, <code>theta1-theta2</code>。</li><li>Get eigenfrequencies / 求简正频率。</li><li>Superpose normal modes / 简正模叠加。</li><li>Use initial conditions / 用初始条件定振幅和相位。</li></ol><h4 id=\"template-g-wave-equation-波动方程\">Template G: Wave Equation / 波动方程<a class=\"heading-anchor\" href=\"#template-g-wave-equation-波动方程\" data-heading-id=\"template-g-wave-equation-波动方程\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>Take a small element / 取小元。</li><li>Find net restoring force / 求恢复力。</li><li>Apply Newton&#039;s second law / 用牛顿第二定律。</li><li>Use small-angle or continuum approximation / 用小角或连续近似。</li><li>Match to <code>y_tt = v^2 y_xx</code> / 对照标准波动方程读出波速。</li></ol><hr /><h4 id=\"formula-checklist-公式总表\">Formula Checklist / 公式总表<a class=\"heading-anchor\" href=\"#formula-checklist-公式总表\" data-heading-id=\"formula-checklist-公式总表\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ul><li><code>v = dx/dt</code>, <code>a = dv/dt = d^2x/dt^2</code></li><li><code>v = v0 + at</code>, <code>x = x0 + v0t + (1/2)at^2</code>, <code>v^2 = v0^2 + 2a Delta x</code></li><li><code>r = x i + y j + z k</code>, <code>v = dr/dt</code>, <code>a = dv/dt</code></li><li>Galilean transformation / 伽利略变换：<code>r = r&#039; + Vt</code>, <code>v = v&#039; + V</code>, <code>a = a&#039;</code></li><li><code>sum F = ma</code></li><li>linear drag / 线性阻力：<code>mg - bv = m dv/dt</code>, <code>v_t = mg/b</code></li><li>work / 功：<code>W = integral F . dr</code></li><li>power / 功率：<code>P = F . v</code></li><li>work-energy / 动能定理：<code>W_net = Delta K</code></li><li><code>F = -dU/dx</code>, <code>E = K + U</code></li><li><code>p = mv</code>, <code>J = Delta p</code>, <code>F = dp/dt</code></li><li><code>R_cm = sum m_i r_i / M</code>, <code>M a_cm = F_ext</code></li><li><code>F_g = GmM/r^2</code>, <code>U_g = -GmM/r</code></li><li>circular orbit / 圆轨道：<code>v = sqrt(GM/r)</code>, <code>T = 2pi sqrt(r^3/GM)</code></li><li>escape speed / 逃逸速度：<code>v_esc = sqrt(2GM/R)</code></li><li><code>omega = dtheta/dt</code>, <code>alpha = domega/dt</code></li><li><code>s = rtheta</code>, <code>v = r omega</code>, <code>a_t = r alpha</code>, <code>a_r = r omega^2</code></li><li><code>tau = r x F</code>, <code>sum tau = I alpha</code></li><li><code>I = integral r^2 dm</code>, <code>I = I_cm + Md^2</code></li><li><code>K_rot = (1/2)Iomega^2</code>, <code>P_rot = tau omega</code></li><li>rolling / 滚动：<code>v_cm = R omega</code>, <code>a_cm = R alpha</code></li><li><code>L = r x p</code>, fixed axis / 定轴：<code>L = Iomega</code></li><li>SHM / 简谐：<code>x&#039;&#039; + omega^2x = 0</code>, <code>x = A cos(omega t + phi)</code></li><li>spring oscillator / 弹簧振子：<code>omega = sqrt(k/m)</code></li><li>small pendulum / 小角单摆：<code>omega = sqrt(g/L)</code></li><li>damped oscillator / 阻尼振子：<code>m x&#039;&#039; + b x&#039; + kx = 0</code></li><li>forced oscillator / 受迫振子：<code>m x&#039;&#039; + b x&#039; + kx = F0 cos(omega_d t)</code></li><li>traveling wave / 行波：<code>f(x-vt)</code>, <code>f(x+vt)</code></li><li>wave equation / 波动方程：<code>partial^2 y/partial t^2 = v^2 partial^2 y/partial x^2</code></li><li>string wave speed / 弦波速度：<code>v = sqrt(T/mu)</code></li><li>sinusoidal wave / 正弦波：<code>y = A sin(kx - omega t + phi)</code></li><li><code>k = 2pi/lambda</code>, <code>omega = 2pi f</code>, <code>v = omega/k = lambda f</code></li><li>standing wave fixed ends / 两端固定驻波：<code>lambda_n = 2L/n</code>, <code>f_n = n v/(2L)</code></li><li>beat frequency / 拍频：<code>f_beat = |f1 - f2|</code></li></ul><h4 id=\"附件\">附件<a class=\"heading-anchor\" href=\"#附件\" data-heading-id=\"附件\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"entry-file\"><a class=\"download-button\" href=\"files/2026-04-25-physics-i-midterm-review/普物I期中复习提纲-力学全覆盖版.pdf\" download><span>下载 / 预览 PDF</span><small>普物I期中复习提纲-力学全覆盖版.pdf</small></a><details class=\"file-preview\"><summary>Preview / 预览</summary><iframe src=\"files/2026-04-25-physics-i-midterm-review/普物I期中复习提纲-力学全覆盖版.pdf\" title=\"普物I期中复习提纲-力学全覆盖版.pdf\" loading=\"lazy\"></iframe></details></div>",
+      "headings": [
+        {
+          "id": "how-to-use-this-outline-使用方式",
+          "title": "How To Use This Outline / 使用方式",
+          "level": 4
+        },
+        {
+          "id": "reference-book-coverage-map-参考书覆盖地图",
+          "title": "Reference Book Coverage Map / 参考书覆盖地图",
+          "level": 4
+        },
+        {
+          "id": "ch-1-kinematics-运动学",
+          "title": "Ch. 1 Kinematics / 运动学",
+          "level": 4
+        },
+        {
+          "id": "1-1-motion-in-one-dimension-一维运动",
+          "title": "1.1 Motion in One Dimension / 一维运动",
+          "level": 4
+        },
+        {
+          "id": "1-2-vectors-矢量",
+          "title": "1.2 Vectors / 矢量",
+          "level": 4
+        },
+        {
+          "id": "1-3-motion-in-higher-dimensions-高维运动",
+          "title": "1.3 Motion in Higher Dimensions / 高维运动",
+          "level": 4
+        },
+        {
+          "id": "1-4-frame-of-reference-参考系",
+          "title": "1.4 Frame of Reference / 参考系",
+          "level": 4
+        },
+        {
+          "id": "ch-2-newton-s-laws-of-motion-牛顿运动定律",
+          "title": "Ch. 2 Newton's Laws of Motion / 牛顿运动定律",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-methods-解题方法",
+          "title": "Problem Methods / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "ch-3-work-and-energy-功和能量",
+          "title": "Ch. 3 Work and Energy / 功和能量",
+          "level": 4
+        },
+        {
+          "id": "3-1-generic-forces-一般力下的运动",
+          "title": "3.1 Generic Forces / 一般力下的运动",
+          "level": 4
+        },
+        {
+          "id": "3-2-work-and-power-功和功率",
+          "title": "3.2 Work and Power / 功和功率",
+          "level": 4
+        },
+        {
+          "id": "3-3-work-kinetic-energy-theorem-动能定理",
+          "title": "3.3 Work-Kinetic Energy Theorem / 动能定理",
+          "level": 4
+        },
+        {
+          "id": "3-4-3-6-potential-and-energy-conservation-势能与能量守恒",
+          "title": "3.4-3.6 Potential and Energy Conservation / 势能与能量守恒",
+          "level": 4
+        },
+        {
+          "id": "3-7-equilibrium-平衡",
+          "title": "3.7 Equilibrium / 平衡",
+          "level": 4
+        },
+        {
+          "id": "problem-methods-解题方法-2",
+          "title": "Problem Methods / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-2",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "ch-4-momentum-动量",
+          "title": "Ch. 4 Momentum / 动量",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点-2",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-methods-解题方法-3",
+          "title": "Problem Methods / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-3",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "ch-5-the-law-of-gravitation-万有引力定律",
+          "title": "Ch. 5 The Law of Gravitation / 万有引力定律",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点-3",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-methods-解题方法-4",
+          "title": "Problem Methods / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-4",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "ch-6-rigid-bodies-刚体",
+          "title": "Ch. 6 Rigid Bodies / 刚体",
+          "level": 4
+        },
+        {
+          "id": "6-1-rotational-kinematics-转动运动学",
+          "title": "6.1 Rotational Kinematics / 转动运动学",
+          "level": 4
+        },
+        {
+          "id": "6-2-rotational-dynamics-转动动力学",
+          "title": "6.2 Rotational Dynamics / 转动动力学",
+          "level": 4
+        },
+        {
+          "id": "6-3-rolling-滚动",
+          "title": "6.3 Rolling / 滚动",
+          "level": 4
+        },
+        {
+          "id": "problem-methods-解题方法-5",
+          "title": "Problem Methods / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-5",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "ch-7-angular-momentum-角动量",
+          "title": "Ch. 7 Angular Momentum / 角动量",
+          "level": 4
+        },
+        {
+          "id": "knowledge-points-知识点-4",
+          "title": "Knowledge Points / 知识点",
+          "level": 4
+        },
+        {
+          "id": "problem-methods-解题方法-6",
+          "title": "Problem Methods / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-6",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "ch-8-simple-harmonic-motion-简谐运动",
+          "title": "Ch. 8 Simple Harmonic Motion / 简谐运动",
+          "level": 4
+        },
+        {
+          "id": "8-1-equilibrium-平衡",
+          "title": "8.1 Equilibrium / 平衡",
+          "level": 4
+        },
+        {
+          "id": "8-2-harmonic-oscillator-and-shm-谐振子与简谐运动",
+          "title": "8.2 Harmonic Oscillator and SHM / 谐振子与简谐运动",
+          "level": 4
+        },
+        {
+          "id": "8-3-motion-near-stable-equilibrium-稳定平衡附近的小振动",
+          "title": "8.3 Motion Near Stable Equilibrium / 稳定平衡附近的小振动",
+          "level": 4
+        },
+        {
+          "id": "8-4-damped-oscillator-阻尼振动",
+          "title": "8.4 Damped Oscillator / 阻尼振动",
+          "level": 4
+        },
+        {
+          "id": "8-5-forced-oscillator-受迫振动",
+          "title": "8.5 Forced Oscillator / 受迫振动",
+          "level": 4
+        },
+        {
+          "id": "8-6-coupled-oscillators-and-normal-modes-耦合振子与简正模",
+          "title": "8.6 Coupled Oscillators and Normal Modes / 耦合振子与简正模",
+          "level": 4
+        },
+        {
+          "id": "8-7-molecules-and-solids-分子与固体",
+          "title": "8.7 Molecules and Solids / 分子与固体",
+          "level": 4
+        },
+        {
+          "id": "problem-methods-解题方法-7",
+          "title": "Problem Methods / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-7",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "ch-9-wave-motion-波动",
+          "title": "Ch. 9 Wave Motion / 波动",
+          "level": 4
+        },
+        {
+          "id": "9-1-9-2-introduction-and-wave-function-波的引入与波函数",
+          "title": "9.1-9.2 Introduction and Wave Function / 波的引入与波函数",
+          "level": 4
+        },
+        {
+          "id": "9-3-superposition-and-interference-叠加与干涉",
+          "title": "9.3 Superposition and Interference / 叠加与干涉",
+          "level": 4
+        },
+        {
+          "id": "9-4-transmission-and-reflection-透射与反射",
+          "title": "9.4 Transmission and Reflection / 透射与反射",
+          "level": 4
+        },
+        {
+          "id": "9-5-waves-in-a-solid-固体中的波",
+          "title": "9.5 Waves in a Solid / 固体中的波",
+          "level": 4
+        },
+        {
+          "id": "9-6-linear-wave-equation-线性波动方程",
+          "title": "9.6 Linear Wave Equation / 线性波动方程",
+          "level": 4
+        },
+        {
+          "id": "problem-methods-解题方法-8",
+          "title": "Problem Methods / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-8",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "ch-10-sinusoidal-waves-正弦波",
+          "title": "Ch. 10 Sinusoidal Waves / 正弦波",
+          "level": 4
+        },
+        {
+          "id": "10-1-sinusoidal-wave-function-正弦波函数",
+          "title": "10.1 Sinusoidal Wave Function / 正弦波函数",
+          "level": 4
+        },
+        {
+          "id": "10-2-energy-transfer-能量传输",
+          "title": "10.2 Energy Transfer / 能量传输",
+          "level": 4
+        },
+        {
+          "id": "10-3-interference-and-beating-干涉与拍",
+          "title": "10.3 Interference and Beating / 干涉与拍",
+          "level": 4
+        },
+        {
+          "id": "10-4-standing-waves-驻波",
+          "title": "10.4 Standing Waves / 驻波",
+          "level": 4
+        },
+        {
+          "id": "10-5-fourier-analysis-傅里叶分析",
+          "title": "10.5 Fourier Analysis / 傅里叶分析",
+          "level": 4
+        },
+        {
+          "id": "10-6-doppler-effect-多普勒效应",
+          "title": "10.6 Doppler Effect / 多普勒效应",
+          "level": 4
+        },
+        {
+          "id": "problem-methods-解题方法-9",
+          "title": "Problem Methods / 解题方法",
+          "level": 4
+        },
+        {
+          "id": "vocabulary-生词-9",
+          "title": "Vocabulary / 生词",
+          "level": 4
+        },
+        {
+          "id": "high-frequency-exam-templates-高频考试题型模板",
+          "title": "High-Frequency Exam Templates / 高频考试题型模板",
+          "level": 4
+        },
+        {
+          "id": "template-a-free-body-and-constraint-problems-受力与约束题",
+          "title": "Template A: Free-Body and Constraint Problems / 受力与约束题",
+          "level": 4
+        },
+        {
+          "id": "template-b-energy-problems-能量题",
+          "title": "Template B: Energy Problems / 能量题",
+          "level": 4
+        },
+        {
+          "id": "template-c-collision-problems-碰撞题",
+          "title": "Template C: Collision Problems / 碰撞题",
+          "level": 4
+        },
+        {
+          "id": "template-d-central-force-and-perturbed-orbit-中心力与受扰轨道",
+          "title": "Template D: Central Force and Perturbed Orbit / 中心力与受扰轨道",
+          "level": 4
+        },
+        {
+          "id": "template-e-rolling-rigid-body-滚动刚体",
+          "title": "Template E: Rolling Rigid Body / 滚动刚体",
+          "level": 4
+        },
+        {
+          "id": "template-f-coupled-oscillators-耦合振动",
+          "title": "Template F: Coupled Oscillators / 耦合振动",
+          "level": 4
+        },
+        {
+          "id": "template-g-wave-equation-波动方程",
+          "title": "Template G: Wave Equation / 波动方程",
+          "level": 4
+        },
+        {
+          "id": "formula-checklist-公式总表",
+          "title": "Formula Checklist / 公式总表",
+          "level": 4
+        },
+        {
+          "id": "附件",
+          "title": "附件",
+          "level": 4
+        }
+      ],
+      "excerpt": "Main reference / 主参考：普物I/reference books/mechanics0306.pdf Supplement / 补充参考：slides 课件、homework 作业、midterm 历年期中卷。 Goal /...",
+      "readingMinutes": 14,
+      "createdAt": "2026-04-25T00:00:00.000Z"
     }
   ],
   "videos": [

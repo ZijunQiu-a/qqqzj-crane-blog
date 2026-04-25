@@ -791,6 +791,14 @@ function renderMarkdown(markdown) {
         return `<div class="math-display">${escapeHtml(block)}</div>`;
       }
 
+      if (/^-{3,}$/.test(block)) return "<hr />";
+
+      const table = tableMarkdown(block);
+      if (table) return table;
+
+      const quote = blockquoteMarkdown(block);
+      if (quote) return quote;
+
       if (/^####\s+/.test(block)) return headingMarkdown(block.replace(/^####\s+/, ""), 5, context);
       if (/^###\s+/.test(block)) return headingMarkdown(block.replace(/^###\s+/, ""), 4, context);
       if (/^##\s+/.test(block)) return headingMarkdown(block.replace(/^##\s+/, ""), 4, context);
@@ -798,20 +806,20 @@ function renderMarkdown(markdown) {
 
       const lines = block.split("\n").filter(Boolean);
 
-      if (lines.length > 0 && lines.every((line) => /^[-*]\s+/.test(line))) {
+      if (lines.length > 0 && lines.every((line) => /^\s*[-*]\s+/.test(line))) {
         const items = block
           .split("\n")
-          .filter((line) => /^[-*]\s+/.test(line))
-          .map((line) => `<li>${inlineMarkdown(line.replace(/^[-*]\s+/, ""))}</li>`)
+          .filter((line) => /^\s*[-*]\s+/.test(line))
+          .map((line) => `<li>${inlineMarkdown(line.replace(/^\s*[-*]\s+/, ""))}</li>`)
           .join("");
         return `<ul>${items}</ul>`;
       }
 
-      if (lines.length > 0 && lines.every((line) => /^\d+\.\s+/.test(line))) {
+      if (lines.length > 0 && lines.every((line) => /^\s*\d+\.\s+/.test(line))) {
         const items = block
           .split("\n")
-          .filter((line) => /^\d+\.\s+/.test(line))
-          .map((line) => `<li>${inlineMarkdown(line.replace(/^\d+\.\s+/, ""))}</li>`)
+          .filter((line) => /^\s*\d+\.\s+/.test(line))
+          .map((line) => `<li>${inlineMarkdown(line.replace(/^\s*\d+\.\s+/, ""))}</li>`)
           .join("");
         return `<ol>${items}</ol>`;
       }
@@ -857,6 +865,37 @@ function paragraphMarkdown(block) {
   const html = inlineMarkdown(block);
   if (block.includes("$$")) return `<p>${html}</p>`;
   return `<p>${html.replaceAll("\n", "<br />")}</p>`;
+}
+
+function tableMarkdown(block) {
+  const lines = block.split("\n").map((line) => line.trim()).filter(Boolean);
+  if (lines.length < 2 || !isTableDivider(lines[1]) || !lines[0].includes("|")) return "";
+
+  const headers = splitTableRow(lines[0]);
+  if (headers.length < 2) return "";
+
+  const rows = lines.slice(2).map(splitTableRow).filter((row) => row.length);
+  return `<div class="table-scroll"><table><thead><tr>${headers.map((header) => `<th>${inlineMarkdown(header)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${headers.map((_, index) => `<td>${inlineMarkdown(row[index] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+
+function isTableDivider(value) {
+  return /^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?$/.test(value);
+}
+
+function splitTableRow(value) {
+  return value
+    .replace(/^\|/, "")
+    .replace(/\|$/, "")
+    .split("|")
+    .map((cell) => cell.trim());
+}
+
+function blockquoteMarkdown(block) {
+  const lines = block.split("\n");
+  if (!lines.every((line) => /^>\s?/.test(line))) return "";
+
+  const text = lines.map((line) => line.replace(/^>\s?/, "")).join("\n");
+  return `<blockquote>${paragraphMarkdown(text).replace(/^<p>|<\/p>$/g, "")}</blockquote>`;
 }
 
 function typesetMath() {
@@ -949,6 +988,7 @@ function mediaMarkdown(block) {
 
 function inlineMarkdown(value) {
   return escapeHtml(value)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
     .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*]+)\*/g, "<em>$1</em>");
