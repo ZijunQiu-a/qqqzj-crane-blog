@@ -1212,7 +1212,7 @@ h3 {
 .post-detail-shell {
   display: grid;
   gap: 16px;
-  width: min(100%, 860px);
+  width: min(100%, 1080px);
   margin: 0 auto;
 }
 
@@ -1320,9 +1320,15 @@ h3 {
 }
 
 .post-toc a:hover,
-.post-toc a:focus-visible {
+.post-toc a:focus-visible,
+.post-toc a.is-active {
   background: rgba(20, 123, 145, 0.1);
   outline: 0;
+}
+
+.post-toc a.is-active {
+  box-shadow: inset 3px 0 0 var(--teal);
+  color: var(--ink);
 }
 
 .post-toc .toc-level-5 {
@@ -1352,6 +1358,11 @@ h3 {
   font-size: 18px;
 }
 
+.post-detail-body .entry-body h4,
+.post-detail-body .entry-body h5 {
+  scroll-margin-top: 92px;
+}
+
 .post-detail-body .entry-media {
   gap: 8px;
   margin: 4px 0 10px;
@@ -1361,6 +1372,93 @@ h3 {
 .post-detail-body .entry-media video {
   max-height: 680px;
   object-fit: contain;
+}
+
+.entry-callout {
+  --callout-accent: var(--teal);
+  --callout-soft: rgba(20, 123, 145, 0.1);
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(20, 123, 145, 0.16);
+  border-left: 4px solid var(--callout-accent);
+  border-radius: 8px;
+  padding: 13px 15px;
+  background:
+    linear-gradient(135deg, var(--callout-soft), transparent 62%),
+    rgba(255, 254, 253, 0.82);
+  color: var(--muted);
+}
+
+.entry-callout strong {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.entry-callout p {
+  margin: 0;
+}
+
+.entry-callout.callout-theorem,
+.entry-callout.callout-definition,
+.entry-callout.callout-lemma,
+.entry-callout.callout-corollary {
+  --callout-accent: var(--teal);
+  --callout-soft: rgba(20, 123, 145, 0.12);
+}
+
+.entry-callout.callout-proof {
+  --callout-accent: var(--moss);
+  --callout-soft: rgba(91, 121, 109, 0.12);
+}
+
+.entry-callout.callout-example,
+.entry-callout.callout-tip {
+  --callout-accent: var(--gold);
+  --callout-soft: rgba(202, 161, 76, 0.14);
+}
+
+.entry-callout.callout-warning,
+.entry-callout.callout-important {
+  --callout-accent: var(--coral);
+  --callout-soft: rgba(195, 93, 111, 0.13);
+}
+
+@media (min-width: 1120px) {
+  .post-detail-card {
+    grid-template-columns: minmax(0, 1fr) 260px;
+    align-items: start;
+    overflow: visible;
+  }
+
+  .post-detail-card > .eyebrow,
+  .post-detail-card > h1,
+  .post-detail-card > .post-detail-meta {
+    grid-column: 1 / -1;
+  }
+
+  .post-toc {
+    position: sticky;
+    top: 92px;
+    grid-column: 2;
+    grid-row: 4;
+    max-height: calc(100vh - 118px);
+  }
+
+  .post-detail-body {
+    grid-column: 1;
+    grid-row: 4;
+    min-width: 0;
+  }
+
+  .post-detail-card:not(:has(.post-toc)) .post-detail-body,
+  .post-toc[hidden] + .post-detail-body {
+    grid-column: 1 / -1;
+  }
+
+  .post-neighbor-nav {
+    grid-column: 1 / -1;
+  }
 }
 
 .not-found-page {

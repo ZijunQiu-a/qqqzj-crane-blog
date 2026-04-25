@@ -58,6 +58,8 @@ const filters = {
   noteCategory: "all",
 };
 
+let tocObserver = null;
+
 // 总渲染入口：三类内容列表和顶部统计都在这里更新。
 function render() {
   const growthTotal = entriesFor("growth");
@@ -486,6 +488,7 @@ function renderRoute() {
 function showHome() {
   views.home.hidden = false;
   views.detail.hidden = true;
+  disconnectTocObserver();
   if (views.progress) views.progress.style.transform = "scaleX(0)";
   document.title = "qqqzj@Crane";
   typesetMath();
@@ -506,6 +509,7 @@ function showPostDetail(entry) {
     ${bodyMarkup(entry)}
   `;
   renderPostToc(entry);
+  setupTocHighlight(views.detailToc, views.detailBody);
   renderNeighborNav(entry);
   document.title = `${entry.title} · qqqzj@Crane`;
   hydrateFilePreviews(views.detailBody);
@@ -528,6 +532,74 @@ function renderPostToc(entry) {
       ${headings.map((heading) => `<a class="toc-level-${heading.level}" href="#${escapeAttribute(heading.id)}" data-heading-id="${escapeAttribute(heading.id)}">${escapeHtml(heading.title)}</a>`).join("")}
     </div>
   `;
+}
+
+function setupTocHighlight(toc, contentRoot) {
+  disconnectTocObserver();
+  if (!toc || toc.hidden || !contentRoot) return;
+
+  const links = [...toc.querySelectorAll("a[data-heading-id]")];
+  const sections = links
+    .map((link) => findHeadingById(contentRoot, link.dataset.headingId))
+    .filter(Boolean);
+
+  if (!links.length || !sections.length) return;
+
+  const activate = (id) => {
+    links.forEach((link) => {
+      const active = link.dataset.headingId === id;
+      link.classList.toggle("is-active", active);
+      if (active) {
+        link.setAttribute("aria-current", "location");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  };
+
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const heading = findHeadingById(contentRoot, link.dataset.headingId);
+      if (!heading) return;
+      event.preventDefault();
+      heading.scrollIntoView({ behavior: "smooth", block: "start" });
+      activate(heading.id);
+    });
+  });
+
+  activate(sections[0].id);
+
+  if (!("IntersectionObserver" in window)) return;
+
+  const visibleSections = new Map();
+  tocObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      visibleSections.set(entry.target.id, entry.isIntersecting);
+    });
+
+    const current = sections.find((section) => visibleSections.get(section.id))
+      || [...sections].reverse().find((section) => section.getBoundingClientRect().top <= 140)
+      || sections[0];
+
+    activate(current.id);
+  }, {
+    rootMargin: "-18% 0px -68% 0px",
+    threshold: [0, 1],
+  });
+
+  sections.forEach((section) => tocObserver.observe(section));
+}
+
+function disconnectTocObserver() {
+  if (!tocObserver) return;
+  tocObserver.disconnect();
+  tocObserver = null;
+}
+
+function findHeadingById(root, id) {
+  if (!root || !id) return null;
+  const escapedId = window.CSS?.escape ? window.CSS.escape(id) : id.replaceAll('"', '\\"');
+  return root.querySelector(`#${escapedId}`);
 }
 
 function renderNeighborNav(entry) {
@@ -787,6 +859,9 @@ function renderMarkdown(markdown) {
       const media = mediaMarkdown(block);
       if (media) return media;
 
+      const callout = calloutMarkdown(block);
+      if (callout) return callout;
+
       if (/^\$\$[\s\S]*\$\$$/.test(block)) {
         return `<div class="math-display">${escapeHtml(block)}</div>`;
       }
@@ -896,6 +971,80 @@ function blockquoteMarkdown(block) {
 
   const text = lines.map((line) => line.replace(/^>\s?/, "")).join("\n");
   return `<blockquote>${paragraphMarkdown(text).replace(/^<p>|<\/p>$/g, "")}</blockquote>`;
+}
+
+function calloutMarkdown(block) {
+  const github = parseGithubCallout(block);
+  if (github) return calloutMarkup(github.type, github.title, github.body);
+
+  const fenced = parseFencedCallout(block);
+  if (fenced) return calloutMarkup(fenced.type, fenced.title, fenced.body);
+
+  return "";
+}
+
+function parseGithubCallout(block) {
+  const lines = block.split("\n");
+  if (!lines.length || !lines.every((line) => /^>\s?/.test(line))) return null;
+
+  const first = lines[0].replace(/^>\s?/, "").trim();
+  const match = first.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|THEOREM|PROOF|EXAMPLE|DEFINITION|LEMMA|COROLLARY)\]\s*(.*)$/i);
+  if (!match) return null;
+
+  const body = lines.slice(1).map((line) => line.replace(/^>\s?/, "")).join("\n").trim();
+  return {
+    type: match[1].toLowerCase(),
+    title: match[2].trim(),
+    body,
+  };
+}
+
+function parseFencedCallout(block) {
+  const match = block.match(/^:::\s*(note|tip|important|warning|caution|theorem|proof|example|definition|lemma|corollary)(?:\s+([^\n]+))?\n([\s\S]*?)\n:::$/i);
+  if (!match) return null;
+
+  return {
+    type: match[1].toLowerCase(),
+    title: (match[2] || "").trim(),
+    body: match[3].trim(),
+  };
+}
+
+function calloutMarkup(type, title, body) {
+  const normalized = calloutType(type);
+  const label = title || calloutTitle(normalized);
+  const content = body ? calloutBodyMarkdown(body) : "";
+  return `<aside class="entry-callout callout-${normalized}"><strong>${escapeHtml(label)}</strong>${content}</aside>`;
+}
+
+function calloutBodyMarkdown(body) {
+  return body
+    .split(/\n{2,}/)
+    .map((part) => paragraphMarkdown(part.trim()))
+    .join("");
+}
+
+function calloutType(type) {
+  if (type === "caution") return "warning";
+  if (["note", "tip", "important", "warning", "theorem", "proof", "example", "definition", "lemma", "corollary"].includes(type)) return type;
+  return "note";
+}
+
+function calloutTitle(type) {
+  const labels = {
+    note: "Note / 注意",
+    tip: "Tip / 提示",
+    important: "Important / 重点",
+    warning: "Warning / 警告",
+    theorem: "Theorem / 定理",
+    proof: "Proof / 证明",
+    example: "Example / 例题",
+    definition: "Definition / 定义",
+    lemma: "Lemma / 引理",
+    corollary: "Corollary / 推论",
+  };
+
+  return labels[type] || labels.note;
 }
 
 function typesetMath() {

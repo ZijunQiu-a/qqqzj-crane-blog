@@ -62,7 +62,7 @@
               <nav class="post-toc" aria-label="Table of contents / 文章目录">
                 <strong>Contents 目录</strong>
                 <div>
-                  <a class="toc-level-4" href="#趵突泉">趵突泉</a><a class="toc-level-4" href="#夜里的泰山">夜里的泰山</a><a class="toc-level-4" href="#泰山日出">泰山日出</a>
+                  <a class="toc-level-4" href="#趵突泉" data-heading-id="趵突泉">趵突泉</a><a class="toc-level-4" href="#夜里的泰山" data-heading-id="夜里的泰山">夜里的泰山</a><a class="toc-level-4" href="#泰山日出" data-heading-id="泰山日出">泰山日出</a>
                 </div>
               </nav>
               <div class="post-detail-body">
@@ -94,6 +94,54 @@
       window.addEventListener("scroll", updateReadingProgress, { passive: true });
       window.addEventListener("resize", updateReadingProgress);
       updateReadingProgress();
+
+      const toc = document.querySelector(".post-toc");
+      const tocLinks = toc ? [...toc.querySelectorAll("a[data-heading-id]")] : [];
+      const tocSections = tocLinks
+        .map((link) => findHeadingById(document, link.dataset.headingId))
+        .filter(Boolean);
+
+      function activateTocLink(id) {
+        tocLinks.forEach((link) => {
+          const active = link.dataset.headingId === id;
+          link.classList.toggle("is-active", active);
+          if (active) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function findHeadingById(root, id) {
+        if (!root || !id) return null;
+        const escapedId = window.CSS?.escape ? window.CSS.escape(id) : id.replaceAll('"', '\"');
+        return root.querySelector(`#${escapedId}`);
+      }
+
+      if (tocSections.length) {
+        activateTocLink(tocSections[0].id);
+
+        if ("IntersectionObserver" in window) {
+          const visibleSections = new Map();
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              visibleSections.set(entry.target.id, entry.isIntersecting);
+            });
+
+            const current = tocSections.find((section) => visibleSections.get(section.id))
+              || [...tocSections].reverse().find((section) => section.getBoundingClientRect().top <= 140)
+              || tocSections[0];
+
+            activateTocLink(current.id);
+          }, {
+            rootMargin: "-18% 0px -68% 0px",
+            threshold: [0, 1],
+          });
+
+          tocSections.forEach((section) => observer.observe(section));
+        }
+      }
     </script>
   </body>
 </html>
