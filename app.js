@@ -1,7 +1,7 @@
 const POSTS_MANIFEST = "posts/index.json";
 const READING_UNITS_PER_MINUTE = 500;
 
-// published 里放从 posts/*.md 读取出来的正式文章。公开页面保持只读。
+// published 里放从 posts/ 分类目录读取出来的正式文章。公开页面保持只读。
 const published = {
   growth: [],
   notes: [],
@@ -235,6 +235,7 @@ async function loadPostFile(file) {
     source: "post",
     kind,
     title: meta.title || file.replace(/^posts\/|\.md$/g, ""),
+    slug: postSlugFromPath(file),
     stage: meta.stage || category,
     tag: meta.tag || category,
     url: meta.url || "",
@@ -315,7 +316,17 @@ function postHref(entry) {
 }
 
 function postKey(entry) {
-  return String(entry.id || "").replace(/^posts\//, "");
+  return entry.slug || postSlugFromPath(entry.id || "");
+}
+
+function postSlugFromPath(file) {
+  return String(file)
+    .split("/")
+    .pop()
+    .replace(/\.md$/i, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 function allEntries() {

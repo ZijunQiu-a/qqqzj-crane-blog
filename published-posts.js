@@ -1,7 +1,7 @@
 window.PUBLISHED_POSTS = {
   "growth": [
     {
-      "id": "2026-04-24-first-news.md",
+      "id": "news/2026-04-24-first-news.md",
       "slug": "2026-04-24-first-news",
       "source": "post",
       "kind": "growth",
@@ -18,7 +18,7 @@ window.PUBLISHED_POSTS = {
   ],
   "notes": [
     {
-      "id": "2026-04-24-physics-lab-markdown-template.md",
+      "id": "notes/physics/2026-04-24-physics-lab-markdown-template.md",
       "slug": "2026-04-24-physics-lab-markdown-template",
       "source": "post",
       "kind": "notes",
@@ -33,7 +33,7 @@ window.PUBLISHED_POSTS = {
       "createdAt": "2026-04-24T00:00:00.000Z"
     },
     {
-      "id": "2026-04-24-mathematical-analysis-i.md",
+      "id": "notes/math/2026-04-24-mathematical-analysis-i.md",
       "slug": "2026-04-24-mathematical-analysis-i",
       "source": "post",
       "kind": "notes",
@@ -734,7 +734,7 @@ window.PUBLISHED_POSTS = {
       "createdAt": "2026-04-24T00:00:00.000Z"
     },
     {
-      "id": "2026-04-24-mathematical-analysis-i-review-outline.md",
+      "id": "notes/math/2026-04-24-mathematical-analysis-i-review-outline.md",
       "slug": "2026-04-24-mathematical-analysis-i-review-outline",
       "source": "post",
       "kind": "notes",
@@ -990,7 +990,7 @@ window.PUBLISHED_POSTS = {
       "createdAt": "2026-04-24T00:00:00.000Z"
     },
     {
-      "id": "2026-04-24-linear-algebra-i.md",
+      "id": "notes/math/2026-04-24-linear-algebra-i.md",
       "slug": "2026-04-24-linear-algebra-i",
       "source": "post",
       "kind": "notes",
@@ -1546,7 +1546,7 @@ window.PUBLISHED_POSTS = {
       "createdAt": "2026-04-24T00:00:00.000Z"
     },
     {
-      "id": "2026-04-25-physics-i-midterm-review-outline.md",
+      "id": "notes/physics/2026-04-25-physics-i-midterm-review-outline.md",
       "slug": "2026-04-25-physics-i-midterm-review-outline",
       "source": "post",
       "kind": "notes",
@@ -1787,7 +1787,7 @@ window.PUBLISHED_POSTS = {
       "createdAt": "2026-04-25T00:00:00.000Z"
     },
     {
-      "id": "2026-04-25-physics-i-midterm-mechanics-complete-review.md",
+      "id": "notes/physics/2026-04-25-physics-i-midterm-mechanics-complete-review.md",
       "slug": "2026-04-25-physics-i-midterm-mechanics-complete-review",
       "source": "post",
       "kind": "notes",
@@ -2175,7 +2175,7 @@ window.PUBLISHED_POSTS = {
   ],
   "videos": [
     {
-      "id": "2026-04-24-04-travel-jinan&taishan.md",
+      "id": "life/2026-04-24-04-travel-jinan&taishan.md",
       "slug": "2026-04-24-04-travel-jinan-taishan",
       "source": "post",
       "kind": "videos",
