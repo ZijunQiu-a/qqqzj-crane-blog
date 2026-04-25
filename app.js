@@ -1,4 +1,5 @@
 const POSTS_MANIFEST = "posts/index.json";
+const READING_UNITS_PER_MINUTE = 500;
 
 // published 里放从 posts/*.md 读取出来的正式文章。公开页面保持只读。
 const published = {
@@ -35,8 +36,10 @@ const views = {
   detailKind: document.querySelector("#post-detail-kind"),
   detailTitle: document.querySelector("#post-detail-title"),
   detailMeta: document.querySelector("#post-detail-meta"),
+  detailToc: document.querySelector("#post-detail-toc"),
   detailBody: document.querySelector("#post-detail-body"),
   neighborNav: document.querySelector("#post-neighbor-nav"),
+  progress: document.querySelector("#reading-progress"),
 };
 
 const discovery = {
@@ -112,6 +115,7 @@ function renderGrowth(entries) {
         ${bodyPreviewMarkup(entry)}
         <div class="card-footer">
           <span>${footerTime(entry)}</span>
+          <span>${readTimeLabel(entry)}</span>
           ${readMoreLabel()}
         </div>
       </div>
@@ -140,6 +144,7 @@ function renderNotes(entries) {
       ${bodyPreviewMarkup(entry)}
       <div class="card-footer">
         <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
+        <span>${readTimeLabel(entry)}</span>
         ${readMoreLabel()}
       </div>
     `;
@@ -168,6 +173,7 @@ function renderVideos(entries) {
         </header>
         <div class="card-footer">
           <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
+          <span>${readTimeLabel(entry)}</span>
           ${readMoreLabel()}
         </div>
       </div>
@@ -216,8 +222,11 @@ async function loadPostFile(file) {
   if (!response.ok) return null;
   const text = await response.text();
   const { meta, body } = parseMarkdownPost(text);
+  if (isDraft(meta)) return null;
+
   const category = meta.category || "Notes 笔记";
   const kind = postKind(category);
+  const rendered = renderMarkdown(body);
 
   return {
     id: file,
@@ -228,8 +237,10 @@ async function loadPostFile(file) {
     tag: meta.tag || category,
     url: meta.url || "",
     body,
-    html: markdownToHtml(body),
+    html: rendered.html,
+    headings: rendered.headings,
     excerpt: excerptFromMarkdown(body),
+    readingMinutes: readingMinutes(body),
     createdAt: new Date(meta.date || Date.now()).toISOString(),
   };
 }
@@ -256,6 +267,10 @@ function postKind(category) {
   if (normalized.includes("news") || normalized.includes("动态")) return "growth";
   if (normalized.includes("life") || normalized.includes("生活")) return "videos";
   return "notes";
+}
+
+function isDraft(meta) {
+  return String(meta.draft || "").toLowerCase() === "true";
 }
 
 function bodyMarkup(entry, fallback = "") {
@@ -287,6 +302,10 @@ function footerTime() {
 
 function readMoreLabel() {
   return '<span class="published-badge">Read more / 详情</span>';
+}
+
+function readTimeLabel(entry) {
+  return `约 ${entry.readingMinutes || 1} 分钟`;
 }
 
 function postHref(entry) {
@@ -467,6 +486,7 @@ function renderRoute() {
 function showHome() {
   views.home.hidden = false;
   views.detail.hidden = true;
+  if (views.progress) views.progress.style.transform = "scaleX(0)";
   document.title = "qqqzj@Crane";
   typesetMath();
 }
@@ -479,16 +499,35 @@ function showPostDetail(entry) {
   views.detailMeta.innerHTML = `
     <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
     <span>${escapeHtml(entry.tag || entry.stage || "")}</span>
+    <span>${escapeHtml(readTimeLabel(entry))}</span>
   `;
   views.detailBody.innerHTML = `
     ${entry.url ? `<div class="detail-video-frame">${videoMarkup(entry.url, entry.title)}</div>` : ""}
     ${bodyMarkup(entry)}
   `;
+  renderPostToc(entry);
   renderNeighborNav(entry);
   document.title = `${entry.title} · qqqzj@Crane`;
   hydrateFilePreviews(views.detailBody);
   typesetMath();
   window.scrollTo({ top: 0, behavior: "auto" });
+  updateReadingProgress();
+}
+
+function renderPostToc(entry) {
+  if (!views.detailToc) return;
+
+  const headings = Array.isArray(entry.headings) ? entry.headings : [];
+  views.detailToc.replaceChildren();
+  views.detailToc.hidden = headings.length < 2;
+  if (views.detailToc.hidden) return;
+
+  views.detailToc.innerHTML = `
+    <strong>Contents 目录</strong>
+    <div>
+      ${headings.map((heading) => `<a class="toc-level-${heading.level}" href="#${escapeAttribute(heading.id)}" data-heading-id="${escapeAttribute(heading.id)}">${escapeHtml(heading.title)}</a>`).join("")}
+    </div>
+  `;
 }
 
 function renderNeighborNav(entry) {
@@ -541,6 +580,65 @@ contactCopy?.addEventListener("click", async () => {
     contactCopyText.textContent = "Click to copy / 点击复制";
   }, 2200);
 });
+
+views.detailToc?.addEventListener("click", (event) => {
+  const link = event.target.closest("[data-heading-id]");
+  if (!link) return;
+
+  event.preventDefault();
+  scrollToHeading(link.dataset.headingId);
+});
+
+views.detailBody?.addEventListener("click", async (event) => {
+  const link = event.target.closest(".heading-anchor");
+  if (!link) return;
+
+  event.preventDefault();
+  const id = link.dataset.headingId || link.getAttribute("href")?.replace(/^#/, "");
+  scrollToHeading(id);
+  await copyText(sectionLink(id));
+});
+
+window.addEventListener("scroll", updateReadingProgress, { passive: true });
+window.addEventListener("resize", updateReadingProgress);
+
+function scrollToHeading(id) {
+  if (!id) return;
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function sectionLink(id) {
+  const route = window.location.hash.match(/^#post\/(.+)$/);
+  const entry = route
+    ? allEntries().find((post) => postKey(post) === decodeURIComponent(route[1]))
+    : null;
+
+  if (entry?.slug) {
+    return `${new URL(`post/${encodeURIComponent(entry.slug)}/`, window.location.href).href}${id ? `#${id}` : ""}`;
+  }
+
+  return `${window.location.href.split("#")[0]}${id ? `#${id}` : ""}`;
+}
+
+async function copyText(value) {
+  try {
+    await navigator.clipboard.writeText(value);
+  } catch {
+    // Clipboard can fail on file:// preview; the visible anchor still works as a fallback.
+  }
+}
+
+function updateReadingProgress() {
+  if (!views.progress) return;
+  if (views.detail.hidden) {
+    views.progress.style.transform = "scaleX(0)";
+    return;
+  }
+
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = max <= 0 ? 1 : Math.min(1, Math.max(0, window.scrollY / max));
+  views.progress.style.transform = `scaleX(${progress})`;
+}
 
 // 互动小人的台词和点击动画。
 const mascotWidget = document.querySelector("#mascot-widget");
@@ -671,9 +769,17 @@ function emptyState(label) {
 
 // 迷你 Markdown 转换器：支持标题、段落、列表、媒体、链接、粗体和斜体。
 function markdownToHtml(markdown) {
-  const blocks = markdown.split(/\n{2,}/).map((block) => block.trim()).filter(Boolean);
+  return renderMarkdown(markdown).html;
+}
 
-  return blocks
+function renderMarkdown(markdown) {
+  const blocks = markdown.split(/\n{2,}/).map((block) => block.trim()).filter(Boolean);
+  const context = {
+    headings: [],
+    headingIds: new Map(),
+  };
+
+  const html = blocks
     .map((block) => {
       const file = fileMarkdown(block);
       if (file) return file;
@@ -685,10 +791,10 @@ function markdownToHtml(markdown) {
         return `<div class="math-display">${escapeHtml(block)}</div>`;
       }
 
-      if (/^####\s+/.test(block)) return `<h5>${inlineMarkdown(block.replace(/^####\s+/, ""))}</h5>`;
-      if (/^###\s+/.test(block)) return `<h4>${inlineMarkdown(block.replace(/^###\s+/, ""))}</h4>`;
-      if (/^##\s+/.test(block)) return `<h4>${inlineMarkdown(block.replace(/^##\s+/, ""))}</h4>`;
-      if (/^#\s+/.test(block)) return `<h4>${inlineMarkdown(block.replace(/^#\s+/, ""))}</h4>`;
+      if (/^####\s+/.test(block)) return headingMarkdown(block.replace(/^####\s+/, ""), 5, context);
+      if (/^###\s+/.test(block)) return headingMarkdown(block.replace(/^###\s+/, ""), 4, context);
+      if (/^##\s+/.test(block)) return headingMarkdown(block.replace(/^##\s+/, ""), 4, context);
+      if (/^#\s+/.test(block)) return headingMarkdown(block.replace(/^#\s+/, ""), 4, context);
 
       const lines = block.split("\n").filter(Boolean);
 
@@ -713,6 +819,38 @@ function markdownToHtml(markdown) {
       return paragraphMarkdown(block);
     })
     .join("");
+
+  return { html, headings: context.headings };
+}
+
+function headingMarkdown(value, level, context) {
+  const title = plainInlineText(value);
+  const id = uniqueHeadingId(title, context.headingIds);
+  context.headings.push({ id, title, level });
+
+  return `<h${level} id="${escapeAttribute(id)}">${inlineMarkdown(value)}<a class="heading-anchor" href="#${escapeAttribute(id)}" data-heading-id="${escapeAttribute(id)}" aria-label="Copy section link / 复制小节链接">#</a></h${level}>`;
+}
+
+function uniqueHeadingId(value, seen) {
+  const base = slugify(value) || "section";
+  const count = seen.get(base) || 0;
+  seen.set(base, count + 1);
+  return count === 0 ? base : `${base}-${count + 1}`;
+}
+
+function slugify(value) {
+  return plainInlineText(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function plainInlineText(value) {
+  return String(value)
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_`>]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function paragraphMarkdown(block) {
@@ -744,6 +882,13 @@ function fileMarkdown(block) {
 
 function excerptFromMarkdown(markdown) {
   return truncateText(markdownToPlainText(markdown), 120);
+}
+
+function readingMinutes(markdown) {
+  const text = markdownToPlainText(markdown);
+  const cjkUnits = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
+  const wordUnits = (text.replace(/[\u4e00-\u9fa5]/g, " ").match(/[a-z0-9]+(?:[-'][a-z0-9]+)?/gi) || []).length;
+  return Math.max(1, Math.ceil((cjkUnits + wordUnits) / READING_UNITS_PER_MINUTE));
 }
 
 function markdownToPlainText(markdown) {

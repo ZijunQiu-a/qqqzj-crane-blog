@@ -6,6 +6,12 @@
     <title>普物实验docx模版(❌)markdown(☑️) · qqqzj@Crane</title>
     <meta name="description" content="我弄了这个 Markdown 模版，之后写普物实验报告就不用再被 docx 格式卡住了。 文件放在这里，直接下载就能用。 下载实验报告 Markdown 模版 下载预习报告 Markdown 模版 下载配套 CSS 样式" />
     <link rel="canonical" href="https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-physics-lab-markdown-template/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="普物实验docx模版(❌)markdown(☑️) · qqqzj@Crane" />
+    <meta property="og:description" content="我弄了这个 Markdown 模版，之后写普物实验报告就不用再被 docx 格式卡住了。 文件放在这里，直接下载就能用。 下载实验报告 Markdown 模版 下载预习报告 Markdown 模版 下载配套 CSS 样式" />
+    <meta property="og:url" content="https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-physics-lab-markdown-template/" />
+    <meta property="og:image" content="https://zijunqiu-a.github.io/qqqzj-crane-blog/assets/blog-studio.png" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="alternate" type="application/rss+xml" title="qqqzj@Crane RSS" href="../../rss.xml" />
     <link rel="icon" href="../../assets/furina-avatar.png" type="image/png" />
     <link rel="stylesheet" href="../../styles.css" />
@@ -37,6 +43,7 @@
           <a href="../../index.html#notes">Notes 笔记</a>
           <a href="../../index.html#life">Life 生活</a>
           <a href="../../index.html#archive">Archive 归档</a>
+          <a href="../../rss.xml">RSS</a>
         </nav>
       </header>
 
@@ -50,6 +57,7 @@
               <div class="post-detail-meta">
                 <time datetime="2026-04-24T00:00:00.000Z">2026年4月24日</time>
                 <span>普物实验</span>
+                <span>约 1 分钟</span>
               </div>
               <div class="post-detail-body">
                 <div class="entry-body"><p>我弄了这个 Markdown 模版，之后写普物实验报告就不用再被 docx 格式卡住了。</p><p>文件放在这里，直接下载就能用。</p><div class="entry-file"><a class="download-button" href="../../files/2026-04-24-physics-lab-template/电子物理实验报告-模板.md" download><span>下载实验报告 Markdown 模版</span><small>电子物理实验报告-模板.md</small></a><details class="file-preview"><summary>Preview / 预览</summary><pre><code>&lt;div class=&quot;cover&quot;&gt;
@@ -616,7 +624,20 @@ body {
       <footer class="site-footer" aria-label="Site information / 站点信息">
         <p>© 2025-2026 qqqzj@Crane</p>
         <p>qqqzj 的个人笔记、生活记录与学习档案。</p>
+        <p><a href="../../rss.xml">RSS 订阅</a></p>
       </footer>
     </div>
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <script>
+      const readingProgress = document.querySelector("#reading-progress");
+      function updateReadingProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max <= 0 ? 1 : Math.min(1, Math.max(0, window.scrollY / max));
+        readingProgress.style.transform = `scaleX(${progress})`;
+      }
+      window.addEventListener("scroll", updateReadingProgress, { passive: true });
+      window.addEventListener("resize", updateReadingProgress);
+      updateReadingProgress();
+    </script>
   </body>
 </html>
