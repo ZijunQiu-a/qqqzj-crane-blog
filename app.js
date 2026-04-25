@@ -478,6 +478,7 @@ function showPostDetail(entry) {
   `;
   renderNeighborNav(entry);
   document.title = `${entry.title} · qqqzj@Crane`;
+  hydrateFilePreviews(views.detailBody);
   typesetMath();
   window.scrollTo({ top: 0, behavior: "auto" });
 }
@@ -799,9 +800,32 @@ function normalizeFileUrl(value) {
 
 function filePreviewMarkup(url, fileName) {
   const extension = fileExtension(url);
-  if (!["pdf", "md", "markdown", "txt", "css", "csv", "json", "html", "js"].includes(extension)) return "";
+  if (extension === "pdf") {
+    return `<details class="file-preview"><summary>Preview / 预览</summary><iframe src="${escapeAttribute(url)}" title="${escapeAttribute(fileName)}" loading="lazy"></iframe></details>`;
+  }
 
-  return `<details class="file-preview"><summary>Preview / 预览</summary><iframe src="${escapeAttribute(url)}" title="${escapeAttribute(fileName)}" loading="lazy"></iframe></details>`;
+  if (!["md", "markdown", "txt", "css", "csv", "json", "html", "js"].includes(extension)) return "";
+
+  return `<details class="file-preview"><summary>Preview / 预览</summary><pre data-file-preview-url="${escapeAttribute(url)}"><code>Loading preview / 正在加载预览...</code></pre></details>`;
+}
+
+async function hydrateFilePreviews(root) {
+  const previews = [...root.querySelectorAll("[data-file-preview-url]")];
+  if (previews.length === 0) return;
+
+  await Promise.all(previews.map(async (preview) => {
+    const code = preview.querySelector("code");
+    if (!code) return;
+
+    try {
+      const response = await fetch(preview.dataset.filePreviewUrl);
+      if (!response.ok) throw new Error("Preview request failed");
+      const text = await response.text();
+      code.textContent = text.length > 50000 ? `${text.slice(0, 50000)}\n\n... preview truncated ...` : text;
+    } catch {
+      code.textContent = "Preview unavailable / 预览暂不可用";
+    }
+  }));
 }
 
 function fileExtension(value) {
