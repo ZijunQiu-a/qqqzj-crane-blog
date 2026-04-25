@@ -58,7 +58,14 @@
       <header class="topbar">
         <a class="brand" href="#home" aria-label="Back to home / 回到首页">
           <span class="brand-mark brand-avatar" aria-hidden="true">
-            <img src="assets/furina-avatar.png" alt="" />
+            <img
+              src="assets/furina-avatar.png"
+              data-theme-asset
+              data-pneuma-src="assets/furina-avatar-pneuma.png"
+              data-ousia-src="assets/furina-avatar-ousia.png"
+              data-fallback-src="assets/furina-avatar.png"
+              alt=""
+            />
           </span>
           <span>qqqzj@Crane</span>
         </a>
@@ -71,19 +78,25 @@
             <a href="#archive">Archive 归档</a>
             <a href="rss.xml">RSS</a>
           </nav>
-          <div class="theme-switcher" data-theme-switcher role="group" aria-label="Theme mode / 芒荒模式">
-            <button type="button" data-theme-mode="pneuma" aria-pressed="false" title="白天 · 芒状态">
-              <span aria-hidden="true">芒</span>
-              白天
+          <div class="theme-switcher" data-theme-switcher aria-label="Theme mode / 主题模式">
+            <button class="theme-trigger" type="button" data-theme-trigger aria-haspopup="menu" aria-expanded="false" title="选择主题模式">
+              <span class="theme-trigger-icon" data-theme-current-icon aria-hidden="true">A</span>
+              <span data-theme-current-label>自动</span>
             </button>
-            <button type="button" data-theme-mode="ousia" aria-pressed="false" title="黑夜 · 荒状态">
-              <span aria-hidden="true">荒</span>
-              黑夜
-            </button>
-            <button type="button" data-theme-mode="auto" aria-pressed="false" title="跟随系统">
-              <span aria-hidden="true">A</span>
-              自动
-            </button>
+            <div class="theme-options" role="menu" aria-label="Theme choices / 主题选项">
+              <button type="button" role="menuitemradio" data-theme-mode="pneuma" aria-checked="false" aria-pressed="false" title="固定白天主题">
+                <span aria-hidden="true">☀</span>
+                白天
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="ousia" aria-checked="false" aria-pressed="false" title="固定黑夜主题">
+                <span aria-hidden="true">☾</span>
+                黑夜
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="auto" aria-checked="false" aria-pressed="false" title="跟随系统">
+                <span aria-hidden="true">A</span>
+                自动
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -418,7 +431,14 @@
     <button class="mascot-widget" id="mascot-widget" type="button" aria-label="Talk to the chibi mascot / 和Q版小人互动">
       <span class="mascot-bubble" id="mascot-bubble">Bonjour / 你好呀</span>
       <span class="hello-burst" id="hello-burst" aria-hidden="true"></span>
-      <img src="assets/furina-chibi.png" alt="Q版芙宁娜风格互动小人" />
+      <img
+        src="assets/furina-chibi.png"
+        data-theme-asset
+        data-pneuma-src="assets/furina-chibi-pneuma.png"
+        data-ousia-src="assets/furina-chibi-ousia.png"
+        data-fallback-src="assets/furina-chibi.png"
+        alt="Q版芙宁娜风格互动小人"
+      />
     </button>
 
     <script src="published-posts.js"></script>
