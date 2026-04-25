@@ -14,7 +14,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#f3f7f8" />
     <link rel="alternate" type="application/rss+xml" title="qqqzj@Crane RSS" href="../../rss.xml" />
-    <link rel="icon" href="../../assets/furina-avatar.png" type="image/png" />
+    <link rel="icon" href="../../assets/furina-avatar-pneuma.png?v=20260425-1" type="image/png" />
     <script>
       (() => {
         const key = "qqqzj-crane-theme";
@@ -694,6 +694,19 @@ body {
       const tocSections = tocLinks
         .map((link) => findHeadingById(document, link.dataset.headingId))
         .filter(Boolean);
+
+      toc?.addEventListener("click", (event) => {
+        if (event.target.closest("a[data-heading-id]")) {
+          toc.classList.remove("is-open");
+          return;
+        }
+        toc.classList.toggle("is-open");
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!toc || toc.contains(event.target)) return;
+        toc.classList.remove("is-open");
+      });
 
       function activateTocLink(id) {
         tocLinks.forEach((link) => {

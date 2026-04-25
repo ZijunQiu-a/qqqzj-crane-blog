@@ -196,6 +196,7 @@ function createThemeAssetGhost(asset, assetShell) {
   if (!assetShell?.classList.contains("mascot-widget")) return null;
 
   const ghost = asset.cloneNode(false);
+  const assetStyle = window.getComputedStyle(asset);
   ghost.removeAttribute("id");
   ghost.removeAttribute("data-theme-asset");
   ghost.removeAttribute("data-pneuma-src");
@@ -204,6 +205,7 @@ function createThemeAssetGhost(asset, assetShell) {
   ghost.setAttribute("aria-hidden", "true");
   ghost.alt = "";
   ghost.className = "theme-asset-ghost";
+  if (assetStyle.transform !== "none") ghost.style.transform = assetStyle.transform;
   asset.before(ghost);
   return ghost;
 }

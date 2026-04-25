@@ -6,7 +6,7 @@
     <title>qqqzj@Crane</title>
     <meta name="description" content="qqqzj 的个人笔记、生活记录与学习档案。" />
     <meta name="theme-color" content="#f3f7f8" />
-    <link rel="icon" href="assets/furina-avatar.png" type="image/png" />
+    <link rel="icon" href="assets/furina-avatar-pneuma.png?v=20260425-1" type="image/png" />
     <link rel="preload" href="app.js" as="script" />
     <script>
       (() => {
@@ -56,19 +56,38 @@
     <div class="site-shell">
       <!-- 顶部导航：左边是个人品牌，右边是页面内锚点导航。 -->
       <header class="topbar">
-        <a class="brand" href="#home" aria-label="Back to home / 回到首页">
-          <span class="brand-mark brand-avatar" aria-hidden="true">
-            <img
-              src="assets/furina-avatar-pneuma.png?v=20260425-1"
-              data-theme-asset
-              data-pneuma-src="assets/furina-avatar-pneuma.png?v=20260425-1"
-              data-ousia-src="assets/furina-avatar-ousia.png"
-              data-fallback-src="assets/furina-avatar.png"
-              alt=""
-            />
-          </span>
-          <span>qqqzj@Crane</span>
-        </a>
+        <div class="brand-cluster">
+          <a class="brand" href="#home" aria-label="Back to home / 回到首页">
+            <span class="brand-mark brand-avatar" aria-hidden="true">
+              <img
+                src="assets/furina-avatar-pneuma.png?v=20260425-1"
+                data-theme-asset
+                data-pneuma-src="assets/furina-avatar-pneuma.png?v=20260425-1"
+                data-ousia-src="assets/furina-avatar-ousia.png"
+                data-fallback-src="assets/furina-avatar.png"
+                alt=""
+              />
+            </span>
+            <span>qqqzj@Crane</span>
+          </a>
+          <span class="hello-burst" id="hello-burst" aria-hidden="true"></span>
+          <section class="discovery-section topbar-search" aria-labelledby="discovery-title">
+            <div class="section-heading">
+              <p class="eyebrow">Find / Tags</p>
+              <h2 id="discovery-title">Search 搜索</h2>
+            </div>
+            <div class="search-panel">
+              <label class="search-field" for="post-search">
+                <span>Search posts / 搜索文章</span>
+                <input id="post-search" type="search" placeholder="Search..." autocomplete="off" />
+              </label>
+              <button class="clear-search-button" id="clear-search" type="button">Clear / 清空</button>
+              <div class="filter-status" id="filter-status">0 posts</div>
+              <div class="search-results" id="search-results" aria-label="Search results / 搜索结果" hidden></div>
+              <div class="tag-filter" id="tag-filter" aria-label="Tag filters / 标签筛选"></div>
+            </div>
+          </section>
+        </div>
         <div class="topbar-actions">
           <nav class="nav-links" aria-label="Primary navigation / 主导航">
             <a href="#about">About me</a>
@@ -103,26 +122,11 @@
 
       <main id="home">
         <div class="home-view" id="home-view">
-          <!-- 首屏主视觉：包含标题、统计数字和背景图。 -->
+          <!-- 首屏主视觉：包含标题和背景图。 -->
           <section class="studio-panel" aria-labelledby="page-title">
             <div class="studio-copy">
               <p class="eyebrow">News 动态 / Notes 笔记 / Life 生活</p>
               <h1 id="page-title">qqqzj@Crane</h1>
-              <!-- 这些数字由 app.js 根据当前内容数量自动更新。 -->
-              <div class="stats-strip" aria-label="Content statistics / 内容统计">
-                <div>
-                  <strong id="stat-growth">2</strong>
-                  <span>News 动态</span>
-                </div>
-                <div>
-                  <strong id="stat-notes">6</strong>
-                  <span>Notes 笔记</span>
-                </div>
-                <div>
-                  <strong id="stat-videos">1</strong>
-                  <span>Life 生活</span>
-                </div>
-              </div>
             </div>
             <img src="assets/blog-studio.png" alt="Opera-inspired desk, notes, water ribbons, piano keys and gold structural motifs" />
           </section>
@@ -130,55 +134,56 @@
           <!-- 内容区：首页只展示正式文章预览，详情由 app.js 切换。 -->
           <section class="workspace-grid" aria-label="Published content / 已发布内容">
             <div class="content-stack">
-              <section class="directory-section" aria-labelledby="directory-title">
+              <section class="recent-section" aria-labelledby="recent-title">
                 <div class="section-heading">
-                  <p class="eyebrow">Index 目录</p>
-                  <h2 id="directory-title">Content Map 内容索引</h2>
+                  <p class="eyebrow">Recent 最近</p>
+                  <h2 id="recent-title">Latest Posts 最新文章</h2>
                 </div>
-                <nav class="directory-grid" aria-label="Content directory / 内容目录">
-                  <a href="#about">
-                    <span>About me</span>
-                    <strong>Profile</strong>
-                    <small>qqqzj@Crane</small>
+                <div class="recent-list" id="recent-list">
+                  <a class="recent-card post-card static-post-card" href="post/2026-04-25-homepage-reading-polish/">
+                    <div class="recent-card-meta">
+                      <time datetime="2026-04-25T00:00:00.000Z">2026年4月25日</time>
+                      <span>建站</span>
+                    </div>
+                    <div class="recent-card-copy">
+                      <h3>首页和阅读体验继续打磨</h3>
+                      <p>今天继续把 qqqzj@Crane 的首页和阅读体验往更顺手的方向调整了一版。重点不是增加大功能，而是处理那些一打开页面就能感受到的细节：位置、层级、宽度、字号和交互是否舒服。 首页更像入口了 首页现在会展示最近几篇文章，读者不用先在各个栏...</p>
+                    </div>
+                    <span class="published-badge">Read more / 详情</span>
                   </a>
-                  <a href="#growth">
-                    <span>News 动态</span>
-                    <strong id="index-growth">2</strong>
-                    <small>Updates</small>
+                  <a class="recent-card post-card static-post-card" href="post/2026-04-25-site-update-roundup/">
+                    <div class="recent-card-meta">
+                      <time datetime="2026-04-25T00:00:00.000Z">2026年4月25日</time>
+                      <span>建站</span>
+                    </div>
+                    <div class="recent-card-copy">
+                      <h3>网站阶段更新：从内容归档到阅读体验</h3>
+                      <p>这两天 qqqzj@Crane 做了一轮比较密集的维护，已经不只是“能放文章”的第一版了。现在它更像一个可以长期写、长期查、长期扩展的个人学习档案。 这次主要更新有几块。 内容和发布方式 网站现在采用 private 源码仓库和 publi...</p>
+                    </div>
+                    <span class="published-badge">Read more / 详情</span>
                   </a>
-                  <a href="#notes">
-                    <span>Notes 笔记</span>
-                    <strong id="index-notes">6</strong>
-                    <small>Notebook</small>
+                  <a class="recent-card post-card static-post-card" href="post/2026-04-25-physics-i-midterm-review-outline/">
+                    <div class="recent-card-meta">
+                      <time datetime="2026-04-25T00:00:00.000Z">2026年4月25日</time>
+                      <span>普物 I</span>
+                    </div>
+                    <div class="recent-card-copy">
+                      <h3>普物 I 期中复习提纲（重点速览版）</h3>
+                      <p>General Physics I Midterm Review Outline / 普物 I 期中复习提纲 Based on / 依据：slides 课件、homework 作业、midterm 历年期中卷。 Focus / 重点：mec...</p>
+                    </div>
+                    <span class="published-badge">Read more / 详情</span>
                   </a>
-                  <a href="#life">
-                    <span>Life 生活</span>
-                    <strong id="index-videos">1</strong>
-                    <small>Life Log</small>
-                  </a>
-                  <a href="#archive">
-                    <span>Archive 归档</span>
-                    <strong id="index-total">9</strong>
-                    <small>All posts</small>
-                  </a>
-                </nav>
-              </section>
-
-              <section class="discovery-section" aria-labelledby="discovery-title">
-                <div class="section-heading">
-                  <p class="eyebrow">Find 查找</p>
-                  <h2 id="discovery-title">Search & Tags 搜索与标签</h2>
-                </div>
-                <div class="search-panel">
-                  <label class="search-field" for="post-search">
-                    <span>Search posts / 搜索文章</span>
-                    <input id="post-search" type="search" placeholder="Title, tag, keyword..." autocomplete="off" />
-                  </label>
-                  <button class="clear-search-button" id="clear-search" type="button">Clear / 清空</button>
-                  <div class="filter-status" id="filter-status">0 posts</div>
-                  <div class="search-results" id="search-results" aria-label="Search results / 搜索结果" hidden></div>
-                  <div class="tag-filter" id="tag-filter" aria-label="Tag filters / 标签筛选"></div>
-                </div>
+                  <a class="recent-card post-card static-post-card" href="post/2026-04-25-physics-i-midterm-mechanics-complete-review/">
+                    <div class="recent-card-meta">
+                      <time datetime="2026-04-25T00:00:00.000Z">2026年4月25日</time>
+                      <span>普物 I</span>
+                    </div>
+                    <div class="recent-card-copy">
+                      <h3>普物 I 期中复习提纲（力学全覆盖版）</h3>
+                      <p>General Physics I Midterm Review Outline / 普物 I 期中复习提纲（Mechanics 讲义全覆盖版） Main reference / 主参考：普物I/reference books/mechan...</p>
+                    </div>
+                    <span class="published-badge">Read more / 详情</span>
+                  </a></div>
               </section>
 
               <!-- About me：静态个人简介，直接改 HTML 就能更新。 -->
@@ -218,6 +223,21 @@
                   <h2 id="growth-title">News 动态</h2>
                 </div>
                 <div class="timeline" id="growth-list">
+                  <a class="timeline-item post-card static-post-card" href="post/2026-04-25-homepage-reading-polish/">
+                    <div class="date-pill">
+                      <time datetime="2026-04-25T00:00:00.000Z">2026年4月25日</time>
+                      <span class="tag">Site Update</span>
+                    </div>
+                    <div class="entry-copy">
+                      <h3>首页和阅读体验继续打磨</h3>
+                      <p class="post-preview">今天继续把 qqqzj@Crane 的首页和阅读体验往更顺手的方向调整了一版。重点不是增加大功能，而是处理那些一打开页面就能感受到的细节：位置、层级、宽度、字号和交互是否舒服。 首页更像入口了 首页现在会展示最近几篇文章，读者不用先在各个栏...</p>
+                      <div class="card-footer">
+                        <span>Updated 2026年4月25日</span>
+                        <span>约 2 分钟</span>
+                        <span class="published-badge">Read more / 详情</span>
+                      </div>
+                    </div>
+                  </a>
                   <a class="timeline-item post-card static-post-card" href="post/2026-04-25-site-update-roundup/">
                     <div class="date-pill">
                       <time datetime="2026-04-25T00:00:00.000Z">2026年4月25日</time>
@@ -363,6 +383,11 @@
                     <h3>2026年4月</h3>
                     <div class="archive-items">
                       
+                      <a href="post/2026-04-25-homepage-reading-polish/">
+                        <strong>首页和阅读体验继续打磨</strong>
+                        <span>建站</span>
+                        <small>2026年4月25日</small>
+                      </a>
                       <a href="post/2026-04-25-site-update-roundup/">
                         <strong>网站阶段更新：从内容归档到阅读体验</strong>
                         <span>建站</span>
@@ -450,7 +475,6 @@
     <!-- 右下角可点击互动小人，点击文案和动画由 app.js 控制。 -->
     <button class="mascot-widget" id="mascot-widget" type="button" aria-label="Talk to the chibi mascot / 和Q版小人互动">
       <span class="mascot-bubble" id="mascot-bubble">Bonjour / 你好呀</span>
-      <span class="hello-burst" id="hello-burst" aria-hidden="true"></span>
       <img
         src="assets/furina-chibi-pneuma.png?v=20260425-3"
         data-theme-asset

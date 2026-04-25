@@ -12,22 +12,10 @@ seedPublishedPosts();
 
 // 常用 DOM 节点集中存起来，后面渲染时就不用反复 querySelector。
 const lists = {
+  recent: document.querySelector("#recent-list"),
   growth: document.querySelector("#growth-list"),
   notes: document.querySelector("#note-list"),
   videos: document.querySelector("#video-list"),
-};
-
-const stats = {
-  growth: document.querySelector("#stat-growth"),
-  notes: document.querySelector("#stat-notes"),
-  videos: document.querySelector("#stat-videos"),
-};
-
-const directoryCounts = {
-  growth: document.querySelector("#index-growth"),
-  notes: document.querySelector("#index-notes"),
-  videos: document.querySelector("#index-videos"),
-  total: document.querySelector("#index-total"),
 };
 
 const views = {
@@ -42,7 +30,10 @@ const views = {
   progress: document.querySelector("#reading-progress"),
 };
 
+const homeLinks = document.querySelectorAll('a[href="#home"]');
+
 const discovery = {
+  panel: document.querySelector(".topbar-search .search-panel"),
   search: document.querySelector("#post-search"),
   clear: document.querySelector("#clear-search"),
   status: document.querySelector("#filter-status"),
@@ -62,9 +53,6 @@ let tocObserver = null;
 
 // 总渲染入口：三类内容列表和顶部统计都在这里更新。
 function render() {
-  const growthTotal = entriesFor("growth");
-  const noteTotal = entriesFor("notes");
-  const videoTotal = entriesFor("videos");
   const allPosts = allEntries();
   const filteredPosts = allPosts.filter(matchesFilters);
   const growthEntries = filteredPosts.filter((entry) => entry.kind === "growth");
@@ -72,6 +60,7 @@ function render() {
   const noteEntries = noteBaseEntries.filter(matchesNoteCategory);
   const videoEntries = filteredPosts.filter((entry) => entry.kind === "videos");
 
+  renderRecent(allPosts.slice(0, 4));
   renderGrowth(growthEntries);
   renderNoteCategories(noteBaseEntries);
   renderNotes(noteEntries);
@@ -80,19 +69,38 @@ function render() {
   renderArchive(filteredPosts);
   renderFilterStatus(filteredPosts.length, allPosts.length);
   renderSearchResults(filteredPosts);
-  stats.growth.textContent = growthTotal.length;
-  stats.notes.textContent = noteTotal.length;
-  stats.videos.textContent = videoTotal.length;
-  directoryCounts.growth.textContent = growthTotal.length;
-  directoryCounts.notes.textContent = noteTotal.length;
-  directoryCounts.videos.textContent = videoTotal.length;
-  directoryCounts.total.textContent = allPosts.length;
   renderRoute();
 }
 
 // 正式 Markdown 文章按时间从新到旧排序。
 function entriesFor(kind) {
   return [...published[kind]].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+}
+
+function renderRecent(entries) {
+  lists.recent.replaceChildren();
+  if (!entries.length) {
+    lists.recent.append(emptyState("Recent / 最近更新"));
+    return;
+  }
+
+  entries.forEach((entry) => {
+    const item = document.createElement("a");
+    item.className = "recent-card post-card";
+    item.href = postHref(entry);
+    item.innerHTML = `
+      <div class="recent-card-meta">
+        <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
+        <span>${escapeHtml(entry.tag || kindLabel(entry.kind))}</span>
+      </div>
+      <div class="recent-card-copy">
+        <h3>${escapeHtml(entry.title)}</h3>
+        <p>${escapeHtml(entry.excerpt || kindLabel(entry.kind))}</p>
+      </div>
+      ${readMoreLabel()}
+    `;
+    lists.recent.append(item);
+  });
 }
 
 // 渲染 News 列表。这里用 escapeHtml 是为了避免用户输入变成真正的 HTML。
@@ -505,6 +513,17 @@ function showHome() {
   typesetMath();
 }
 
+function navigateHomeTop(behavior = "smooth") {
+  if (window.location.hash !== "#home") {
+    window.location.hash = "home";
+  }
+
+  showHome();
+  window.requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, behavior });
+  });
+}
+
 function showPostDetail(entry) {
   views.home.hidden = true;
   views.detail.hidden = false;
@@ -535,6 +554,7 @@ function renderPostToc(entry) {
   const headings = Array.isArray(entry.headings) ? entry.headings : [];
   views.detailToc.replaceChildren();
   views.detailToc.hidden = headings.length < 2;
+  views.detailToc.classList.remove("is-open");
   if (views.detailToc.hidden) return;
 
   views.detailToc.innerHTML = `
@@ -666,10 +686,32 @@ contactCopy?.addEventListener("click", async () => {
 
 views.detailToc?.addEventListener("click", (event) => {
   const link = event.target.closest("[data-heading-id]");
-  if (!link) return;
+  if (!link) {
+    views.detailToc.classList.toggle("is-open");
+    return;
+  }
 
   event.preventDefault();
+  views.detailToc.classList.remove("is-open");
   scrollToHeading(link.dataset.headingId);
+});
+
+document.addEventListener("click", (event) => {
+  if (!views.detailToc || views.detailToc.hidden || views.detailToc.contains(event.target)) return;
+  views.detailToc.classList.remove("is-open");
+});
+
+homeLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    navigateHomeTop();
+  });
+});
+
+discovery.panel?.addEventListener("pointerdown", (event) => {
+  if (event.target.closest("input, button, a")) return;
+  event.preventDefault();
+  discovery.search?.focus();
 });
 
 views.detailBody?.addEventListener("click", async (event) => {
@@ -736,7 +778,7 @@ const mascotLines = [
 ];
 let mascotLineIndex = 0;
 let mascotTimer;
-const helloWords = ["HELLO!", "你好呀", "Welcome"];
+const helloWords = ["你好呀"];
 
 // 重新触发动画的小技巧：移除 class，读取 offsetWidth，再加回 class。
 mascotWidget?.addEventListener("click", () => {
@@ -760,8 +802,8 @@ function playHelloBurst() {
     const spark = document.createElement("span");
     spark.className = "hello-spark";
     spark.textContent = word;
-    spark.style.setProperty("--dx", `${-78 + index * 70}px`);
-    spark.style.setProperty("--dy", `${-52 - (index % 2) * 18}px`);
+    spark.style.setProperty("--dx", "6px");
+    spark.style.setProperty("--dy", "0px");
     spark.style.setProperty("--delay", `${index * 80}ms`);
     helloBurst.append(spark);
   });
