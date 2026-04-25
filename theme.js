@@ -19,6 +19,9 @@ const themeMedia = window.matchMedia?.("(prefers-color-scheme: dark)");
 let themeTransitionTimer;
 let assetSyncToken = 0;
 const imageAvailability = new Map();
+const ASSET_SWAP_FADE_MS = 290;
+const MASCOT_ASSET_SWAP_FADE_MS = 760;
+const MASCOT_STRIKE_MS = 1180;
 
 // 主题偏好只保存“用户选择”：白天、黑夜、自动。真正显示的芒/荒状态由 resolveThemeState 计算。
 function currentThemePreference() {
@@ -40,6 +43,7 @@ function applyThemeMode(preference, options = {}) {
   const state = resolveThemeState(mode);
   const root = document.documentElement;
   const previousState = root.dataset.themeState || state;
+  const shouldAnimate = options.animate && previousState !== state;
 
   if (options.persist) {
     try {
@@ -49,19 +53,17 @@ function applyThemeMode(preference, options = {}) {
     }
   }
 
+  if (shouldAnimate) startThemeTransition(state);
+
   root.dataset.themePreference = mode;
   root.dataset.themeState = state;
   root.style.colorScheme = state === "ousia" ? "dark" : "light";
   updateThemeColor(state);
   syncThemeControls(mode, state);
-  syncThemeAssets(state);
-
-  if (options.animate && previousState !== state) {
-    playThemeTransition(state);
-  }
+  syncThemeAssets(state, { animate: shouldAnimate });
 }
 
-function playThemeTransition(state) {
+function startThemeTransition(state) {
   const root = document.documentElement;
   window.clearTimeout(themeTransitionTimer);
   root.classList.remove("theme-transitioning", "theme-enter-pneuma", "theme-enter-ousia");
@@ -69,7 +71,7 @@ function playThemeTransition(state) {
   root.classList.add("theme-transitioning", `theme-enter-${state}`);
   themeTransitionTimer = window.setTimeout(() => {
     root.classList.remove("theme-transitioning", "theme-enter-pneuma", "theme-enter-ousia");
-  }, 880);
+  }, 1180);
 }
 
 function updateThemeColor(state) {
@@ -127,6 +129,7 @@ function bindThemeControls() {
 
   document.addEventListener("click", closeThemeMenus);
   applyThemeMode(currentThemePreference());
+  preloadThemeAssets();
 }
 
 function closeThemeMenus() {
@@ -136,7 +139,15 @@ function closeThemeMenus() {
   });
 }
 
-async function syncThemeAssets(state) {
+function preloadThemeAssets() {
+  document.querySelectorAll("[data-theme-asset]").forEach((asset) => {
+    [asset.dataset.pneumaSrc, asset.dataset.ousiaSrc].filter(Boolean).forEach((src) => {
+      imageCanLoad(src);
+    });
+  });
+}
+
+async function syncThemeAssets(state, options = {}) {
   const token = ++assetSyncToken;
   const assets = [...document.querySelectorAll("[data-theme-asset]")];
 
@@ -146,12 +157,83 @@ async function syncThemeAssets(state) {
     const chosen = preferred && await imageCanLoad(preferred) ? preferred : fallback;
 
     if (token !== assetSyncToken || !chosen) return;
-    if (asset.getAttribute("src") !== chosen) asset.setAttribute("src", chosen);
+    const willSwap = asset.getAttribute("src") !== chosen;
+    const assetShell = asset.closest(".brand-avatar, .mascot-widget");
+    let assetGhost;
+
+    if (willSwap && options.animate) {
+      asset.dataset.assetSwapToken = String(token);
+      assetGhost = createThemeAssetGhost(asset, assetShell);
+      asset.classList.add("is-theme-asset-swapping");
+      assetShell?.classList.add("is-theme-asset-shell-swapping");
+      playThemeAssetEffect(assetShell);
+      if (!assetShell?.classList.contains("mascot-widget")) {
+        await delay(ASSET_SWAP_FADE_MS);
+      }
+    }
+
+    if (token !== assetSyncToken) {
+      cleanupThemeAssetSwap(asset, assetShell, assetGhost, token);
+      return;
+    }
+    if (willSwap) asset.setAttribute("src", chosen);
+
     const isFallback = chosen !== preferred;
     asset.dataset.assetState = isFallback ? "fallback" : state;
     asset.classList.toggle("is-theme-fallback", isFallback);
-    asset.closest(".brand-avatar, .mascot-widget")?.classList.toggle("is-theme-fallback", isFallback);
+    assetShell?.classList.toggle("is-theme-fallback", isFallback);
+
+    if (willSwap && options.animate) {
+      await nextFrame();
+      asset.classList.add("is-theme-asset-entering");
+      await delay(assetShell?.classList.contains("mascot-widget") ? MASCOT_ASSET_SWAP_FADE_MS : ASSET_SWAP_FADE_MS);
+      cleanupThemeAssetSwap(asset, assetShell, assetGhost, token);
+    }
   }));
+}
+
+function createThemeAssetGhost(asset, assetShell) {
+  if (!assetShell?.classList.contains("mascot-widget")) return null;
+
+  const ghost = asset.cloneNode(false);
+  ghost.removeAttribute("id");
+  ghost.removeAttribute("data-theme-asset");
+  ghost.removeAttribute("data-pneuma-src");
+  ghost.removeAttribute("data-ousia-src");
+  ghost.removeAttribute("data-fallback-src");
+  ghost.setAttribute("aria-hidden", "true");
+  ghost.alt = "";
+  ghost.className = "theme-asset-ghost";
+  asset.before(ghost);
+  return ghost;
+}
+
+function cleanupThemeAssetSwap(asset, assetShell, assetGhost, token) {
+  assetGhost?.remove();
+  if (asset.dataset.assetSwapToken !== String(token)) return;
+
+  asset.classList.remove("is-theme-asset-swapping", "is-theme-asset-entering");
+  assetShell?.classList.remove("is-theme-asset-shell-swapping");
+  delete asset.dataset.assetSwapToken;
+}
+
+function playThemeAssetEffect(assetShell) {
+  if (!assetShell?.classList.contains("mascot-widget")) return;
+
+  assetShell.classList.remove("is-theme-striking");
+  void assetShell.offsetWidth;
+  assetShell.classList.add("is-theme-striking");
+  window.setTimeout(() => {
+    assetShell.classList.remove("is-theme-striking");
+  }, MASCOT_STRIKE_MS);
+}
+
+function delay(milliseconds) {
+  return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+}
+
+function nextFrame() {
+  return new Promise((resolve) => window.requestAnimationFrame(() => resolve()));
 }
 
 function imageCanLoad(src) {

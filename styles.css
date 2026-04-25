@@ -162,6 +162,7 @@ button {
   display: grid;
   place-items: center;
   position: relative;
+  isolation: isolate;
   width: 52px;
   height: 52px;
   overflow: visible;
@@ -178,7 +179,7 @@ button {
 .brand-mark::after {
   position: absolute;
   inset: -1px;
-  z-index: 2;
+  z-index: 1;
   border-radius: inherit;
   content: "";
   background:
@@ -209,16 +210,20 @@ button {
 /* 头像比圆底稍大一点，形成贴纸感，而不是被硬裁成小圆图。 */
 .brand-avatar img {
   position: absolute;
-  top: -5px;
-  left: -5px;
+  top: 50%;
+  left: 50%;
   width: 62px;
   height: 62px;
   max-width: none;
   object-fit: contain;
   object-position: center center;
-  transform: translateY(0) scale(1);
+  transform: translate(-50%, -50%) translateY(0) scale(1);
   transform-origin: center center;
-  z-index: 1;
+  z-index: 2;
+  transition:
+    opacity 520ms ease,
+    filter 760ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .brand:hover .brand-avatar img,
@@ -1744,12 +1749,13 @@ h3 {
   display: grid;
   place-items: center;
   width: clamp(92px, 13vw, 142px);
-  min-height: 0;
+  aspect-ratio: 0.56;
   border: 0;
   border-radius: 999px;
   background: transparent;
   padding: 0;
   filter: drop-shadow(0 16px 26px rgba(16, 35, 46, 0.24));
+  overflow: visible;
 }
 
 .mascot-widget::before {
@@ -1774,9 +1780,23 @@ h3 {
   z-index: 1;
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
   transform-origin: 50% 92%;
   animation: mascot-float 4s ease-in-out infinite;
+  transition:
+    opacity 460ms ease,
+    filter 760ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mascot-widget .theme-asset-ghost {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  animation: mascot-wardrobe-ghost 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* hover、键盘聚焦或点击时切换成弹跳动画。 */
@@ -1784,6 +1804,13 @@ h3 {
 .mascot-widget:focus-visible img,
 .mascot-widget.is-excited img {
   animation: mascot-pop 520ms ease both;
+}
+
+.mascot-widget:hover .theme-asset-ghost,
+.mascot-widget:focus-visible .theme-asset-ghost,
+.mascot-widget.is-excited .theme-asset-ghost,
+.mascot-widget.is-theme-striking .theme-asset-ghost {
+  animation: mascot-wardrobe-ghost 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .mascot-widget:focus-visible {
@@ -1869,6 +1896,47 @@ h3 {
   animation: ripple 620ms ease-out;
 }
 
+.mascot-widget.is-theme-striking {
+  z-index: 1002;
+}
+
+.mascot-widget.is-theme-striking::before {
+  inset: 4% -2% -7%;
+  border-radius: 48% 48% 44% 44%;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 253, 231, 0.62), transparent 13%),
+    radial-gradient(circle at 52% 58%, rgba(111, 222, 248, 0.64), transparent 36%),
+    conic-gradient(from 225deg, transparent 0 12%, rgba(255, 224, 148, 0.78) 18%, transparent 29%, rgba(105, 218, 247, 0.76) 40%, transparent 54%, rgba(255, 254, 253, 0.74) 64%, transparent 77%, rgba(105, 218, 247, 0.66) 88%, transparent 100%);
+  filter: blur(0.4px) saturate(1.1);
+  animation: mascot-charge-aura 1180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.mascot-widget.is-theme-striking::after {
+  inset: 2% -11% -2%;
+  z-index: 2;
+  width: auto;
+  height: auto;
+  aspect-ratio: auto;
+  border: 2px solid rgba(229, 248, 255, 0.8);
+  border-radius: 50%;
+  background:
+    linear-gradient(110deg, transparent 16%, rgba(255, 232, 164, 0.92) 23%, transparent 30%),
+    linear-gradient(250deg, transparent 58%, rgba(110, 218, 246, 0.86) 65%, transparent 72%),
+    radial-gradient(circle at 72% 24%, rgba(255, 250, 228, 0.88) 0 4px, transparent 5px),
+    radial-gradient(circle at 20% 76%, rgba(121, 226, 250, 0.72) 0 4px, transparent 5px);
+  box-shadow:
+    0 0 28px rgba(105, 218, 247, 0.66),
+    0 0 10px rgba(255, 232, 164, 0.58),
+    inset 0 0 20px rgba(255, 254, 253, 0.36);
+  opacity: 0;
+  transform: rotate(-12deg) scale(0.68);
+  animation: mascot-charge-ring 1180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.mascot-widget.is-theme-striking img {
+  animation: mascot-theme-strike 1180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* 动画定义区。 */
 @keyframes mascot-float {
   0%,
@@ -1892,6 +1960,128 @@ h3 {
 
   100% {
     transform: translateY(0) scale(1) rotate(0);
+  }
+}
+
+@keyframes mascot-theme-strike {
+  0% {
+    transform: translateY(0) scale(1) rotate(-1deg);
+    filter: drop-shadow(0 0 0 rgba(110, 218, 246, 0));
+  }
+
+  22% {
+    transform: translateY(2px) scale(0.985) rotate(-2deg);
+    filter: drop-shadow(0 0 8px rgba(110, 218, 246, 0.26));
+  }
+
+  42% {
+    transform: translateY(-3px) scale(1.025) rotate(1.5deg);
+    filter: drop-shadow(0 0 18px rgba(110, 218, 246, 0.66));
+  }
+
+  56% {
+    transform: translateY(-3px) scale(1.02) rotate(-0.75deg);
+    filter: drop-shadow(0 0 14px rgba(255, 232, 164, 0.36));
+  }
+
+  78% {
+    transform: translateY(-1px) scale(1.008) rotate(0deg);
+    filter: drop-shadow(0 0 6px rgba(110, 218, 246, 0.24));
+  }
+
+  100% {
+    transform: translateY(0) scale(1) rotate(-1deg);
+    filter: none;
+  }
+}
+
+@keyframes mascot-charge-aura {
+  0% {
+    opacity: 0;
+    transform: translateY(7px) scale(0.66) rotate(-8deg);
+  }
+
+  30% {
+    opacity: 0.7;
+  }
+
+  48% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.08) rotate(3deg);
+  }
+
+  68% {
+    opacity: 0.52;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-4px) scale(1.24) rotate(12deg);
+  }
+}
+
+@keyframes mascot-charge-ring {
+  0% {
+    opacity: 0;
+    transform: rotate(-14deg) scale(0.62);
+  }
+
+  32% {
+    opacity: 0.64;
+  }
+
+  48% {
+    opacity: 1;
+    transform: rotate(-3deg) scale(1.02);
+  }
+
+  70% {
+    opacity: 0.42;
+  }
+
+  100% {
+    opacity: 0;
+    transform: rotate(12deg) scale(1.32);
+  }
+}
+
+@keyframes mascot-wardrobe-ghost {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(-1deg);
+    filter: blur(0) saturate(1) brightness(1);
+  }
+
+  38% {
+    opacity: 0.92;
+    transform: translateY(-2px) scale(1.018) rotate(1deg);
+    filter: blur(0.6px) saturate(1.08) brightness(1.08);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-4px) scale(1.045) rotate(2deg);
+    filter: blur(4px) saturate(0.72) brightness(1.16);
+  }
+}
+
+@keyframes mascot-wardrobe-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.965) rotate(-2deg);
+    filter: blur(4px) saturate(0.76) brightness(1.18);
+  }
+
+  42% {
+    opacity: 0.76;
+    transform: translateY(-2px) scale(1.018) rotate(1deg);
+    filter: blur(1px) saturate(1.1) brightness(1.08);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(-1deg);
+    filter: blur(0) saturate(1) brightness(1);
   }
 }
 
@@ -1930,11 +2120,11 @@ h3 {
 @keyframes avatar-bounce {
   0%,
   100% {
-    transform: translateY(0) scale(1);
+    transform: translate(-50%, -50%) translateY(0) scale(1);
   }
 
   45% {
-    transform: translateY(-3px) scale(1.08);
+    transform: translate(-50%, -50%) translateY(-3px) scale(1.08);
   }
 }
 
@@ -1960,17 +2150,18 @@ html.theme-transitioning .post-toc,
 html.theme-transitioning .back-link,
 html.theme-transitioning .contact-copy,
 html.theme-transitioning .mascot-widget,
-html.theme-transitioning .mascot-widget img,
 html.theme-transitioning .brand-mark,
+html.theme-transitioning .brand-mark::before,
 html.theme-transitioning .brand-mark::after {
   transition:
-    background 560ms cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 560ms cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 560ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 560ms cubic-bezier(0.16, 1, 0.3, 1),
-    color 420ms ease,
-    filter 620ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 420ms ease;
+    background 960ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 960ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 960ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 960ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 760ms ease,
+    filter 1040ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 760ms ease,
+    transform 1040ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html.theme-transitioning::before {
@@ -1979,34 +2170,69 @@ html.theme-transitioning::before {
   z-index: 999;
   content: "";
   pointer-events: none;
-  animation: theme-tide 840ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: theme-gradient-wash 1160ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+html.theme-transitioning::after {
+  position: fixed;
+  inset: -18%;
+  z-index: 1000;
+  content: "";
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-10%) rotate(-5deg);
+  animation: theme-soft-sheen 1160ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 html.theme-enter-ousia::before {
   background:
-    radial-gradient(circle at 82% 90%, rgba(102, 213, 240, 0.34), transparent 18%),
-    radial-gradient(circle at 50% 110%, rgba(10, 21, 35, 0.92), transparent 62%);
+    linear-gradient(135deg, rgba(246, 253, 255, 0.24), rgba(87, 193, 219, 0.22) 34%, rgba(9, 21, 35, 0.9) 100%),
+    radial-gradient(circle at 72% 92%, rgba(102, 213, 240, 0.34), transparent 30%);
 }
 
 html.theme-enter-pneuma::before {
   background:
-    radial-gradient(circle at 80% 90%, rgba(255, 254, 253, 0.72), transparent 18%),
-    radial-gradient(circle at 50% 110%, rgba(126, 219, 236, 0.34), transparent 62%);
+    linear-gradient(135deg, rgba(9, 21, 35, 0.22), rgba(126, 219, 236, 0.26) 38%, rgba(255, 254, 253, 0.88) 100%),
+    radial-gradient(circle at 72% 92%, rgba(255, 232, 175, 0.34), transparent 30%);
 }
 
-@keyframes theme-tide {
+html.theme-enter-ousia::after {
+  background: linear-gradient(100deg, transparent 18%, rgba(132, 224, 247, 0.24) 44%, rgba(8, 18, 31, 0.18) 62%, transparent 82%);
+}
+
+html.theme-enter-pneuma::after {
+  background: linear-gradient(100deg, transparent 18%, rgba(255, 254, 253, 0.4) 44%, rgba(115, 218, 237, 0.16) 62%, transparent 82%);
+}
+
+@keyframes theme-gradient-wash {
   0% {
     opacity: 0;
-    clip-path: circle(0% at 82% 90%);
+    transform: scale(1.02);
   }
 
-  38% {
-    opacity: 0.72;
+  44% {
+    opacity: 0.74;
   }
 
   100% {
     opacity: 0;
-    clip-path: circle(142% at 82% 90%);
+    transform: scale(1);
+  }
+}
+
+@keyframes theme-soft-sheen {
+  0% {
+    opacity: 0;
+    transform: translateX(-12%) rotate(-5deg);
+  }
+
+  36% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(12%) rotate(-5deg);
   }
 }
 
@@ -2047,6 +2273,11 @@ html.theme-enter-pneuma::before {
   opacity: 0.46;
 }
 
+.brand-avatar.is-theme-asset-shell-swapping::before {
+  opacity: 0.72;
+  transform: translateY(2px) scale(0.96);
+}
+
 :root[data-theme-state="ousia"] .brand-avatar.is-theme-fallback::before {
   opacity: 0.95;
   transform: translateY(4px) scale(1.02);
@@ -2054,6 +2285,18 @@ html.theme-enter-pneuma::before {
 
 :root[data-theme-state="ousia"] .brand-avatar img.is-theme-fallback {
   filter: brightness(0.74) saturate(0.72) hue-rotate(18deg) contrast(1.12);
+}
+
+:root[data-theme-state="pneuma"] .brand-avatar img[data-asset-state="pneuma"] {
+  width: 70px;
+  height: 70px;
+  filter: drop-shadow(0 7px 10px rgba(20, 123, 145, 0.2));
+}
+
+:root[data-theme-state="ousia"] .brand-avatar img[data-asset-state="ousia"] {
+  width: 72px;
+  height: 72px;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.28));
 }
 
 :root[data-theme-state="ousia"] .mascot-widget {
@@ -2081,6 +2324,27 @@ html.theme-enter-pneuma::before {
 
 :root[data-theme-state="ousia"] .mascot-widget img.is-theme-fallback {
   filter: brightness(0.7) saturate(0.78) hue-rotate(18deg) contrast(1.15);
+}
+
+.brand-avatar img.is-theme-asset-swapping,
+.mascot-widget img.is-theme-asset-swapping {
+  opacity: 0;
+  filter: blur(5px) saturate(0.78) brightness(0.92);
+}
+
+.brand-avatar img.is-theme-asset-swapping {
+  opacity: 0.28;
+  filter: blur(3px) saturate(1.08) brightness(1.12);
+  transform: translate(-50%, -50%) scale(0.92);
+}
+
+.mascot-widget img.is-theme-asset-swapping {
+  opacity: 0;
+  filter: blur(4px) saturate(0.76) brightness(1.18) drop-shadow(0 0 12px rgba(110, 218, 246, 0.45));
+}
+
+.mascot-widget img.is-theme-asset-swapping.is-theme-asset-entering {
+  animation: mascot-wardrobe-enter 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 :root[data-theme-state="ousia"] .studio-panel {
