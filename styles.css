@@ -37,6 +37,7 @@
 }
 
 html {
+  scroll-padding-top: 96px;
   scroll-behavior: smooth;
 }
 
@@ -531,8 +532,9 @@ button {
   isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 0.82fr) minmax(360px, 1.18fr);
+  width: min(100%, 980px);
   min-height: clamp(340px, 50vh, 520px);
-  margin-top: clamp(10px, 1.8vw, 22px);
+  margin: clamp(10px, 1.8vw, 22px) auto 0;
   overflow: hidden;
   border: 1px solid rgba(16, 35, 46, 0.14);
   border-radius: 28px;
@@ -2706,6 +2708,10 @@ html.theme-enter-pneuma::after {
     width: min(100% - 20px, 1180px);
   }
 
+  html {
+    scroll-padding-top: 190px;
+  }
+
   .topbar {
     align-items: flex-start;
     gap: 12px;
@@ -2734,6 +2740,16 @@ html.theme-enter-pneuma::after {
     width: 100%;
     align-items: center;
     gap: 8px;
+  }
+
+  .recent-section,
+  .discovery-section,
+  .about-section,
+  .timeline-section,
+  .notes-section,
+  .video-section,
+  .archive-section {
+    scroll-margin-top: 190px;
   }
 
   .nav-links {
