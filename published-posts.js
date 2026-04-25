@@ -2301,6 +2301,27 @@ window.PUBLISHED_POSTS = {
       "excerpt": "为了这次出行，清明前我真的付出了太多～～ 趵突泉 竟然只是三个冒水的洞？！ 夜里的泰山 泰山日出 “日上，正赤如丹，下有红光动摇承之”",
       "readingMinutes": 1,
       "createdAt": "2026-04-04T00:00:00.000Z"
+    },
+    {
+      "id": "life/2026-04-25-真好-又浪费了一天.md",
+      "slug": "2026-04-25-真好-又浪费了一天",
+      "source": "post",
+      "kind": "videos",
+      "title": "真好，又浪费了一天",
+      "stage": "Life 生活",
+      "tag": "日常",
+      "url": "",
+      "html": "<h4 id=\"我真服了\">我真服了<a class=\"heading-anchor\" href=\"#我真服了\" data-heading-id=\"我真服了\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>今天的 Chatgpt 让我很恼火，今天的 General Physics 更是火上浇油</p><p>一边复习，一边对着电脑和他互动。不仅复习不成，功能也没给我正确实现（我已急哭）</p><p>好在最后也是成功优化了 UI 界面，不过下周三要考普物期中了，我怎么还没复习完？？？</p><p>啥也不是，我含泪复习去了～</p>",
+      "headings": [
+        {
+          "id": "我真服了",
+          "title": "我真服了",
+          "level": 4
+        }
+      ],
+      "excerpt": "我真服了 今天的 Chatgpt 让我很恼火，今天的 General Physics 更是火上浇油 一边复习，一边对着电脑和他互动。不仅复习不成，功能也没给我正确实现（我已急哭） 好在最后也是成功优化了 UI 界面，不过下周三要考普物期中了...",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-25T00:00:00.000Z"
     }
   ]
 };
