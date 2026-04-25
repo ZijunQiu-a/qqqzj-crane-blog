@@ -147,7 +147,10 @@ async function syncThemeAssets(state) {
 
     if (token !== assetSyncToken || !chosen) return;
     if (asset.getAttribute("src") !== chosen) asset.setAttribute("src", chosen);
-    asset.dataset.assetState = chosen === preferred ? state : "fallback";
+    const isFallback = chosen !== preferred;
+    asset.dataset.assetState = isFallback ? "fallback" : state;
+    asset.classList.toggle("is-theme-fallback", isFallback);
+    asset.closest(".brand-avatar, .mascot-widget")?.classList.toggle("is-theme-fallback", isFallback);
   }));
 }
 

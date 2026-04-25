@@ -189,6 +189,23 @@ button {
   transition: opacity 420ms ease;
 }
 
+.brand-mark::before {
+  position: absolute;
+  inset: -8px -6px -10px;
+  z-index: 0;
+  border-radius: 46% 46% 52% 52%;
+  content: "";
+  background:
+    radial-gradient(circle at 50% 15%, rgba(235, 248, 255, 0.32), transparent 18%),
+    linear-gradient(155deg, rgba(5, 9, 20, 0.96), rgba(31, 38, 90, 0.92) 62%, rgba(91, 214, 239, 0.54));
+  opacity: 0;
+  transform: translateY(2px) scale(0.88);
+  transition:
+    opacity 420ms ease,
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
 /* 头像比圆底稍大一点，形成贴纸感，而不是被硬裁成小圆图。 */
 .brand-avatar img {
   position: absolute;
@@ -1366,7 +1383,7 @@ h3 {
 .post-detail-shell {
   display: grid;
   gap: 16px;
-  width: min(100%, 1080px);
+  width: min(100%, 1360px);
   margin: 0 auto;
 }
 
@@ -1436,6 +1453,7 @@ h3 {
 }
 
 .post-toc {
+  position: relative;
   display: grid;
   gap: 10px;
   max-height: min(360px, 48vh);
@@ -1446,6 +1464,7 @@ h3 {
   background:
     linear-gradient(135deg, rgba(20, 123, 145, 0.08), transparent 54%),
     rgba(248, 251, 251, 0.82);
+  box-shadow: 0 16px 34px rgba(16, 35, 46, 0.08);
 }
 
 .post-toc[hidden] {
@@ -1580,7 +1599,7 @@ h3 {
 
 @media (min-width: 1120px) {
   .post-detail-card {
-    grid-template-columns: minmax(0, 1fr) 260px;
+    grid-template-columns: minmax(0, 1fr) clamp(270px, 24vw, 330px);
     align-items: start;
     overflow: visible;
   }
@@ -1593,10 +1612,16 @@ h3 {
 
   .post-toc {
     position: sticky;
-    top: 92px;
+    top: 88px;
     grid-column: 2;
     grid-row: 4;
     max-height: calc(100vh - 118px);
+    margin-right: -12px;
+    border-color: rgba(20, 123, 145, 0.22);
+    background:
+      linear-gradient(135deg, rgba(20, 123, 145, 0.1), transparent 54%),
+      rgba(255, 254, 253, 0.94);
+    box-shadow: 0 18px 46px rgba(16, 35, 46, 0.12);
   }
 
   .post-detail-body {
@@ -1730,6 +1755,7 @@ h3 {
 .mascot-widget::before {
   position: absolute;
   inset: 22% 18% 10%;
+  z-index: 0;
   border-radius: 50%;
   content: "";
   background:
@@ -1744,6 +1770,8 @@ h3 {
 }
 
 .mascot-widget img {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
@@ -1765,6 +1793,7 @@ h3 {
 
 .mascot-bubble {
   position: absolute;
+  z-index: 3;
   right: 74%;
   bottom: 72%;
   width: max-content;
@@ -1825,6 +1854,7 @@ h3 {
 /* 点击小人时出现的水波反馈。 */
 .mascot-widget::after {
   position: absolute;
+  z-index: 2;
   inset: auto 16% 8% auto;
   width: 18px;
   aspect-ratio: 1;
@@ -2017,6 +2047,15 @@ html.theme-enter-pneuma::before {
   opacity: 0.46;
 }
 
+:root[data-theme-state="ousia"] .brand-avatar.is-theme-fallback::before {
+  opacity: 0.95;
+  transform: translateY(4px) scale(1.02);
+}
+
+:root[data-theme-state="ousia"] .brand-avatar img.is-theme-fallback {
+  filter: brightness(0.74) saturate(0.72) hue-rotate(18deg) contrast(1.12);
+}
+
 :root[data-theme-state="ousia"] .mascot-widget {
   filter: drop-shadow(0 20px 34px rgba(0, 0, 0, 0.46));
 }
@@ -2024,6 +2063,24 @@ html.theme-enter-pneuma::before {
 :root[data-theme-state="ousia"] .mascot-widget::before {
   opacity: 1;
   transform: scale(1);
+}
+
+:root[data-theme-state="ousia"] .mascot-widget.is-theme-fallback::before {
+  inset: 2% 17% -5%;
+  border-radius: 48% 48% 42% 42%;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(238, 249, 255, 0.28), transparent 18%),
+    radial-gradient(circle at 52% 36%, rgba(48, 59, 134, 0.86), transparent 42%),
+    linear-gradient(165deg, rgba(3, 8, 18, 0.96), rgba(14, 22, 57, 0.94) 58%, rgba(89, 212, 239, 0.38));
+  box-shadow:
+    0 28px 54px rgba(0, 0, 0, 0.42),
+    inset 0 0 0 1px rgba(224, 246, 255, 0.16);
+  opacity: 0.96;
+  transform: translateY(7px) scale(1.04);
+}
+
+:root[data-theme-state="ousia"] .mascot-widget img.is-theme-fallback {
+  filter: brightness(0.7) saturate(0.78) hue-rotate(18deg) contrast(1.15);
 }
 
 :root[data-theme-state="ousia"] .studio-panel {
