@@ -987,11 +987,111 @@ function mediaMarkdown(block) {
 }
 
 function inlineMarkdown(value) {
-  return escapeHtml(value)
-    .replace(/`([^`]+)`/g, "<code>$1</code>")
+  const codeSpans = [];
+  let html = escapeHtml(value).replace(/`([^`]+)`/g, (_, code) => {
+    const token = `@@INLINE_CODE_${codeSpans.length}@@`;
+    codeSpans.push(inlineCodeMarkdown(code));
+    return token;
+  });
+
+  html = html
     .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+
+  codeSpans.forEach((replacement, index) => {
+    html = html.replace(`@@INLINE_CODE_${index}@@`, replacement);
+  });
+
+  return html;
+}
+
+function inlineCodeMarkdown(escapedCode) {
+  const rawCode = unescapeHtml(escapedCode);
+  if (isFormulaCodeSpan(rawCode)) {
+    return `<span class="math-inline">\\(${escapeHtml(mathCodeToLatex(rawCode))}\\)</span>`;
+  }
+
+  return `<code>${escapedCode}</code>`;
+}
+
+function isFormulaCodeSpan(value) {
+  const text = String(value).trim();
+  if (!text || /[\u4e00-\u9fa5]/.test(text) || /^https?:\/\//i.test(text)) return false;
+  if (/^[\w.-]+\/[\w./-]+$/.test(text) && !/[=^<>+*()|]/.test(text)) return false;
+
+  if (/^[A-Za-z](?:\d+|'{1,2})?$/.test(text)) return true;
+  if (/^[A-Za-z]+_[A-Za-z0-9]+$/.test(text)) return true;
+  if (/^(?:mg|bv|cv|at|kx|dx|dt|dr|dm|du|dv|dtheta|domega)$/i.test(text)) return true;
+  if (/^[A-Za-z]\([^)]+\)$/.test(text)) return true;
+  if (/[=^<>+*|]/.test(text)) return true;
+  if (/^[A-Za-z][A-Za-z0-9_]*-[A-Za-z][A-Za-z0-9_]*$/.test(text)) return true;
+  if (/\s[-/]\s/.test(text)) return true;
+
+  return /\b(?:Delta|theta|omega|alpha|lambda|mu|tau|phi|pi|sqrt|integral|partial|sum|grad|approx|proportional|sin|cos|tan|ln|log|exp)\b/i.test(text);
+}
+
+function mathCodeToLatex(value) {
+  let text = String(value).trim();
+
+  text = text
+    .replace(/\bproportional to\b/gi, "\\propto")
+    .replace(/<=/g, "\\le ")
+    .replace(/>=/g, "\\ge ")
+    .replace(/!=/g, "\\ne ")
+    .replace(/\s+\.\s+/g, " \\cdot ")
+    .replace(/\bintegral\b/gi, "\\int")
+    .replace(/\bpartial\b/gi, "\\partial")
+    .replace(/\bDelta\b/g, "\\Delta")
+    .replace(/\bsum\b/gi, "\\sum")
+    .replace(/\bgrad\b/gi, "\\nabla")
+    .replace(/\bapprox\b/gi, "\\approx");
+
+  let previous;
+  do {
+    previous = text;
+    text = text.replace(/\bsqrt\(([^()]+)\)/gi, "\\sqrt{$1}");
+  } while (text !== previous);
+
+  const commands = {
+    alpha: "\\alpha",
+    beta: "\\beta",
+    gamma: "\\gamma",
+    theta: "\\theta",
+    lambda: "\\lambda",
+    mu: "\\mu",
+    omega: "\\omega",
+    phi: "\\phi",
+    pi: "\\pi",
+    tau: "\\tau",
+    sin: "\\sin",
+    cos: "\\cos",
+    tan: "\\tan",
+    ln: "\\ln",
+    log: "\\log",
+    exp: "\\exp",
+  };
+
+  Object.entries(commands).forEach(([word, latex]) => {
+    text = text
+      .replace(new RegExp(`([A-Za-z0-9])${word}\\b`, "gi"), (_, prefix) => `${prefix}${latex}`)
+      .replace(new RegExp(`\\b${word}(?=\\b|\\d|_)`, "gi"), (match, offset, fullText) => {
+        return fullText[offset - 1] === "\\" ? match : latex;
+      });
+  });
+
+  return text
+    .replace(/(\\[A-Za-z]+|[A-Za-z]+)_([A-Za-z0-9]+)/g, "$1_{$2}")
+    .replace(/(\\[A-Za-z]+|[A-Za-z])(\d+)/g, "$1_{$2}");
+}
+
+function unescapeHtml(value) {
+  return String(value)
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&#039;", "'")
+    .replaceAll("&amp;", "&");
 }
 
 function normalizeMediaUrl(value) {
