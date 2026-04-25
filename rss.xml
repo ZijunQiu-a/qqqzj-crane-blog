@@ -6,7 +6,14 @@
     <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/</link>
     <description>qqqzj 的个人笔记、生活记录与学习档案。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 25 Apr 2026 05:06:51 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 25 Apr 2026 06:18:01 GMT</lastBuildDate>
+    <item>
+      <title>网站阶段更新：从内容归档到阅读体验</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-site-update-roundup/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-site-update-roundup/</guid>
+      <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
+      <description>这两天 qqqzj@Crane 做了一轮比较密集的维护，已经不只是“能放文章”的第一版了。现在它更像一个可以长期写、长期查、长期扩展的个人学习档案。 这次主要更新有几块。 内容和发布方式 网站现在采用 private 源码仓库和 publi...</description>
+    </item>
     <item>
       <title>普物 I 期中复习提纲（重点速览版）</title>
       <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-physics-i-midterm-review-outline/</link>

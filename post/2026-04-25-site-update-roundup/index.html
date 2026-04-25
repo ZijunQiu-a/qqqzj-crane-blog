@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>网站阶段更新：从内容归档到阅读体验 · qqqzj@Crane</title>
+    <meta name="description" content="这两天 qqqzj@Crane 做了一轮比较密集的维护，已经不只是“能放文章”的第一版了。现在它更像一个可以长期写、长期查、长期扩展的个人学习档案。 这次主要更新有几块。 内容和发布方式 网站现在采用 private 源码仓库和 publi..." />
+    <link rel="canonical" href="https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-site-update-roundup/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="网站阶段更新：从内容归档到阅读体验 · qqqzj@Crane" />
+    <meta property="og:description" content="这两天 qqqzj@Crane 做了一轮比较密集的维护，已经不只是“能放文章”的第一版了。现在它更像一个可以长期写、长期查、长期扩展的个人学习档案。 这次主要更新有几块。 内容和发布方式 网站现在采用 private 源码仓库和 publi..." />
+    <meta property="og:url" content="https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-site-update-roundup/" />
+    <meta property="og:image" content="https://zijunqiu-a.github.io/qqqzj-crane-blog/assets/blog-studio.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f3f7f8" />
+    <link rel="alternate" type="application/rss+xml" title="qqqzj@Crane RSS" href="../../rss.xml" />
+    <link rel="icon" href="../../assets/furina-avatar.png" type="image/png" />
+    <script>
+      (() => {
+        const key = "qqqzj-crane-theme";
+        const modes = ["pneuma", "ousia", "auto"];
+        let preference = "auto";
+        try {
+          const stored = window.localStorage.getItem(key);
+          preference = modes.includes(stored) ? stored : "auto";
+        } catch {
+          preference = "auto";
+        }
+
+        const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const state = preference === "auto" ? (prefersDark ? "ousia" : "pneuma") : preference;
+        document.documentElement.dataset.themePreference = preference;
+        document.documentElement.dataset.themeState = state;
+        document.documentElement.style.colorScheme = state === "ousia" ? "dark" : "light";
+      })();
+    </script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <script defer src="../../theme.js"></script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+        },
+        options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+        },
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="../../index.html#home" aria-label="Back to home / 回到首页">
+          <span class="brand-mark brand-avatar" aria-hidden="true">
+            <img
+              src="../../assets/furina-avatar.png"
+              data-theme-asset
+              data-pneuma-src="../../assets/furina-avatar-pneuma.png"
+              data-ousia-src="../../assets/furina-avatar-ousia.png"
+              data-fallback-src="../../assets/furina-avatar.png"
+              alt=""
+            />
+          </span>
+          <span>qqqzj@Crane</span>
+        </a>
+        <div class="topbar-actions">
+          <nav class="nav-links" aria-label="Primary navigation / 主导航">
+            <a href="../../index.html#about">About me</a>
+            <a href="../../index.html#growth">News 动态</a>
+            <a href="../../index.html#notes">Notes 笔记</a>
+            <a href="../../index.html#life">Life 生活</a>
+            <a href="../../index.html#archive">Archive 归档</a>
+            <a href="../../rss.xml">RSS</a>
+          </nav>
+          <div class="theme-switcher" data-theme-switcher aria-label="Theme mode / 主题模式">
+            <button class="theme-trigger" type="button" data-theme-trigger aria-haspopup="menu" aria-expanded="false" title="选择主题模式">
+              <span class="theme-trigger-icon" data-theme-current-icon aria-hidden="true">A</span>
+              <span data-theme-current-label>自动</span>
+            </button>
+            <div class="theme-options" role="menu" aria-label="Theme choices / 主题选项">
+              <button type="button" role="menuitemradio" data-theme-mode="pneuma" aria-checked="false" aria-pressed="false" title="固定白天主题">
+                <span aria-hidden="true">☀</span>
+                白天
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="ousia" aria-checked="false" aria-pressed="false" title="固定黑夜主题">
+                <span aria-hidden="true">☾</span>
+                黑夜
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="auto" aria-checked="false" aria-pressed="false" title="跟随系统">
+                <span aria-hidden="true">A</span>
+                自动
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="home">
+        <section class="post-detail-section">
+          <div class="post-detail-shell">
+            <a class="back-link" href="../../index.html#home">Back to home / 返回首页</a>
+            <article class="post-detail-card">
+              <p class="eyebrow">News 动态</p>
+              <h1>网站阶段更新：从内容归档到阅读体验</h1>
+              <div class="post-detail-meta">
+                <time datetime="2026-04-25T00:00:00.000Z">2026年4月25日</time>
+                <span>建站</span>
+                <span>约 2 分钟</span>
+              </div>
+              <nav class="post-toc" aria-label="Table of contents / 文章目录">
+                <strong>Contents 目录</strong>
+                <div>
+                  <a class="toc-level-4" href="#内容和发布方式" data-heading-id="内容和发布方式">内容和发布方式</a><a class="toc-level-4" href="#文章-附件和预览" data-heading-id="文章-附件和预览">文章、附件和预览</a><a class="toc-level-4" href="#阅读体验" data-heading-id="阅读体验">阅读体验</a><a class="toc-level-4" href="#搜索-分类和归档" data-heading-id="搜索-分类和归档">搜索、分类和归档</a><a class="toc-level-4" href="#主题和视觉" data-heading-id="主题和视觉">主题和视觉</a><a class="toc-level-4" href="#seo-和订阅" data-heading-id="seo-和订阅">SEO 和订阅</a><a class="toc-level-4" href="#写作工作流" data-heading-id="写作工作流">写作工作流</a>
+                </div>
+              </nav>
+              <div class="post-detail-body">
+                <div class="entry-body"><p>这两天 qqqzj@Crane 做了一轮比较密集的维护，已经不只是“能放文章”的第一版了。现在它更像一个可以长期写、长期查、长期扩展的个人学习档案。</p><p>这次主要更新有几块。</p><h4 id="内容和发布方式">内容和发布方式<a class="heading-anchor" href="#内容和发布方式" data-heading-id="内容和发布方式" aria-label="Copy section link / 复制小节链接">#</a></h4><p>网站现在采用 private 源码仓库和 public 发布仓库分离的方式维护。源码、草稿、Markdown 原文、构建脚本都留在 private 仓库里；public 仓库只放构建后的静态网页文件。</p><p>这样公开访问者看到的是网站本身，而不是整个写作工程。以后新增文章时，只需要在 private 仓库里写 Markdown，再构建发布即可。</p><h4 id="文章-附件和预览">文章、附件和预览<a class="heading-anchor" href="#文章-附件和预览" data-heading-id="文章-附件和预览" aria-label="Copy section link / 复制小节链接">#</a></h4><p>我把数学分析、线性代数、普物实验和普物 I 期中复习资料整理进了 Notes。Markdown 作为正文，PDF 或模板文件作为附件提供下载和预览。</p><p>这对学习笔记很重要：文章不是只展示一小段摘要，而是可以进入详情页完整阅读；需要原文件时，也能直接下载对应 PDF、Markdown 模板或配套 CSS。</p><h4 id="阅读体验">阅读体验<a class="heading-anchor" href="#阅读体验" data-heading-id="阅读体验" aria-label="Copy section link / 复制小节链接">#</a></h4><p>长文章现在有更完整的阅读支持：</p><ul><li>详情页会生成文章目录。</li><li>桌面端目录可以悬浮在侧边，并随着阅读位置高亮当前章节。</li><li>页面顶部有阅读进度条。</li><li>Markdown 支持定理、证明、例题、注意等提示块。</li><li>一些原本写在反引号里的物理公式，也会被识别并交给 MathJax 渲染。</li></ul><p>这些改动主要是为了让数学和物理这种长篇复习提纲更容易读，不会一滚到底就找不到自己在哪。</p><h4 id="搜索-分类和归档">搜索、分类和归档<a class="heading-anchor" href="#搜索-分类和归档" data-heading-id="搜索-分类和归档" aria-label="Copy section link / 复制小节链接">#</a></h4><p>首页的搜索现在不只是搜标题，也会匹配标签、分类、摘要和正文文本。Notes 区会按标签自动生成分栏，比如数学、普物实验、普物 I。</p><p>文章源码也重新整理了目录结构：</p><p>``<code>txt<br />posts/<br />  news/<br />  life/<br />  notes/<br />    math/<br />    physics/<br /></code>``</p><p>以后如果继续写编程、深度学习或其他方向的笔记，也可以继续往 <code>posts/notes/</code> 下面分目录。这样文章变多以后，源码不会堆成一团。</p><h4 id="主题和视觉">主题和视觉<a class="heading-anchor" href="#主题和视觉" data-heading-id="主题和视觉" aria-label="Copy section link / 复制小节链接">#</a></h4><p>网站加入了白天、黑夜、自动三档主题。自动模式会跟随系统深浅色，黑夜模式也重新调整了首屏的可见度，不会把标题和统计卡片压得太暗。</p><p>顶部主题按钮现在默认只显示一个入口，鼠标悬停、键盘聚焦或点击时再展开三个选项。角色图片也预留了真实双形态素材接口：如果以后放入对应的白天/黑夜素材，网站会自动切换；没有素材时就回退到默认图，不用滤镜强行伪装。</p><h4 id="seo-和订阅">SEO 和订阅<a class="heading-anchor" href="#seo-和订阅" data-heading-id="seo-和订阅" aria-label="Copy section link / 复制小节链接">#</a></h4><p>构建脚本现在会生成静态文章详情页、<code>sitemap.xml</code>、<code>rss.xml</code>、<code>robots.txt</code> 和 <code>404.html</code>。首页也会在编译时注入文章预览和链接，让搜索引擎在不运行 JavaScript 的情况下也能读到内容。</p><p>RSS 订阅也已经可用。以后发布新文章时，订阅源会一起更新。</p><h4 id="写作工作流">写作工作流<a class="heading-anchor" href="#写作工作流" data-heading-id="写作工作流" aria-label="Copy section link / 复制小节链接">#</a></h4><p>现在有新文章脚手架，可以用命令快速生成带 front matter 的 Markdown 文件，并自动加入 <code>posts/index.json</code>。脚手架会根据 <code>category</code> 和 <code>tag</code> 自动选择目录，比如数学笔记进入 <code>posts/notes/math/</code>，动态进入 <code>posts/news/</code>。</p><p>这轮更新之后，网站的维护方式清楚了很多：写作、构建、发布、索引、归档都各有位置。接下来要做的事情，就是慢慢把内容写进去，让这个站点真的长成一个属于自己的知识和生活档案。</p></div>
+              </div>
+              <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
+                
+                <a href="../../post/2026-04-25-physics-i-midterm-review-outline/"><span>Older / 更早</span><strong>普物 I 期中复习提纲（重点速览版）</strong></a>
+              </nav>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" aria-label="Site information / 站点信息">
+        <p>© 2025-2026 qqqzj@Crane</p>
+        <p>qqqzj 的个人笔记、生活记录与学习档案。</p>
+        <p><a href="../../rss.xml">RSS 订阅</a></p>
+      </footer>
+    </div>
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <script>
+      const readingProgress = document.querySelector("#reading-progress");
+      function updateReadingProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max <= 0 ? 1 : Math.min(1, Math.max(0, window.scrollY / max));
+        readingProgress.style.transform = `scaleX(${progress})`;
+      }
+      window.addEventListener("scroll", updateReadingProgress, { passive: true });
+      window.addEventListener("resize", updateReadingProgress);
+      updateReadingProgress();
+
+      const toc = document.querySelector(".post-toc");
+      const tocLinks = toc ? [...toc.querySelectorAll("a[data-heading-id]")] : [];
+      const tocSections = tocLinks
+        .map((link) => findHeadingById(document, link.dataset.headingId))
+        .filter(Boolean);
+
+      function activateTocLink(id) {
+        tocLinks.forEach((link) => {
+          const active = link.dataset.headingId === id;
+          link.classList.toggle("is-active", active);
+          if (active) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function findHeadingById(root, id) {
+        if (!root || !id) return null;
+        const escapedId = window.CSS?.escape ? window.CSS.escape(id) : id.replaceAll('"', '\"');
+        return root.querySelector(`#${escapedId}`);
+      }
+
+      if (tocSections.length) {
+        activateTocLink(tocSections[0].id);
+
+        if ("IntersectionObserver" in window) {
+          const visibleSections = new Map();
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              visibleSections.set(entry.target.id, entry.isIntersecting);
+            });
+
+            const current = tocSections.find((section) => visibleSections.get(section.id))
+              || [...tocSections].reverse().find((section) => section.getBoundingClientRect().top <= 140)
+              || tocSections[0];
+
+            activateTocLink(current.id);
+          }, {
+            rootMargin: "-18% 0px -68% 0px",
+            threshold: [0, 1],
+          });
+
+          tocSections.forEach((section) => observer.observe(section));
+        }
+      }
+    </script>
+  </body>
+</html>
