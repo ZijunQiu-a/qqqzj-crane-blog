@@ -6,27 +6,13 @@
     <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/</link>
     <description>qqqzj 的个人笔记、生活记录与学习档案。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 25 Apr 2026 15:04:16 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 25 Apr 2026 15:13:16 GMT</lastBuildDate>
     <item>
-      <title>首页和阅读体验继续打磨</title>
-      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-homepage-reading-polish/</link>
-      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-homepage-reading-polish/</guid>
+      <title>真好，又浪费了一天</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-%E7%9C%9F%E5%A5%BD-%E5%8F%88%E6%B5%AA%E8%B4%B9%E4%BA%86%E4%B8%80%E5%A4%A9/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-%E7%9C%9F%E5%A5%BD-%E5%8F%88%E6%B5%AA%E8%B4%B9%E4%BA%86%E4%B8%80%E5%A4%A9/</guid>
       <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
-      <description>今天继续把 qqqzj@Crane 的首页和阅读体验往更顺手的方向调整了一版。重点不是增加大功能，而是处理那些一打开页面就能感受到的细节：位置、层级、宽度、字号和交互是否舒服。 首页更像入口了 首页现在会展示最近几篇文章，读者不用先在各个栏...</description>
-    </item>
-    <item>
-      <title>网站阶段更新：从内容归档到阅读体验</title>
-      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-site-update-roundup/</link>
-      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-site-update-roundup/</guid>
-      <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
-      <description>这两天 qqqzj@Crane 做了一轮比较密集的维护，已经不只是“能放文章”的第一版了。现在它更像一个可以长期写、长期查、长期扩展的个人学习档案。 这次主要更新有几块。 内容和发布方式 网站现在采用 private 源码仓库和 publi...</description>
-    </item>
-    <item>
-      <title>普物 I 期中复习提纲（重点速览版）</title>
-      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-physics-i-midterm-review-outline/</link>
-      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-physics-i-midterm-review-outline/</guid>
-      <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
-      <description>General Physics I Midterm Review Outline / 普物 I 期中复习提纲 Based on / 依据：slides 课件、homework 作业、midterm 历年期中卷。 Focus / 重点：mec...</description>
+      <description>我真服了 今天的 Chatgpt 让我很恼火，今天的 General Physics 更是火上浇油 一边复习，一边对着电脑和他互动。不仅复习不成，功能也没给我正确实现（我已急哭） 好在最后也是成功优化了 UI 界面，不过下周三要考普物期中了...</description>
     </item>
     <item>
       <title>普物 I 期中复习提纲（力学全覆盖版）</title>
@@ -36,32 +22,32 @@
       <description>General Physics I Midterm Review Outline / 普物 I 期中复习提纲（Mechanics 讲义全覆盖版） Main reference / 主参考：普物I/reference books/mechan...</description>
     </item>
     <item>
-      <title>真好，又浪费了一天</title>
-      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-%E7%9C%9F%E5%A5%BD-%E5%8F%88%E6%B5%AA%E8%B4%B9%E4%BA%86%E4%B8%80%E5%A4%A9/</link>
-      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-%E7%9C%9F%E5%A5%BD-%E5%8F%88%E6%B5%AA%E8%B4%B9%E4%BA%86%E4%B8%80%E5%A4%A9/</guid>
+      <title>普物 I 期中复习提纲（重点速览版）</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-physics-i-midterm-review-outline/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-physics-i-midterm-review-outline/</guid>
       <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
-      <description>我真服了 今天的 Chatgpt 让我很恼火，今天的 General Physics 更是火上浇油 一边复习，一边对着电脑和他互动。不仅复习不成，功能也没给我正确实现（我已急哭） 好在最后也是成功优化了 UI 界面，不过下周三要考普物期中了...</description>
+      <description>General Physics I Midterm Review Outline / 普物 I 期中复习提纲 Based on / 依据：slides 课件、homework 作业、midterm 历年期中卷。 Focus / 重点：mec...</description>
     </item>
     <item>
-      <title>完成个人网站第一版</title>
-      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-first-news/</link>
-      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-first-news/</guid>
-      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
-      <description>今天借助 Codex 把 qqqzj@Crane 的第一版搭起来了，感谢 Chatgpt 呜呜呜。</description>
+      <title>网站阶段更新：从内容归档到阅读体验</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-site-update-roundup/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-site-update-roundup/</guid>
+      <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
+      <description>这两天 qqqzj@Crane 做了一轮比较密集的维护，已经不只是“能放文章”的第一版了。现在它更像一个可以长期写、长期查、长期扩展的个人学习档案。 这次主要更新有几块。 内容和发布方式 网站现在采用 private 源码仓库和 publi...</description>
     </item>
     <item>
-      <title>普物实验docx模版(❌)markdown(☑️)</title>
-      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-physics-lab-markdown-template/</link>
-      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-physics-lab-markdown-template/</guid>
-      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
-      <description>我弄了这个 Markdown 模版，之后写普物实验报告就不用再被 docx 格式卡住了。 文件放在这里，直接下载就能用。 下载实验报告 Markdown 模版 下载预习报告 Markdown 模版 下载配套 CSS 样式</description>
+      <title>首页和阅读体验继续打磨</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-homepage-reading-polish/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-25-homepage-reading-polish/</guid>
+      <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
+      <description>今天继续把 qqqzj@Crane 的首页和阅读体验往更顺手的方向调整了一版。重点不是增加大功能，而是处理那些一打开页面就能感受到的细节：位置、层级、宽度、字号和交互是否舒服。 首页更像入口了 首页现在会展示最近几篇文章，读者不用先在各个栏...</description>
     </item>
     <item>
-      <title>数学分析 I</title>
-      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-mathematical-analysis-i/</link>
-      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-mathematical-analysis-i/</guid>
+      <title>线性代数 I</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-linear-algebra-i/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-linear-algebra-i/</guid>
       <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
-      <description>实数、确界与函数 实数集的基本性质 实数集 $\mathbb R$ 的常用性质： 1. 有序性：任意 $a,b\in\mathbb R$ 可比较大小。 2. 传递性：若 $ab$，$bc$，则 $ac$。 3. 阿基米德性：若 $a0$，$...</description>
+      <description>线性方程组与行简化阶梯形 行简化阶梯形 行简化阶梯矩阵满足： 1. 零行在非零行下方； 2. 每个非零行首个非零元为 $1$； 3. 主元所在列其余元素全为 $0$； 4. 主元位置从上到下向右移动。 线性方程组化为简化阶梯形后： 出现 $...</description>
     </item>
     <item>
       <title>数学分析 I 复习提纲</title>
@@ -71,11 +57,25 @@
       <description>来源：数分I复习.pdf。 参考校订：数学分析 上.pdf、《数学分析》辅导.pdf。 本文件按复习页内容整理为考前提纲，公式已按标准表述校正。 1. 实数完备性与确界 确界原理 非空有上界数集必有上确界；非空有下界数集必有下确界。 等价完...</description>
     </item>
     <item>
-      <title>线性代数 I</title>
-      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-linear-algebra-i/</link>
-      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-linear-algebra-i/</guid>
+      <title>数学分析 I</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-mathematical-analysis-i/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-mathematical-analysis-i/</guid>
       <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
-      <description>线性方程组与行简化阶梯形 行简化阶梯形 行简化阶梯矩阵满足： 1. 零行在非零行下方； 2. 每个非零行首个非零元为 $1$； 3. 主元所在列其余元素全为 $0$； 4. 主元位置从上到下向右移动。 线性方程组化为简化阶梯形后： 出现 $...</description>
+      <description>实数、确界与函数 实数集的基本性质 实数集 $\mathbb R$ 的常用性质： 1. 有序性：任意 $a,b\in\mathbb R$ 可比较大小。 2. 传递性：若 $ab$，$bc$，则 $ac$。 3. 阿基米德性：若 $a0$，$...</description>
+    </item>
+    <item>
+      <title>普物实验docx模版(❌)markdown(☑️)</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-physics-lab-markdown-template/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-physics-lab-markdown-template/</guid>
+      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
+      <description>我弄了这个 Markdown 模版，之后写普物实验报告就不用再被 docx 格式卡住了。 文件放在这里，直接下载就能用。 下载实验报告 Markdown 模版 下载预习报告 Markdown 模版 下载配套 CSS 样式</description>
+    </item>
+    <item>
+      <title>完成个人网站第一版</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-first-news/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-first-news/</guid>
+      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
+      <description>今天借助 Codex 把 qqqzj@Crane 的第一版搭起来了，感谢 Chatgpt 呜呜呜。</description>
     </item>
     <item>
       <title>清明de济南与泰山</title>

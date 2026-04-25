@@ -74,7 +74,13 @@ function render() {
 
 // 正式 Markdown 文章按时间从新到旧排序。
 function entriesFor(kind) {
-  return [...published[kind]].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  return [...published[kind]].sort(comparePosts);
+}
+
+function comparePosts(a, b) {
+  const dateDiff = new Date(b.createdAt) - new Date(a.createdAt);
+  if (dateDiff !== 0) return dateDiff;
+  return (b.publishedIndex ?? 0) - (a.publishedIndex ?? 0);
 }
 
 function renderRecent(entries) {
@@ -204,7 +210,7 @@ async function loadPublishedPosts() {
     const response = await fetch(POSTS_MANIFEST);
     if (!response.ok) return;
     const files = await response.json();
-    const posts = await Promise.all(files.map(loadPostFile));
+    const posts = await Promise.all(files.map((file, index) => loadPostFile(file, index)));
 
     published.growth = [];
     published.notes = [];
@@ -227,7 +233,7 @@ function seedPublishedPosts() {
   published.videos = Array.isArray(window.PUBLISHED_POSTS.videos) ? window.PUBLISHED_POSTS.videos : [];
 }
 
-async function loadPostFile(file) {
+async function loadPostFile(file, publishedIndex = 0) {
   const response = await fetch(file);
   if (!response.ok) return null;
   const text = await response.text();
@@ -244,6 +250,7 @@ async function loadPostFile(file) {
     kind,
     title: meta.title || file.replace(/^posts\/|\.md$/g, ""),
     slug: postSlugFromPath(file),
+    publishedIndex,
     stage: meta.stage || category,
     tag: meta.tag || category,
     url: meta.url || "",
@@ -340,7 +347,7 @@ function postSlugFromPath(file) {
 function allEntries() {
   return ["growth", "notes", "videos"]
     .flatMap((kind) => published[kind])
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    .sort(comparePosts);
 }
 
 function matchesFilters(entry) {
