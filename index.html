@@ -5,9 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>qqqzj@Crane</title>
     <meta name="description" content="qqqzj 的个人笔记、生活记录与学习档案。" />
+    <meta name="theme-color" content="#f3f7f8" />
     <link rel="icon" href="assets/furina-avatar.png" type="image/png" />
     <link rel="preload" href="app.js" as="script" />
+    <script>
+      (() => {
+        const key = "qqqzj-crane-theme";
+        const modes = ["pneuma", "ousia", "auto"];
+        let preference = "auto";
+        try {
+          const stored = window.localStorage.getItem(key);
+          preference = modes.includes(stored) ? stored : "auto";
+        } catch {
+          preference = "auto";
+        }
+
+        const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const state = preference === "auto" ? (prefersDark ? "ousia" : "pneuma") : preference;
+        document.documentElement.dataset.themePreference = preference;
+        document.documentElement.dataset.themeState = state;
+        document.documentElement.style.colorScheme = state === "ousia" ? "dark" : "light";
+      })();
+    </script>
     <link rel="stylesheet" href="styles.css" />
+    <script defer src="theme.js"></script>
     <script>
       window.MathJax = {
         tex: {
@@ -41,14 +62,30 @@
           </span>
           <span>qqqzj@Crane</span>
         </a>
-        <nav class="nav-links" aria-label="Primary navigation / 主导航">
-          <a href="#about">About me</a>
-          <a href="#growth">News 动态</a>
-          <a href="#notes">Notes 笔记</a>
-          <a href="#life">Life 生活</a>
-          <a href="#archive">Archive 归档</a>
-          <a href="rss.xml">RSS</a>
-        </nav>
+        <div class="topbar-actions">
+          <nav class="nav-links" aria-label="Primary navigation / 主导航">
+            <a href="#about">About me</a>
+            <a href="#growth">News 动态</a>
+            <a href="#notes">Notes 笔记</a>
+            <a href="#life">Life 生活</a>
+            <a href="#archive">Archive 归档</a>
+            <a href="rss.xml">RSS</a>
+          </nav>
+          <div class="theme-switcher" data-theme-switcher role="group" aria-label="Theme mode / 芒荒模式">
+            <button type="button" data-theme-mode="pneuma" aria-pressed="false" title="白天 · 芒状态">
+              <span aria-hidden="true">芒</span>
+              白天
+            </button>
+            <button type="button" data-theme-mode="ousia" aria-pressed="false" title="黑夜 · 荒状态">
+              <span aria-hidden="true">荒</span>
+              黑夜
+            </button>
+            <button type="button" data-theme-mode="auto" aria-pressed="false" title="跟随系统">
+              <span aria-hidden="true">A</span>
+              自动
+            </button>
+          </div>
+        </div>
       </header>
 
       <main id="home">

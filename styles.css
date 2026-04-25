@@ -15,6 +15,22 @@
   --shadow: 0 22px 70px rgba(16, 35, 46, 0.14);
 }
 
+:root[data-theme-state="ousia"] {
+  color-scheme: dark;
+  --paper: #091523;
+  --paper-strong: #111d2e;
+  --ink: #e8f6fb;
+  --muted: #adc4ce;
+  --line: #254055;
+  --teal: #66d5f0;
+  --teal-dark: #a3ecfb;
+  --coral: #ef8aa1;
+  --moss: #9bc5b2;
+  --gold: #e4c36b;
+  --violet: #a6a5f5;
+  --shadow: 0 24px 76px rgba(0, 0, 0, 0.46);
+}
+
 /* 基础重置：让盒模型和默认字体更可控。 */
 * {
   box-sizing: border-box;
@@ -37,6 +53,14 @@ body {
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   line-height: 1.5;
+}
+
+:root[data-theme-state="ousia"] body {
+  background:
+    radial-gradient(circle at 18% 10%, rgba(102, 213, 240, 0.16), transparent 30%),
+    radial-gradient(circle at 84% 18%, rgba(166, 165, 245, 0.18), transparent 28%),
+    linear-gradient(315deg, rgba(239, 138, 161, 0.08), transparent 34%),
+    var(--paper);
 }
 
 button,
@@ -113,6 +137,13 @@ button {
   backdrop-filter: blur(18px);
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
 /* 品牌区：头像标和 qqqzj@Crane 文本。 */
 .brand,
 .nav-links a {
@@ -144,6 +175,20 @@ button {
     inset 0 0 0 1px rgba(255, 254, 253, 0.2);
 }
 
+.brand-mark::after {
+  position: absolute;
+  inset: -1px;
+  z-index: 2;
+  border-radius: inherit;
+  content: "";
+  background:
+    radial-gradient(circle at 34% 24%, rgba(102, 213, 240, 0.24), transparent 28%),
+    linear-gradient(145deg, rgba(2, 8, 19, 0.54), rgba(87, 78, 173, 0.26));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 420ms ease;
+}
+
 /* 头像比圆底稍大一点，形成贴纸感，而不是被硬裁成小圆图。 */
 .brand-avatar img {
   position: absolute;
@@ -156,6 +201,7 @@ button {
   object-position: center center;
   transform: translateY(0) scale(1);
   transform-origin: center center;
+  z-index: 1;
 }
 
 .brand:hover .brand-avatar img,
@@ -188,6 +234,62 @@ button {
   background: var(--teal-dark);
   color: var(--paper-strong);
   outline: 0;
+}
+
+.theme-switcher {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(16, 35, 46, 0.12);
+  border-radius: 999px;
+  padding: 5px;
+  background: rgba(255, 253, 248, 0.72);
+  color: var(--muted);
+}
+
+.theme-switcher button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 9px;
+  background: transparent;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.theme-switcher button span {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(20, 123, 145, 0.1);
+  color: var(--teal-dark);
+  font-size: 11px;
+  transition:
+    background 240ms ease,
+    color 240ms ease,
+    transform 240ms ease;
+}
+
+.theme-switcher button:hover,
+.theme-switcher button:focus-visible,
+.theme-switcher button.is-active {
+  background: var(--teal-dark);
+  color: var(--paper-strong);
+  outline: 0;
+}
+
+.theme-switcher button.is-active span {
+  background: rgba(255, 254, 253, 0.24);
+  color: var(--paper-strong);
+  transform: scale(1.04);
 }
 
 /* 首页首屏：图片铺满，文字和装饰层叠在上方。 */
@@ -1573,6 +1675,22 @@ h3 {
   filter: drop-shadow(0 16px 26px rgba(16, 35, 46, 0.24));
 }
 
+.mascot-widget::before {
+  position: absolute;
+  inset: 22% 18% 10%;
+  border-radius: 50%;
+  content: "";
+  background:
+    radial-gradient(circle at 50% 45%, rgba(102, 213, 240, 0.28), transparent 48%),
+    radial-gradient(circle at 50% 50%, rgba(166, 165, 245, 0.2), transparent 68%);
+  opacity: 0;
+  transform: scale(0.72);
+  transition:
+    opacity 520ms ease,
+    transform 520ms ease;
+  pointer-events: none;
+}
+
 .mascot-widget img {
   display: block;
   width: 100%;
@@ -1738,6 +1856,213 @@ h3 {
   }
 }
 
+/* 芒/荒主题切换：JS 只改 data-theme-state，视觉由 CSS 接管。 */
+html.theme-transitioning body,
+html.theme-transitioning .topbar,
+html.theme-transitioning .topbar-actions,
+html.theme-transitioning .nav-links,
+html.theme-transitioning .theme-switcher,
+html.theme-transitioning .studio-panel,
+html.theme-transitioning .studio-panel::after,
+html.theme-transitioning .studio-panel img,
+html.theme-transitioning .site-footer,
+html.theme-transitioning .directory-grid a,
+html.theme-transitioning .search-panel,
+html.theme-transitioning .about-panel,
+html.theme-transitioning .post-card,
+html.theme-transitioning .archive-items a,
+html.theme-transitioning .post-detail-card,
+html.theme-transitioning .post-toc,
+html.theme-transitioning .back-link,
+html.theme-transitioning .contact-copy,
+html.theme-transitioning .mascot-widget,
+html.theme-transitioning .mascot-widget img,
+html.theme-transitioning .brand-mark,
+html.theme-transitioning .brand-mark::after {
+  transition:
+    background 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 560ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 420ms ease,
+    filter 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 420ms ease;
+}
+
+html.theme-transitioning::before {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  content: "";
+  pointer-events: none;
+  animation: theme-tide 840ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+html.theme-enter-ousia::before {
+  background:
+    radial-gradient(circle at 82% 90%, rgba(102, 213, 240, 0.34), transparent 18%),
+    radial-gradient(circle at 50% 110%, rgba(10, 21, 35, 0.92), transparent 62%);
+}
+
+html.theme-enter-pneuma::before {
+  background:
+    radial-gradient(circle at 80% 90%, rgba(255, 254, 253, 0.72), transparent 18%),
+    radial-gradient(circle at 50% 110%, rgba(126, 219, 236, 0.34), transparent 62%);
+}
+
+@keyframes theme-tide {
+  0% {
+    opacity: 0;
+    clip-path: circle(0% at 82% 90%);
+  }
+
+  38% {
+    opacity: 0.72;
+  }
+
+  100% {
+    opacity: 0;
+    clip-path: circle(142% at 82% 90%);
+  }
+}
+
+:root[data-theme-state="ousia"] .topbar {
+  border-bottom-color: rgba(129, 218, 242, 0.16);
+  background: rgba(7, 18, 31, 0.78);
+}
+
+:root[data-theme-state="ousia"] .nav-links,
+:root[data-theme-state="ousia"] .theme-switcher {
+  border-color: rgba(129, 218, 242, 0.18);
+  background: rgba(12, 26, 43, 0.72);
+}
+
+:root[data-theme-state="ousia"] .theme-switcher button span,
+:root[data-theme-state="ousia"] .tag-filter button,
+:root[data-theme-state="ousia"] .note-category-tabs button {
+  background: rgba(102, 213, 240, 0.1);
+}
+
+:root[data-theme-state="ousia"] .brand-mark {
+  border-color: rgba(232, 246, 251, 0.34);
+  background:
+    radial-gradient(circle at 28% 22%, rgba(232, 246, 251, 0.18), transparent 28%),
+    linear-gradient(135deg, #050a16, #26316f 58%, #6ed7f1);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.42),
+    inset 0 0 0 1px rgba(232, 246, 251, 0.14);
+}
+
+:root[data-theme-state="ousia"] .brand-mark::after {
+  opacity: 0.46;
+}
+
+:root[data-theme-state="ousia"] .brand-avatar img,
+:root[data-theme-state="ousia"] .mascot-widget img {
+  filter:
+    saturate(0.76)
+    hue-rotate(38deg)
+    brightness(0.82)
+    contrast(1.12)
+    drop-shadow(0 0 14px rgba(102, 213, 240, 0.18));
+}
+
+:root[data-theme-state="ousia"] .mascot-widget {
+  filter: drop-shadow(0 20px 34px rgba(0, 0, 0, 0.46));
+}
+
+:root[data-theme-state="ousia"] .mascot-widget::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+:root[data-theme-state="ousia"] .studio-panel {
+  background: #050a16;
+}
+
+:root[data-theme-state="ousia"] .studio-panel img {
+  filter: brightness(0.68) saturate(0.86) hue-rotate(16deg);
+}
+
+:root[data-theme-state="ousia"] .studio-panel::after {
+  background:
+    linear-gradient(90deg, rgba(3, 8, 18, 0.96), rgba(8, 28, 48, 0.78) 48%, rgba(8, 16, 34, 0.32)),
+    radial-gradient(circle at 40% 24%, rgba(102, 213, 240, 0.22), transparent 24%);
+}
+
+:root[data-theme-state="ousia"] .studio-panel::before,
+:root[data-theme-state="ousia"] .life-post-mark,
+:root[data-theme-state="ousia"] .empty-state span {
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.38);
+}
+
+:root[data-theme-state="ousia"] .site-footer,
+:root[data-theme-state="ousia"] .directory-grid a,
+:root[data-theme-state="ousia"] .search-panel,
+:root[data-theme-state="ousia"] .about-panel,
+:root[data-theme-state="ousia"] .post-card,
+:root[data-theme-state="ousia"] .archive-items a,
+:root[data-theme-state="ousia"] .post-detail-card,
+:root[data-theme-state="ousia"] .back-link,
+:root[data-theme-state="ousia"] .contact-copy,
+:root[data-theme-state="ousia"] .post-neighbor-nav a,
+:root[data-theme-state="ousia"] .empty-state {
+  border-color: rgba(129, 218, 242, 0.18);
+  background:
+    linear-gradient(135deg, rgba(102, 213, 240, 0.08), transparent 52%),
+    rgba(13, 27, 45, 0.88);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+}
+
+:root[data-theme-state="ousia"] .post-toc,
+:root[data-theme-state="ousia"] .search-results,
+:root[data-theme-state="ousia"] .search-field input,
+:root[data-theme-state="ousia"] .file-preview,
+:root[data-theme-state="ousia"] .file-preview pre,
+:root[data-theme-state="ousia"] .entry-callout {
+  border-color: rgba(129, 218, 242, 0.18);
+  background:
+    linear-gradient(135deg, rgba(102, 213, 240, 0.08), transparent 62%),
+    rgba(8, 20, 34, 0.82);
+}
+
+:root[data-theme-state="ousia"] .entry-body code,
+:root[data-theme-state="ousia"] .download-button,
+:root[data-theme-state="ousia"] .clear-search-button {
+  border-color: rgba(129, 218, 242, 0.2);
+  background: rgba(102, 213, 240, 0.09);
+}
+
+:root[data-theme-state="ousia"] .entry-body blockquote {
+  background: rgba(102, 213, 240, 0.08);
+}
+
+:root[data-theme-state="ousia"] .entry-body table {
+  background: rgba(8, 20, 34, 0.72);
+}
+
+:root[data-theme-state="ousia"] .entry-body th,
+:root[data-theme-state="ousia"] .entry-body td {
+  border-color: rgba(129, 218, 242, 0.16);
+}
+
+:root[data-theme-state="ousia"] .entry-body th {
+  background: rgba(102, 213, 240, 0.1);
+}
+
+:root[data-theme-state="ousia"] .post-detail-meta span,
+:root[data-theme-state="ousia"] .post-detail-meta time,
+:root[data-theme-state="ousia"] .published-badge {
+  background: rgba(102, 213, 240, 0.11);
+}
+
+:root[data-theme-state="ousia"] .mascot-bubble,
+:root[data-theme-state="ousia"] .hello-spark {
+  border-color: rgba(129, 218, 242, 0.2);
+  background: rgba(13, 27, 45, 0.96);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38);
+}
+
 /* 平板宽度：首屏变成单列。 */
 @media (max-width: 900px) {
   .studio-panel {
@@ -1788,6 +2113,12 @@ h3 {
     padding: 12px 0;
   }
 
+  .topbar-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .nav-links {
     width: 100%;
     overflow-x: auto;
@@ -1804,6 +2135,15 @@ h3 {
     padding: 8px 9px;
     font-size: 12px;
     text-align: center;
+  }
+
+  .theme-switcher {
+    width: 100%;
+  }
+
+  .theme-switcher button {
+    flex: 1;
+    justify-content: center;
   }
 
   .studio-panel {
