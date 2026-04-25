@@ -2,6 +2,7 @@ window.PUBLISHED_POSTS = {
   "growth": [
     {
       "id": "2026-04-24-first-news.md",
+      "slug": "2026-04-24-first-news",
       "source": "post",
       "kind": "growth",
       "title": "完成个人网站第一版",
@@ -16,6 +17,7 @@ window.PUBLISHED_POSTS = {
   "notes": [
     {
       "id": "2026-04-24-physics-lab-markdown-template.md",
+      "slug": "2026-04-24-physics-lab-markdown-template",
       "source": "post",
       "kind": "notes",
       "title": "普物实验docx模版(❌)markdown(☑️)",
@@ -28,6 +30,7 @@ window.PUBLISHED_POSTS = {
     },
     {
       "id": "2026-04-24-mathematical-analysis-i.md",
+      "slug": "2026-04-24-mathematical-analysis-i",
       "source": "post",
       "kind": "notes",
       "title": "数学分析 I",
@@ -40,6 +43,7 @@ window.PUBLISHED_POSTS = {
     },
     {
       "id": "2026-04-24-mathematical-analysis-i-review-outline.md",
+      "slug": "2026-04-24-mathematical-analysis-i-review-outline",
       "source": "post",
       "kind": "notes",
       "title": "数学分析 I 复习提纲",
@@ -52,6 +56,7 @@ window.PUBLISHED_POSTS = {
     },
     {
       "id": "2026-04-24-linear-algebra-i.md",
+      "slug": "2026-04-24-linear-algebra-i",
       "source": "post",
       "kind": "notes",
       "title": "线性代数 I",
@@ -66,6 +71,7 @@ window.PUBLISHED_POSTS = {
   "videos": [
     {
       "id": "2026-04-24-04-travel-jinan&taishan.md",
+      "slug": "2026-04-24-04-travel-jinan-taishan",
       "source": "post",
       "kind": "videos",
       "title": "清明de济南与泰山",

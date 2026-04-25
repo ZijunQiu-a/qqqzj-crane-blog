@@ -7,6 +7,8 @@ const published = {
   videos: [],
 };
 
+seedPublishedPosts();
+
 // 常用 DOM 节点集中存起来，后面渲染时就不用反复 querySelector。
 const lists = {
   growth: document.querySelector("#growth-list"),
@@ -177,9 +179,7 @@ function renderVideos(entries) {
 // 读取 posts/index.json，再读取每篇 Markdown，生成正式公开文章。
 async function loadPublishedPosts() {
   if (window.PUBLISHED_POSTS) {
-    published.growth = Array.isArray(window.PUBLISHED_POSTS.growth) ? window.PUBLISHED_POSTS.growth : [];
-    published.notes = Array.isArray(window.PUBLISHED_POSTS.notes) ? window.PUBLISHED_POSTS.notes : [];
-    published.videos = Array.isArray(window.PUBLISHED_POSTS.videos) ? window.PUBLISHED_POSTS.videos : [];
+    seedPublishedPosts();
     render();
     return;
   }
@@ -201,6 +201,14 @@ async function loadPublishedPosts() {
   } catch {
     // file:// 直接打开时浏览器通常不允许 fetch 本地 Markdown；发布到 GitHub Pages 后会正常读取。
   }
+}
+
+function seedPublishedPosts() {
+  if (!window.PUBLISHED_POSTS) return;
+
+  published.growth = Array.isArray(window.PUBLISHED_POSTS.growth) ? window.PUBLISHED_POSTS.growth : [];
+  published.notes = Array.isArray(window.PUBLISHED_POSTS.notes) ? window.PUBLISHED_POSTS.notes : [];
+  published.videos = Array.isArray(window.PUBLISHED_POSTS.videos) ? window.PUBLISHED_POSTS.videos : [];
 }
 
 async function loadPostFile(file) {
@@ -512,6 +520,27 @@ function kindLabel(kind) {
   if (kind === "videos") return "Life Log 生活记录";
   return "Notes 笔记";
 }
+
+const contactCopy = document.querySelector(".contact-copy");
+const contactCopyText = contactCopy?.querySelector("small");
+
+contactCopy?.addEventListener("click", async () => {
+  const user = contactCopy.dataset.emailUser || "";
+  const domain = contactCopy.dataset.emailDomain || "";
+  const email = `${user}@${domain}`;
+  if (!user || !domain || !contactCopyText) return;
+
+  try {
+    await navigator.clipboard.writeText(email);
+    contactCopyText.textContent = "Copied / 已复制";
+  } catch {
+    contactCopyText.textContent = email;
+  }
+
+  window.setTimeout(() => {
+    contactCopyText.textContent = "Click to copy / 点击复制";
+  }, 2200);
+});
 
 // 互动小人的台词和点击动画。
 const mascotWidget = document.querySelector("#mascot-widget");

@@ -605,6 +605,36 @@ h3 {
   color: var(--muted);
 }
 
+.contact-copy {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid rgba(20, 123, 145, 0.18);
+  border-radius: 8px;
+  padding: 9px 11px;
+  background: rgba(255, 254, 253, 0.72);
+  color: var(--teal-dark);
+  font: inherit;
+  font-weight: 850;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(16, 35, 46, 0.06);
+}
+
+.contact-copy:hover,
+.contact-copy:focus-visible {
+  border-color: rgba(14, 78, 102, 0.34);
+  outline: 0;
+}
+
+.contact-copy small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .about-tags {
   display: flex;
   flex-wrap: wrap;
@@ -1571,6 +1601,13 @@ h3 {
     width: 56px;
     right: 10px;
     bottom: 10px;
+    opacity: 0.84;
+  }
+
+  .post-detail-section ~ .mascot-widget,
+  body:has(.post-detail-section:not([hidden])) .mascot-widget {
+    width: 48px;
+    opacity: 0.68;
   }
 
   .mascot-bubble {

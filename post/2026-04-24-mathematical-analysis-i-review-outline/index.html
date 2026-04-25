@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数学分析 I 复习提纲 · qqqzj@Crane</title>
+    <meta name="description" content="来源：数分I复习.pdf。 参考校订：数学分析 上.pdf、《数学分析》辅导.pdf。 本文件按复习页内容整理为考前提纲，公式已按标准表述校正。 1. 实数完备性与确界 确界原理 非空有上界数集必有上确界；非空有下界数集必有下确界。 等价完..." />
+    <link rel="canonical" href="https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-mathematical-analysis-i-review-outline/" />
+    <link rel="alternate" type="application/rss+xml" title="qqqzj@Crane RSS" href="../../rss.xml" />
+    <link rel="icon" href="../../assets/furina-avatar.png" type="image/png" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+        },
+        options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+        },
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="../../index.html#home" aria-label="Back to home / 回到首页">
+          <span class="brand-mark brand-avatar" aria-hidden="true">
+            <img src="../../assets/furina-avatar.png" alt="" />
+          </span>
+          <span>qqqzj@Crane</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation / 主导航">
+          <a href="../../index.html#about">About me</a>
+          <a href="../../index.html#growth">News 动态</a>
+          <a href="../../index.html#notes">Notes 笔记</a>
+          <a href="../../index.html#life">Life 生活</a>
+          <a href="../../index.html#archive">Archive 归档</a>
+        </nav>
+      </header>
+
+      <main id="home">
+        <section class="post-detail-section">
+          <div class="post-detail-shell">
+            <a class="back-link" href="../../index.html#home">Back to home / 返回首页</a>
+            <article class="post-detail-card">
+              <p class="eyebrow">Notes 笔记</p>
+              <h1>数学分析 I 复习提纲</h1>
+              <div class="post-detail-meta">
+                <time datetime="2026-04-24T00:00:00.000Z">2026年4月24日</time>
+                <span>数学</span>
+              </div>
+              <div class="post-detail-body">
+                <div class="entry-body"><p>&gt; 来源：`数分I复习.pdf`。  <br />&gt; 参考校订：`数学分析 上.pdf`、`《数学分析》辅导.pdf`。  <br />&gt; 本文件按复习页内容整理为考前提纲，公式已按标准表述校正。</p><h4>1. 实数完备性与确界</h4><h4>确界原理</h4><p>非空有上界数集必有上确界；非空有下界数集必有下确界。</p><p>等价完备性命题：</p><ul><li>单调有界定理；</li><li>区间套定理；</li><li>Bolzano-Weierstrass 聚点定理；</li><li>Heine-Borel 有限覆盖定理；</li><li>Cauchy 收敛准则。</li></ul><h4>2. 数列极限</h4><h4>定义</h4><div class="math-display">$$
+\lim_{n\to\infty}a_n=A
+$$
+当且仅当
+$$
+\forall \varepsilon&gt;0,\ \exists N,\ \forall n&gt;N,\quad |a_n-A|&lt;\varepsilon.
+$$</div><h4>基本性质</h4><p>收敛数列具有：</p><ul><li>极限唯一性；</li><li>有界性；</li><li>保号性；</li><li>保序性；</li><li>夹逼定理；</li><li>四则运算法则。</li></ul><p>落在任意邻域 $U(A,\varepsilon)$ 外的项只有有限项。</p><h4>子列判别</h4><p>数列收敛于 $A$，当且仅当它的任意子列都收敛于 $A$。</p><p>若两个子列极限不同，则原数列发散。</p><h4>单调有界定理</h4><p>单调且有界的数列必收敛。</p><h4>Cauchy 收敛准则</h4><p>数列 $\{a_n\}$ 收敛，当且仅当
+$$
+\forall \varepsilon&gt;0,\ \exists N,\ \forall m,n&gt;N,\quad |a_m-a_n|&lt;\varepsilon.
+$$</p><h4>Stolz 定理</h4><p>若 $b_n$ 严格递增且 $b_n\to+\infty$，并且
+$$
+\lim_{n\to\infty}\frac{a_n-a_{n-1}}{b_n-b_{n-1}}=L,
+$$
+则
+$$
+\lim_{n\to\infty}\frac{a_n}{b_n}=L.
+$$</p><p>使用时先确认 $b_n$ 的单调性和趋于 $+\infty$；它本质上是“差商极限推出商极限”。</p><h4>3. 函数极限</h4><h4>$\varepsilon$-$\delta$ 定义</h4><div class="math-display">$$
+\lim_{x\to x_0}f(x)=A
+$$
+当且仅当
+$$
+\forall \varepsilon&gt;0,\ \exists \delta&gt;0,\quad
+0&lt;|x-x_0|&lt;\delta \Rightarrow |f(x)-A|&lt;\varepsilon.
+$$</div><p>无穷远处极限：
+$$
+\lim_{x\to+\infty}f(x)=A
+$$
+当且仅当
+$$
+\forall \varepsilon&gt;0,\ \exists M&gt;0,\quad x&gt;M\Rightarrow |f(x)-A|&lt;\varepsilon.
+$$</p><h4>Heine 归结原则</h4><p>$\lim_{x\to x_0}f(x)=A$ 当且仅当对任意满足 $x_n\ne x_0$ 且 $x_n\to x_0$ 的数列，都有
+$$
+\lim_{n\to\infty}f(x_n)=A.
+$$</p><h4>Cauchy 准则</h4><p>$\lim_{x\to x_0}f(x)$ 存在，当且仅当
+$$
+\forall \varepsilon&gt;0,\ \exists \delta&gt;0,\quad
+0&lt;|x_1-x_0|&lt;\delta,\ 0&lt;|x_2-x_0|&lt;\delta
+\Rightarrow |f(x_1)-f(x_2)|&lt;\varepsilon.
+$$</p><h4>无穷小、无穷大与渐近线</h4><p>- $f(x)\to0$ 称为无穷小；
+- $|f(x)|\to+\infty$ 称为无穷大；
+- 若
+  $$
+  \lim_{x\to\infty}\bigl[f(x)-(kx+b)\bigr]=0,
+  $$
+  则 $y=kx+b$ 为斜渐近线。</p><h4>4. 连续函数</h4><h4>连续定义</h4><p>$f$ 在 $x_0$ 连续，当且仅当
+$$
+\lim_{x\to x_0}f(x)=f(x_0).
+$$</p><p>等价地：
+$$
+\forall \varepsilon&gt;0,\ \exists\delta&gt;0,\quad |x-x_0|&lt;\delta
+\Rightarrow |f(x)-f(x_0)|&lt;\varepsilon.
+$$</p><h4>间断点分类</h4><ol><li>可去间断点：左右极限相等且有限，但函数值缺失或不等于该极限；</li><li>跳跃间断点：左右极限均存在且有限，但不相等；</li><li>第二类间断点：至少一个单侧极限不存在或为无穷。</li></ol><p>若函数仅有有限个第一类间断点，常称为分段连续函数。</p><h4>闭区间连续函数性质</h4><p>若 $f\in C[a,b]$，则：</p><ul><li>有界性定理；</li><li>最大最小值定理；</li><li>零点存在定理；</li><li>介值定理；</li><li>一致连续性定理。</li></ul><h4>一致连续</h4><p>$f$ 在 $D$ 上一致连续，当且仅当
+$$
+\forall \varepsilon&gt;0,\ \exists\delta&gt;0,\quad
+x,y\in D,\ |x-y|&lt;\delta\Rightarrow |f(x)-f(y)|&lt;\varepsilon.
+$$</p><p>闭区间上连续函数必一致连续。</p><p>若 $f$ 在 $(a,b)$ 连续，则常用判别：<br />若 $f(a+)$ 与 $f(b-)$ 均存在且有限，则 $f$ 在 $(a,b)$ 上一致连续。</p><p>常见充分条件：</p><ul><li>Lipschitz 条件；</li><li>导数有界；</li><li>Cantor 定理，即闭区间连续推出一致连续。</li></ul><h4>5. 导数与微分</h4><h4>导数</h4><div class="math-display">$$
+f&#039;(x_0)=\lim_{x\to x_0}\frac{f(x)-f(x_0)}{x-x_0}
+=\lim_{\Delta x\to0}\frac{f(x_0+\Delta x)-f(x_0)}{\Delta x}.
+$$</div><p>可导必连续，连续未必可导。</p><h4>费马定理</h4><p>若 $f$ 在 $x_0$ 可导，且 $x_0$ 是局部极值点，则
+$$
+f&#039;(x_0)=0.
+$$</p><h4>微分</h4><p>$f$ 在 $x_0$ 可微，当且仅当
+$$
+f(x_0+\Delta x)-f(x_0)=A\Delta x+o(\Delta x).
+$$</p><p>此时
+$$
+A=f&#039;(x_0),\qquad dy=f&#039;(x_0)\,dx.
+$$</p><h4>6. 微分中值定理</h4><h4>Rolle 定理</h4><p>若 $f\in C[a,b]$，在 $(a,b)$ 可导，且 $f(a)=f(b)$，则存在 $\xi\in(a,b)$，使
+$$
+f&#039;(\xi)=0.
+$$</p><h4>Lagrange 中值定理</h4><p>若 $f\in C[a,b]$，在 $(a,b)$ 可导，则存在 $\xi\in(a,b)$，使
+$$
+f&#039;(\xi)=\frac{f(b)-f(a)}{b-a}.
+$$</p><h4>Cauchy 中值定理</h4><p>若 $f,g\in C[a,b]$，在 $(a,b)$ 可导，且 $g&#039;(x)\ne0$，则存在 $\xi\in(a,b)$，使
+$$
+\frac{f(b)-f(a)}{g(b)-g(a)}=\frac{f&#039;(\xi)}{g&#039;(\xi)}.
+$$</p><h4>Darboux 定理</h4><p>导函数具有介值性。即若 $f$ 在区间上可导，则 $f&#039;$ 虽不一定连续，但不能有跳跃间断。</p><h4>7. L&#039;Hospital 法则与 Taylor 公式</h4><h4>L&#039;Hospital 法则</h4><p>若 $f,g$ 在 $x_0$ 的去心邻域内可导，$g&#039;(x)\ne0$，并且属于 $0/0$ 或 $\infty/\infty$ 型，且
+$$
+\lim_{x\to x_0}\frac{f&#039;(x)}{g&#039;(x)}=L,
+$$
+则
+$$
+\lim_{x\to x_0}\frac{f(x)}{g(x)}=L
+$$
+在相应条件下成立。</p><p>洛必达法则必须先判定未定式；若原极限不是 $0/0$ 或 $\infty/\infty$ 型，应先化简或使用其他极限法则。</p><h4>Taylor 公式</h4><p>Peano 余项：
+若 $f$ 在 $x_0$ 处有 $n$ 阶导数，则
+$$
+f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k+o\bigl((x-x_0)^n\bigr).
+$$</p><p>Lagrange 余项：
+若 $f$ 在 $x_0$ 与 $x$ 间有 $n+1$ 阶导数，则
+$$
+f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
++\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}.
+$$</p><p>常用展开：</p><div class="math-display">$$
+e^x=1+x+\frac{x^2}{2!}+\cdots+\frac{x^n}{n!}+o(x^n),
+$$</div><div class="math-display">$$
+\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\cdots+(-1)^{n-1}\frac{x^n}{n}+o(x^n).
+$$</div><h4>8. 极值、单调性与凸性</h4><h4>极值判别</h4><p>一阶充分条件：若 $f&#039;$ 在 $x_0$ 两侧变号，则 $x_0$ 为极值点。</p><p>二阶充分条件：若
+$$
+f&#039;(x_0)=0,\qquad f&#039;&#039;(x_0)&gt;0,
+$$
+则 $x_0$ 为局部极小点；若 $f&#039;&#039;(x_0)&lt;0$，则为局部极大点。</p><h4>单调性</h4><p>若 $f&#039;(x)\ge0$，则 $f$ 单调不减；若 $f&#039;(x)&gt;0$，则 $f$ 严格递增。</p><h4>凸函数</h4><p>$f$ 在区间 $I$ 上为凸函数，当且仅当对任意 $x,y\in I$ 与 $\lambda\in[0,1]$，
+$$
+f(\lambda x+(1-\lambda)y)
+\le \lambda f(x)+(1-\lambda)f(y).
+$$</p><p>若 $f$ 二阶可导，则
+$$
+f&#039;&#039;(x)\ge0
+$$
+是凸函数的充要条件。</p><p>Jensen 不等式：
+若 $f$ 凸，$\lambda_i\ge0$，$\sum\lambda_i=1$，则
+$$
+f\left(\sum_{i=1}^n\lambda_i x_i\right)
+\le \sum_{i=1}^n\lambda_i f(x_i).
+$$</p><h4>9. 不定积分</h4><p>若 $F&#039;(x)=f(x)$，则 $F$ 是 $f$ 的原函数，
+$$
+\int f(x)\,dx=F(x)+C.
+$$</p><p>常用方法：</p><p>- 第一换元法；
+- 第二换元法；
+- 分部积分：
+  $$
+  \int u\,dv=uv-\int v\,du.
+  $$</p><p>常见积分：</p><div class="math-display">$$
+\int \frac{1}{x}\,dx=\ln|x|+C,\qquad
+\int \sec^2x\,dx=\tan x+C,
+$$</div><div class="math-display">$$
+\int \csc^2x\,dx=-\cot x+C.
+$$</div><h4>10. 定积分</h4><h4>Riemann 可积</h4><p>设 $f$ 在 $[a,b]$ 有界。若当分割细度 $|T|\to0$ 时，任意积分和
+$$
+\sum_{i=1}^n f(\xi_i)\Delta x_i
+$$
+极限存在且与分割和取点无关，则 $f$ 在 $[a,b]$ 可积。</p><p>记作
+$$
+\int_a^b f(x)\,dx.
+$$</p><p>可积条件：</p><ul><li>连续函数可积；</li><li>单调函数可积；</li><li>有界且仅有限个间断点的函数可积；</li><li>可积函数必有界。</li></ul><p>Darboux 判别常用形式：
+$$
+\forall \varepsilon&gt;0,\ \exists T,\quad U(T)-L(T)&lt;\varepsilon.
+$$</p><h4>Newton-Leibniz 公式</h4><p>若 $f\in C[a,b]$，且 $F&#039;=f$，则
+$$
+\int_a^b f(x)\,dx=F(b)-F(a).
+$$</p><h4>积分中值定理</h4><p>若 $f,g\in C[a,b]$ 且 $g$ 不变号，则存在 $\xi\in[a,b]$，使
+$$
+\int_a^b f(x)g(x)\,dx=f(\xi)\int_a^b g(x)\,dx.
+$$</p><h4>变上限积分</h4><p>若 $f$ 在 $[a,b]$ 上可积，定义
+$$
+F(x)=\int_a^x f(t)\,dt,
+$$
+则 $F$ 连续；若 $f$ 在 $x$ 连续，则
+$$
+F&#039;(x)=f(x).
+$$</p><h4>11. 定积分应用</h4><p>面积：
+$$
+S=\int_a^b f(x)\,dx
+$$
+或两曲线之间
+$$
+S=\int_a^b |f(x)-g(x)|\,dx.
+$$</p><p>参数曲线弧长：
+若
+$$
+x=x(t),\quad y=y(t),\quad t\in[\alpha,\beta],
+$$
+则
+$$
+s=\int_\alpha^\beta
+\sqrt{(x&#039;(t))^2+(y&#039;(t))^2}\,dt.
+$$</p><p>旋转体体积常用：
+$$
+V=\pi\int_a^b [f(x)]^2\,dx.
+$$</p><h4>12. 反常积分</h4><h4>无穷区间积分</h4><div class="math-display">$$
+\int_a^{+\infty}f(x)\,dx
+=\lim_{A\to+\infty}\int_a^A f(x)\,dx.
+$$</div><p>若极限存在且有限，则称收敛。</p><h4>瑕积分</h4><p>若 $f$ 在 $a$ 附近无界，则
+$$
+\int_a^b f(x)\,dx
+=\lim_{\varepsilon\to0+}\int_{a+\varepsilon}^b f(x)\,dx.
+$$</p><h4>Cauchy 收敛准则</h4><div class="math-display">$$
+\int_a^{+\infty}f(x)\,dx
+$$
+收敛，当且仅当
+$$
+\forall \varepsilon&gt;0,\ \exists A,\ \forall A_1,A_2&gt;A,\quad
+\left|\int_{A_1}^{A_2}f(x)\,dx\right|&lt;\varepsilon.
+$$</div><h4>判别法</h4><p>比较判别：<br />若 $0\le f(x)\le g(x)$，且 $\int_a^\infty g(x)\,dx$ 收敛，则 $\int_a^\infty f(x)\,dx$ 收敛。</p><p>绝对收敛：
+若
+$$
+\int_a^\infty |f(x)|\,dx
+$$
+收敛，则
+$$
+\int_a^\infty f(x)\,dx
+$$
+收敛。</p><p>Dirichlet 判别：
+若
+$$
+F(A)=\int_a^A f(x)\,dx
+$$
+有界，$g(x)$ 单调且 $g(x)\to0$，则
+$$
+\int_a^\infty f(x)g(x)\,dx
+$$
+收敛。</p><p>Abel 判别：
+若 $\int_a^\infty f(x)\,dx$ 收敛，$g(x)$ 单调有界，则
+$$
+\int_a^\infty f(x)g(x)\,dx
+$$
+收敛。</p><h4>附件</h4><div class="entry-file"><a class="download-button" href="../../files/2026-04-24-main-math-notes/数学分析I复习提纲.pdf" download><span>下载 / 预览 PDF</span><small>数学分析I复习提纲.pdf</small></a><details class="file-preview"><summary>Preview / 预览</summary><iframe src="../../files/2026-04-24-main-math-notes/数学分析I复习提纲.pdf" title="数学分析I复习提纲.pdf" loading="lazy"></iframe></details></div></div>
+              </div>
+              <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
+                <a href="../../post/2026-04-24-mathematical-analysis-i/"><span>Newer / 更新</span><strong>数学分析 I</strong></a>
+                <a href="../../post/2026-04-24-linear-algebra-i/"><span>Older / 更早</span><strong>线性代数 I</strong></a>
+              </nav>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" aria-label="Site information / 站点信息">
+        <p>© 2025-2026 qqqzj@Crane</p>
+        <p>qqqzj 的个人笔记、生活记录与学习档案。</p>
+      </footer>
+    </div>
+  </body>
+</html>

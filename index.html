@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>qqqzj@Crane</title>
+    <meta name="description" content="qqqzj 的个人笔记、生活记录与学习档案。" />
     <link rel="icon" href="assets/furina-avatar.png" type="image/png" />
+    <link rel="preload" href="app.js" as="script" />
     <link rel="stylesheet" href="styles.css" />
     <script>
       window.MathJax = {
@@ -18,6 +20,9 @@
       };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      <link rel="canonical" href="https://zijunqiu-a.github.io/qqqzj-crane-blog/" />
+    <link rel="alternate" type="application/rss+xml" title="qqqzj@Crane RSS" href="rss.xml" />
+    <link rel="preload" href="published-posts.js" as="script" />
   </head>
   <body>
     <!-- site-shell 用来限制整页最大宽度，让内容在大屏上不会铺得太散。 -->
@@ -49,15 +54,15 @@
               <!-- 这些数字由 app.js 根据当前内容数量自动更新。 -->
               <div class="stats-strip" aria-label="Content statistics / 内容统计">
                 <div>
-                  <strong id="stat-growth">0</strong>
+                  <strong id="stat-growth">1</strong>
                   <span>News 动态</span>
                 </div>
                 <div>
-                  <strong id="stat-notes">0</strong>
+                  <strong id="stat-notes">4</strong>
                   <span>Notes 笔记</span>
                 </div>
                 <div>
-                  <strong id="stat-videos">0</strong>
+                  <strong id="stat-videos">1</strong>
                   <span>Life 生活</span>
                 </div>
               </div>
@@ -81,22 +86,22 @@
                   </a>
                   <a href="#growth">
                     <span>News 动态</span>
-                    <strong id="index-growth">0</strong>
+                    <strong id="index-growth">1</strong>
                     <small>Updates</small>
                   </a>
                   <a href="#notes">
                     <span>Notes 笔记</span>
-                    <strong id="index-notes">0</strong>
+                    <strong id="index-notes">4</strong>
                     <small>Notebook</small>
                   </a>
                   <a href="#life">
                     <span>Life 生活</span>
-                    <strong id="index-videos">0</strong>
+                    <strong id="index-videos">1</strong>
                     <small>Life Log</small>
                   </a>
                   <a href="#archive">
                     <span>Archive 归档</span>
-                    <strong id="index-total">0</strong>
+                    <strong id="index-total">6</strong>
                     <small>All posts</small>
                   </a>
                 </nav>
@@ -135,9 +140,10 @@
                       I like quiet systems, beautiful interfaces, and the feeling of slowly becoming better.
                       我也喜欢带一点水蓝歌剧感的页面氛围。
                     </p>
-                    <p>
-                      Contact: zijunqqq [at] gmail [dot] com
-                    </p>
+                    <button class="contact-copy" type="button" data-email-user="zijunqqq" data-email-domain="gmail.com">
+                      <span>Contact: zijunqqq [at] gmail [dot] com</span>
+                      <small>Click to copy / 点击复制</small>
+                    </button>
                   </div>
                   <div class="about-tags" aria-label="About tags / 关于标签">
                     <span>Growth 成长</span>
@@ -154,7 +160,21 @@
                   <p class="eyebrow">Bulletin 公告板</p>
                   <h2 id="growth-title">News 动态</h2>
                 </div>
-                <div class="timeline" id="growth-list"></div>
+                <div class="timeline" id="growth-list">
+                  <a class="timeline-item post-card static-post-card" href="post/2026-04-24-first-news/">
+                    <div class="date-pill">
+                      <time datetime="2026-04-24T00:00:00.000Z">2026年4月24日</time>
+                      <span class="tag">Project 项目</span>
+                    </div>
+                    <div class="entry-copy">
+                      <h3>完成个人网站第一版</h3>
+                      <p class="post-preview">今天借助 Codex 把 qqqzj@Crane 的第一版搭起来了，感谢 Chatgpt 呜呜呜。</p>
+                      <div class="card-footer">
+                        <span>Updated 2026年4月24日</span>
+                        <span class="published-badge">Read more / 详情</span>
+                      </div>
+                    </div>
+                  </a></div>
               </section>
 
               <section class="notes-section" id="notes" aria-labelledby="notes-title">
@@ -163,7 +183,51 @@
                   <h2 id="notes-title">Notes 笔记</h2>
                 </div>
                 <div class="note-category-tabs" id="note-category-tabs" aria-label="Note categories / 笔记分类"></div>
-                <div class="note-grid" id="note-list"></div>
+                <div class="note-grid" id="note-list">
+                  <a class="note-card post-card static-post-card" href="post/2026-04-24-physics-lab-markdown-template/">
+                    <header>
+                      <span>普物实验</span>
+                      <h3>普物实验docx模版(❌)markdown(☑️)</h3>
+                    </header>
+                    <p class="post-preview">我弄了这个 Markdown 模版，之后写普物实验报告就不用再被 docx 格式卡住了。 文件放在这里，直接下载就能用。 下载实验报告 Markdown 模版 下载预习报告 Markdown 模版 下载配套 CSS 样式</p>
+                    <div class="card-footer">
+                      <time datetime="2026-04-24T00:00:00.000Z">2026年4月24日</time>
+                      <span class="published-badge">Read more / 详情</span>
+                    </div>
+                  </a>
+                  <a class="note-card post-card static-post-card" href="post/2026-04-24-mathematical-analysis-i/">
+                    <header>
+                      <span>数学</span>
+                      <h3>数学分析 I</h3>
+                    </header>
+                    <p class="post-preview">实数、确界与函数 实数集的基本性质 实数集 $\mathbb R$ 的常用性质： 1. 有序性：任意 $a,b\in\mathbb R$ 可比较大小。 2. 传递性：若 $ab$，$bc$，则 $ac$。 3. 阿基米德性：若 $a0$，$...</p>
+                    <div class="card-footer">
+                      <time datetime="2026-04-24T00:00:00.000Z">2026年4月24日</time>
+                      <span class="published-badge">Read more / 详情</span>
+                    </div>
+                  </a>
+                  <a class="note-card post-card static-post-card" href="post/2026-04-24-mathematical-analysis-i-review-outline/">
+                    <header>
+                      <span>数学</span>
+                      <h3>数学分析 I 复习提纲</h3>
+                    </header>
+                    <p class="post-preview">来源：数分I复习.pdf。 参考校订：数学分析 上.pdf、《数学分析》辅导.pdf。 本文件按复习页内容整理为考前提纲，公式已按标准表述校正。 1. 实数完备性与确界 确界原理 非空有上界数集必有上确界；非空有下界数集必有下确界。 等价完...</p>
+                    <div class="card-footer">
+                      <time datetime="2026-04-24T00:00:00.000Z">2026年4月24日</time>
+                      <span class="published-badge">Read more / 详情</span>
+                    </div>
+                  </a>
+                  <a class="note-card post-card static-post-card" href="post/2026-04-24-linear-algebra-i/">
+                    <header>
+                      <span>数学</span>
+                      <h3>线性代数 I</h3>
+                    </header>
+                    <p class="post-preview">线性方程组与行简化阶梯形 行简化阶梯形 行简化阶梯矩阵满足： 1. 零行在非零行下方； 2. 每个非零行首个非零元为 $1$； 3. 主元所在列其余元素全为 $0$； 4. 主元位置从上到下向右移动。 线性方程组化为简化阶梯形后： 出现 $...</p>
+                    <div class="card-footer">
+                      <time datetime="2026-04-24T00:00:00.000Z">2026年4月24日</time>
+                      <span class="published-badge">Read more / 详情</span>
+                    </div>
+                  </a></div>
               </section>
 
               <section class="video-section" id="life" aria-labelledby="life-title">
@@ -171,7 +235,20 @@
                   <p class="eyebrow">Life 生活</p>
                   <h2 id="life-title">Life Log 生活记录</h2>
                 </div>
-                <div class="video-grid" id="video-list"></div>
+                <div class="video-grid" id="video-list">
+                  <a class="video-card post-card static-post-card" href="post/2026-04-24-04-travel-jinan-taishan/">
+                    <div class="video-frame video-frame-preview"><div class="life-post-mark" aria-label="清明de济南与泰山">Life</div></div>
+                    <div class="video-body">
+                      <header>
+                        <h3>清明de济南与泰山</h3>
+                        <p class="post-preview">为了这次出行，清明前我真的付出了太多～～ 趵突泉 竟然只是三个冒水的洞？！ 夜里的泰山 泰山日出 “日上，正赤如丹，下有红光动摇承之”</p>
+                      </header>
+                      <div class="card-footer">
+                        <time datetime="2026-04-04T00:00:00.000Z">2026年4月04日</time>
+                        <span class="published-badge">Read more / 详情</span>
+                      </div>
+                    </div>
+                  </a></div>
               </section>
 
               <section class="archive-section" id="archive" aria-labelledby="archive-title">
@@ -179,7 +256,43 @@
                   <p class="eyebrow">Archive 归档</p>
                   <h2 id="archive-title">All Posts 全部文章</h2>
                 </div>
-                <div class="archive-list" id="archive-list"></div>
+                <div class="archive-list" id="archive-list">
+                  <section class="archive-month">
+                    <h3>2026年4月</h3>
+                    <div class="archive-items">
+                      
+                      <a href="post/2026-04-24-first-news/">
+                        <strong>完成个人网站第一版</strong>
+                        <span>News 动态</span>
+                        <small>2026年4月24日</small>
+                      </a>
+                      <a href="post/2026-04-24-physics-lab-markdown-template/">
+                        <strong>普物实验docx模版(❌)markdown(☑️)</strong>
+                        <span>普物实验</span>
+                        <small>2026年4月24日</small>
+                      </a>
+                      <a href="post/2026-04-24-mathematical-analysis-i/">
+                        <strong>数学分析 I</strong>
+                        <span>数学</span>
+                        <small>2026年4月24日</small>
+                      </a>
+                      <a href="post/2026-04-24-mathematical-analysis-i-review-outline/">
+                        <strong>数学分析 I 复习提纲</strong>
+                        <span>数学</span>
+                        <small>2026年4月24日</small>
+                      </a>
+                      <a href="post/2026-04-24-linear-algebra-i/">
+                        <strong>线性代数 I</strong>
+                        <span>数学</span>
+                        <small>2026年4月24日</small>
+                      </a>
+                      <a href="post/2026-04-24-04-travel-jinan-taishan/">
+                        <strong>清明de济南与泰山</strong>
+                        <span>旅游</span>
+                        <small>2026年4月04日</small>
+                      </a>
+                    </div>
+                  </section></div>
               </section>
             </div>
           </section>

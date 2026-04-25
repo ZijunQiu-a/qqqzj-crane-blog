@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>qqqzj@Crane</title>
+    <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/</link>
+    <description>qqqzj 的个人笔记、生活记录与学习档案。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 25 Apr 2026 01:43:15 GMT</lastBuildDate>
+    <item>
+      <title>完成个人网站第一版</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-first-news/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-first-news/</guid>
+      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
+      <description>今天借助 Codex 把 qqqzj@Crane 的第一版搭起来了，感谢 Chatgpt 呜呜呜。</description>
+    </item>
+    <item>
+      <title>普物实验docx模版(❌)markdown(☑️)</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-physics-lab-markdown-template/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-physics-lab-markdown-template/</guid>
+      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
+      <description>我弄了这个 Markdown 模版，之后写普物实验报告就不用再被 docx 格式卡住了。 文件放在这里，直接下载就能用。 下载实验报告 Markdown 模版 下载预习报告 Markdown 模版 下载配套 CSS 样式</description>
+    </item>
+    <item>
+      <title>数学分析 I</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-mathematical-analysis-i/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-mathematical-analysis-i/</guid>
+      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
+      <description>实数、确界与函数 实数集的基本性质 实数集 $\mathbb R$ 的常用性质： 1. 有序性：任意 $a,b\in\mathbb R$ 可比较大小。 2. 传递性：若 $ab$，$bc$，则 $ac$。 3. 阿基米德性：若 $a0$，$...</description>
+    </item>
+    <item>
+      <title>数学分析 I 复习提纲</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-mathematical-analysis-i-review-outline/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-mathematical-analysis-i-review-outline/</guid>
+      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
+      <description>来源：数分I复习.pdf。 参考校订：数学分析 上.pdf、《数学分析》辅导.pdf。 本文件按复习页内容整理为考前提纲，公式已按标准表述校正。 1. 实数完备性与确界 确界原理 非空有上界数集必有上确界；非空有下界数集必有下确界。 等价完...</description>
+    </item>
+    <item>
+      <title>线性代数 I</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-linear-algebra-i/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-linear-algebra-i/</guid>
+      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
+      <description>线性方程组与行简化阶梯形 行简化阶梯形 行简化阶梯矩阵满足： 1. 零行在非零行下方； 2. 每个非零行首个非零元为 $1$； 3. 主元所在列其余元素全为 $0$； 4. 主元位置从上到下向右移动。 线性方程组化为简化阶梯形后： 出现 $...</description>
+    </item>
+    <item>
+      <title>清明de济南与泰山</title>
+      <link>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-04-travel-jinan-taishan/</link>
+      <guid>https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-04-travel-jinan-taishan/</guid>
+      <pubDate>Sat, 04 Apr 2026 00:00:00 GMT</pubDate>
+      <description>为了这次出行，清明前我真的付出了太多～～ 趵突泉 竟然只是三个冒水的洞？！ 夜里的泰山 泰山日出 “日上，正赤如丹，下有红光动摇承之”</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,1012 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>线性代数 I · qqqzj@Crane</title>
+    <meta name="description" content="线性方程组与行简化阶梯形 行简化阶梯形 行简化阶梯矩阵满足： 1. 零行在非零行下方； 2. 每个非零行首个非零元为 $1$； 3. 主元所在列其余元素全为 $0$； 4. 主元位置从上到下向右移动。 线性方程组化为简化阶梯形后： 出现 $..." />
+    <link rel="canonical" href="https://zijunqiu-a.github.io/qqqzj-crane-blog/post/2026-04-24-linear-algebra-i/" />
+    <link rel="alternate" type="application/rss+xml" title="qqqzj@Crane RSS" href="../../rss.xml" />
+    <link rel="icon" href="../../assets/furina-avatar.png" type="image/png" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+        },
+        options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+        },
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="../../index.html#home" aria-label="Back to home / 回到首页">
+          <span class="brand-mark brand-avatar" aria-hidden="true">
+            <img src="../../assets/furina-avatar.png" alt="" />
+          </span>
+          <span>qqqzj@Crane</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation / 主导航">
+          <a href="../../index.html#about">About me</a>
+          <a href="../../index.html#growth">News 动态</a>
+          <a href="../../index.html#notes">Notes 笔记</a>
+          <a href="../../index.html#life">Life 生活</a>
+          <a href="../../index.html#archive">Archive 归档</a>
+        </nav>
+      </header>
+
+      <main id="home">
+        <section class="post-detail-section">
+          <div class="post-detail-shell">
+            <a class="back-link" href="../../index.html#home">Back to home / 返回首页</a>
+            <article class="post-detail-card">
+              <p class="eyebrow">Notes 笔记</p>
+              <h1>线性代数 I</h1>
+              <div class="post-detail-meta">
+                <time datetime="2026-04-24T00:00:00.000Z">2026年4月24日</time>
+                <span>数学</span>
+              </div>
+              <div class="post-detail-body">
+                <div class="entry-body"><h4>线性方程组与行简化阶梯形</h4><h4>行简化阶梯形</h4><p>行简化阶梯矩阵满足：</p><ol><li>零行在非零行下方；</li><li>每个非零行首个非零元为 $1$；</li><li>主元所在列其余元素全为 $0$；</li><li>主元位置从上到下向右移动。</li></ol><p>线性方程组化为简化阶梯形后：</p><ul><li>出现 $0=d$（$d\ne0$）则无解；</li><li>无矛盾行且每个未知量都是主变量，则唯一解；</li><li>有自由变量则有无穷多解，可令自由变量为参数。</li></ul><h4>齐次与非齐次方程组</h4><p>齐次方程组：
+$$
+Ax=0.
+$$</p><p>若 $A$ 为 $m\times n$ 矩阵，$r=\operatorname{rank}A$，则解空间维数为
+$$
+\dim\ker A=n-r.
+$$</p><p>非齐次方程组：
+$$
+Ax=b
+$$
+有解当且仅当
+$$
+\operatorname{rank}A=\operatorname{rank}(A|b).
+$$</p><p>若 $x_0$ 为一个特解，则全体解为
+$$
+x=x_0+x_h,\qquad x_h\in\ker A.
+$$</p><p>补充：</p><p>- 非齐次方程组是否唯一，在有解前提下由对应齐次方程组是否只有零解决定。
+- 若 $\ker A$ 的一组基为 $\eta_1,\dots,\eta_{n-r}$，则齐次解为
+  $$
+  x=c_1\eta_1+\cdots+c_{n-r}\eta_{n-r}.
+  $$</p><h4>本章例题</h4><p>例 1：讨论方程组
+$$
+\begin{cases}
+x+y+z=1,\\
+2x+2y+2z=2
+\end{cases}
+$$
+的解。</p><p>解：第二个方程是第一个方程的两倍，秩为 $1$，未知量个数为 $3$，有两个自由变量。令 $y=s,z=t$，则
+$$
+x=1-s-t.
+$$
+通解为
+$$
+(x,y,z)=(1,0,0)+s(-1,1,0)+t(-1,0,1).
+$$</p><p>例 2：求齐次方程
+$$
+x+y+z=0
+$$
+的基础解系。</p><p>解：令 $y=s,z=t$，则 $x=-s-t$。因此
+$$
+(x,y,z)=s(-1,1,0)+t(-1,0,1),
+$$
+基础解系可取
+$$
+(-1,1,0),\qquad (-1,0,1).
+$$</p><h4>线性空间、子空间与生成</h4><h4>线性空间定义</h4><p>设 $F$ 为数域，$V$ 为非空集合。若 $V$ 上有加法与数乘，满足：</p><ol><li>$x+y=y+x$；</li><li>$(x+y)+z=x+(y+z)$；</li><li>存在零元 $0$，$x+0=x$；</li><li>对每个 $x$ 存在 $-x$，$x+(-x)=0$；</li><li>$\lambda(x+y)=\lambda x+\lambda y$；</li><li>$(\lambda+\mu)x=\lambda x+\mu x$；</li><li>$(\lambda\mu)x=\lambda(\mu x)$；</li><li>$1x=x$；</li></ol><p>则称 $V$ 是 $F$ 上的线性空间。</p><p>例子：</p><ul><li>$F^n$；</li><li>$F^{m\times n}$；</li><li>$F[x]$；</li><li>$C[a,b]$；</li><li>数列空间。</li></ul><p>注意：</p><ul><li>同一个集合在不同数域上可能是不同线性空间；</li><li>$\mathbb C$ 可看作 $\mathbb C$ 上线性空间，也可看作 $\mathbb R$ 上线性空间；</li><li>$\mathbb R$ 不是 $\mathbb C$ 上的线性空间；</li><li>整数集 $\mathbb Z$ 不是数域，不能作为线性空间的标量域。</li></ul><h4>基本性质</h4><p>在线性空间中：</p><div class="math-display">$$
+0 \text{ 唯一},\qquad -x \text{ 唯一}.
+$$</div><div class="math-display">$$
+0x=0,\qquad \lambda0=0,\qquad (-1)x=-x.
+$$</div><p>证明：
+若 $0,0&#039;$ 都是零元，则
+$$
+0=0+0&#039;=0&#039;.
+$$</p><p>若 $y,z$ 都是 $x$ 的负元，则
+$$
+y=y+0=y+(x+z)=(y+x)+z=0+z=z.
+$$</p><h4>子空间</h4><p>设 $W\subseteq V$，$W\ne\varnothing$。则 $W$ 是子空间当且仅当
+$$
+\forall x,y\in W,\ \forall\lambda,\mu\in F,\quad
+\lambda x+\mu y\in W.
+$$</p><p>常用判别：</p><ol><li>非空；</li><li>加法封闭；</li><li>数乘封闭。</li></ol><h4>线性组合与线性包</h4><p>向量组 $\alpha_1,\dots,\alpha_n$ 的线性组合：
+$$
+k_1\alpha_1+\cdots+k_n\alpha_n.
+$$</p><p>$S$ 的线性包：
+$$
+L(S)=\operatorname{span}(S).
+$$</p><p>定理：</p><ol><li>$L(S)$ 是子空间；</li><li>$L(S)$ 是包含 $S$ 的最小子空间；</li><li>若 $S\subseteq W$ 且 $W$ 为子空间，则 $L(S)\subseteq W$。</li></ol><p>证明：<br />直接验证 $L(S)$ 对线性组合封闭；最小性由任意包含 $S$ 的子空间必须包含 $S$ 的所有线性组合得出。</p><h4>本章例题</h4><p>例 1：判断
+$$
+W=\{(x,y,z)\in\mathbb R^3:x+y+z=0\}
+$$
+是否为 $\mathbb R^3$ 的子空间。</p><p>解：若 $u,v\in W$，则坐标和都为 $0$。对任意 $\lambda,\mu\in\mathbb R$，$\lambda u+\mu v$ 的坐标和仍为 $0$，所以 $\lambda u+\mu v\in W$。故 $W$ 是子空间。</p><p>例 2：判断
+$$
+S=\{(x,y)\in\mathbb R^2:x+y=1\}
+$$
+是否为子空间。</p><p>解：$(0,0)\notin S$，所以 $S$ 不是子空间。</p><p>例 3：在 $\mathbb R[x]$ 中，证明
+$$
+W=\{p(x):p(0)=0\}
+$$
+是子空间。</p><p>解：若 $p(0)=q(0)=0$，则
+$$
+(\lambda p+\mu q)(0)=\lambda p(0)+\mu q(0)=0.
+$$
+故 $W$ 对线性组合封闭。</p><h4>线性相关、基、维数与秩</h4><h4>线性相关与线性无关</h4><p>向量组 $\alpha_1,\dots,\alpha_n$ 线性相关，若存在不全为 $0$ 的 $k_i$，使
+$$
+k_1\alpha_1+\cdots+k_n\alpha_n=0.
+$$</p><p>若只有 $k_1=\cdots=k_n=0$，则线性无关。</p><p>重要结论：</p><ul><li>含零向量的向量组必线性相关；</li><li>线性相关组增加向量后仍线性相关；</li><li>线性无关组任意子组线性无关；</li><li>有限向量组线性相关，当且仅当其中某个向量可由其余向量线性表示。</li></ul><p>证明：
+若
+$$
+k_1\alpha_1+\cdots+k_n\alpha_n=0
+$$
+且某 $k_i\ne0$，则
+$$
+\alpha_i=-\frac1{k_i}\sum_{j\ne i}k_j\alpha_j.
+$$</p><p>例子：</p><ul><li>$e_1,\dots,e_n$ 线性无关；</li><li>$1,x,x^2$ 作为多项式线性无关；</li><li>在有限域上要区分多项式与多项式函数，例如 $\mathbb Z_2$ 上可能出现非零多项式对应零函数。</li></ul><h4>替换定理</h4><p>若 $\beta_1,\dots,\beta_m$ 线性无关，且都可由 $\alpha_1,\dots,\alpha_n$ 线性表示，则
+$$
+m\le n.
+$$</p><p>证明：<br />逐步用 $\beta_i$ 替换 $\alpha_j$，保持生成空间不变，最终推出不能替换超过 $n$ 个。</p><p>推论：</p><ul><li>有限维空间任意两组基元素个数相同；</li><li>$n$ 维空间任意 $n+1$ 个向量线性相关；</li><li>$n$ 维空间任意 $n$ 个线性无关向量构成基；</li><li>$n$ 维空间任意 $n$ 个生成向量构成基。</li></ul><h4>基与维数</h4><p>若向量组 $B=\{\alpha_1,\dots,\alpha_n\}$ 满足：</p><ol><li>线性无关；</li><li>$L(B)=V$；</li></ol><p>则称 $B$ 是 $V$ 的一组基，$\dim V=n$。</p><p>零空间维数为 $0$。</p><h4>子空间维数</h4><p>若 $W\le V$，$\dim V&lt;\infty$，则
+$$
+\dim W\le\dim V.
+$$
+若 $\dim W=\dim V$，则 $W=V$。</p><p>子空间的一组基可扩充为整个空间的一组基。</p><h4>向量组的秩</h4><p>向量组 $S$ 的极大线性无关组所含向量个数称为 $S$ 的秩：
+$$
+\operatorname{rank}(S).
+$$</p><p>若 $B$ 是 $S$ 的极大线性无关组，则
+$$
+L(B)=L(S),\qquad
+\operatorname{rank}(S)=\dim L(S).
+$$</p><p>等价向量组：
+若 $S$ 中每个向量可由 $T$ 线性表示，且 $T$ 中每个向量可由 $S$ 线性表示，则 $S,T$ 等价，且
+$$
+L(S)=L(T),\qquad \operatorname{rank}(S)=\operatorname{rank}(T).
+$$</p><h4>坐标</h4><p>若 $B=(\alpha_1,\dots,\alpha_n)$ 是 $V$ 的一组基，则任意 $x\in V$ 唯一表示为
+$$
+x=x_1\alpha_1+\cdots+x_n\alpha_n.
+$$
+列向量
+$$
+[x]_B=(x_1,\dots,x_n)^T
+$$
+称为 $x$ 在基 $B$ 下的坐标。</p><h4>本章例题</h4><p>例 1：证明 $e_1,\dots,e_n$ 线性无关。</p><p>解：若
+$$
+k_1e_1+\cdots+k_ne_n=0,
+$$
+则左边坐标为 $(k_1,\dots,k_n)$，所以 $k_1=\cdots=k_n=0$。</p><p>例 2：证明 $1,x,x^2$ 在 $\mathbb R[x]$ 中线性无关。</p><p>解：若
+$$
+a+bx+cx^2=0
+$$
+作为多项式恒等于零，则各项系数都为 $0$，即 $a=b=c=0$。</p><p>例 3：求向量组
+$$
+\alpha_1=(1,1,0),\quad \alpha_2=(1,0,1),\quad \alpha_3=(2,1,1)
+$$
+的秩。</p><p>解：因为
+$$
+\alpha_3=\alpha_1+\alpha_2,
+$$
+且 $\alpha_1,\alpha_2$ 不成比例，所以极大线性无关组可取 $\alpha_1,\alpha_2$，秩为 $2$。</p><p>例 4：在基 $B=(\alpha_1,\alpha_2)$ 中，若
+$$
+x=3\alpha_1-2\alpha_2,
+$$
+则
+$$
+[x]_B=(3,-2)^T.
+$$</p><h4>子空间的交、和与直和</h4><h4>交空间与和空间</h4><p>交：
+$$
+W_1\cap W_2=\{x:x\in W_1,\ x\in W_2\}.
+$$</p><p>和：
+$$
+W_1+W_2=\{x_1+x_2:x_1\in W_1,\ x_2\in W_2\}.
+$$</p><p>$W_1+W_2$ 是包含 $W_1\cup W_2$ 的最小子空间。</p><p>注意：$W_1\cup W_2$ 一般不是子空间，除非 $W_1\subseteq W_2$ 或 $W_2\subseteq W_1$。</p><h4>维数公式</h4><p>若 $W_1,W_2$ 有限维，则
+$$
+\dim(W_1+W_2)
+=\dim W_1+\dim W_2-\dim(W_1\cap W_2).
+$$</p><p>证明：<br />取 $W_1\cap W_2$ 的基，分别扩充为 $W_1,W_2$ 的基，再证明合并后的向量组是 $W_1+W_2$ 的基。</p><h4>直和</h4><p>若
+$$
+W_1\cap W_2=\{0\},
+$$
+则称
+$$
+W_1+W_2=W_1\oplus W_2.
+$$</p><p>等价条件：</p><ol><li>$W_1\cap W_2=\{0\}$；</li><li>每个 $x\in W_1+W_2$ 可唯一表示为 $x=x_1+x_2$；</li><li>有限维时 $\dim(W_1+W_2)=\dim W_1+\dim W_2$。</li></ol><p>多个子空间直和：
+$$
+W_1+\cdots+W_s
+$$
+为直和，当且仅当
+$$
+x_1+\cdots+x_s=0,\ x_i\in W_i
+\Rightarrow
+x_1=\cdots=x_s=0.
+$$</p><h4>本章例题</h4><p>例 1：设
+$$
+U=\{(x,0):x\in\mathbb R\},\qquad W=\{(0,y):y\in\mathbb R\}.
+$$
+证明 $\mathbb R^2=U\oplus W$。</p><p>解：任意 $(a,b)\in\mathbb R^2$ 可写成
+$$
+(a,b)=(a,0)+(0,b).
+$$
+且 $U\cap W=\{0\}$，故为直和。</p><p>例 2：设 $U=\operatorname{span}\{(1,0,0),(0,1,0)\}$，$W=\operatorname{span}\{(0,1,0),(0,0,1)\}$。求 $\dim(U+W)$。</p><p>解：$\dim U=2$，$\dim W=2$，$U\cap W=\operatorname{span}\{(0,1,0)\}$，维数为 $1$。故
+$$
+\dim(U+W)=2+2-1=3.
+$$</p><h4>内积空间</h4><h4>内积定义</h4><p>在实线性空间 $V$ 上，内积是映射
+$$
+(\cdot,\cdot):V\times V\to\mathbb R
+$$
+满足：</p><ol><li>对第一个变量线性；</li><li>对称性 $(x,y)=(y,x)$；</li><li>正定性 $(x,x)\ge0$，且 $(x,x)=0\Leftrightarrow x=0$。</li></ol><p>例子：</p><p>- $\mathbb R^n$ 中
+  $$
+  (x,y)=x^Ty.
+  $$
+- $C[a,b]$ 中
+  $$
+  (f,g)=\int_a^b f(x)g(x)\,dx.
+  $$</p><h4>Cauchy-Schwarz 不等式</h4><div class="math-display">$$
+|(x,y)|\le \|x\|\|y\|.
+$$</div><p>证明：
+对任意 $t\in\mathbb R$，
+$$
+(x+ty,x+ty)\ge0.
+$$
+视为关于 $t$ 的二次多项式，其判别式不大于 $0$。</p><p>等号成立当且仅当 $x,y$ 线性相关。</p><h4>范数与夹角</h4><p>范数：
+$$
+\|x\|=\sqrt{(x,x)}.
+$$</p><p>三角不等式：
+$$
+\|x+y\|\le\|x\|+\|y\|.
+$$</p><p>夹角：
+$$
+\cos\theta=\frac{(x,y)}{\|x\|\|y\|}.
+$$</p><h4>正交与标准正交基</h4><p>若 $(x,y)=0$，则称 $x\perp y$。</p><p>非零两两正交向量组必线性无关。</p><p>标准正交基：
+$$
+(e_i,e_j)=\delta_{ij}.
+$$</p><p>Schmidt 正交化：</p><div class="math-display">$$
+\beta_1=\alpha_1,
+$$
+$$
+\beta_k=\alpha_k-\sum_{i=1}^{k-1}
+\frac{(\alpha_k,\beta_i)}{(\beta_i,\beta_i)}\beta_i,
+$$
+再归一化：
+$$
+e_k=\frac{\beta_k}{\|\beta_k\|}.
+$$</div><h4>本章例题</h4><p>例 1：在 $\mathbb R^2$ 中，对
+$$
+\alpha_1=(1,1),\qquad \alpha_2=(1,0)
+$$
+作 Schmidt 正交化。</p><p>解：取
+$$
+\beta_1=\alpha_1=(1,1).
+$$
+再取
+$$
+\beta_2=\alpha_2-\frac{(\alpha_2,\beta_1)}{(\beta_1,\beta_1)}\beta_1
+=(1,0)-\frac12(1,1)=\left(\frac12,-\frac12\right).
+$$
+单位化得
+$$
+e_1=\frac1{\sqrt2}(1,1),\qquad e_2=\frac1{\sqrt2}(1,-1).
+$$</p><p>例 2：验证 $C[a,b]$ 上
+$$
+(f,g)=\int_a^b f(x)g(x)\,dx
+$$
+是内积。</p><p>解：线性性与对称性由积分线性和乘法交换律得到。又
+$$
+(f,f)=\int_a^b f^2(x)\,dx\ge0.
+$$
+若 $f$ 连续且积分为 $0$，则 $f^2\equiv0$，故 $f\equiv0$。</p><h4>线性映射</h4><h4>线性映射定义</h4><p>设 $V,W$ 是 $F$ 上线性空间，映射 $T:V\to W$ 若满足
+$$
+T(\lambda x+\mu y)=\lambda T(x)+\mu T(y),
+$$
+则称为线性映射。</p><p>基本性质：
+$$
+T(0)=0,\qquad T(-x)=-T(x).
+$$</p><p>若 $\alpha_1,\dots,\alpha_n$ 是 $V$ 的基，$\beta_1,\dots,\beta_n\in W$ 任意，则存在唯一线性映射 $T:V\to W$，使
+$$
+T(\alpha_i)=\beta_i.
+$$</p><h4>像与核</h4><p>像：
+$$
+\operatorname{Im}T=\{T(x):x\in V\}.
+$$</p><p>核：
+$$
+\ker T=\{x\in V:T(x)=0\}.
+$$</p><p>$\operatorname{Im}T$ 是 $W$ 的子空间，$\ker T$ 是 $V$ 的子空间。</p><p>单射判别：
+$$
+T \text{ 单射}\quad\Longleftrightarrow\quad \ker T=\{0\}.
+$$</p><h4>秩-零化度定理</h4><p>若 $\dim V&lt;\infty$，则
+$$
+\dim V=\dim\ker T+\dim\operatorname{Im}T.
+$$</p><p>证明：<br />取 $\ker T$ 的基，扩充为 $V$ 的基；证明扩充部分在 $T$ 下的像构成 $\operatorname{Im}T$ 的一组基。</p><p>若 $\dim V=\dim W&lt;\infty$，则以下等价：</p><ol><li>$T$ 单射；</li><li>$T$ 满射；</li><li>$T$ 双射；</li><li>$\ker T=\{0\}$；</li><li>$\operatorname{Im}T=W$。</li></ol><h4>同构</h4><p>若存在双射线性映射 $T:V\to W$，则 $V,W$ 同构，记作
+$$
+V\cong W.
+$$</p><p>有限维情形：
+$$
+V\cong W\quad\Longleftrightarrow\quad \dim V=\dim W.
+$$</p><h4>线性映射空间</h4><p>全体线性映射
+$$
+L(V,W)=\{T:V\to W:T\text{ 线性}\}
+$$
+在逐点加法与数乘下构成线性空间。</p><p>若 $\dim V=n$，$\dim W=m$，则
+$$
+\dim L(V,W)=mn.
+$$</p><p>线性映射的复合仍为线性映射。</p><h4>本章例题</h4><p>例 1：设 $T:\mathbb R^3\to\mathbb R^2$，
+$$
+T(x,y,z)=(x+y,y+z).
+$$
+求 $\ker T$ 与 $\operatorname{Im}T$。</p><p>解：$\ker T$ 满足
+$$
+x+y=0,\qquad y+z=0.
+$$
+令 $y=t$，则 $x=-t,z=-t$，所以
+$$
+\ker T=\operatorname{span}\{(-1,1,-1)\}.
+$$
+矩阵为
+$$
+\begin{pmatrix}1&amp;1&amp;0\\0&amp;1&amp;1\end{pmatrix},
+$$
+秩为 $2$，故 $\operatorname{Im}T=\mathbb R^2$。</p><p>例 2：在线性空间 $\mathbb R[x]_{\le2}$ 中，求求导映射 $D(p)=p&#039;$ 的核与像。</p><p>解：核为常数多项式空间，维数为 $1$。像为 $\mathbb R[x]_{\le1}$，维数为 $2$。这也验证
+$$
+\dim\mathbb R[x]_{\le2}=3=1+2.
+$$</p><h4>线性映射的矩阵表示与矩阵运算</h4><h4>矩阵表示</h4><p>设 $V$ 基为 $\alpha_1,\dots,\alpha_n$，$W$ 基为 $\beta_1,\dots,\beta_m$。若
+$$
+T(\alpha_j)=a_{1j}\beta_1+\cdots+a_{mj}\beta_m,
+$$
+则
+$$
+A=(a_{ij})_{m\times n}
+$$
+是 $T$ 在这两组基下的矩阵。</p><p>若 $x$ 在 $\alpha$ 基下坐标为 $X$，$T(x)$ 在 $\beta$ 基下坐标为 $Y$，则
+$$
+Y=AX.
+$$</p><h4>矩阵乘法</h4><p>若 $A=(a_{ij})_{m\times n}$，$B=(b_{ij})_{n\times p}$，则
+$$
+(AB)_{ij}=\sum_{k=1}^{n}a_{ik}b_{kj}.
+$$</p><p>复合对应乘法：
+$$
+M(S\circ T)=M(S)M(T).
+$$</p><p>矩阵乘法一般不可交换。</p><h4>可逆矩阵</h4><p>$n$ 阶方阵 $A$ 可逆，若存在 $B$，使
+$$
+AB=BA=I.
+$$</p><p>等价条件：</p><ol><li>$A$ 可逆；</li><li>$Ax=0$ 只有零解；</li><li>$Ax=b$ 对任意 $b$ 有唯一解；</li><li>$\operatorname{rank}A=n$；</li><li>$\det A\ne0$；</li><li>$A$ 是初等矩阵的乘积。</li></ol><h4>转置与特殊矩阵</h4><p>转置：
+$$
+(A^T)_{ij}=A_{ji}.
+$$</p><p>性质：
+$$
+(A+B)^T=A^T+B^T,\qquad
+(AB)^T=B^TA^T.
+$$</p><p>对称矩阵：
+$$
+A^T=A.
+$$</p><p>反对称矩阵：
+$$
+A^T=-A.
+$$
+实反对称矩阵对角元为 $0$。</p><h4>初等矩阵与初等变换</h4><p>三类初等变换：</p><ol><li>交换两行；</li><li>某行乘非零常数；</li><li>某行加另一行的倍数。</li></ol><p>对单位矩阵作一次初等变换得到初等矩阵。</p><p>左乘初等矩阵对应行变换，右乘初等矩阵对应列变换。</p><p>初等矩阵可逆，其逆仍为初等矩阵。</p><h4>相抵标准形</h4><p>若存在可逆矩阵 $P,Q$，使
+$$
+B=PAQ,
+$$
+则 $A,B$ 相抵。</p><p>任意 $m\times n$ 矩阵都相抵于
+$$
+\begin{pmatrix}
+I_r&amp;0\\
+0&amp;0
+\end{pmatrix},
+$$
+其中 $r=\operatorname{rank}A$。</p><p>同型矩阵相抵当且仅当秩相同。</p><h4>基变换与坐标变换</h4><p>若两组基满足
+$$
+(\beta_1,\dots,\beta_n)=(\alpha_1,\dots,\alpha_n)P,
+$$
+则 $P$ 为过渡矩阵。</p><p>坐标关系：
+$$
+X_\alpha=PX_\beta,\qquad X_\beta=P^{-1}X_\alpha.
+$$</p><p>若线性变换在两组基下矩阵为 $A,B$，则
+$$
+B=P^{-1}AP.
+$$</p><h4>本章例题</h4><p>例 1：设 $T:\mathbb R^2\to\mathbb R^2$，
+$$
+T(x,y)=(x+y,2y).
+$$
+求 $T$ 在标准基下的矩阵。</p><p>解：
+$$
+T(e_1)=(1,0),\qquad T(e_2)=(1,2).
+$$
+故矩阵为
+$$
+A=\begin{pmatrix}1&amp;1\\0&amp;2\end{pmatrix}.
+$$</p><p>例 2：求
+$$
+A=\begin{pmatrix}1&amp;1\\0&amp;2\end{pmatrix}
+$$
+的逆矩阵。</p><p>解：设
+$$
+A^{-1}=\begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}.
+$$
+由 $AA^{-1}=I$ 解得
+$$
+A^{-1}=\begin{pmatrix}1&amp;-\frac12\\0&amp;\frac12\end{pmatrix}.
+$$</p><p>例 3：设新基满足 $(\beta_1,\beta_2)=(\alpha_1,\alpha_2)P$，且
+$$
+P=\begin{pmatrix}1&amp;1\\0&amp;1\end{pmatrix}.
+$$
+若 $X_\beta=(2,3)^T$，求 $X_\alpha$。</p><p>解：
+$$
+X_\alpha=PX_\beta
+=\begin{pmatrix}1&amp;1\\0&amp;1\end{pmatrix}
+\begin{pmatrix}2\\3\end{pmatrix}
+=\begin{pmatrix}5\\3\end{pmatrix}.
+$$</p><h4>行列式</h4><h4>行列式性质</h4><p>行列式满足：</p><ol><li>交换两行，行列式变号；</li><li>某行乘 $k$，行列式乘 $k$；</li><li>某行加另一行倍数，行列式不变；</li><li>两行相同或成比例，行列式为 $0$；</li><li>三角矩阵行列式等于对角线元素乘积；</li><li>$\det A^T=\det A$；</li><li>$\det(AB)=\det A\det B$。</li></ol><h4>代数余子式展开</h4><p>删去第 $i$ 行第 $j$ 列所得行列式称余子式 $M_{ij}$。代数余子式：
+$$
+A_{ij}=(-1)^{i+j}M_{ij}.
+$$</p><p>按第 $i$ 行展开：
+$$
+\det A=\sum_{j=1}^{n}a_{ij}A_{ij}.
+$$</p><p>按第 $j$ 列展开：
+$$
+\det A=\sum_{i=1}^{n}a_{ij}A_{ij}.
+$$</p><p>某一行元素与另一行对应代数余子式乘积求和为 $0$。</p><h4>伴随矩阵</h4><p>伴随矩阵：
+$$
+A^*=(A_{ji}).
+$$</p><p>性质：
+$$
+AA^<em>=A^</em>A=(\det A)I.
+$$</p><p>若 $\det A\ne0$，则
+$$
+A^{-1}=\frac1{\det A}A^*.
+$$</p><h4>行列式秩</h4><p>矩阵 $A$ 的非零子式最高阶数等于矩阵秩：
+$$
+\operatorname{rank}A=r
+$$
+当且仅当 $A$ 有 $r$ 阶非零子式，且所有 $r+1$ 阶子式均为 $0$。</p><h4>Cramer 法则</h4><p>若 $\det A\ne0$，则
+$$
+Ax=b
+$$
+有唯一解
+$$
+x_i=\frac{\det A_i}{\det A}.
+$$</p><h4>本章例题</h4><p>例 1：计算
+$$
+\det\begin{pmatrix}
+1&amp;2&amp;3\\
+0&amp;4&amp;5\\
+0&amp;0&amp;6
+\end{pmatrix}.
+$$</p><p>解：上三角矩阵行列式等于对角线元素乘积，故为
+$$
+1\cdot4\cdot6=24.
+$$</p><p>例 2：求
+$$
+A=\begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}
+$$
+的伴随矩阵。</p><p>解：
+$$
+A^*=\begin{pmatrix}d&amp;-b\\-c&amp;a\end{pmatrix}.
+$$
+若 $ad-bc\ne0$，则
+$$
+A^{-1}=\frac1{ad-bc}\begin{pmatrix}d&amp;-b\\-c&amp;a\end{pmatrix}.
+$$</p><p>例 3：用 Cramer 法则解
+$$
+\begin{cases}
+x+y=3,\\
+x-y=1.
+\end{cases}
+$$</p><p>解：
+$$
+A=\begin{pmatrix}1&amp;1\\1&amp;-1\end{pmatrix},\qquad \det A=-2.
+$$
+于是
+$$
+x=\frac{\begin{vmatrix}3&amp;1\\1&amp;-1\end{vmatrix}}{-2}=2,\qquad
+y=\frac{\begin{vmatrix}1&amp;3\\1&amp;1\end{vmatrix}}{-2}=1.
+$$</p><h4>特征值、特征向量与对角化</h4><h4>特征值与特征向量</h4><p>若 $x\ne0$ 且
+$$
+Ax=\lambda x,
+$$
+则 $\lambda$ 为特征值，$x$ 为对应特征向量。</p><p>特征多项式：
+$$
+p_A(\lambda)=\det(\lambda I-A).
+$$</p><p>特征子空间：
+$$
+E_\lambda=\ker(A-\lambda I).
+$$</p><p>相似矩阵有相同特征多项式、迹、行列式和特征值。</p><h4>不同特征值的特征向量</h4><p>属于不同特征值的非零特征向量线性无关；更一般地，不同特征子空间中各取一组线性无关向量，合并后仍线性无关。</p><p>证明：
+对特征值个数归纳，或用
+$$
+A\alpha_i=\lambda_i\alpha_i
+$$
+构造线性关系并消去。</p><h4>可对角化</h4><p>$A$ 在数域 $F$ 上可对角化，当且仅当存在 $F$ 上可逆矩阵 $P$，使
+$$
+P^{-1}AP=D
+$$
+为对角矩阵。</p><p>等价条件：</p><p>1. $F^n$ 有一组由 $A$ 的特征向量组成的基；
+2. $F$ 中所有不同特征值对应的特征子空间维数之和为 $n$：
+   $$
+   \sum_i\dim E_{\lambda_i}=n.
+   $$</p><p>若 $A$ 在 $F$ 中有 $n$ 个互异特征值，则 $A$ 在 $F$ 上可对角化。</p><p>注意：<br />几何重数不超过代数重数。</p><h4>实对称矩阵的正交对角化</h4><p>若 $A=A^T$，则：</p><p>1. 特征值均为实数；
+2. 不同特征值对应特征向量正交；
+3. 存在正交矩阵 $Q$，使
+   $$
+   Q^TAQ=\operatorname{diag}(\lambda_1,\dots,\lambda_n).
+   $$</p><p>证明：<br />可用 Rayleigh 商极值或复化后的谱定理证明存在实特征值，再对其正交补归纳。</p><h4>本章例题</h4><p>例 1：求
+$$
+A=\begin{pmatrix}2&amp;0\\0&amp;3\end{pmatrix}
+$$
+的特征值和特征向量。</p><p>解：特征值为 $2,3$。对应特征子空间分别为
+$$
+E_2=\operatorname{span}\{(1,0)^T\},\qquad
+E_3=\operatorname{span}\{(0,1)^T\}.
+$$</p><p>例 2：判断
+$$
+A=\begin{pmatrix}1&amp;1\\0&amp;1\end{pmatrix}
+$$
+是否可对角化。</p><p>解：唯一特征值为 $1$。解 $(A-I)x=0$ 得
+$$
+\begin{pmatrix}0&amp;1\\0&amp;0\end{pmatrix}
+\begin{pmatrix}x\\y\end{pmatrix}=0,
+$$
+故 $y=0$，特征子空间维数为 $1&lt;2$，不可对角化。</p><p>例 3：正交对角化
+$$
+A=\begin{pmatrix}2&amp;0\\0&amp;3\end{pmatrix}.
+$$</p><p>解：标准基已经是标准正交特征向量组，取 $Q=I$，则
+$$
+Q^TAQ=\operatorname{diag}(2,3).
+$$</p><h4>二次型、合同与正定</h4><h4>双线性函数与二次型</h4><p>双线性函数 $B(x,y)$ 对两个变量分别线性。</p><p>二次型：
+$$
+Q(x)=B(x,x).
+$$</p><p>在坐标下可写为
+$$
+Q(x)=x^TAx,
+$$
+其中只需考虑 $B$ 的对称部分，因此 $A$ 可取实对称矩阵。</p><h4>合同</h4><p>若存在可逆矩阵 $C$，使
+$$
+B=C^TAC,
+$$
+则称 $A,B$ 合同。</p><p>合同对应二次型的可逆线性替换。</p><h4>标准形与规范形</h4><p>二次型可通过合同变换化为标准形：
+$$
+d_1y_1^2+\cdots+d_ry_r^2.
+$$</p><p>实二次型还可化为规范形：
+$$
+z_1^2+\cdots+z_p^2
+-z_{p+1}^2-\cdots-z_{p+q}^2.
+$$</p><h4>惯性定理</h4><p>规范形中正平方项个数 $p$ 与负平方项个数 $q$ 唯一确定，分别称正惯性指数与负惯性指数。</p><p>矩阵合同不改变秩、正惯性指数、负惯性指数。</p><h4>正定二次型与正定矩阵</h4><p>实对称矩阵 $A$ 正定，若
+$$
+x^TAx&gt;0,\qquad x\ne0.
+$$</p><p>等价条件：</p><p>1. $A$ 正定；
+2. $A$ 的特征值全为正；
+3. 存在可逆矩阵 $P$，使
+   $$
+   A=P^TP;
+   $$
+4. $A$ 的所有顺序主子式均为正：
+   $$
+   \Delta_k&gt;0,\quad k=1,\dots,n.
+   $$</p><p>半正定：
+$$
+x^TAx\ge0.
+$$
+半正定等价于所有特征值非负；也等价于所有主子式非负。</p><p>- 判断给定二次型是否正定；
+- 用特征值判断正定；
+- 用顺序主子式判断正定；
+- 证明 Gram 矩阵正定：若 $\alpha_1,\dots,\alpha_n$ 线性无关，则
+  $$
+  G=((\alpha_i,\alpha_j))
+  $$
+  正定。</p><h4>本章例题</h4><p>例 1：化二次型
+$$
+Q(x,y)=x^2+2xy+2y^2
+$$
+为标准形。</p><p>解：
+$$
+Q=(x+y)^2+y^2.
+$$
+令 $u=x+y,v=y$，则
+$$
+Q=u^2+v^2.
+$$
+因此它正定。</p><p>例 2：判断
+$$
+A=\begin{pmatrix}2&amp;1\\1&amp;2\end{pmatrix}
+$$
+是否正定。</p><p>解：顺序主子式
+$$
+\Delta_1=2&gt;0,\qquad \Delta_2=3&gt;0.
+$$
+故 $A$ 正定。</p><p>例 3：证明线性无关向量 $\alpha_1,\dots,\alpha_n$ 的 Gram 矩阵
+$$
+G=((\alpha_i,\alpha_j))
+$$
+正定。</p><p>解：任取 $c=(c_1,\dots,c_n)^T\ne0$，有
+$$
+c^TGc=\left(\sum_i c_i\alpha_i,\sum_j c_j\alpha_j\right)
+=\left\|\sum_i c_i\alpha_i\right\|^2.
+$$
+因 $\alpha_i$ 线性无关，$\sum_i c_i\alpha_i\ne0$，故 $c^TGc&gt;0$。</p><h4>计算题与证明题模板</h4><p>这一部分把散落的计算流程集中起来。</p><h4>判断向量组线性相关</h4><p>给定向量组
+$$
+\alpha_1,\dots,\alpha_s\in F^n.
+$$</p><p>方法：</p><p>1. 组成矩阵
+   $$
+   A=(\alpha_1,\dots,\alpha_s).
+   $$
+2. 解齐次方程
+   $$
+   Ax=0.
+   $$
+3. 若只有零解，则线性无关；若有非零解，则线性相关。</p><p>等价地：</p><ul><li>若 $\operatorname{rank}A=s$，列向量组线性无关；</li><li>若 $\operatorname{rank}A&lt;s$，列向量组线性相关。</li></ul><p>特殊快速判断：</p><ul><li>含零向量必相关；</li><li>向量个数超过空间维数必相关；</li><li>两个非零向量相关当且仅当成比例；</li><li>正交的非零向量组必无关。</li></ul><h4>求极大线性无关组和秩</h4><p>给定向量组 $\alpha_1,\dots,\alpha_s$：</p><ol><li>以这些向量为列组成矩阵 $A$；</li><li>对 $A$ 作初等行变换化为阶梯形；</li><li>主元列对应的原向量构成极大线性无关组；</li><li>主元个数就是秩。</li></ol><p>注意：<br />行变换会改变列向量本身，但不改变列向量之间的线性关系，所以要取“原矩阵的主元列”。</p><h4>求子空间的一组基</h4><h5>由生成向量给出</h5><p>若
+$$
+W=L(\alpha_1,\dots,\alpha_s),
+$$
+则从 $\alpha_1,\dots,\alpha_s$ 中取极大线性无关组，即为 $W$ 的一组基。</p><h5>由方程给出</h5><p>若
+$$
+W=\{x\in F^n:Ax=0\},
+$$
+则解齐次方程组，写出基础解系，即为 $W$ 的一组基。</p><p>步骤：</p><ol><li>化 $A$ 为行简化阶梯形；</li><li>找主变量和自由变量；</li><li>分别令一个自由变量为 $1$、其余为 $0$；</li><li>得到基础解系。</li></ol><h4>证明两个子空间相等</h4><p>常用方法：</p><p>1. 双包含：
+   $$
+   U\subseteq W,\quad W\subseteq U.
+   $$
+2. 有限维情形：
+   $$
+   U\subseteq W,\quad \dim U=\dim W
+   \Rightarrow U=W.
+   $$
+3. 证明二者有同一组基。
+4. 证明二者由等价向量组生成。</p><h4>直和判定</h4><p>要证明
+$$
+V=W_1\oplus W_2,
+$$
+通常证明：</p><ol><li>$V=W_1+W_2$；</li><li>$W_1\cap W_2=\{0\}$。</li></ol><p>或者证明：
+任意 $v\in V$ 都能唯一表示为
+$$
+v=w_1+w_2,\qquad w_i\in W_i.
+$$</p><p>有限维快捷法：
+若
+$$
+W_1\cap W_2=\{0\}
+$$
+且
+$$
+\dim V=\dim W_1+\dim W_2,
+$$
+则
+$$
+V=W_1\oplus W_2.
+$$</p><h4>Schmidt 正交化流程</h4><p>给定线性无关组
+$$
+\alpha_1,\dots,\alpha_n.
+$$</p><p>先正交化：
+$$
+\beta_1=\alpha_1,
+$$
+$$
+\beta_k=\alpha_k-\sum_{i=1}^{k-1}
+\frac{(\alpha_k,\beta_i)}{(\beta_i,\beta_i)}\beta_i.
+$$</p><p>再单位化：
+$$
+e_k=\frac{\beta_k}{\|\beta_k\|}.
+$$</p><p>得到标准正交组
+$$
+e_1,\dots,e_n.
+$$</p><p>常见检查：
+$$
+(\beta_k,\beta_i)=0,\qquad i&lt;k.
+$$</p><h4>线性映射题模板</h4><h5>由基上的取值确定线性映射</h5><p>若 $\alpha_1,\dots,\alpha_n$ 是 $V$ 的基，给定 $\beta_1,\dots,\beta_n\in W$，则唯一线性映射 $T$ 满足
+$$
+T(\alpha_i)=\beta_i.
+$$</p><p>对任意
+$$
+x=x_1\alpha_1+\cdots+x_n\alpha_n,
+$$
+有
+$$
+T(x)=x_1\beta_1+\cdots+x_n\beta_n.
+$$</p><h5>求核与像</h5><p>若线性映射矩阵为 $A$：</p><p>- 核：
+  $$
+  \ker T=\{x:Ax=0\};
+  $$
+- 像：
+  $$
+  \operatorname{Im}T=L(A\text{ 的列向量}).
+  $$</p><p>因此：
+$$
+\dim\ker T=n-r(A),\qquad
+\dim\operatorname{Im}T=r(A).
+$$</p><h5>判断单射、满射</h5><p>若 $T:F^n\to F^m$，矩阵为 $A_{m\times n}$：</p><ul><li>单射 $\Longleftrightarrow r(A)=n$；</li><li>满射 $\Longleftrightarrow r(A)=m$；</li><li>双射 $\Longleftrightarrow m=n=r(A)$。</li></ul><h4>求线性映射矩阵</h4><p>设 $V$ 的基为 $\alpha=(\alpha_1,\dots,\alpha_n)$，$W$ 的基为 $\beta=(\beta_1,\dots,\beta_m)$。</p><p>步骤：</p><p>1. 分别计算 $T(\alpha_j)$；
+2. 把 $T(\alpha_j)$ 用 $\beta$ 线性表示：
+   $$
+   T(\alpha_j)=a_{1j}\beta_1+\cdots+a_{mj}\beta_m;
+   $$
+3. 第 $j$ 列就是
+   $$
+   (a_{1j},\dots,a_{mj})^T.
+   $$</p><p>坐标公式：
+$$
+[T(x)]_\beta=A[x]_\alpha.
+$$</p><h4>矩阵可逆题模板</h4><p>证明 $A$ 可逆可选：</p><ol><li>构造 $B$ 使 $AB=BA=I$；</li><li>证明 $\det A\ne0$；</li><li>证明 $r(A)=n$；</li><li>证明 $Ax=0$ 只有零解；</li><li>证明列向量组构成 $F^n$ 的一组基；</li><li>证明 $A$ 是初等矩阵乘积。</li></ol><p>求逆方法：</p><p>1. 初等行变换：
+   $$
+   (A\mid I)\to(I\mid A^{-1}).
+   $$
+2. 伴随矩阵：
+   $$
+   A^{-1}=\frac1{\det A}A^*.
+   $$
+3. 分块矩阵法。
+4. 利用矩阵多项式，例如若
+   $$
+   A^2-3A+2I=0,
+   $$
+   且常数项非零，则可解出 $A^{-1}$。</p><h4>行列式计算方法</h4><p>常用方法：</p><p>1. 初等变换化三角；
+2. 按行/列展开；
+3. 提取公因子；
+4. 递推法；
+5. 加边升阶法；
+6. 利用 Vandermonde 行列式：
+   $$
+   \prod_{1\le i&lt;j\le n}(x_j-x_i).
+   $$
+7. 分块行列式；
+8. 利用
+   $$
+   \det(I_m-AB)=\det(I_n-BA).
+   $$</p><p>注意初等变换对行列式的影响：</p><ul><li>交换两行：变号；</li><li>某行乘 $k$：行列式乘 $k$；</li><li>某行加另一行倍数：行列式不变。</li></ul><h4>线性方程组题模板</h4><p>对于
+$$
+Ax=b
+$$
+先比较秩：</p><p>- 无解：
+  $$
+  r(A)&lt;r(A|b).
+  $$
+- 唯一解：
+  $$
+  r(A)=r(A|b)=n.
+  $$
+- 无穷多解：
+  $$
+  r(A)=r(A|b)&lt;n.
+  $$</p><p>通解写法：</p><p>1. 求一个特解 $x_0$；
+2. 求齐次方程基础解系 $\eta_1,\dots,\eta_{n-r}$；
+3. 写
+   $$
+   x=x_0+c_1\eta_1+\cdots+c_{n-r}\eta_{n-r}.
+   $$</p><h4>特征值与对角化流程</h4><p>给定 $n$ 阶矩阵 $A$。</p><p>1. 求特征多项式：
+   $$
+   p_A(\lambda)=\det(\lambda I-A).
+   $$
+2. 求特征值 $\lambda_i$。
+3. 对每个 $\lambda_i$ 解
+   $$
+   (A-\lambda_i I)x=0
+   $$
+   得特征子空间 $E_{\lambda_i}$。
+4. 统计
+   $$
+   \sum_i\dim E_{\lambda_i}.
+   $$
+5. 若和为 $n$，则可对角化。</p><p>构造对角化：
+取一组特征向量基作为 $P$ 的列，则
+$$
+P^{-1}AP=D.
+$$</p><p>快速充分条件：<br />若 $A$ 在所讨论数域中有 $n$ 个互异特征值，则可对角化。</p><p>常见反例：<br />有重特征值不一定不可对角化，要看特征子空间维数。</p><h4>实对称矩阵题模板</h4><p>若 $A=A^T$：</p><ol><li>特征值全为实数；</li><li>不同特征值的特征向量正交；</li><li>一定可正交对角化。</li></ol><p>流程：</p><p>1. 求特征值；
+2. 求各特征子空间；
+3. 对每个特征子空间内部做 Schmidt 正交化；
+4. 合并得到标准正交特征向量组；
+5. 令 $Q$ 为这些向量作列，则
+   $$
+   Q^TAQ=D.
+   $$</p><h4>二次型化标准形</h4><p>方法一：配方法。</p><p>适合变量少、交叉项明显的二次型。</p><p>方法二：合同初等变换。</p><p>对称矩阵 $A$ 同时作相同类型的行列变换，相当于求
+$$
+C^TAC.
+$$</p><p>方法三：正交变换。</p><p>若 $A$ 实对称，可正交对角化：
+$$
+Q^TAQ=D.
+$$
+于是
+$$
+x^TAx=y^TDy.
+$$</p><h4>正定判别模板</h4><p>实对称矩阵 $A$ 正定的等价判别：</p><ol><li>$x^TAx&gt;0$ 对一切 $x\ne0$；</li><li>所有特征值 $&gt;0$；</li><li>所有顺序主子式 $&gt;0$；</li><li>存在可逆 $P$，使 $A=P^TP$。</li></ol><p>二阶矩阵
+$$
+A=\begin{pmatrix}a&amp;b\\b&amp;c\end{pmatrix}
+$$
+正定当且仅当
+$$
+a&gt;0,\qquad ac-b^2&gt;0.
+$$</p><p>三阶矩阵用顺序主子式：
+$$
+\Delta_1&gt;0,\quad \Delta_2&gt;0,\quad \Delta_3&gt;0.
+$$</p><p>半正定注意：<br />不能只看顺序主子式非负；常用“所有主子式非负”或“所有特征值非负”。</p><h4>容易误用的点</h4><ol><li>“向量个数等于维数”不自动推出是基，还需线性无关或能生成。</li><li>行变换改变列向量本身，但不改变列向量间线性关系。</li><li>$AB=I$ 对方阵可推出 $BA=I$；非方阵不行。</li><li>相似与相抵不同：相似是 $P^{-1}AP$，相抵是 $PAQ$。</li><li>对角化不是只求出特征值，还要有足够多线性无关特征向量。</li><li>实对称矩阵一定可正交对角化，一般矩阵不一定。</li><li>合同用于二次型，相似用于线性变换。</li><li>正定矩阵默认实对称；非对称矩阵讨论 $x^TAx$ 时只与其对称部分有关。</li></ol><h4>主要定理证明</h4><h4>子空间判别法</h4><p>设 $W\subseteq V$ 且 $W\ne\varnothing$。若对任意 $x,y\in W$ 与 $\lambda,\mu\in F$ 都有
+$$
+\lambda x+\mu y\in W,
+$$
+则取 $\lambda=\mu=1$ 得加法封闭；取 $\mu=0$ 得数乘封闭。又因 $W$ 非空，取 $w\in W$，由 $0w=0$ 得零元在 $W$ 中，由 $(-1)w=-w$ 得负元在 $W$ 中，所以 $W$ 在继承的运算下构成线性空间。</p><p>反过来，若 $W$ 是子空间，则加法和数乘封闭，故任意 $\lambda x,\mu y\in W$，再相加得 $\lambda x+\mu y\in W$。</p><h4>线性包的最小性</h4><p>记 $L(S)$ 为 $S$ 中有限个向量的所有线性组合。两个线性组合相加或数乘后仍是线性组合，所以 $L(S)$ 是子空间。显然 $S\subseteq L(S)$。</p><p>若 $W$ 是任意包含 $S$ 的子空间，则 $W$ 对线性组合封闭，所以 $S$ 中元素的一切线性组合都属于 $W$，即 $L(S)\subseteq W$。因此 $L(S)$ 是包含 $S$ 的最小子空间。</p><h4>线性相关判别</h4><p>若有限向量组 $\alpha_1,\dots,\alpha_n$ 线性相关，则存在不全为 $0$ 的 $k_i$，使
+$$
+k_1\alpha_1+\cdots+k_n\alpha_n=0.
+$$
+取 $k_i\ne0$，即可写成
+$$
+\alpha_i=-\frac1{k_i}\sum_{j\ne i}k_j\alpha_j,
+$$
+即某个向量可由其余向量线性表示。</p><p>反过来，若
+$$
+\alpha_i=\sum_{j\ne i}c_j\alpha_j,
+$$
+则
+$$
+\alpha_i-\sum_{j\ne i}c_j\alpha_j=0
+$$
+给出一个不全为 $0$ 的线性关系，所以向量组线性相关。</p><h4>替换定理</h4><p>设 $\beta_1,\dots,\beta_m$ 线性无关，且都可由 $\alpha_1,\dots,\alpha_n$ 线性表示。先把 $\beta_1$ 写成 $\alpha_i$ 的线性组合，其中至少有一个系数非零。可把对应的 $\alpha_j$ 用 $\beta_1$ 与其余 $\alpha$ 表示，从而用 $\beta_1$ 替换 $\alpha_j$ 后，生成空间不变。</p><p>若已经替换了 $\beta_1,\dots,\beta_k$，则 $\beta_{k+1}$ 可由当前这组生成向量表示。由于 $\beta_1,\dots,\beta_{k+1}$ 线性无关，表达式中必有某个尚未被替换的 $\alpha$ 的系数非零，否则 $\beta_{k+1}$ 会由 $\beta_1,\dots,\beta_k$ 表示。于是可继续替换。</p><p>这个过程最多替换 $n$ 次，因此 $m\le n$。由此推出有限维空间任意两组基元素个数相同。</p><h4>基的扩充与子空间维数</h4><p>设 $W\le V$，$\dim V=n$。取 $W$ 中一组线性无关向量，若它还不能生成 $W$，就加入一个不在其线性包中的 $W$ 中向量，线性无关性保持。由于 $V$ 中任意超过 $n$ 个向量必线性相关，此过程有限终止，得到 $W$ 的一组基，且元素个数不超过 $n$。故 $\dim W\le\dim V$。</p><p>若 $\dim W=\dim V$，取 $W$ 的一组基。它也是 $V$ 中含 $n$ 个向量的线性无关组，因此构成 $V$ 的基，于是 $W=V$。</p><h4>维数公式</h4><p>设 $U,W$ 有限维。取 $U\cap W$ 的基
+$$
+\gamma_1,\dots,\gamma_r.
+$$
+把它扩充为 $U$ 的基
+$$
+\gamma_1,\dots,\gamma_r,\alpha_1,\dots,\alpha_s,
+$$
+再扩充为 $W$ 的基
+$$
+\gamma_1,\dots,\gamma_r,\beta_1,\dots,\beta_t.
+$$
+证明合并向量组
+$$
+\gamma_1,\dots,\gamma_r,\alpha_1,\dots,\alpha_s,\beta_1,\dots,\beta_t
+$$
+是 $U+W$ 的基。生成性显然。若有线性关系
+$$
+\sum c_i\gamma_i+\sum a_j\alpha_j+\sum b_k\beta_k=0,
+$$
+则
+$$
+\sum c_i\gamma_i+\sum a_j\alpha_j=-\sum b_k\beta_k.
+$$
+左边属于 $U$，右边属于 $W$，所以二者都属于 $U\cap W$。由于 $\gamma_i$ 是 $U\cap W$ 的基，结合 $U$ 的基的线性无关性，得 $a_j=0$；再由 $W$ 的基的线性无关性，得 $b_k=0,c_i=0$。故合并组线性无关。</p><p>因此
+$$
+\dim(U+W)=r+s+t=(r+s)+(r+t)-r
+=\dim U+\dim W-\dim(U\cap W).
+$$</p><h4>直和判别</h4><p>若 $U\cap W=\{0\}$，且 $x=u_1+w_1=u_2+w_2$，其中 $u_i\in U,w_i\in W$，则
+$$
+u_1-u_2=w_2-w_1.
+$$
+左边属于 $U$，右边属于 $W$，故属于 $U\cap W$，只能为 $0$。于是 $u_1=u_2,w_1=w_2$，表示唯一。</p><p>反过来，若表示唯一，而 $z\in U\cap W$，则
+$$
+z=z+0=0+z
+$$
+是 $U+W$ 中同一向量的两种表示，故 $z=0$。因此 $U\cap W=\{0\}$。</p><h4>Cauchy-Schwarz 不等式</h4><p>若 $y=0$，结论显然。设 $y\ne0$。对任意 $t\in\mathbb R$，
+$$
+0\le (x+ty,x+ty)=(y,y)t^2+2(x,y)t+(x,x).
+$$
+这是关于 $t$ 的二次多项式，且恒非负，所以判别式不大于 $0$：
+$$
+4(x,y)^2-4(x,x)(y,y)\le0.
+$$
+故
+$$
+|(x,y)|\le \|x\|\|y\|.
+$$
+等号成立当且仅当该二次式有实根，即存在 $t$ 使 $x+ty=0$，也就是 $x,y$ 线性相关。</p><h4>Schmidt 正交化</h4><p>设 $\alpha_1,\dots,\alpha_n$ 线性无关。令 $\beta_1=\alpha_1$，并递推定义
+$$
+\beta_k=\alpha_k-\sum_{i=1}^{k-1}
+\frac{(\alpha_k,\beta_i)}{(\beta_i,\beta_i)}\beta_i.
+$$
+对 $j&lt;k$，有
+$$
+(\beta_k,\beta_j)
+=(\alpha_k,\beta_j)-\frac{(\alpha_k,\beta_j)}{(\beta_j,\beta_j)}(\beta_j,\beta_j)=0,
+$$
+其他项因归纳假设正交而为 $0$。故 $\beta_k$ 与前面所有 $\beta_j$ 正交。</p><p>若某个 $\beta_k=0$，则 $\alpha_k$ 是 $\beta_1,\dots,\beta_{k-1}$ 的线性组合，而这些 $\beta_i$ 又由 $\alpha_1,\dots,\alpha_{k-1}$ 生成，导致 $\alpha_1,\dots,\alpha_k$ 线性相关，矛盾。因此 $\beta_k\ne0$。单位化 $e_k=\beta_k/\|\beta_k\|$ 得标准正交组。</p><h4>秩-零化度定理</h4><p>设 $T:V\to W$ 线性，$\dim V&lt;\infty$。取 $\ker T$ 的基
+$$
+u_1,\dots,u_r,
+$$
+扩充为 $V$ 的基
+$$
+u_1,\dots,u_r,v_1,\dots,v_s.
+$$
+证明 $T(v_1),\dots,T(v_s)$ 是 $\operatorname{Im}T$ 的基。</p><p>生成性：任意 $x\in V$ 可写为
+$$
+x=\sum a_i u_i+\sum b_j v_j,
+$$
+于是
+$$
+T(x)=\sum b_jT(v_j),
+$$
+故这些像生成 $\operatorname{Im}T$。</p><p>线性无关性：若
+$$
+\sum b_jT(v_j)=0,
+$$
+则 $T(\sum b_jv_j)=0$，所以 $\sum b_jv_j\in\ker T$，可由 $u_i$ 表示。这与扩充后的基线性无关相容只可能 $b_j=0$。因此
+$$
+\dim V=r+s=\dim\ker T+\dim\operatorname{Im}T.
+$$</p><h4>矩阵表示与基变换公式</h4><p>设 $T(\alpha_j)=\sum_i a_{ij}\beta_i$，矩阵 $A=(a_{ij})$。若
+$$
+x=\sum_j x_j\alpha_j,
+$$
+则由线性性
+$$
+T(x)=\sum_j x_jT(\alpha_j)
+=\sum_j x_j\sum_i a_{ij}\beta_i
+=\sum_i\left(\sum_j a_{ij}x_j\right)\beta_i.
+$$
+因此 $[T(x)]_\beta=A[x]_\alpha$。</p><p>若新旧基满足
+$$
+(\beta_1,\dots,\beta_n)=(\alpha_1,\dots,\alpha_n)P,
+$$
+且 $x=(\alpha)X_\alpha=(\beta)X_\beta$，则
+$$
+(\alpha)X_\alpha=(\alpha)PX_\beta.
+$$
+由坐标唯一性得 $X_\alpha=PX_\beta$，即 $X_\beta=P^{-1}X_\alpha$。线性变换矩阵的相似公式 $B=P^{-1}AP$ 随之得到。</p><h4>可逆矩阵等价条件</h4><p>设 $A$ 为 $n$ 阶矩阵。若 $A$ 可逆，则 $Ax=0$ 左乘 $A^{-1}$ 得 $x=0$，所以齐次方程只有零解。齐次方程只有零解等价于列向量线性无关，也等价于 $\operatorname{rank}A=n$。秩为 $n$ 又等价于列向量构成 $F^n$ 的基，因此对任意 $b$，方程 $Ax=b$ 有唯一解。</p><p>若对任意 $b$ 方程 $Ax=b$ 有唯一解，特别地对标准基 $e_i$，存在唯一 $x_i$ 使 $Ax_i=e_i$。令 $B=(x_1,\dots,x_n)$，则 $AB=I$。方阵左逆右逆一致，可推出 $BA=I$，故 $A$ 可逆。又 $\operatorname{rank}A=n$ 等价于 $\det A\ne0$，并且也等价于 $A$ 可化为 $I$，即 $A$ 是初等矩阵的乘积。</p><h4>行列式秩定理</h4><p>设矩阵秩为 $r$。由秩的定义，可取 $r$ 个线性无关列。只看这 $r$ 列得到一个列秩为 $r$ 的子矩阵，因此其中必有 $r$ 行使对应的 $r\times r$ 子矩阵行秩也为 $r$，于是得到一个 $r$ 阶非零子式。</p><p>另一方面，若存在 $r+1$ 阶非零子式，则该子式的 $r+1$ 列线性无关，从而原矩阵秩至少为 $r+1$，矛盾。因此所有 $r+1$ 阶子式为 $0$。所以矩阵秩恰等于非零子式的最高阶数。</p><h4>Cramer 法则</h4><p>若 $\det A\ne0$，则 $A$ 可逆，方程 $Ax=b$ 有唯一解。由伴随矩阵公式
+$$
+A^{-1}=\frac1{\det A}A^*,
+$$
+有 $x=A^{-1}b$。第 $i$ 个分量等于把 $A$ 的第 $i$ 列替换为 $b$ 后按第 $i$ 列展开所得行列式除以 $\det A$，即
+$$
+x_i=\frac{\det A_i}{\det A}.
+$$</p><h4>不同特征值的特征向量线性无关</h4><p>对特征值个数归纳。设 $\alpha_i$ 属于互异特征值 $\lambda_i$，且
+$$
+c_1\alpha_1+\cdots+c_m\alpha_m=0.
+$$
+对等式作用 $A$，得
+$$
+c_1\lambda_1\alpha_1+\cdots+c_m\lambda_m\alpha_m=0.
+$$
+用 $\lambda_m$ 乘原等式并相减，得
+$$
+c_1(\lambda_1-\lambda_m)\alpha_1+\cdots+c_{m-1}(\lambda_{m-1}-\lambda_m)\alpha_{m-1}=0.
+$$
+由归纳假设，$c_i(\lambda_i-\lambda_m)=0$，而 $\lambda_i\ne\lambda_m$，故 $c_i=0$，$i&lt;m$。代回原式得 $c_m=0$。故线性无关。</p><h4>对角化判别</h4><p>若 $A$ 可对角化，即 $P^{-1}AP=D$，设 $P$ 的列为 $p_1,\dots,p_n$，$D$ 的对角元为 $\lambda_1,\dots,\lambda_n$。由
+$$
+AP=PD
+$$
+可得 $Ap_i=\lambda_i p_i$。因为 $P$ 可逆，$p_i$ 构成一组基，所以存在一组由特征向量组成的基。</p><p>反过来，若存在特征向量基 $p_1,\dots,p_n$，令 $P=(p_1,\dots,p_n)$，则 $P$ 可逆且
+$$
+AP=P\operatorname{diag}(\lambda_1,\dots,\lambda_n),
+$$
+故
+$$
+P^{-1}AP=\operatorname{diag}(\lambda_1,\dots,\lambda_n).
+$$</p><h4>实对称矩阵正交对角化</h4><p>设 $A=A^T$。先取单位特征向量 $u$，对应实特征值 $\lambda$。对任意 $v\perp u$，
+$$
+(Av,u)=(v,A^Tu)=(v,Au)=\lambda(v,u)=0,
+$$
+所以 $u^\perp$ 在 $A$ 下不变。将 $A$ 限制在 $u^\perp$ 上仍是实对称变换。对维数归纳，可在 $u^\perp$ 中取一组标准正交特征向量。连同 $u$ 得到全空间的一组标准正交特征向量。以它们为列组成正交矩阵 $Q$，便有
+$$
+Q^TAQ=\operatorname{diag}(\lambda_1,\dots,\lambda_n).
+$$</p><h4>惯性定理</h4><p>实二次型经可逆线性替换可化为
+$$
+z_1^2+\cdots+z_p^2-z_{p+1}^2-\cdots-z_{p+q}^2.
+$$
+设同一二次型还有另一规范形，正平方项个数为 $p&#039;$。若 $p&lt;p&#039;$，取第二个规范形中由正平方变量张成的 $p&#039;$ 维子空间。它与第一个规范形中非正平方部分张成的 $n-p$ 维子空间维数和大于 $n$，故交非零。交中非零向量在第二规范形下取正值，在第一规范形下取非正值，矛盾。因此 $p\ge p&#039;$。交换两种规范形得 $p&#039;\ge p$，故 $p=p&#039;$。负惯性指数同理唯一。</p><h4>正定判别</h4><p>对实对称矩阵 $A$，由正交对角化，存在正交 $Q$，使
+$$
+Q^TAQ=\operatorname{diag}(\lambda_1,\dots,\lambda_n).
+$$
+令 $x=Qy$，则
+$$
+x^TAx=y^TQ^TAQy=\sum_{i=1}^n\lambda_i y_i^2.
+$$
+因此 $A$ 正定当且仅当所有 $\lambda_i&gt;0$。</p><p>若 $A=P^TP$ 且 $P$ 可逆，则
+$$
+x^TAx=x^TP^TPx=\|Px\|^2&gt;0\quad(x\ne0),
+$$
+所以 $A$ 正定。反过来，若 $A$ 正定，正交对角化后令
+$$
+D=\operatorname{diag}(\lambda_i),\qquad D^{1/2}=\operatorname{diag}(\sqrt{\lambda_i}),
+$$
+则
+$$
+A=QDQ^T=(D^{1/2}Q^T)^T(D^{1/2}Q^T),
+$$
+得到 $A=P^TP$。</p><p>顺序主子式判别可由配方法或 Gaussian 消元得到：正定二次型逐步配方时每一步的主元都必须为正，而这些主元的乘积正是顺序主子式之比。因此所有顺序主子式为正当且仅当 $A$ 正定。</p><h4>附件</h4><div class="entry-file"><a class="download-button" href="../../files/2026-04-24-main-math-notes/线性代数I.pdf" download><span>下载 / 预览 PDF</span><small>线性代数I.pdf</small></a><details class="file-preview"><summary>Preview / 预览</summary><iframe src="../../files/2026-04-24-main-math-notes/线性代数I.pdf" title="线性代数I.pdf" loading="lazy"></iframe></details></div></div>
+              </div>
+              <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
+                <a href="../../post/2026-04-24-mathematical-analysis-i-review-outline/"><span>Newer / 更新</span><strong>数学分析 I 复习提纲</strong></a>
+                <a href="../../post/2026-04-24-04-travel-jinan-taishan/"><span>Older / 更早</span><strong>清明de济南与泰山</strong></a>
+              </nav>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" aria-label="Site information / 站点信息">
+        <p>© 2025-2026 qqqzj@Crane</p>
+        <p>qqqzj 的个人笔记、生活记录与学习档案。</p>
+      </footer>
+    </div>
+  </body>
+</html>
