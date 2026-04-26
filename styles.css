@@ -1900,7 +1900,7 @@ h3 {
       rgba(248, 251, 251, 0.78);
     box-shadow: 0 16px 38px rgba(16, 35, 46, 0.15);
     opacity: 0.5;
-    transform: translateX(100%);
+    transform: translateX(calc(100% - 24px));
     transition:
       opacity 220ms ease,
       transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -1911,8 +1911,8 @@ h3 {
 
   .post-toc::before {
     position: absolute;
-    top: 14px;
-    left: -22px;
+    top: 50%;
+    left: 0;
     display: grid;
     width: 22px;
     height: 48px;
@@ -1924,18 +1924,29 @@ h3 {
     background: rgba(255, 254, 253, 0.6);
     color: var(--teal-dark);
     box-shadow: -6px 10px 20px rgba(16, 35, 46, 0.11);
+    transform: translateY(-50%);
+    transition: left 260ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .post-toc::after {
     position: absolute;
-    top: 33px;
-    left: -12px;
+    top: 50%;
+    left: 10px;
     width: 3px;
     height: 11px;
     border-radius: 999px;
     content: "";
     background: var(--teal-dark);
     opacity: 0.68;
+    transform: translateY(-50%);
+    transition: left 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .post-toc > strong,
+  .post-toc > div {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 140ms ease;
   }
 
   .post-toc:hover,
@@ -1948,6 +1959,28 @@ h3 {
     transform: translateX(0);
     box-shadow: 0 20px 48px rgba(16, 35, 46, 0.22);
     outline: 0;
+  }
+
+  .post-toc:hover > strong,
+  .post-toc:hover > div,
+  .post-toc:focus-within > strong,
+  .post-toc:focus-within > div,
+  .post-toc.is-open > strong,
+  .post-toc.is-open > div {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .post-toc:hover::before,
+  .post-toc:focus-within::before,
+  .post-toc.is-open::before {
+    left: -22px;
+  }
+
+  .post-toc:hover::after,
+  .post-toc:focus-within::after,
+  .post-toc.is-open::after {
+    left: -12px;
   }
 
   .post-toc div {
@@ -3020,7 +3053,7 @@ html.theme-enter-pneuma::after {
 
   .post-toc {
     position: fixed;
-    top: max(118px, 24vh);
+    top: max(136px, 22vh);
     right: 0;
     z-index: 920;
     width: min(82vw, 330px);
@@ -3033,7 +3066,7 @@ html.theme-enter-pneuma::after {
       rgba(248, 251, 251, 0.78);
     box-shadow: 0 16px 38px rgba(16, 35, 46, 0.15);
     opacity: 0.5;
-    transform: translateX(100%);
+    transform: translateX(calc(100% - 24px));
     transition:
       opacity 220ms ease,
       transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -3044,8 +3077,8 @@ html.theme-enter-pneuma::after {
 
   .post-toc::before {
     position: absolute;
-    top: 14px;
-    left: -22px;
+    top: 50%;
+    left: 0;
     display: grid;
     width: 22px;
     height: 48px;
@@ -3057,18 +3090,29 @@ html.theme-enter-pneuma::after {
     background: rgba(255, 254, 253, 0.56);
     color: var(--teal-dark);
     box-shadow: -6px 10px 20px rgba(16, 35, 46, 0.11);
+    transform: translateY(-50%);
+    transition: left 260ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .post-toc::after {
     position: absolute;
-    top: 33px;
-    left: -12px;
+    top: 50%;
+    left: 10px;
     width: 3px;
     height: 11px;
     border-radius: 999px;
     content: "";
     background: var(--teal-dark);
     opacity: 0.68;
+    transform: translateY(-50%);
+    transition: left 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .post-toc > strong,
+  .post-toc > div {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 140ms ease;
   }
 
   .post-toc:hover,
@@ -3081,6 +3125,28 @@ html.theme-enter-pneuma::after {
     transform: translateX(0);
     box-shadow: 0 20px 48px rgba(16, 35, 46, 0.22);
     outline: 0;
+  }
+
+  .post-toc:hover > strong,
+  .post-toc:hover > div,
+  .post-toc:focus-within > strong,
+  .post-toc:focus-within > div,
+  .post-toc.is-open > strong,
+  .post-toc.is-open > div {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .post-toc:hover::before,
+  .post-toc:focus-within::before,
+  .post-toc.is-open::before {
+    left: -22px;
+  }
+
+  .post-toc:hover::after,
+  .post-toc:focus-within::after,
+  .post-toc.is-open::after {
+    left: -12px;
   }
 
   .post-toc div {
