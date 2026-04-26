@@ -2349,6 +2349,22 @@ window.PUBLISHED_POSTS = {
       "excerpt": "我真服了 今天的 Chatgpt 让我很恼火，今天的 General Physics 更是火上浇油 一边复习，一边对着电脑和他互动。不仅复习不成，功能也没给我正确实现（我已急哭） 好在最后也是成功优化了 UI 界面，不过下周三要考普物期中了...",
       "readingMinutes": 1,
       "createdAt": "2026-04-25T00:00:00.000Z"
+    },
+    {
+      "id": "life/2026-04-26-这个后端推送给我弄死了.md",
+      "slug": "2026-04-26-这个后端推送给我弄死了",
+      "source": "post",
+      "kind": "videos",
+      "title": "这个后端推送给我弄死了",
+      "publishedIndex": 13,
+      "stage": "Life Log 生活记录",
+      "tag": "随笔",
+      "url": "",
+      "html": "<p>我真花了一早上 现在午饭还没吃</p>",
+      "headings": [],
+      "excerpt": "我真花了一早上 现在午饭还没吃",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-26T00:00:00.000Z"
     }
   ]
 };
