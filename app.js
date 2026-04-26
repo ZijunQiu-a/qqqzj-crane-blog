@@ -649,6 +649,8 @@ function setupTocHighlight(toc, contentRoot) {
 
   if (!links.length || !sections.length) return;
 
+  let tocClickLockUntil = 0;
+
   const activate = (id) => {
     links.forEach((link) => {
       const active = link.dataset.headingId === id;
@@ -666,8 +668,9 @@ function setupTocHighlight(toc, contentRoot) {
       const heading = findHeadingById(contentRoot, link.dataset.headingId);
       if (!heading) return;
       event.preventDefault();
-      heading.scrollIntoView({ behavior: "smooth", block: "start" });
+      scrollToHeading(heading.id);
       activate(heading.id);
+      tocClickLockUntil = Date.now() + 900;
     });
   });
 
@@ -677,6 +680,8 @@ function setupTocHighlight(toc, contentRoot) {
 
   const visibleSections = new Map();
   tocObserver = new IntersectionObserver((entries) => {
+    if (Date.now() < tocClickLockUntil) return;
+
     entries.forEach((entry) => {
       visibleSections.set(entry.target.id, entry.isIntersecting);
     });
@@ -806,7 +811,12 @@ window.addEventListener("resize", updateReadingProgress);
 
 function scrollToHeading(id) {
   if (!id) return;
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const heading = document.getElementById(id);
+  if (!heading) return;
+  const topbarHeight = document.querySelector(".topbar")?.getBoundingClientRect().height || 0;
+  const offset = topbarHeight + 8;
+  const top = heading.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
 }
 
 function sectionLink(id) {

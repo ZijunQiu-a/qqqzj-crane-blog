@@ -371,9 +371,18 @@ $$
       const tocSections = tocLinks
         .map((link) => findHeadingById(document, link.dataset.headingId))
         .filter(Boolean);
+      let tocClickLockUntil = 0;
 
       toc?.addEventListener("click", (event) => {
-        if (event.target.closest("a[data-heading-id]")) {
+        const link = event.target.closest("a[data-heading-id]");
+        if (link) {
+          const heading = findHeadingById(document, link.dataset.headingId);
+          if (!heading) return;
+          event.preventDefault();
+          scrollToHeading(heading);
+          activateTocLink(heading.id);
+          tocClickLockUntil = Date.now() + 900;
+          if (heading.id) history.pushState(null, "", `#${heading.id}`);
           toc.classList.remove("is-open");
           return;
         }
@@ -403,12 +412,21 @@ $$
         return root.querySelector(`#${escapedId}`);
       }
 
+      function scrollToHeading(heading) {
+        const topbarHeight = document.querySelector(".topbar")?.getBoundingClientRect().height || 0;
+        const offset = topbarHeight + 8;
+        const top = heading.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
+
       if (tocSections.length) {
         activateTocLink(tocSections[0].id);
 
         if ("IntersectionObserver" in window) {
           const visibleSections = new Map();
           const observer = new IntersectionObserver((entries) => {
+            if (Date.now() < tocClickLockUntil) return;
+
             entries.forEach((entry) => {
               visibleSections.set(entry.target.id, entry.isIntersecting);
             });
