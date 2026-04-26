@@ -631,7 +631,7 @@ function renderPostToc(entry) {
   if (views.detailToc.hidden) return;
 
   views.detailToc.innerHTML = `
-    <strong>目录</strong>
+    <strong>Contents 目录</strong>
     <div>
       ${headings.map((heading) => `<a class="toc-level-${heading.level}" href="#${escapeAttribute(heading.id)}" data-heading-id="${escapeAttribute(heading.id)}">${escapeHtml(heading.title)}</a>`).join("")}
     </div>

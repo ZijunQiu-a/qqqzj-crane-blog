@@ -3053,29 +3053,23 @@ html.theme-enter-pneuma::after {
 
   .post-toc {
     position: fixed;
-    right: 16px;
-    bottom: 22px;
+    top: max(136px, 22vh);
+    right: 0;
     z-index: 920;
-    display: grid;
-    width: 64px;
-    height: 44px;
-    max-height: none;
-    overflow: hidden;
-    place-items: center;
-    border-radius: 999px;
-    padding: 0;
+    width: min(82vw, 330px);
+    max-height: min(56vh, 420px);
+    overflow: visible;
+    border-radius: 18px 0 0 18px;
+    padding: 11px 10px 11px 12px;
     background:
-      linear-gradient(135deg, rgba(20, 123, 145, 0.1), transparent 62%),
-      rgba(248, 251, 251, 0.9);
-    box-shadow: 0 12px 30px rgba(16, 35, 46, 0.18);
-    opacity: 0.96;
-    transform: translateY(0);
+      linear-gradient(135deg, rgba(20, 123, 145, 0.08), transparent 58%),
+      rgba(248, 251, 251, 0.78);
+    box-shadow: 0 16px 38px rgba(16, 35, 46, 0.15);
+    opacity: 0.5;
+    transform: translateX(calc(100% - 24px));
     transition:
-      width 260ms cubic-bezier(0.16, 1, 0.3, 1),
-      height 260ms cubic-bezier(0.16, 1, 0.3, 1),
       opacity 220ms ease,
-      border-radius 260ms ease,
-      bottom 260ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
       box-shadow 260ms ease;
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -3084,37 +3078,34 @@ html.theme-enter-pneuma::after {
   .post-toc::before {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 0;
     display: grid;
-    width: 100%;
-    height: 100%;
+    width: 22px;
+    height: 48px;
     place-items: center;
-    border: 0;
-    border-radius: inherit;
-    content: "目录";
-    background: transparent;
+    border: 1px solid rgba(20, 123, 145, 0.14);
+    border-right: 0;
+    border-radius: 999px 0 0 999px;
+    content: "";
+    background: rgba(255, 254, 253, 0.56);
     color: var(--teal-dark);
-    font-size: 13px;
-    font-weight: 950;
-    box-shadow: none;
-    transform: translate(-50%, -50%);
-    transition:
-      opacity 140ms ease,
-      transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -6px 10px 20px rgba(16, 35, 46, 0.11);
+    transform: translateY(-50%);
+    transition: left 260ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .post-toc::after {
     position: absolute;
-    top: 10px;
-    left: 12px;
-    width: 4px;
-    height: 4px;
+    top: 50%;
+    left: 10px;
+    width: 3px;
+    height: 11px;
     border-radius: 999px;
     content: "";
     background: var(--teal-dark);
-    opacity: 0.5;
-    transform: none;
-    transition: opacity 140ms ease;
+    opacity: 0.68;
+    transform: translateY(-50%);
+    transition: left 260ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .post-toc > strong,
@@ -3127,19 +3118,11 @@ html.theme-enter-pneuma::after {
   .post-toc:hover,
   .post-toc:focus-within,
   .post-toc.is-open {
-    right: 12px;
-    bottom: 74px;
-    width: min(88vw, 340px);
-    height: auto;
-    max-height: min(62vh, 480px);
-    place-items: stretch;
-    border-radius: 22px;
-    padding: 14px;
     background:
       linear-gradient(135deg, rgba(20, 123, 145, 0.07), transparent 58%),
       rgba(248, 251, 251, 0.98);
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
     box-shadow: 0 20px 48px rgba(16, 35, 46, 0.22);
     outline: 0;
   }
@@ -3155,17 +3138,19 @@ html.theme-enter-pneuma::after {
   }
 
   .post-toc:hover::before,
-  .post-toc:hover::after,
   .post-toc:focus-within::before,
+  .post-toc.is-open::before {
+    left: -22px;
+  }
+
+  .post-toc:hover::after,
   .post-toc:focus-within::after,
-  .post-toc.is-open::before,
   .post-toc.is-open::after {
-    opacity: 0;
-    pointer-events: none;
+    left: -12px;
   }
 
   .post-toc div {
-    max-height: calc(min(62vh, 480px) - 56px);
+    max-height: calc(min(56vh, 420px) - 48px);
     overflow: auto;
     padding-right: 4px;
   }
@@ -3187,7 +3172,9 @@ html.theme-enter-pneuma::after {
   }
 
   :root[data-theme-state="ousia"] .post-toc::before {
-    color: var(--teal-dark);
+    border-color: rgba(129, 218, 242, 0.14);
+    border-right: 0;
+    background: rgba(13, 27, 45, 0.62);
   }
 
   .file-preview pre {
