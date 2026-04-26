@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zijunqiu-a.github.io/qqqzj-crane-blog/sitemap.xml
+Sitemap: https://qqqzj.cn/sitemap.xml
