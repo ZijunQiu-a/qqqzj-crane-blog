@@ -98,6 +98,7 @@ function renderRecent(entries) {
       <div class="recent-card-meta">
         <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
         <span>${escapeHtml(entry.tag || kindLabel(entry.kind))}</span>
+        ${authorChip(entry)}
       </div>
       <div class="recent-card-copy">
         <h3>${escapeHtml(entry.title)}</h3>
@@ -131,6 +132,7 @@ function renderGrowth(entries) {
         ${bodyPreviewMarkup(entry)}
         <div class="card-footer">
           <span>${footerTime(entry)}</span>
+          ${authorChip(entry)}
           <span>${readTimeLabel(entry)}</span>
           ${readMoreLabel()}
         </div>
@@ -160,6 +162,7 @@ function renderNotes(entries) {
       ${bodyPreviewMarkup(entry)}
       <div class="card-footer">
         <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
+        ${authorChip(entry)}
         <span>${readTimeLabel(entry)}</span>
         ${readMoreLabel()}
       </div>
@@ -189,6 +192,7 @@ function renderVideos(entries) {
         </header>
         <div class="card-footer">
           <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
+          ${authorChip(entry)}
           <span>${readTimeLabel(entry)}</span>
           ${readMoreLabel()}
         </div>
@@ -253,6 +257,7 @@ async function loadPostFile(file, publishedIndex = 0) {
     publishedIndex,
     stage: meta.stage || category,
     tag: meta.tag || category,
+    author: meta.author || "ZijunQiu-a",
     url: meta.url || "",
     body,
     html: rendered.html,
@@ -326,6 +331,14 @@ function readTimeLabel(entry) {
   return `约 ${entry.readingMinutes || 1} 分钟`;
 }
 
+function authorName(entry) {
+  return entry.author || "ZijunQiu-a";
+}
+
+function authorChip(entry) {
+  return `<span class="author-chip">作者 ${escapeHtml(authorName(entry))}</span>`;
+}
+
 function postHref(entry) {
   return `#post/${encodeURIComponent(postKey(entry))}`;
 }
@@ -368,6 +381,7 @@ function searchableText(entry) {
     entry.title,
     entry.tag,
     entry.stage,
+    entry.author,
     kindLabel(entry.kind),
     entry.excerpt,
     stripHtml(entry.html || ""),
@@ -450,7 +464,7 @@ function archiveItemMarkup(entry) {
     <a href="${postHref(entry)}">
       <span>${escapeHtml(formatDate(entry.createdAt))}</span>
       <strong>${escapeHtml(entry.title)}</strong>
-      <small>${escapeHtml(entry.tag || kindLabel(entry.kind))}</small>
+      <small>${escapeHtml(entry.tag || kindLabel(entry.kind))} · ${escapeHtml(authorName(entry))}</small>
     </a>
   `;
 }
@@ -481,7 +495,7 @@ function renderSearchResults(entries) {
     link.innerHTML = `
       <span>${escapeHtml(kindLabel(entry.kind))} · ${escapeHtml(entry.tag || "")}</span>
       <strong>${escapeHtml(entry.title)}</strong>
-      <small>${escapeHtml(previewText(entry, "Open post / 打开文章"))}</small>
+      <small>${escapeHtml(authorName(entry))} · ${escapeHtml(previewText(entry, "Open post / 打开文章"))}</small>
     `;
     discovery.results.append(link);
   });
@@ -539,6 +553,7 @@ function showPostDetail(entry) {
   views.detailMeta.innerHTML = `
     <time datetime="${entry.createdAt}">${formatDate(entry.createdAt)}</time>
     <span>${escapeHtml(entry.tag || entry.stage || "")}</span>
+    ${authorChip(entry)}
     <span>${escapeHtml(readTimeLabel(entry))}</span>
   `;
   views.detailBody.innerHTML = `

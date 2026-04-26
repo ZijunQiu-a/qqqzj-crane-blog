@@ -1521,6 +1521,15 @@ h3 {
   padding: 5px 9px;
 }
 
+.author-chip {
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(195, 93, 111, 0.12);
+  color: var(--coral);
+  padding: 5px 9px;
+  font-weight: 900;
+}
+
 .archive-list {
   display: grid;
   gap: 16px;
@@ -1647,6 +1656,11 @@ h3 {
   border-radius: 999px;
   background: rgba(20, 123, 145, 0.1);
   padding: 6px 10px;
+}
+
+.post-detail-meta .author-chip {
+  background: rgba(195, 93, 111, 0.12);
+  color: var(--coral);
 }
 
 .post-toc {
@@ -2640,6 +2654,7 @@ html.theme-enter-pneuma::after {
 
 :root[data-theme-state="ousia"] .post-detail-meta span,
 :root[data-theme-state="ousia"] .post-detail-meta time,
+:root[data-theme-state="ousia"] .author-chip,
 :root[data-theme-state="ousia"] .published-badge {
   background: rgba(102, 213, 240, 0.11);
 }
