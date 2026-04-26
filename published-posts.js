@@ -2286,6 +2286,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "General Physics I Midterm Review Outline / 普物 I 期中复习提纲（Mechanics 讲义全覆盖版） Main reference / 主参考：普物I/reference books/mechan...",
       "readingMinutes": 14,
       "createdAt": "2026-04-25T00:00:00.000Z"
+    },
+    {
+      "id": "notes/随笔/2026-04-26-qzj严父严肃莅临该小网站.md",
+      "slug": "2026-04-26-qzj严父严肃莅临该小网站",
+      "source": "post",
+      "kind": "notes",
+      "title": "qzj严父严肃莅临该小网站",
+      "publishedIndex": 12,
+      "stage": "Notes 笔记",
+      "tag": "随笔",
+      "author": "Trae645",
+      "url": "",
+      "html": "<p>四下无人的寂静深夜 年龄又偷偷增长 一个人发着呆 不知道未来到底在哪<br />也许是我太敏感 周围的任何一点动静都会被我无限放大<br />也许是我太脆弱 任何一点困难来临我就被轻易打垮<br />十几年了 还是没变<br />迷茫如旧 悲观如旧 孤独如旧<br />下一年 或许能有点长进吧</p>",
+      "headings": [],
+      "excerpt": "四下无人的寂静深夜 年龄又偷偷增长 一个人发着呆 不知道未来到底在哪 也许是我太敏感 周围的任何一点动静都会被我无限放大 也许是我太脆弱 任何一点困难来临我就被轻易打垮 十几年了 还是没变 迷茫如旧 悲观如旧 孤独如旧 下一年 或许能有点长...",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-26T00:00:00.000Z"
     }
   ],
   "videos": [
