@@ -1682,16 +1682,18 @@ h3 {
 .post-toc {
   position: relative;
   display: grid;
-  gap: 10px;
-  max-height: min(360px, 48vh);
+  gap: 8px;
+  max-height: min(340px, 46vh);
   overflow: auto;
-  border: 1px solid rgba(20, 123, 145, 0.14);
-  border-radius: 8px;
-  padding: 13px 14px;
+  border: 1px solid rgba(20, 123, 145, 0.12);
+  border-radius: 18px;
+  padding: 12px;
   background:
-    linear-gradient(135deg, rgba(20, 123, 145, 0.08), transparent 54%),
-    rgba(248, 251, 251, 0.82);
-  box-shadow: 0 16px 34px rgba(16, 35, 46, 0.08);
+    linear-gradient(135deg, rgba(20, 123, 145, 0.07), transparent 58%),
+    rgba(248, 251, 251, 0.78);
+  box-shadow: 0 14px 30px rgba(16, 35, 46, 0.07);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .post-toc[hidden] {
@@ -1699,30 +1701,50 @@ h3 {
 }
 
 .post-toc strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  width: fit-content;
   color: var(--ink);
-  font-size: 13px;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.post-toc strong::before {
+  border-radius: 999px;
+  padding: 2px 6px;
+  content: "TOC";
+  background: rgba(20, 123, 145, 0.1);
+  color: var(--teal-dark);
+  font-size: 9px;
+  font-weight: 950;
+  letter-spacing: 0;
 }
 
 .post-toc div {
   display: grid;
-  gap: 7px;
+  gap: 3px;
 }
 
 .post-toc a {
+  position: relative;
   display: block;
-  border-radius: 6px;
-  padding: 5px 7px;
-  color: var(--teal-dark);
-  font-size: 13px;
-  font-weight: 850;
-  line-height: 1.35;
+  border-radius: 12px;
+  padding: 6px 9px 6px 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 780;
+  line-height: 1.32;
   text-decoration: none;
+  transition:
+    background 160ms ease,
+    color 160ms ease;
 }
 
 .post-toc a:hover,
 .post-toc a:focus-visible,
 .post-toc a.is-active {
-  background: rgba(20, 123, 145, 0.1);
+  background: rgba(20, 123, 145, 0.075);
   outline: 0;
 }
 
@@ -1731,10 +1753,32 @@ h3 {
   color: var(--ink);
 }
 
+.post-toc .toc-level-3 {
+  color: var(--teal-dark);
+  font-size: 12.5px;
+  font-weight: 900;
+}
+
+.post-toc .toc-level-4 {
+  margin-left: 7px;
+  color: var(--ink);
+  font-weight: 850;
+}
+
 .post-toc .toc-level-5 {
-  padding-left: 20px;
+  margin-left: 16px;
+  padding-left: 9px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11.5px;
+  font-weight: 760;
+}
+
+.post-toc .toc-level-6 {
+  margin-left: 26px;
+  padding-left: 9px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 720;
 }
 
 .post-detail-body {
@@ -1839,23 +1883,23 @@ h3 {
 
   .post-toc {
     position: fixed;
-    top: max(128px, 24vh);
+    top: max(118px, 22vh);
     right: 0;
     z-index: 920;
     grid-column: auto;
     grid-row: auto;
-    width: min(300px, calc(100vw - 72px));
-    max-height: min(62vh, 520px);
+    width: min(280px, calc(100vw - 72px));
+    max-height: min(58vh, 500px);
     overflow: visible;
     margin-right: 0;
-    border-color: rgba(20, 123, 145, 0.22);
-    border-radius: 8px 0 0 8px;
-    padding: 12px 12px 12px 14px;
+    border-color: rgba(20, 123, 145, 0.16);
+    border-radius: 18px 0 0 18px;
+    padding: 11px 10px 11px 12px;
     background:
-      linear-gradient(135deg, rgba(20, 123, 145, 0.11), transparent 56%),
-      rgba(248, 251, 251, 0.86);
-    box-shadow: 0 18px 44px rgba(16, 35, 46, 0.18);
-    opacity: 0.52;
+      linear-gradient(135deg, rgba(20, 123, 145, 0.08), transparent 58%),
+      rgba(248, 251, 251, 0.78);
+    box-shadow: 0 16px 38px rgba(16, 35, 46, 0.15);
+    opacity: 0.5;
     transform: translateX(100%);
     transition:
       opacity 220ms ease,
@@ -1867,11 +1911,11 @@ h3 {
 
   .post-toc::before {
     position: absolute;
-    top: 16px;
-    left: -28px;
+    top: 14px;
+    left: -22px;
     display: grid;
-    width: 28px;
-    height: 54px;
+    width: 22px;
+    height: 48px;
     place-items: center;
     border: 1px solid rgba(20, 123, 145, 0.14);
     border-right: 0;
@@ -1879,15 +1923,15 @@ h3 {
     content: "";
     background: rgba(255, 254, 253, 0.6);
     color: var(--teal-dark);
-    box-shadow: -8px 10px 24px rgba(16, 35, 46, 0.12);
+    box-shadow: -6px 10px 20px rgba(16, 35, 46, 0.11);
   }
 
   .post-toc::after {
     position: absolute;
-    top: 38px;
-    left: -15px;
-    width: 4px;
-    height: 10px;
+    top: 33px;
+    left: -12px;
+    width: 3px;
+    height: 11px;
     border-radius: 999px;
     content: "";
     background: var(--teal-dark);
@@ -1897,14 +1941,17 @@ h3 {
   .post-toc:hover,
   .post-toc:focus-within,
   .post-toc.is-open {
-    opacity: 0.98;
+    background:
+      linear-gradient(135deg, rgba(20, 123, 145, 0.07), transparent 58%),
+      rgba(248, 251, 251, 0.98);
+    opacity: 1;
     transform: translateX(0);
-    box-shadow: 0 22px 54px rgba(16, 35, 46, 0.26);
+    box-shadow: 0 20px 48px rgba(16, 35, 46, 0.22);
     outline: 0;
   }
 
   .post-toc div {
-    max-height: calc(min(62vh, 520px) - 56px);
+    max-height: calc(min(58vh, 500px) - 48px);
     overflow: auto;
     padding-right: 4px;
   }
@@ -2642,6 +2689,14 @@ html.theme-enter-pneuma::after {
     rgba(8, 20, 34, 0.82);
 }
 
+:root[data-theme-state="ousia"] .post-toc:hover,
+:root[data-theme-state="ousia"] .post-toc:focus-within,
+:root[data-theme-state="ousia"] .post-toc.is-open {
+  background:
+    linear-gradient(135deg, rgba(102, 213, 240, 0.1), transparent 58%),
+    rgba(8, 20, 34, 0.94);
+}
+
 :root[data-theme-state="ousia"] .entry-body code,
 :root[data-theme-state="ousia"] .download-button,
 :root[data-theme-state="ousia"] .clear-search-button {
@@ -2965,19 +3020,19 @@ html.theme-enter-pneuma::after {
 
   .post-toc {
     position: fixed;
-    top: max(128px, 28vh);
+    top: max(118px, 24vh);
     right: 0;
     z-index: 920;
-    width: min(280px, calc(100vw - 42px));
-    max-height: min(58vh, 430px);
+    width: min(82vw, 330px);
+    max-height: min(56vh, 420px);
     overflow: visible;
-    border-radius: 8px 0 0 8px;
-    padding: 12px 12px 12px 14px;
+    border-radius: 18px 0 0 18px;
+    padding: 11px 10px 11px 12px;
     background:
-      linear-gradient(135deg, rgba(20, 123, 145, 0.11), transparent 56%),
-      rgba(248, 251, 251, 0.82);
-    box-shadow: 0 18px 44px rgba(16, 35, 46, 0.18);
-    opacity: 0.48;
+      linear-gradient(135deg, rgba(20, 123, 145, 0.08), transparent 58%),
+      rgba(248, 251, 251, 0.78);
+    box-shadow: 0 16px 38px rgba(16, 35, 46, 0.15);
+    opacity: 0.5;
     transform: translateX(100%);
     transition:
       opacity 220ms ease,
@@ -2989,11 +3044,11 @@ html.theme-enter-pneuma::after {
 
   .post-toc::before {
     position: absolute;
-    top: 16px;
-    left: -28px;
+    top: 14px;
+    left: -22px;
     display: grid;
-    width: 28px;
-    height: 54px;
+    width: 22px;
+    height: 48px;
     place-items: center;
     border: 1px solid rgba(20, 123, 145, 0.14);
     border-right: 0;
@@ -3001,15 +3056,15 @@ html.theme-enter-pneuma::after {
     content: "";
     background: rgba(255, 254, 253, 0.56);
     color: var(--teal-dark);
-    box-shadow: -8px 10px 24px rgba(16, 35, 46, 0.12);
+    box-shadow: -6px 10px 20px rgba(16, 35, 46, 0.11);
   }
 
   .post-toc::after {
     position: absolute;
-    top: 38px;
-    left: -15px;
-    width: 4px;
-    height: 10px;
+    top: 33px;
+    left: -12px;
+    width: 3px;
+    height: 11px;
     border-radius: 999px;
     content: "";
     background: var(--teal-dark);
@@ -3019,14 +3074,17 @@ html.theme-enter-pneuma::after {
   .post-toc:hover,
   .post-toc:focus-within,
   .post-toc.is-open {
-    opacity: 0.98;
+    background:
+      linear-gradient(135deg, rgba(20, 123, 145, 0.07), transparent 58%),
+      rgba(248, 251, 251, 0.98);
+    opacity: 1;
     transform: translateX(0);
-    box-shadow: 0 22px 54px rgba(16, 35, 46, 0.26);
+    box-shadow: 0 20px 48px rgba(16, 35, 46, 0.22);
     outline: 0;
   }
 
   .post-toc div {
-    max-height: calc(min(58vh, 430px) - 56px);
+    max-height: calc(min(56vh, 420px) - 48px);
     overflow: auto;
     padding-right: 4px;
   }
@@ -3037,6 +3095,14 @@ html.theme-enter-pneuma::after {
       linear-gradient(135deg, rgba(102, 213, 240, 0.12), transparent 56%),
       rgba(8, 20, 34, 0.82);
     box-shadow: 0 22px 54px rgba(0, 0, 0, 0.34);
+  }
+
+  :root[data-theme-state="ousia"] .post-toc:hover,
+  :root[data-theme-state="ousia"] .post-toc:focus-within,
+  :root[data-theme-state="ousia"] .post-toc.is-open {
+    background:
+      linear-gradient(135deg, rgba(102, 213, 240, 0.1), transparent 58%),
+      rgba(8, 20, 34, 0.98);
   }
 
   :root[data-theme-state="ousia"] .post-toc::before {

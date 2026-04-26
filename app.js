@@ -1023,10 +1023,10 @@ function renderMarkdown(markdown) {
       const quote = blockquoteMarkdown(block);
       if (quote) return quote;
 
-      if (/^####\s+/.test(block)) return headingMarkdown(block.replace(/^####\s+/, ""), 5, context);
-      if (/^###\s+/.test(block)) return headingMarkdown(block.replace(/^###\s+/, ""), 4, context);
-      if (/^##\s+/.test(block)) return headingMarkdown(block.replace(/^##\s+/, ""), 4, context);
-      if (/^#\s+/.test(block)) return headingMarkdown(block.replace(/^#\s+/, ""), 4, context);
+      if (/^####\s+/.test(block)) return headingMarkdown(block.replace(/^####\s+/, ""), 5, context, 6);
+      if (/^###\s+/.test(block)) return headingMarkdown(block.replace(/^###\s+/, ""), 5, context, 5);
+      if (/^##\s+/.test(block)) return headingMarkdown(block.replace(/^##\s+/, ""), 4, context, 4);
+      if (/^#\s+/.test(block)) return headingMarkdown(block.replace(/^#\s+/, ""), 4, context, 3);
 
       const lines = block.split("\n").filter(Boolean);
 
@@ -1055,10 +1055,10 @@ function renderMarkdown(markdown) {
   return { html, headings: context.headings };
 }
 
-function headingMarkdown(value, level, context) {
+function headingMarkdown(value, level, context, tocLevel = level) {
   const title = plainInlineText(value);
   const id = uniqueHeadingId(title, context.headingIds);
-  context.headings.push({ id, title, level });
+  context.headings.push({ id, title, level: tocLevel });
 
   return `<h${level} id="${escapeAttribute(id)}">${inlineMarkdown(value)}<a class="heading-anchor" href="#${escapeAttribute(id)}" data-heading-id="${escapeAttribute(id)}" aria-label="Copy section link / 复制小节链接">#</a></h${level}>`;
 }
