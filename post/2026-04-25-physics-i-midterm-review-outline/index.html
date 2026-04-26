@@ -36,18 +36,25 @@
     </script>
     <link rel="stylesheet" href="../../styles.css" />
     <script defer src="../../theme.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" crossorigin="anonymous" />
     <script>
-      window.MathJax = {
-        tex: {
-          inlineMath: [["$", "$"], ["\\(", "\\)"]],
-          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
-        },
-        options: {
-          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"],
-        },
+      window.BLOG_MATH_OPTIONS = {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
+        throwOnError: false,
+      };
+      window.renderBlogMath = (root = document.body) => {
+        if (!window.renderMathInElement || !root) return;
+        window.renderMathInElement(root, window.BLOG_MATH_OPTIONS);
       };
     </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="window.renderBlogMath?.(document.body);"></script>
   </head>
   <body>
     <div class="site-shell">
@@ -55,10 +62,10 @@
         <a class="brand" href="../../index.html#home" aria-label="Back to home / 回到首页">
           <span class="brand-mark brand-avatar" aria-hidden="true">
             <img
-              src="../../assets/furina-avatar-pneuma.png?v=20260425-1"
+              src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
               data-theme-asset
-              data-pneuma-src="../../assets/furina-avatar-pneuma.png?v=20260425-1"
-              data-ousia-src="../../assets/furina-avatar-ousia.png"
+              data-pneuma-src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
+              data-ousia-src="../../assets/furina-avatar-ousia.webp"
               data-fallback-src="../../assets/furina-avatar.png"
               alt=""
             />

@@ -36,18 +36,25 @@
     </script>
     <link rel="stylesheet" href="../../styles.css" />
     <script defer src="../../theme.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" crossorigin="anonymous" />
     <script>
-      window.MathJax = {
-        tex: {
-          inlineMath: [["$", "$"], ["\\(", "\\)"]],
-          displayMath: [["$$", "$$"], ["\\[", "\\]"]],
-        },
-        options: {
-          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"],
-        },
+      window.BLOG_MATH_OPTIONS = {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
+        throwOnError: false,
+      };
+      window.renderBlogMath = (root = document.body) => {
+        if (!window.renderMathInElement || !root) return;
+        window.renderMathInElement(root, window.BLOG_MATH_OPTIONS);
       };
     </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="window.renderBlogMath?.(document.body);"></script>
   </head>
   <body>
     <div class="site-shell">
@@ -55,10 +62,10 @@
         <a class="brand" href="../../index.html#home" aria-label="Back to home / 回到首页">
           <span class="brand-mark brand-avatar" aria-hidden="true">
             <img
-              src="../../assets/furina-avatar-pneuma.png?v=20260425-1"
+              src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
               data-theme-asset
-              data-pneuma-src="../../assets/furina-avatar-pneuma.png?v=20260425-1"
-              data-ousia-src="../../assets/furina-avatar-ousia.png"
+              data-pneuma-src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
+              data-ousia-src="../../assets/furina-avatar-ousia.webp"
               data-fallback-src="../../assets/furina-avatar.png"
               alt=""
             />
@@ -113,7 +120,7 @@
                 <div class="entry-body"><h4 id="我真服了">我真服了<a class="heading-anchor" href="#我真服了" data-heading-id="我真服了" aria-label="Copy section link / 复制小节链接">#</a></h4><p>今天的 Chatgpt 让我很恼火，今天的 General Physics 更是火上浇油</p><p>一边复习，一边对着电脑和他互动。不仅复习不成，功能也没给我正确实现（我已急哭）</p><p>好在最后也是成功优化了 UI 界面，不过下周三要考普物期中了，我怎么还没复习完？？？</p><p>啥也不是，我含泪复习去了～</p></div>
               </div>
               <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
-                
+                <a href="../../post/2026-04-26-%E6%88%91%E5%B0%B1%E8%BF%99%E4%B9%88%E5%BC%84%E8%BF%99%E4%B8%AA%E7%A0%B4%E7%BD%91%E7%AB%99/"><span>Newer / 更新</span><strong>我就这么弄这个破网站</strong></a>
                 <a href="../../post/2026-04-25-physics-i-midterm-mechanics-complete-review/"><span>Older / 更早</span><strong>普物 I 期中复习提纲（力学全覆盖版）</strong></a>
               </nav>
             </article>

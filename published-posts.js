@@ -2277,6 +2277,22 @@ window.PUBLISHED_POSTS = {
       "excerpt": "General Physics I Midterm Review Outline / 普物 I 期中复习提纲（Mechanics 讲义全覆盖版） Main reference / 主参考：普物I/reference books/mechan...",
       "readingMinutes": 14,
       "createdAt": "2026-04-25T00:00:00.000Z"
+    },
+    {
+      "id": "notes/随笔/2026-04-26-我就这么弄这个破网站.md",
+      "slug": "2026-04-26-我就这么弄这个破网站",
+      "source": "post",
+      "kind": "notes",
+      "title": "我就这么弄这个破网站",
+      "publishedIndex": 12,
+      "stage": "Notes 笔记",
+      "tag": "随笔",
+      "url": "",
+      "html": "<p>又玩了一早上AI</p>",
+      "headings": [],
+      "excerpt": "又玩了一早上AI",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-26T00:00:00.000Z"
     }
   ],
   "videos": [

@@ -1108,6 +1108,11 @@ function calloutTitle(type) {
 }
 
 function typesetMath() {
+  if (typeof window.renderBlogMath === "function") {
+    window.renderBlogMath(document.body);
+    return;
+  }
+
   if (!window.MathJax || typeof window.MathJax.typesetPromise !== "function") return;
   window.MathJax.typesetPromise([document.body]).catch(() => {});
 }

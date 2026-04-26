@@ -1184,12 +1184,18 @@ h3 {
 }
 
 .entry-body mjx-container[jax="CHTML"],
-.post-detail-body mjx-container[jax="CHTML"] {
+.post-detail-body mjx-container[jax="CHTML"],
+.entry-body .katex,
+.post-detail-body .katex {
   max-width: 100%;
 }
 
 .entry-body mjx-container[jax="CHTML"][display="true"],
-.post-detail-body mjx-container[jax="CHTML"][display="true"] {
+.post-detail-body mjx-container[jax="CHTML"][display="true"],
+.entry-body .katex-display,
+.post-detail-body .katex-display {
+  max-width: 100%;
+  margin: 0;
   overflow-x: auto;
   overflow-y: hidden;
 }
