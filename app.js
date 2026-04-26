@@ -205,8 +205,6 @@ function renderVideos(entries) {
 // 读取 posts/index.json，再读取每篇 Markdown，生成正式公开文章。
 async function loadPublishedPosts() {
   if (window.PUBLISHED_POSTS) {
-    seedPublishedPosts();
-    render();
     return;
   }
 
