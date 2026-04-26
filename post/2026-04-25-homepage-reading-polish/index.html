@@ -126,6 +126,10 @@
               <div class="post-detail-body">
                 <div class="entry-body"><p>今天继续把 qqqzj@Crane 的首页和阅读体验往更顺手的方向调整了一版。重点不是增加大功能，而是处理那些一打开页面就能感受到的细节：位置、层级、宽度、字号和交互是否舒服。</p><h4 id="首页更像入口了">首页更像入口了<a class="heading-anchor" href="#首页更像入口了" data-heading-id="首页更像入口了" aria-label="Copy section link / 复制小节链接">#</a></h4><p>首页现在会展示最近几篇文章，读者不用先在各个栏目里找，可以直接从 Latest Posts 进入最新内容。原本偏工具感的快速入口和文章数量统计被收掉了，页面第一屏更清爽，视觉重点也更集中。</p><p>搜索也挪到了顶部导航里。它变成一个更小、更圆润的输入条，点击整块区域就能输入；桌面端限制了宽度，避免全屏时把右侧导航挤到一起，手机端则保持一整行的可点区域。</p><h4 id="导航和主题切换更轻">导航和主题切换更轻<a class="heading-anchor" href="#导航和主题切换更轻" data-heading-id="导航和主题切换更轻" aria-label="Copy section link / 复制小节链接">#</a></h4><p>白天、黑夜、自动模式的切换入口重新压缩了尺寸，手机端只保留一个小按钮，桌面端也修正了文字和小圆图标的对齐。现在“白天”不会被压成奇怪的小圈，主题菜单也不会盖住搜索层级。</p><p>顶部头像在白天和黑夜素材切换时对齐得更稳，减少了视觉跳动。点击左上角头像也会回到首页顶部，作为一个更自然的返回入口。</p><h4 id="文章阅读更少打扰">文章阅读更少打扰<a class="heading-anchor" href="#文章阅读更少打扰" data-heading-id="文章阅读更少打扰" aria-label="Copy section link / 复制小节链接">#</a></h4><p>文章详情页的目录逻辑统一成侧边抽屉。电脑端和手机端现在都可以用半圆把手呼出目录，默认收起时尽量不挡正文，打开后再承担导航功能。</p><p>首页文章卡片也做了细节调整：圆角更大，左侧渐变条贴合卡片高度，Read more 标签更小一些。整体保留了一点装饰感，但不再抢正文内容的注意力。</p><h4 id="小人和招呼动画">小人和招呼动画<a class="heading-anchor" href="#小人和招呼动画" data-heading-id="小人和招呼动画" aria-label="Copy section link / 复制小节链接">#</a></h4><p>右下角芙宁娜贴图在桌面端稍微往右移，减少挡住阅读内容的概率；手机端继续保持轻量。进入页面时的“你好呀”改到左上角头像附近，只保留一个小气泡，不再从右下角飞过正文区域。</p><p>这轮调整之后，网站的功能没有变复杂，但使用时的“摩擦”少了很多。后面继续加内容时，首页、搜索、目录和主题切换这些基础体验会更稳定。</p></div>
               </div>
+              <div class="post-jump-nav" aria-label="文章跳转">
+                <button type="button" id="post-jump-top">回到顶部</button>
+                <button type="button" id="post-jump-bottom">跳到底部</button>
+              </div>
               <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
                 <a href="../../post/2026-04-25-site-update-roundup/"><span>Newer / 更新</span><strong>网站阶段更新：从内容归档到阅读体验</strong></a>
                 <a href="../../post/2026-04-24-linear-algebra-i/"><span>Older / 更早</span><strong>线性代数 I</strong></a>
@@ -152,6 +156,14 @@
       window.addEventListener("scroll", updateReadingProgress, { passive: true });
       window.addEventListener("resize", updateReadingProgress);
       updateReadingProgress();
+
+      document.querySelector("#post-jump-top")?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-bottom")?.addEventListener("click", () => {
+        document.querySelector(".post-neighbor-nav, .site-footer")?.scrollIntoView({ behavior: "smooth", block: "end" });
+      });
 
       const toc = document.querySelector(".post-toc");
       const tocLinks = toc ? [...toc.querySelectorAll("a[data-heading-id]")] : [];

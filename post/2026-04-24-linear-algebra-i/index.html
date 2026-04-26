@@ -1066,6 +1066,10 @@ A=QDQ^T=(D^{1/2}Q^T)^T(D^{1/2}Q^T),
 $$
 得到 $A=P^TP$。</p><p>顺序主子式判别可由配方法或 Gaussian 消元得到：正定二次型逐步配方时每一步的主元都必须为正，而这些主元的乘积正是顺序主子式之比。因此所有顺序主子式为正当且仅当 $A$ 正定。</p><h4 id="附件">附件<a class="heading-anchor" href="#附件" data-heading-id="附件" aria-label="Copy section link / 复制小节链接">#</a></h4><div class="entry-file"><a class="download-button" href="../../files/2026-04-24-main-math-notes/线性代数I.pdf" download><span>下载 / 预览 PDF</span><small>线性代数I.pdf</small></a><details class="file-preview"><summary>Preview / 预览</summary><iframe src="../../files/2026-04-24-main-math-notes/线性代数I.pdf" title="线性代数I.pdf" loading="lazy"></iframe></details></div></div>
               </div>
+              <div class="post-jump-nav" aria-label="文章跳转">
+                <button type="button" id="post-jump-top">回到顶部</button>
+                <button type="button" id="post-jump-bottom">跳到底部</button>
+              </div>
               <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
                 <a href="../../post/2026-04-25-homepage-reading-polish/"><span>Newer / 更新</span><strong>首页和阅读体验继续打磨</strong></a>
                 <a href="../../post/2026-04-24-mathematical-analysis-i-review-outline/"><span>Older / 更早</span><strong>数学分析 I 复习提纲</strong></a>
@@ -1092,6 +1096,14 @@ $$
       window.addEventListener("scroll", updateReadingProgress, { passive: true });
       window.addEventListener("resize", updateReadingProgress);
       updateReadingProgress();
+
+      document.querySelector("#post-jump-top")?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-bottom")?.addEventListener("click", () => {
+        document.querySelector(".post-neighbor-nav, .site-footer")?.scrollIntoView({ behavior: "smooth", block: "end" });
+      });
 
       const toc = document.querySelector(".post-toc");
       const tocLinks = toc ? [...toc.querySelectorAll("a[data-heading-id]")] : [];

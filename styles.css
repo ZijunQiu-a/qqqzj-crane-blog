@@ -902,6 +902,13 @@ h3 {
   overflow-wrap: anywhere;
 }
 
+.search-results mark {
+  border-radius: 4px;
+  padding: 0 3px;
+  background: rgba(202, 161, 76, 0.28);
+  color: var(--ink);
+}
+
 .tag-filter {
   grid-column: 1 / -1;
   display: flex;
@@ -1971,6 +1978,32 @@ h3 {
   padding-top: 18px;
 }
 
+.post-jump-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px solid rgba(16, 35, 46, 0.08);
+  padding-top: 12px;
+}
+
+.post-jump-nav button {
+  border: 1px solid rgba(20, 123, 145, 0.16);
+  border-radius: 999px;
+  padding: 9px 13px;
+  background: rgba(248, 251, 251, 0.78);
+  color: var(--teal-dark);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.post-jump-nav button:hover,
+.post-jump-nav button:focus-visible {
+  border-color: rgba(14, 78, 102, 0.36);
+  outline: 0;
+}
+
 .post-neighbor-nav a {
   display: grid;
   gap: 6px;
@@ -2666,6 +2699,11 @@ html.theme-enter-pneuma::after {
 :root[data-theme-state="ousia"] .author-chip,
 :root[data-theme-state="ousia"] .published-badge {
   background: rgba(102, 213, 240, 0.11);
+}
+
+:root[data-theme-state="ousia"] .post-jump-nav button {
+  border-color: rgba(129, 218, 242, 0.16);
+  background: rgba(13, 27, 45, 0.62);
 }
 
 :root[data-theme-state="ousia"] .mascot-bubble,

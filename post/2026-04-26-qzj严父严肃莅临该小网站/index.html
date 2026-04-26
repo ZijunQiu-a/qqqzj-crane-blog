@@ -120,6 +120,10 @@
               <div class="post-detail-body">
                 <div class="entry-body"><p>四下无人的寂静深夜 年龄又偷偷增长 一个人发着呆 不知道未来到底在哪<br />也许是我太敏感 周围的任何一点动静都会被我无限放大<br />也许是我太脆弱 任何一点困难来临我就被轻易打垮<br />十几年了 还是没变<br />迷茫如旧 悲观如旧 孤独如旧<br />下一年 或许能有点长进吧</p></div>
               </div>
+              <div class="post-jump-nav" aria-label="文章跳转">
+                <button type="button" id="post-jump-top">回到顶部</button>
+                <button type="button" id="post-jump-bottom">跳到底部</button>
+              </div>
               <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
                 
                 <a href="../../post/2026-04-26-%E8%BF%99%E4%B8%AA%E5%90%8E%E7%AB%AF%E6%8E%A8%E9%80%81%E7%BB%99%E6%88%91%E5%BC%84%E6%AD%BB%E4%BA%86/"><span>Older / 更早</span><strong>这个后台推送给我弄死了</strong></a>
@@ -146,6 +150,14 @@
       window.addEventListener("scroll", updateReadingProgress, { passive: true });
       window.addEventListener("resize", updateReadingProgress);
       updateReadingProgress();
+
+      document.querySelector("#post-jump-top")?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-bottom")?.addEventListener("click", () => {
+        document.querySelector(".post-neighbor-nav, .site-footer")?.scrollIntoView({ behavior: "smooth", block: "end" });
+      });
 
       const toc = document.querySelector(".post-toc");
       const tocLinks = toc ? [...toc.querySelectorAll("a[data-heading-id]")] : [];

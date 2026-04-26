@@ -26,6 +26,8 @@ const views = {
   detailMeta: document.querySelector("#post-detail-meta"),
   detailToc: document.querySelector("#post-detail-toc"),
   detailBody: document.querySelector("#post-detail-body"),
+  jumpTop: document.querySelector("#post-jump-top"),
+  jumpBottom: document.querySelector("#post-jump-bottom"),
   neighborNav: document.querySelector("#post-neighbor-nav"),
   progress: document.querySelector("#reading-progress"),
 };
@@ -477,28 +479,77 @@ function renderFilterStatus(filteredCount, totalCount) {
 function renderSearchResults(entries) {
   if (!discovery.results) return;
 
-  const query = filters.query.trim();
+  const query = filters.query.trim().toLowerCase();
   discovery.results.replaceChildren();
   discovery.results.hidden = !query;
   if (!query) return;
 
-  if (!entries.length) {
+  const rankedEntries = entries
+    .map((entry) => ({
+      entry,
+      score: searchRank(entry, query),
+      snippet: searchSnippet(entry, query),
+    }))
+    .filter((item) => item.score > 0)
+    .sort((left, right) => right.score - left.score || comparePosts(left.entry, right.entry));
+
+  if (!rankedEntries.length) {
     const empty = document.createElement("p");
     empty.textContent = "No matching posts / 没有匹配文章";
     discovery.results.append(empty);
     return;
   }
 
-  entries.slice(0, 8).forEach((entry) => {
+  rankedEntries.slice(0, 8).forEach(({ entry, snippet }) => {
     const link = document.createElement("a");
     link.href = postHref(entry);
     link.innerHTML = `
       <span>${escapeHtml(kindLabel(entry.kind))} · ${escapeHtml(entry.tag || "")}</span>
       <strong>${escapeHtml(entry.title)}</strong>
-      <small>${escapeHtml(authorName(entry))} · ${escapeHtml(previewText(entry, "Open post / 打开文章"))}</small>
+      <small>${escapeHtml(authorName(entry))} · ${snippet || escapeHtml(previewText(entry, "Open post / 打开文章"))}</small>
     `;
     discovery.results.append(link);
   });
+}
+
+function searchRank(entry, query) {
+  const fields = [
+    [entry.title, 90],
+    [entry.tag, 58],
+    [entry.stage, 48],
+    [entry.author, 42],
+    [entry.excerpt, 30],
+    [stripHtml(entry.html || ""), 18],
+  ];
+
+  return fields.reduce((score, [value, weight]) => {
+    const text = String(value || "").toLowerCase();
+    if (!text.includes(query)) return score;
+    const positionBonus = Math.max(0, 18 - text.indexOf(query));
+    return score + weight + positionBonus;
+  }, 0);
+}
+
+function searchSnippet(entry, query) {
+  const fields = [
+    entry.title,
+    entry.excerpt,
+    stripHtml(entry.html || ""),
+  ].filter(Boolean);
+  const source = fields.find((value) => String(value).toLowerCase().includes(query)) || fields[0] || "";
+  const text = String(source).replace(/\s+/g, " ").trim();
+  const lower = text.toLowerCase();
+  const index = lower.indexOf(query);
+  if (index < 0) return "";
+
+  const start = Math.max(0, index - 24);
+  const end = Math.min(text.length, index + query.length + 42);
+  const prefix = start > 0 ? "..." : "";
+  const suffix = end < text.length ? "..." : "";
+  const before = escapeHtml(text.slice(start, index));
+  const match = escapeHtml(text.slice(index, index + query.length));
+  const after = escapeHtml(text.slice(index + query.length, end));
+  return `匹配：${prefix}${before}<mark>${match}</mark>${after}${suffix}`;
 }
 
 function archiveMonth(value) {
@@ -747,6 +798,14 @@ views.detailBody?.addEventListener("click", async (event) => {
   await copyText(sectionLink(id));
 });
 
+views.jumpTop?.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+views.jumpBottom?.addEventListener("click", () => {
+  views.neighborNav?.scrollIntoView({ behavior: "smooth", block: "end" });
+});
+
 window.addEventListener("scroll", updateReadingProgress, { passive: true });
 window.addEventListener("resize", updateReadingProgress);
 
@@ -846,7 +905,11 @@ discovery.search?.addEventListener("input", (event) => {
 discovery.search?.addEventListener("keydown", (event) => {
   if (event.key !== "Enter") return;
 
-  const [firstMatch] = allEntries().filter(matchesFilters);
+  const query = filters.query.trim().toLowerCase();
+  if (!query) return;
+  const [firstMatch] = allEntries()
+    .filter(matchesFilters)
+    .sort((left, right) => searchRank(right, query) - searchRank(left, query) || comparePosts(left, right));
   if (!firstMatch) return;
 
   event.preventDefault();

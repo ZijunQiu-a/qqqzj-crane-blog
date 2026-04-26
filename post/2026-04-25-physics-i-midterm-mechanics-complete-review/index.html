@@ -516,6 +516,10 @@ f_{\rm beat}&amp;=|f_1-f_2|.
 \end{aligned}
 $$</div><h4 id="附件">附件<a class="heading-anchor" href="#附件" data-heading-id="附件" aria-label="Copy section link / 复制小节链接">#</a></h4><div class="entry-file"><a class="download-button" href="../../files/2026-04-25-physics-i-midterm-review/普物I期中复习提纲-力学全覆盖版.pdf" download><span>下载 / 预览 PDF</span><small>普物I期中复习提纲-力学全覆盖版.pdf</small></a><details class="file-preview"><summary>Preview / 预览</summary><iframe src="../../files/2026-04-25-physics-i-midterm-review/普物I期中复习提纲-力学全覆盖版.pdf" title="普物I期中复习提纲-力学全覆盖版.pdf" loading="lazy"></iframe></details></div></div>
               </div>
+              <div class="post-jump-nav" aria-label="文章跳转">
+                <button type="button" id="post-jump-top">回到顶部</button>
+                <button type="button" id="post-jump-bottom">跳到底部</button>
+              </div>
               <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
                 <a href="../../post/2026-04-25-%E7%9C%9F%E5%A5%BD-%E5%8F%88%E6%B5%AA%E8%B4%B9%E4%BA%86%E4%B8%80%E5%A4%A9/"><span>Newer / 更新</span><strong>真好，又浪费了一天</strong></a>
                 <a href="../../post/2026-04-25-physics-i-midterm-review-outline/"><span>Older / 更早</span><strong>普物 I 期中复习提纲（重点速览版）</strong></a>
@@ -542,6 +546,14 @@ $$</div><h4 id="附件">附件<a class="heading-anchor" href="#附件" data-head
       window.addEventListener("scroll", updateReadingProgress, { passive: true });
       window.addEventListener("resize", updateReadingProgress);
       updateReadingProgress();
+
+      document.querySelector("#post-jump-top")?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-bottom")?.addEventListener("click", () => {
+        document.querySelector(".post-neighbor-nav, .site-footer")?.scrollIntoView({ behavior: "smooth", block: "end" });
+      });
 
       const toc = document.querySelector(".post-toc");
       const tocLinks = toc ? [...toc.querySelectorAll("a[data-heading-id]")] : [];

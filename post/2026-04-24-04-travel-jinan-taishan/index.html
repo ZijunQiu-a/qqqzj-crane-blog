@@ -126,6 +126,10 @@
               <div class="post-detail-body">
                 <div class="entry-body"><p>为了这次出行，清明前我真的付出了太多～～</p><h4 id="趵突泉">趵突泉<a class="heading-anchor" href="#趵突泉" data-heading-id="趵突泉" aria-label="Copy section link / 复制小节链接">#</a></h4><p>竟然只是三个冒水的洞？！</p><figure class="entry-media"><img src="../../media/2026-04-24-travel-jinan-taishan/baotuquan.jpeg" alt="趵突泉" loading="lazy" /><figcaption>趵突泉</figcaption></figure><h4 id="夜里的泰山">夜里的泰山<a class="heading-anchor" href="#夜里的泰山" data-heading-id="夜里的泰山" aria-label="Copy section link / 复制小节链接">#</a></h4><figure class="entry-media"><img src="../../media/2026-04-24-travel-jinan-taishan/yewantaishan.jpeg" alt="夜里的泰山" loading="lazy" /><figcaption>夜里的泰山</figcaption></figure><h4 id="泰山日出">泰山日出<a class="heading-anchor" href="#泰山日出" data-heading-id="泰山日出" aria-label="Copy section link / 复制小节链接">#</a></h4><p>“日上，正赤如丹，下有红光动摇承之”</p><figure class="entry-media"><img src="../../media/2026-04-24-travel-jinan-taishan/taishanrichu.jpeg" alt="泰山日出" loading="lazy" /><figcaption>泰山日出</figcaption></figure></div>
               </div>
+              <div class="post-jump-nav" aria-label="文章跳转">
+                <button type="button" id="post-jump-top">回到顶部</button>
+                <button type="button" id="post-jump-bottom">跳到底部</button>
+              </div>
               <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
                 <a href="../../post/2026-04-24-first-news/"><span>Newer / 更新</span><strong>完成个人网站第一版</strong></a>
                 
@@ -152,6 +156,14 @@
       window.addEventListener("scroll", updateReadingProgress, { passive: true });
       window.addEventListener("resize", updateReadingProgress);
       updateReadingProgress();
+
+      document.querySelector("#post-jump-top")?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-bottom")?.addEventListener("click", () => {
+        document.querySelector(".post-neighbor-nav, .site-footer")?.scrollIntoView({ behavior: "smooth", block: "end" });
+      });
 
       const toc = document.querySelector(".post-toc");
       const tocLinks = toc ? [...toc.querySelectorAll("a[data-heading-id]")] : [];
