@@ -2286,6 +2286,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "General Physics I Midterm Review Outline / 普物 I 期中复习提纲（Mechanics 讲义全覆盖版） Main reference / 主参考：普物I/reference books/mechan...",
       "readingMinutes": 14,
       "createdAt": "2026-04-25T00:00:00.000Z"
+    },
+    {
+      "id": "notes/随笔/2026-04-26-qzj-老爹莅临检查.md",
+      "slug": "2026-04-26-qzj-老爹莅临检查",
+      "source": "post",
+      "kind": "notes",
+      "title": "qzj 老爹莅临检查",
+      "publishedIndex": 12,
+      "stage": "Notes 笔记",
+      "tag": "随笔",
+      "author": "junchao353-glitch",
+      "url": "",
+      "html": "<p>加油吧撑过这段时间就好了宝宝</p>",
+      "headings": [],
+      "excerpt": "加油吧撑过这段时间就好了宝宝",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-26T00:00:00.000Z"
     }
   ],
   "videos": [
