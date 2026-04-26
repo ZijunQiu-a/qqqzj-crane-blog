@@ -856,30 +856,171 @@ function updateReadingProgress() {
 const mascotWidget = document.querySelector("#mascot-widget");
 const mascotBubble = document.querySelector("#mascot-bubble");
 const helloBurst = document.querySelector("#hello-burst");
-const mascotLines = [
-  "今日也要优雅记录 / Keep it elegant.",
-  "水面会记得每一次前进 / Every ripple counts.",
-  "新的灵感登场了 / A new idea enters the stage.",
-  "别忘了给自己一点掌声 / Applause for today.",
-  "去写一条 Life 吧 / Capture a tiny life moment.",
-];
-let mascotLineIndex = 0;
+const mascotLines = {
+  home: [
+    "今日也要优雅记录 / Keep it elegant.",
+    "水面会记得每一次前进 / Every ripple counts.",
+    "新的灵感登场了 / A new idea enters the stage.",
+    "欢迎回到 Crane 的小剧场。",
+    "先看最近更新，还是直接开写？",
+    "今天也有一点点进度，已经很好。",
+    "把碎片收起来，日后会发光。",
+  ],
+  about: [
+    "这里是 Crane 的小小剧场 / Welcome backstage.",
+    "慢慢写，慢慢变好 / Becoming better counts.",
+    "我会帮你守着这片水面 / I am watching the archive.",
+    "这里放的是关于你的线索。",
+    "安静的系统，也可以很漂亮。",
+    "个人站嘛，要像自己才好。",
+    "成长不是宣言，是每天留下的一点痕迹。",
+  ],
+  news: [
+    "公告板有新剧情吗 / Any new chapter today?",
+    "把变化记下来，就是站点的心跳。",
+    "今天的更新也值得被看见。",
+    "这条动态可以写得短一点，没关系。",
+    "修过的细节，也算一次小胜利。",
+    "网站在慢慢长出自己的样子。",
+    "发布前再看一眼标题，优雅但谨慎。",
+  ],
+  notes: [
+    "笔记区开演 / Study scene begins.",
+    "公式不要怕，先把思路写下来。",
+    "把难题拆小，掌声就会变近。",
+    "不会的地方，先标出来就赢一半。",
+    "今日份知识点，正在入座。",
+    "证明可以慢慢补，结构先搭起来。",
+    "复习不是重来，是把路走顺一点。",
+    "这一步如果卡住，就换个角度看。",
+  ],
+  life: [
+    "生活片段也有主角光 / Tiny moments matter.",
+    "去写一条 Life 吧 / Capture a tiny life moment.",
+    "今天的小事，也可以存档。",
+    "浪费掉的一天，也可能有可爱的证据。",
+    "照片、天气、晚饭，都可以成为文章。",
+    "生活不一定宏大，但可以被温柔记录。",
+    "这一幕值得留一下。",
+  ],
+  post: [
+    "读到这里辛苦啦 / Good progress.",
+    "双击我，可以回到开头。",
+    "这一节要不要复制链接留个锚点？",
+    "如果看累了，可以先停在这里。",
+    "长文也可以一段一段读。",
+    "这个标题看起来很重要。",
+    "读完这一节就给自己一点掌声。",
+    "需要回顶部的话，我在右下角。",
+  ],
+};
+const mascotMoods = ["is-twirl", "is-bow", "is-wave"];
 let mascotTimer;
+let mascotClickTimer;
+let lastMascotLine = "";
+let mascotTapCount = 0;
+let mascotTapTimer;
 const helloWords = ["你好呀"];
 
 // 重新触发动画的小技巧：移除 class，读取 offsetWidth，再加回 class。
 mascotWidget?.addEventListener("click", () => {
-  mascotLineIndex = (mascotLineIndex + 1) % mascotLines.length;
-  mascotBubble.textContent = mascotLines[mascotLineIndex];
-  mascotWidget.classList.remove("is-excited");
+  mascotTapCount += 1;
+  playMascotTapFeedback();
+  window.clearTimeout(mascotClickTimer);
+  mascotClickTimer = window.setTimeout(() => {
+    showMascotLine(randomMascotLine(), { preserveCombo: true, sparkle: true });
+  }, 210);
+});
+
+mascotWidget?.addEventListener("dblclick", (event) => {
+  event.preventDefault();
+  window.clearTimeout(mascotClickTimer);
+  mascotTapCount = 0;
+  const inPost = window.location.hash.startsWith("#post/");
+  showMascotLine(inPost ? "回到文章开头 / Back to the opening." : "回到舞台中央 / Back to top.", {
+    mood: "is-bow",
+    resetCombo: true,
+    sparkle: true,
+  });
+
+  if (inPost) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    navigateHomeTop();
+  }
+});
+
+function showMascotLine(line, options = {}) {
+  if (!mascotWidget || !mascotBubble) return;
+
+  if (!options.preserveCombo) mascotTapCount = options.resetCombo ? 0 : mascotTapCount + 1;
+  const comboMood = mascotTapCount >= 4 ? "is-curtain-call" : "";
+  const mood = comboMood || options.mood || mascotMoods[Math.floor(Math.random() * mascotMoods.length)];
+  lastMascotLine = line;
+  mascotBubble.textContent = comboMood ? "连击成功 / Encore!" : line;
+  mascotWidget.classList.remove("is-excited", "is-combo", "is-curtain-call", ...mascotMoods);
   void mascotWidget.offsetWidth;
-  mascotWidget.classList.add("is-speaking", "is-excited");
+  mascotWidget.classList.add("is-speaking", "is-excited", mood);
+  if (mascotTapCount >= 2) mascotWidget.classList.add("is-combo");
+  if (options.sparkle) addMascotSparkles();
 
   window.clearTimeout(mascotTimer);
   mascotTimer = window.setTimeout(() => {
-    mascotWidget.classList.remove("is-speaking", "is-excited");
+    mascotTapCount = 0;
+    mascotWidget.classList.remove("is-speaking", "is-excited", "is-combo", "is-curtain-call", ...mascotMoods);
   }, 2600);
-});
+}
+
+function playMascotTapFeedback() {
+  if (!mascotWidget) return;
+  mascotWidget.classList.remove("is-quick-tap");
+  void mascotWidget.offsetWidth;
+  mascotWidget.classList.add("is-quick-tap");
+  if (mascotTapCount >= 2) mascotWidget.classList.add("is-combo");
+  if (mascotTapCount >= 3) addMascotSparkles();
+
+  window.clearTimeout(mascotTapTimer);
+  mascotTapTimer = window.setTimeout(() => {
+    mascotWidget.classList.remove("is-quick-tap");
+  }, 360);
+}
+
+function randomMascotLine() {
+  const pool = mascotLines[mascotContext()] || mascotLines.home;
+  const candidates = pool.length > 1 ? pool.filter((line) => line !== lastMascotLine) : pool;
+  return candidates[Math.floor(Math.random() * candidates.length)] || pool[0] || "Bonjour / 你好呀";
+}
+
+function mascotContext() {
+  const hash = window.location.hash || "#home";
+  if (hash.startsWith("#post/")) return "post";
+  if (hash.includes("about")) return "about";
+  if (hash.includes("news") || hash.includes("growth")) return "news";
+  if (hash.includes("notes")) return "notes";
+  if (hash.includes("life")) return "life";
+  return "home";
+}
+
+function addMascotSparkles() {
+  if (!mascotWidget) return;
+  const points = [
+    ["8px", "52%", "-18px", "-18px"],
+    ["58%", "18%", "12px", "-24px"],
+    ["76%", "60%", "20px", "2px"],
+  ];
+
+  points.forEach(([left, top, dx, dy], index) => {
+    const sparkle = document.createElement("span");
+    sparkle.className = "mascot-sparkle";
+    sparkle.style.left = left;
+    sparkle.style.top = top;
+    sparkle.style.setProperty("--dx", dx);
+    sparkle.style.setProperty("--dy", dy);
+    sparkle.style.setProperty("--delay", `${index * 45}ms`);
+    mascotWidget.append(sparkle);
+    window.setTimeout(() => sparkle.remove(), 980);
+  });
+}
 
 function playHelloBurst() {
   if (!helloBurst) return;
