@@ -1703,22 +1703,10 @@ h3 {
 .post-toc strong {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
   width: fit-content;
   color: var(--ink);
   font-size: 12px;
   line-height: 1.2;
-}
-
-.post-toc strong::before {
-  border-radius: 999px;
-  padding: 2px 6px;
-  content: "TOC";
-  background: rgba(20, 123, 145, 0.1);
-  color: var(--teal-dark);
-  font-size: 9px;
-  font-weight: 950;
-  letter-spacing: 0;
 }
 
 .post-toc div {
@@ -1974,13 +1962,13 @@ h3 {
   .post-toc:hover::before,
   .post-toc:focus-within::before,
   .post-toc.is-open::before {
-    left: -22px;
+    opacity: 0;
   }
 
   .post-toc:hover::after,
   .post-toc:focus-within::after,
   .post-toc.is-open::after {
-    left: -12px;
+    opacity: 0;
   }
 
   .post-toc div {
@@ -3140,13 +3128,13 @@ html.theme-enter-pneuma::after {
   .post-toc:hover::before,
   .post-toc:focus-within::before,
   .post-toc.is-open::before {
-    left: -22px;
+    opacity: 0;
   }
 
   .post-toc:hover::after,
   .post-toc:focus-within::after,
   .post-toc.is-open::after {
-    left: -12px;
+    opacity: 0;
   }
 
   .post-toc div {
