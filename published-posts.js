@@ -2350,7 +2350,7 @@ window.PUBLISHED_POSTS = {
       "slug": "2026-04-26-这个后端推送给我弄死了",
       "source": "post",
       "kind": "videos",
-      "title": "这个后端推送给我弄死了",
+      "title": "这个后台推送给我弄死了",
       "publishedIndex": 11,
       "stage": "Life Log 生活记录",
       "tag": "随笔",
