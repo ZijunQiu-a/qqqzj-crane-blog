@@ -689,6 +689,15 @@ h3 {
   scroll-margin-top: 86px;
 }
 
+.about-section,
+.timeline-section,
+.notes-section,
+.video-section,
+.archive-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 640px;
+}
+
 .discovery-section {
   padding-top: 4px;
 }

@@ -50,6 +50,8 @@ const filters = {
 };
 
 let tocObserver = null;
+let searchRenderTimer = null;
+const SEARCH_RENDER_DELAY = 160;
 
 // 总渲染入口：三类内容列表和顶部统计都在这里更新。
 function render() {
@@ -544,6 +546,7 @@ function navigateHomeTop(behavior = "smooth") {
 }
 
 function showPostDetail(entry) {
+  closeSearchResults();
   views.home.hidden = true;
   views.detail.hidden = false;
   views.detailKind.textContent = kindLabel(entry.kind);
@@ -837,7 +840,7 @@ window.setTimeout(playHelloBurst, 700);
 
 discovery.search?.addEventListener("input", (event) => {
   filters.query = event.target.value;
-  render();
+  scheduleSearchRender();
 });
 
 discovery.search?.addEventListener("keydown", (event) => {
@@ -855,8 +858,20 @@ discovery.clear?.addEventListener("click", () => {
   filters.tag = "all";
   filters.noteCategory = "all";
   discovery.search.value = "";
+  closeSearchResults();
   render();
 });
+
+function scheduleSearchRender() {
+  window.clearTimeout(searchRenderTimer);
+  searchRenderTimer = window.setTimeout(render, SEARCH_RENDER_DELAY);
+}
+
+function closeSearchResults() {
+  if (!discovery.results) return;
+  discovery.results.hidden = true;
+  discovery.results.replaceChildren();
+}
 
 // 根据链接类型输出展示内容：可嵌入平台用 iframe，视频文件用 video，其它用外链。
 function videoMarkup(url, title) {
