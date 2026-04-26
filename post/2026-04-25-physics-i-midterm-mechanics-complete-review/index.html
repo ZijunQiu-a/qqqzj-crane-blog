@@ -518,7 +518,6 @@ $$</div><h4 id="附件">附件<a class="heading-anchor" href="#附件" data-head
               </div>
               <div class="post-jump-nav" aria-label="文章跳转">
                 <button type="button" id="post-jump-top">回到顶部</button>
-                <button type="button" id="post-jump-bottom">跳到底部</button>
               </div>
               <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
                 <a href="../../post/2026-04-25-%E7%9C%9F%E5%A5%BD-%E5%8F%88%E6%B5%AA%E8%B4%B9%E4%BA%86%E4%B8%80%E5%A4%A9/"><span>Newer / 更新</span><strong>真好，又浪费了一天</strong></a>
@@ -549,10 +548,6 @@ $$</div><h4 id="附件">附件<a class="heading-anchor" href="#附件" data-head
 
       document.querySelector("#post-jump-top")?.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-
-      document.querySelector("#post-jump-bottom")?.addEventListener("click", () => {
-        document.querySelector(".post-neighbor-nav, .site-footer")?.scrollIntoView({ behavior: "smooth", block: "end" });
       });
 
       const toc = document.querySelector(".post-toc");

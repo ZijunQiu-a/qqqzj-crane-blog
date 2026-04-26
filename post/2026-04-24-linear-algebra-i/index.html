@@ -1068,7 +1068,6 @@ $$
               </div>
               <div class="post-jump-nav" aria-label="文章跳转">
                 <button type="button" id="post-jump-top">回到顶部</button>
-                <button type="button" id="post-jump-bottom">跳到底部</button>
               </div>
               <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
                 <a href="../../post/2026-04-25-homepage-reading-polish/"><span>Newer / 更新</span><strong>首页和阅读体验继续打磨</strong></a>
@@ -1099,10 +1098,6 @@ $$
 
       document.querySelector("#post-jump-top")?.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-
-      document.querySelector("#post-jump-bottom")?.addEventListener("click", () => {
-        document.querySelector(".post-neighbor-nav, .site-footer")?.scrollIntoView({ behavior: "smooth", block: "end" });
       });
 
       const toc = document.querySelector(".post-toc");

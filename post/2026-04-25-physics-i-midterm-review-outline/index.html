@@ -350,7 +350,6 @@ $$</div><h4 id="附件">附件<a class="heading-anchor" href="#附件" data-head
               </div>
               <div class="post-jump-nav" aria-label="文章跳转">
                 <button type="button" id="post-jump-top">回到顶部</button>
-                <button type="button" id="post-jump-bottom">跳到底部</button>
               </div>
               <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
                 <a href="../../post/2026-04-25-physics-i-midterm-mechanics-complete-review/"><span>Newer / 更新</span><strong>普物 I 期中复习提纲（力学全覆盖版）</strong></a>
@@ -381,10 +380,6 @@ $$</div><h4 id="附件">附件<a class="heading-anchor" href="#附件" data-head
 
       document.querySelector("#post-jump-top")?.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-
-      document.querySelector("#post-jump-bottom")?.addEventListener("click", () => {
-        document.querySelector(".post-neighbor-nav, .site-footer")?.scrollIntoView({ behavior: "smooth", block: "end" });
       });
 
       const toc = document.querySelector(".post-toc");

@@ -27,7 +27,6 @@ const views = {
   detailToc: document.querySelector("#post-detail-toc"),
   detailBody: document.querySelector("#post-detail-body"),
   jumpTop: document.querySelector("#post-jump-top"),
-  jumpBottom: document.querySelector("#post-jump-bottom"),
   neighborNav: document.querySelector("#post-neighbor-nav"),
   progress: document.querySelector("#reading-progress"),
 };
@@ -800,10 +799,6 @@ views.detailBody?.addEventListener("click", async (event) => {
 
 views.jumpTop?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-views.jumpBottom?.addEventListener("click", () => {
-  views.neighborNav?.scrollIntoView({ behavior: "smooth", block: "end" });
 });
 
 window.addEventListener("scroll", updateReadingProgress, { passive: true });
