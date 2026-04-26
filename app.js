@@ -1008,6 +1008,9 @@ function renderMarkdown(markdown) {
       const callout = calloutMarkdown(block);
       if (callout) return callout;
 
+      const fence = codeFenceMarkdown(block);
+      if (fence) return fence;
+
       if (/^\$\$[\s\S]*\$\$$/.test(block)) {
         return `<div class="math-display">${escapeHtml(block)}</div>`;
       }
@@ -1086,6 +1089,14 @@ function paragraphMarkdown(block) {
   const html = inlineMarkdown(block);
   if (block.includes("$$")) return `<p>${html}</p>`;
   return `<p>${html.replaceAll("\n", "<br />")}</p>`;
+}
+
+function codeFenceMarkdown(block) {
+  const match = block.match(/^```([a-z0-9_-]+)?\n([\s\S]*?)\n```$/i);
+  if (!match) return "";
+
+  const language = match[1] ? ` data-language="${escapeAttribute(match[1])}"` : "";
+  return `<pre${language}><code>${escapeHtml(match[2])}</code></pre>`;
 }
 
 function tableMarkdown(block) {
