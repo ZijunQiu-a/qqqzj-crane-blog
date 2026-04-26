@@ -2286,23 +2286,6 @@ window.PUBLISHED_POSTS = {
       "excerpt": "General Physics I Midterm Review Outline / 普物 I 期中复习提纲（Mechanics 讲义全覆盖版） Main reference / 主参考：普物I/reference books/mechan...",
       "readingMinutes": 14,
       "createdAt": "2026-04-25T00:00:00.000Z"
-    },
-    {
-      "id": "notes/随笔/2026-04-26-我就这么弄这个破网站.md",
-      "slug": "2026-04-26-我就这么弄这个破网站",
-      "source": "post",
-      "kind": "notes",
-      "title": "我就这么弄这个破网站",
-      "publishedIndex": 11,
-      "stage": "Notes 笔记",
-      "tag": "随笔",
-      "author": "ZijunQiu-a",
-      "url": "",
-      "html": "<p>又玩了一早上AI</p>",
-      "headings": [],
-      "excerpt": "又玩了一早上AI",
-      "readingMinutes": 1,
-      "createdAt": "2026-04-26T00:00:00.000Z"
     }
   ],
   "videos": [
@@ -2368,14 +2351,14 @@ window.PUBLISHED_POSTS = {
       "source": "post",
       "kind": "videos",
       "title": "这个后端推送给我弄死了",
-      "publishedIndex": 12,
+      "publishedIndex": 11,
       "stage": "Life Log 生活记录",
       "tag": "随笔",
-      "author": "ZijunQiu-a",
+      "author": "zijunqiu-a",
       "url": "",
-      "html": "<p>我真花了一早上 现在午饭还没吃</p>",
+      "html": "<p>我真花了一早上 现在午饭还没吃<br />又玩了一早上AI<br />两点了还没吃</p>",
       "headings": [],
-      "excerpt": "我真花了一早上 现在午饭还没吃",
+      "excerpt": "我真花了一早上 现在午饭还没吃 又玩了一早上AI 两点了还没吃",
       "readingMinutes": 1,
       "createdAt": "2026-04-26T00:00:00.000Z"
     }
