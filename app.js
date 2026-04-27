@@ -55,14 +55,10 @@ let tocObserver = null;
 let searchRenderTimer = null;
 let routeRenderToken = 0;
 const SEARCH_RENDER_DELAY = 160;
-const SPLASH_SESSION_KEY = "qqqzj-crane-splash-seen-v1";
-const SPLASH_STILL_MS = 1450;
-const SPLASH_LEAVE_DELAY_MS = 100;
-const SPLASH_HANDOFF_DELAY_MS = 160;
-const SPLASH_HANDOFF_MS = 1300;
-const SPLASH_EXIT_MS = 1600;
+const ENTRY_EFFECT_SESSION_KEY = "qqqzj-crane-entry-effect-seen-v1";
+const ENTRY_EFFECT_MS = 1300;
 
-initSplashScreen();
+initEntryEffect();
 
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
@@ -105,93 +101,55 @@ function registerServiceWorker() {
   });
 }
 
-function initSplashScreen() {
-  const splash = document.querySelector("#app-splash");
-  if (!splash) return;
-
+function initEntryEffect() {
   const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
   const forcePreview = new URLSearchParams(window.location.search).has("splash");
   let alreadySeen = false;
 
+  if (reduceMotion) return;
+
   try {
-    alreadySeen = window.sessionStorage.getItem(SPLASH_SESSION_KEY) === "1";
+    alreadySeen = window.sessionStorage.getItem(ENTRY_EFFECT_SESSION_KEY) === "1";
   } catch {
     alreadySeen = false;
   }
 
-  if (reduceMotion || (!forcePreview && alreadySeen)) {
-    splash.remove();
-    return;
+  if (!forcePreview && alreadySeen) return;
+
+  const play = () => {
+    const root = document.documentElement;
+    root.classList.add("entry-handoff-glow");
+
+    if (window.craneTheme?.playTransition) {
+      window.craneTheme.playTransition();
+    } else {
+      const state = root.dataset.themeState === "ousia" ? "ousia" : "pneuma";
+      root.classList.add("theme-transitioning", `theme-enter-${state}`);
+      window.setTimeout(() => {
+        root.classList.remove("theme-transitioning", "theme-enter-pneuma", "theme-enter-ousia");
+      }, ENTRY_EFFECT_MS);
+    }
+
+    window.setTimeout(() => {
+      root.classList.remove("entry-handoff-glow");
+    }, ENTRY_EFFECT_MS);
+  };
+
+  const schedulePlay = () => window.requestAnimationFrame(play);
+
+  if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", schedulePlay, { once: true });
+  } else {
+    schedulePlay();
   }
 
-  document.documentElement.classList.add("splash-active");
-  resetSplashScroll();
-  window.addEventListener("load", resetSplashScroll, { once: true });
-
-  let closed = false;
-  let finishing = false;
-  let closeTimer = 0;
-  let handoffTimer = 0;
-
-  const beginFinish = () => {
-    if (finishing) return;
-    finishing = true;
-    document.documentElement.classList.add("splash-revealing");
-    splash.classList.add("is-finishing");
-  };
-
-  const closeSplash = ({ immediate = false } = {}) => {
-    if (closed) return;
-    closed = true;
-    window.clearTimeout(closeTimer);
-    window.clearTimeout(handoffTimer);
-    beginFinish();
-    const leaveDelay = immediate ? 0 : SPLASH_LEAVE_DELAY_MS;
-    window.setTimeout(() => {
-      document.documentElement.classList.add("splash-fading");
-      splash.classList.add("is-leaving");
-    }, leaveDelay);
-
-    if (!immediate) {
-      handoffTimer = window.setTimeout(() => {
-        document.documentElement.classList.add("splash-handoff-glow");
-        window.craneTheme?.playTransition?.();
-        window.setTimeout(() => {
-          document.documentElement.classList.remove("splash-handoff-glow");
-        }, SPLASH_HANDOFF_MS);
-      }, leaveDelay + SPLASH_HANDOFF_DELAY_MS);
+  if (!forcePreview) {
+    try {
+      window.sessionStorage.setItem(ENTRY_EFFECT_SESSION_KEY, "1");
+    } catch {
+      // sessionStorage 失效时只影响入口光效是否重复播放，不影响页面使用。
     }
-
-    if (!forcePreview) {
-      try {
-        window.sessionStorage.setItem(SPLASH_SESSION_KEY, "1");
-      } catch {
-        // sessionStorage 失效时只影响是否重复播放，不影响页面使用。
-      }
-    }
-
-    window.setTimeout(() => {
-      splash.remove();
-      document.documentElement.classList.remove("splash-active", "splash-revealing", "splash-fading");
-    }, leaveDelay + SPLASH_EXIT_MS);
-  };
-
-  splash.querySelector(".app-splash-skip")?.addEventListener("click", () => closeSplash({ immediate: true }));
-  window.addEventListener("keydown", (event) => {
-    if (["Escape", "Enter", " "].includes(event.key)) closeSplash({ immediate: true });
-  }, { once: true });
-  window.addEventListener("wheel", () => closeSplash({ immediate: true }), { once: true, passive: true });
-  window.addEventListener("touchstart", () => closeSplash({ immediate: true }), { once: true, passive: true });
-
-  closeTimer = window.setTimeout(() => closeSplash(), SPLASH_STILL_MS);
-}
-
-function resetSplashScroll() {
-  const hash = window.location.hash;
-  if (hash && hash !== "#home") return;
-  window.requestAnimationFrame(() => {
-    window.scrollTo({ left: 0, top: 0, behavior: "auto" });
-  });
+  }
 }
 
 function activateWaitingServiceWorker(worker) {

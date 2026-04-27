@@ -82,269 +82,6 @@ button {
   cursor: pointer;
 }
 
-html.splash-active,
-html.splash-active body {
-  overflow: hidden;
-}
-
-html.splash-active body::before {
-  position: fixed;
-  inset: 0;
-  z-index: 900;
-  content: "";
-  background: #d9e5ef;
-  opacity: 1;
-  pointer-events: none;
-  transition: opacity 2100ms cubic-bezier(0.18, 0.72, 0.16, 1);
-}
-
-:root[data-theme-state="ousia"].splash-active body::before {
-  background: #07111e;
-}
-
-html.splash-active.splash-revealing body::before {
-  opacity: 0.18;
-}
-
-html.splash-active.splash-fading body::before {
-  opacity: 0;
-}
-
-html.splash-active .site-shell {
-  opacity: 0;
-  filter: blur(2px);
-  transform: translateY(8px) scale(0.996);
-  transition:
-    opacity 2000ms cubic-bezier(0.18, 0.72, 0.16, 1),
-    filter 2000ms cubic-bezier(0.18, 0.72, 0.16, 1),
-    transform 2000ms cubic-bezier(0.18, 0.72, 0.16, 1);
-  will-change: opacity, filter, transform;
-}
-
-html.splash-active.splash-revealing .site-shell {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(0) scale(1);
-}
-
-.app-splash {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  overflow: hidden;
-  background: #d7e4ef;
-  color: white;
-  opacity: 1;
-  filter: blur(0) brightness(1);
-  pointer-events: auto;
-  transform: translateZ(0);
-  transition:
-    filter 2100ms cubic-bezier(0.18, 0.72, 0.16, 1),
-    opacity 2100ms cubic-bezier(0.18, 0.72, 0.16, 1),
-    visibility 2100ms ease;
-  will-change: filter, opacity;
-}
-
-:root[data-theme-state="ousia"] .app-splash {
-  background: #07111e;
-}
-
-.app-splash.is-leaving {
-  visibility: hidden;
-  opacity: 0;
-  filter: blur(1.5px) brightness(1.03);
-  pointer-events: none;
-}
-
-.app-splash::after {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  content: "";
-  background:
-    linear-gradient(180deg, rgba(7, 17, 30, 0.1), transparent 36%, rgba(7, 17, 30, 0.18)),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent 32%, rgba(31, 68, 98, 0.12));
-  opacity: 1;
-  pointer-events: none;
-  transition: opacity 1600ms cubic-bezier(0.18, 0.72, 0.16, 1);
-}
-
-.app-splash::before {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  content: "";
-  background:
-    radial-gradient(circle at 50% 48%, rgba(16, 38, 58, 0.16), rgba(16, 38, 58, 0.08) 34%, transparent 62%),
-    linear-gradient(180deg, rgba(7, 17, 30, 0.04), rgba(7, 17, 30, 0.16));
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(1);
-  transition:
-    opacity 1300ms cubic-bezier(0.22, 0.72, 0.18, 1),
-    transform 1500ms cubic-bezier(0.22, 0.72, 0.18, 1);
-}
-
-.app-splash.is-finishing::before {
-  opacity: 0.58;
-  transform: scale(1.018);
-}
-
-.app-splash.is-leaving::after {
-  opacity: 0.38;
-}
-
-.app-splash-mark {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  width: min(62vw, 360px);
-  aspect-ratio: 1;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at 50% 44%, rgba(255, 254, 253, 0.72), rgba(255, 254, 253, 0.26) 22%, transparent 54%),
-    radial-gradient(circle at 48% 52%, rgba(102, 213, 240, 0.36), transparent 42%),
-    radial-gradient(circle at 52% 58%, rgba(202, 161, 76, 0.16), transparent 56%);
-  transform: translate(-50%, -50%);
-  opacity: 1;
-  filter: saturate(1.05);
-  transition:
-    filter 1800ms cubic-bezier(0.18, 0.72, 0.16, 1),
-    opacity 1800ms cubic-bezier(0.18, 0.72, 0.16, 1),
-    transform 2100ms cubic-bezier(0.18, 0.72, 0.16, 1);
-  will-change: filter, opacity, transform;
-  animation: splash-mark-pulse 1800ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.app-splash-mark::before,
-.app-splash-mark::after {
-  position: absolute;
-  content: "";
-  pointer-events: none;
-}
-
-.app-splash-mark::before {
-  inset: 18%;
-  border: 1px solid rgba(255, 254, 253, 0.72);
-  border-radius: 999px;
-  box-shadow:
-    0 0 30px rgba(102, 213, 240, 0.26),
-    inset 0 0 24px rgba(255, 254, 253, 0.3);
-}
-
-.app-splash-mark::after {
-  inset: 9%;
-  border-radius: 999px;
-  background: conic-gradient(from 210deg, transparent, rgba(102, 213, 240, 0.34), transparent 34%, rgba(255, 254, 253, 0.34), transparent 68%);
-  opacity: 0.78;
-  animation: splash-ring-spin 3400ms linear infinite;
-}
-
-.app-splash-mark span {
-  position: relative;
-  z-index: 1;
-  color: rgba(255, 254, 253, 0.92);
-  font-size: clamp(18px, 4vw, 34px);
-  font-weight: 950;
-  letter-spacing: 0;
-  text-shadow: 0 10px 36px rgba(7, 18, 31, 0.28);
-}
-
-:root[data-theme-state="ousia"] .app-splash-mark {
-  background:
-    radial-gradient(circle at 50% 44%, rgba(102, 213, 240, 0.28), rgba(102, 213, 240, 0.1) 25%, transparent 56%),
-    radial-gradient(circle at 48% 54%, rgba(166, 165, 245, 0.22), transparent 46%),
-    radial-gradient(circle at 54% 58%, rgba(255, 254, 253, 0.1), transparent 58%);
-}
-
-.app-splash.is-finishing .app-splash-mark {
-  filter: blur(0.8px) saturate(0.92) brightness(1.08);
-  opacity: 0.66;
-  transform: translate(-50%, -50%) scale(1.035);
-}
-
-.app-splash.is-leaving .app-splash-mark {
-  filter: blur(2.5px) saturate(0.78) brightness(1.12);
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(1.08);
-}
-
-.app-splash-skip {
-  position: absolute;
-  z-index: 6;
-  top: max(18px, env(safe-area-inset-top));
-  right: max(18px, env(safe-area-inset-right));
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  min-height: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-  padding: 0 12px;
-  background: rgba(22, 30, 44, 0.26);
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 12px;
-  font-weight: 900;
-  line-height: 1;
-  backdrop-filter: blur(14px);
-  box-shadow: 0 12px 28px rgba(7, 18, 30, 0.14);
-  transition:
-    border-color 160ms ease,
-    color 160ms ease,
-    opacity 260ms ease,
-    transform 160ms ease;
-}
-
-.app-splash.is-finishing .app-splash-skip {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-4px);
-}
-
-.app-splash-skip:hover,
-.app-splash-skip:focus-visible {
-  border-color: rgba(255, 255, 255, 0.4);
-  color: white;
-  outline: 0;
-  transform: translateY(-1px);
-}
-
-@keyframes splash-mark-pulse {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.94);
-  }
-
-  38% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes splash-ring-spin {
-  to {
-    transform: rotate(1turn);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .app-splash,
-  .app-splash::before,
-  .app-splash-mark,
-  .app-splash-mark::after,
-  .app-splash-skip,
-  html.splash-active .site-shell {
-    transition: none;
-    animation: none;
-  }
-}
-
 /* 页面外壳：限制最大宽度，并在小屏幕上保留左右边距。 */
 .site-shell {
   width: min(1180px, calc(100% - 32px));
@@ -2900,34 +2637,34 @@ html.theme-transitioning::after {
   animation: theme-soft-sheen 1160ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-html.splash-handoff-glow.theme-transitioning::before {
+html.entry-handoff-glow.theme-transitioning::before {
   z-index: 1002;
   animation-duration: 1320ms;
 }
 
-html.splash-handoff-glow.theme-transitioning::after {
+html.entry-handoff-glow.theme-transitioning::after {
   z-index: 1003;
   filter: saturate(1.12);
   animation-duration: 1320ms;
 }
 
-html.splash-handoff-glow.theme-enter-ousia::before {
+html.entry-handoff-glow.theme-enter-ousia::before {
   background:
     linear-gradient(135deg, rgba(246, 253, 255, 0.18), rgba(87, 193, 219, 0.3) 36%, rgba(9, 21, 35, 0.72) 100%),
     radial-gradient(circle at 70% 90%, rgba(102, 213, 240, 0.44), transparent 32%);
 }
 
-html.splash-handoff-glow.theme-enter-ousia::after {
+html.entry-handoff-glow.theme-enter-ousia::after {
   background: linear-gradient(100deg, transparent 16%, rgba(255, 254, 253, 0.18) 34%, rgba(132, 224, 247, 0.42) 48%, rgba(8, 18, 31, 0.16) 64%, transparent 84%);
 }
 
-html.splash-handoff-glow.theme-enter-pneuma::before {
+html.entry-handoff-glow.theme-enter-pneuma::before {
   background:
     linear-gradient(135deg, rgba(9, 21, 35, 0.12), rgba(126, 219, 236, 0.32) 38%, rgba(255, 254, 253, 0.82) 100%),
     radial-gradient(circle at 70% 90%, rgba(255, 232, 175, 0.42), transparent 32%);
 }
 
-html.splash-handoff-glow.theme-enter-pneuma::after {
+html.entry-handoff-glow.theme-enter-pneuma::after {
   background: linear-gradient(100deg, transparent 16%, rgba(255, 254, 253, 0.46) 44%, rgba(115, 218, 237, 0.2) 62%, transparent 84%);
 }
 
