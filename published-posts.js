@@ -304,6 +304,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "严肃品鉴unitree代码中",
       "readingMinutes": 1,
       "createdAt": "2026-04-27T00:00:00.000Z"
+    },
+    {
+      "id": "life/2026-04-27-我最近好像有点幸福了.md",
+      "slug": "2026-04-27-我最近好像有点幸福了",
+      "dataPath": "post-data/2026-04-27-%E6%88%91%E6%9C%80%E8%BF%91%E5%A5%BD%E5%83%8F%E6%9C%89%E7%82%B9%E5%B9%B8%E7%A6%8F%E4%BA%86.json",
+      "source": "post",
+      "kind": "videos",
+      "title": "我最近好像有点幸福了",
+      "publishedIndex": 17,
+      "stage": "Life Log 生活记录",
+      "tag": "随笔",
+      "author": "junchao353-glitch",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "我好像天快晴了",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-27T00:00:00.000Z"
     }
   ]
 };
