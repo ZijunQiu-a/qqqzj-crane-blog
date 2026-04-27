@@ -119,7 +119,7 @@ window.PUBLISHED_POSTS = {
       "tag": "随笔",
       "author": "Trae645",
       "url": "",
-      "html": "<p>ai王朝了我说</p>",
+      "html": "<p>ai王朝了我说</p><figure class=\"entry-media\"><img src=\"media/news-2026-04-27-实现app/IMG_8988.jpg\" alt=\"IMG_8988\" loading=\"lazy\" /><figcaption>IMG_8988</figcaption></figure>",
       "headings": [],
       "excerpt": "ai王朝了我说",
       "readingMinutes": 1,
