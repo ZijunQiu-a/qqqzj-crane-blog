@@ -2286,23 +2286,6 @@ window.PUBLISHED_POSTS = {
       "excerpt": "General Physics I Midterm Review Outline / 普物 I 期中复习提纲（Mechanics 讲义全覆盖版） Main reference / 主参考：普物I/reference books/mechan...",
       "readingMinutes": 14,
       "createdAt": "2026-04-25T00:00:00.000Z"
-    },
-    {
-      "id": "notes/随笔/2026-04-26-qzj-老爹莅临检查.md",
-      "slug": "2026-04-26-qzj-老爹莅临检查",
-      "source": "post",
-      "kind": "notes",
-      "title": "qzj 老爹莅临检查",
-      "publishedIndex": 12,
-      "stage": "Notes 笔记",
-      "tag": "随笔",
-      "author": "junchao353-glitch",
-      "url": "",
-      "html": "<p>加油吧撑过这段时间就好了宝宝</p>",
-      "headings": [],
-      "excerpt": "加油吧撑过这段时间就好了宝宝",
-      "readingMinutes": 1,
-      "createdAt": "2026-04-26T00:00:00.000Z"
     }
   ],
   "videos": [
@@ -2376,6 +2359,23 @@ window.PUBLISHED_POSTS = {
       "html": "<p>我真花了一早上 现在午饭还没吃<br />又玩了一早上AI<br />两点了还没吃</p>",
       "headings": [],
       "excerpt": "我真花了一早上 现在午饭还没吃 又玩了一早上AI 两点了还没吃",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-26T00:00:00.000Z"
+    },
+    {
+      "id": "notes/随笔/2026-04-26-qzj-老爹莅临检查.md",
+      "slug": "2026-04-26-qzj-老爹莅临检查",
+      "source": "post",
+      "kind": "videos",
+      "title": "qzj 老爹（并非）莅临检查",
+      "publishedIndex": 12,
+      "stage": "Life Log 生活记录",
+      "tag": "随笔",
+      "author": "junchao353-glitch",
+      "url": "",
+      "html": "<p>加油吧撑过这段时间就好了宝宝</p>",
+      "headings": [],
+      "excerpt": "加油吧撑过这段时间就好了宝宝",
       "readingMinutes": 1,
       "createdAt": "2026-04-26T00:00:00.000Z"
     }
