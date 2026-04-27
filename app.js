@@ -53,6 +53,7 @@ const filters = {
 
 let tocObserver = null;
 let searchRenderTimer = null;
+let routeRenderToken = 0;
 const SEARCH_RENDER_DELAY = 160;
 
 function registerServiceWorker() {
@@ -359,7 +360,7 @@ function previewText(entry, fallback = "") {
 }
 
 function previewVisualMarkup(entry) {
-  const image = firstImageFromHtml(entry.html || "");
+  const image = entry.previewImage || firstImageFromHtml(entry.html || "");
   if (image) {
     return `<img class="video-preview-image" src="${escapeAttribute(image.src)}" alt="${escapeAttribute(image.alt)}" loading="lazy" />`;
   }
@@ -606,6 +607,7 @@ function archiveMonth(value) {
 }
 
 function renderRoute() {
+  const token = ++routeRenderToken;
   const match = window.location.hash.match(/^#post\/(.+)$/);
   if (!match) {
     showHome();
@@ -619,7 +621,7 @@ function renderRoute() {
     return;
   }
 
-  showPostDetail(entry);
+  showPostDetail(entry, token);
 }
 
 function showHome() {
@@ -642,10 +644,28 @@ function navigateHomeTop(behavior = "smooth") {
   });
 }
 
-function showPostDetail(entry) {
+async function showPostDetail(entry, token = routeRenderToken) {
   closeSearchResults();
   views.home.hidden = true;
   views.detail.hidden = false;
+  if (!entry.html) {
+    views.detailKind.textContent = kindLabel(entry.kind);
+    views.detailTitle.textContent = entry.title;
+    views.detailMeta.textContent = "Loading / 正在加载";
+    views.detailBody.innerHTML = '<p class="preview-empty">Loading post / 正在加载文章...</p>';
+    views.detailToc.hidden = true;
+  }
+
+  try {
+    await hydratePostDetail(entry);
+  } catch {
+    if (token !== routeRenderToken) return;
+    views.detailBody.innerHTML = '<p class="preview-empty">This post could not be loaded. / 文章暂时加载失败。</p>';
+    return;
+  }
+
+  if (token !== routeRenderToken) return;
+
   views.detailKind.textContent = kindLabel(entry.kind);
   views.detailTitle.textContent = entry.title;
   views.detailMeta.innerHTML = `
@@ -666,6 +686,18 @@ function showPostDetail(entry) {
   typesetMath();
   window.scrollTo({ top: 0, behavior: "auto" });
   updateReadingProgress();
+}
+
+async function hydratePostDetail(entry) {
+  if (entry.html) return entry;
+  if (!entry.dataPath) return entry;
+
+  const response = await fetch(entry.dataPath);
+  if (!response.ok) throw new Error("Post detail request failed.");
+  const detail = await response.json();
+  entry.html = detail.html || "";
+  entry.headings = Array.isArray(detail.headings) ? detail.headings : [];
+  return entry;
 }
 
 function renderPostToc(entry) {

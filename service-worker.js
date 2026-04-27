@@ -1,4 +1,4 @@
-const CACHE_NAME = "crane-site-shell-v2";
+const CACHE_NAME = "crane-site-shell-v4";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -49,8 +49,14 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  event.respondWith(networkFirst(event.request));
+  if (shouldCacheRequest(url)) {
+    event.respondWith(networkFirst(event.request));
+  }
 });
+
+function shouldCacheRequest(url) {
+  return APP_SHELL.includes(url.pathname) || url.pathname.startsWith("/post-data/");
+}
 
 async function networkFirst(request, fallbackUrl) {
   try {
