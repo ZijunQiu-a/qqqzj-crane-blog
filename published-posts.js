@@ -284,6 +284,26 @@ window.PUBLISHED_POSTS = {
       "excerpt": "加油吧撑过这段时间就好了宝宝",
       "readingMinutes": 1,
       "createdAt": "2026-04-26T00:00:00.000Z"
+    },
+    {
+      "id": "life/2026-04-27-实验室好累.md",
+      "slug": "2026-04-27-实验室好累",
+      "dataPath": "post-data/2026-04-27-%E5%AE%9E%E9%AA%8C%E5%AE%A4%E5%A5%BD%E7%B4%AF.json",
+      "source": "post",
+      "kind": "videos",
+      "title": "实验室好累",
+      "publishedIndex": 16,
+      "stage": "Life Log 生活记录",
+      "tag": "随笔",
+      "author": "Trae645",
+      "url": "",
+      "previewImage": {
+        "src": "media/drafts/draft-2026-04-27-mogw92dy-d7548828/1ddc629b5dc3d09b77765b440753fbd8.png",
+        "alt": "1ddc629b5dc3d09b77765b440753fbd8"
+      },
+      "excerpt": "严肃品鉴unitree代码中",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-27T00:00:00.000Z"
     }
   ]
 };
