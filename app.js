@@ -9,6 +9,7 @@ const published = {
 };
 
 seedPublishedPosts();
+registerServiceWorker();
 
 // 常用 DOM 节点集中存起来，后面渲染时就不用反复 querySelector。
 const lists = {
@@ -53,6 +54,15 @@ const filters = {
 let tocObserver = null;
 let searchRenderTimer = null;
 const SEARCH_RENDER_DELAY = 160;
+
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js").catch(() => {
+      // The site still works normally without PWA installation support.
+    });
+  });
+}
 
 // 总渲染入口：三类内容列表和顶部统计都在这里更新。
 function render() {

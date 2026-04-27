@@ -7,6 +7,14 @@
     <meta name="description" content="这个链接没有找到，可以回到 qqqzj@Crane 首页继续浏览。" />
     <meta name="theme-color" content="#f3f7f8" />
     <link rel="canonical" href="https://qqqzj.cn/404.html" />
+    <meta name="application-name" content="qqqzj@Crane" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="qqqzj@Crane" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="assets/site-icon-192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/site-icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/site-icon-512.png" />
     <link rel="icon" href="assets/furina-avatar-pneuma.png?v=20260425-1" type="image/png" />
     <script>
       (() => {
@@ -29,6 +37,13 @@
     </script>
     <link rel="stylesheet" href="styles.css" />
     <script defer src="theme.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker.js").catch(() => {});
+        });
+      }
+    </script>
   </head>
   <body>
     <div class="site-shell">
