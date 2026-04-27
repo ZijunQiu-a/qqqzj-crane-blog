@@ -107,6 +107,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "今天借助 Codex 把 qqqzj@Crane 的第一版搭起来了，感谢 Chatgpt 呜呜呜。",
       "readingMinutes": 1,
       "createdAt": "2026-04-24T00:00:00.000Z"
+    },
+    {
+      "id": "news/2026-04-27-实现app.md",
+      "slug": "2026-04-27-实现app",
+      "source": "post",
+      "kind": "growth",
+      "title": "实现app",
+      "publishedIndex": 13,
+      "stage": "News 动态",
+      "tag": "随笔",
+      "author": "Trae645",
+      "url": "",
+      "html": "<p>ai王朝了我说</p>",
+      "headings": [],
+      "excerpt": "ai王朝了我说",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-27T00:00:00.000Z"
     }
   ],
   "notes": [
