@@ -2373,7 +2373,7 @@ window.PUBLISHED_POSTS = {
       "tag": "随笔",
       "author": "junchao353-glitch",
       "url": "",
-      "html": "<p>加油吧撑过这段时间就好了宝宝</p>",
+      "html": "<p>加油吧撑过这段时间就好了宝宝</p><figure class=\"entry-media\"><img src=\"media/notes-随笔-2026-04-26-qzj-老爹莅临检查/IMG_8415.jpg\" alt=\"IMG_8415\" loading=\"lazy\" /><figcaption>IMG_8415</figcaption></figure>",
       "headings": [],
       "excerpt": "加油吧撑过这段时间就好了宝宝",
       "readingMinutes": 1,
