@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>实现app · qqqzj@Crane</title>
-    <meta name="description" content="ai王朝了我说" />
-    <link rel="canonical" href="https://qqqzj.cn/post/2026-04-27-%E5%AE%9E%E7%8E%B0app/" />
+    <title>网站 App 化、后台和性能继续打磨 · qqqzj@Crane</title>
+    <meta name="description" content="这两天 qqqzj@Crane 又往前推了一大截。它已经不只是一个能打开的静态博客，而是开始变成一个更像 App 的个人写作和资料管理工具：前台负责阅读，后台负责发布，中间的图片、附件、构建和部署流程也尽量少让人操心。 这一轮更新主要集中在..." />
+    <link rel="canonical" href="https://qqqzj.cn/post/2026-04-27-site-app-admin-performance-update/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="实现app · qqqzj@Crane" />
-    <meta property="og:description" content="ai王朝了我说" />
-    <meta property="og:url" content="https://qqqzj.cn/post/2026-04-27-%E5%AE%9E%E7%8E%B0app/" />
-    <meta property="og:image" content="https://qqqzj.cn/media/news-2026-04-27-实现app/IMG_8988.jpg" />
+    <meta property="og:title" content="网站 App 化、后台和性能继续打磨 · qqqzj@Crane" />
+    <meta property="og:description" content="这两天 qqqzj@Crane 又往前推了一大截。它已经不只是一个能打开的静态博客，而是开始变成一个更像 App 的个人写作和资料管理工具：前台负责阅读，后台负责发布，中间的图片、附件、构建和部署流程也尽量少让人操心。 这一轮更新主要集中在..." />
+    <meta property="og:url" content="https://qqqzj.cn/post/2026-04-27-site-app-admin-performance-update/" />
+    <meta property="og:image" content="https://qqqzj.cn/assets/blog-studio-og.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#f3f7f8" />
     <meta name="application-name" content="qqqzj@Crane" />
@@ -155,22 +155,28 @@
             <a class="back-link" href="../../index.html#home">Back to home / 返回首页</a>
             <article class="post-detail-card">
               <p class="eyebrow">News 动态</p>
-              <h1>实现app</h1>
+              <h1>网站 App 化、后台和性能继续打磨</h1>
               <div class="post-detail-meta">
                 <time datetime="2026-04-27T00:00:00.000Z">2026年4月27日</time>
-                <span>随笔</span>
-                <span class="author-chip">作者 Trae645</span>
-                <span>约 1 分钟</span>
+                <span>建站</span>
+                <span class="author-chip">作者 ZijunQiu-a</span>
+                <span>约 3 分钟</span>
               </div>
+              <nav class="post-toc" aria-label="Table of contents / 文章目录">
+                <strong>Contents 目录</strong>
+                <div>
+                  <a class="toc-level-4" href="#域名和-app-化" data-heading-id="域名和-app-化">域名和 App 化</a><a class="toc-level-4" href="#后台写作更顺了" data-heading-id="后台写作更顺了">后台写作更顺了</a><a class="toc-level-4" href="#素材不会越堆越乱" data-heading-id="素材不会越堆越乱">素材不会越堆越乱</a><a class="toc-level-4" href="#前台加载更轻" data-heading-id="前台加载更轻">前台加载更轻</a><a class="toc-level-4" href="#部署和维护" data-heading-id="部署和维护">部署和维护</a>
+                </div>
+              </nav>
               <div class="post-detail-body">
-                <div class="entry-body"><p>ai王朝了我说</p><figure class="entry-media"><img src="../../media/news-2026-04-27-实现app/IMG_8988.jpg" alt="IMG_8988" loading="lazy" /><figcaption>IMG_8988</figcaption></figure></div>
+                <div class="entry-body"><p>这两天 qqqzj@Crane 又往前推了一大截。它已经不只是一个能打开的静态博客，而是开始变成一个更像 App 的个人写作和资料管理工具：前台负责阅读，后台负责发布，中间的图片、附件、构建和部署流程也尽量少让人操心。</p><p>这一轮更新主要集中在几个地方。</p><h4 id="域名和-app-化">域名和 App 化<a class="heading-anchor" href="#域名和-app-化" data-heading-id="域名和-app-化" aria-label="Copy section link / 复制小节链接">#</a></h4><p>主站现在已经切到 <code>qqqzj.cn</code>，后台也单独挂到了 <code>admin.qqqzj.cn</code>。这样前台和后台的入口更清楚：一个给读者看，一个给自己写和维护。</p><p>前台和后台都补上了 PWA 支持，可以像普通 App 一样添加到手机或电脑桌面。缓存策略也重新收紧了一遍，只缓存真正适合离线保留的外壳文件和轻量数据，不再把大图、PDF 和媒体文件塞进浏览器缓存里。</p><p>这样做的感觉会更接近日常使用的 App：打开快，入口固定，更新也更利落。</p><h4 id="后台写作更顺了">后台写作更顺了<a class="heading-anchor" href="#后台写作更顺了" data-heading-id="后台写作更顺了" aria-label="Copy section link / 复制小节链接">#</a></h4><p>后台编辑器继续围绕 Markdown 写作调整。现在上传图片、视频和附件之后，会自动插入可用的 Markdown 链接；图片会在上传前自动压缩，避免一张手机原图就把仓库和网页都拖慢。</p><p>新建文章时，素材会先进入稳定的 draft 目录。标题、分类或 slug 还没确定的时候，图片不会因为你改文章名就到处散落；等文章保存发布后，再由实际文章内容来决定哪些素材还在使用。</p><p>已有文章也能更方便地继续补图、补附件和移动目录。上传和保存会尽量合成一次提交，减少“图片传上去了，正文还没跟上”的断裂感。</p><h4 id="素材不会越堆越乱">素材不会越堆越乱<a class="heading-anchor" href="#素材不会越堆越乱" data-heading-id="素材不会越堆越乱" aria-label="Copy section link / 复制小节链接">#</a></h4><p>这次专门补了一层素材引用扫描。构建和后台都会用同一套逻辑判断文章里到底引用了哪些图片、视频和附件，避免前台漏文件，也方便后台清理没有被正文使用的草稿素材。</p><p>如果文件名重复，后台会自动改名保存，不会直接覆盖旧文件。草稿目录也加了清理入口，可以把没有插进文章里的临时素材收掉。</p><p>这部分不是很显眼，但对长期写博客很重要。文章一多，如果图片、PDF 和临时文件没有规则，仓库很快就会变成一团。现在至少有了一条比较稳的路：先写，先传，最后由文章内容来确认保留哪些文件。</p><h4 id="前台加载更轻">前台加载更轻<a class="heading-anchor" href="#前台加载更轻" data-heading-id="前台加载更轻" aria-label="Copy section link / 复制小节链接">#</a></h4><p>前台也做了一轮性能整理。首页不再一次性带上所有文章的完整 HTML，而是先加载轻量的文章列表；真正点进某篇文章时，再按需读取对应的 <span class="math-inline">\(post-data\)</span> 文件。</p><p>几张体积比较大的图片也重新压缩过，社交分享图改成了更轻的版本。服务 worker 的缓存名单同步更新后，旧缓存会更快让位给新版本，减少“明明已经发布了，手机还在看旧页面”的情况。</p><p>这些调整加起来，效果不是页面样子突然大变，而是打开速度、更新速度和后台发布的稳定性都更接近一个可以长期用下去的站点。</p><h4 id="部署和维护">部署和维护<a class="heading-anchor" href="#部署和维护" data-heading-id="部署和维护" aria-label="Copy section link / 复制小节链接">#</a></h4><p>后台现在也能看到部署状态，发布链路从写 Markdown、上传素材、提交仓库到 GitHub Actions 构建发布，整体更透明。之前因为 token 权限导致的自动发布问题也顺手排了一遍，后台推送、源码仓库和公开站点之间的分工更清楚了。</p><p>这一轮不是单独加一个炫功能，而是把“写文章、插图片、放附件、换目录、发布、更新缓存、前台阅读”这整条链路补齐。后面继续写内容的时候，应该会少很多折腾，多一点真正把东西留下来的感觉。</p></div>
               </div>
               <div class="post-jump-nav" aria-label="文章跳转">
                 <button type="button" id="post-jump-top">回到顶部</button>
               </div>
               <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
-                <a href="../../post/2026-04-27-site-app-admin-performance-update/"><span>Newer / 更新</span><strong>网站 App 化、后台和性能继续打磨</strong></a>
-                <a href="../../post/2026-04-26-qzj-%E8%80%81%E7%88%B9%E8%8E%85%E4%B8%B4%E6%A3%80%E6%9F%A5/"><span>Older / 更早</span><strong>qzj 老爹（并非）莅临检查</strong></a>
+                
+                <a href="../../post/2026-04-27-%E5%AE%9E%E7%8E%B0app/"><span>Older / 更早</span><strong>实现app</strong></a>
               </nav>
             </article>
           </div>
