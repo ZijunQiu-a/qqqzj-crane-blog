@@ -67,6 +67,15 @@
     <link rel="preload" href="published-posts.js" as="script" />
   </head>
   <body>
+    <div class="app-splash" id="app-splash" role="status" aria-live="polite">
+      <video class="app-splash-video-bg" src="assets/furina-vision-splash.mp4" muted playsinline autoplay preload="auto" aria-hidden="true"></video>
+      <video class="app-splash-video" src="assets/furina-vision-splash.mp4" muted playsinline autoplay preload="auto"></video>
+      <button class="app-splash-skip" type="button">
+        <span>跳过</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    </div>
+
     <!-- site-shell 用来限制整页最大宽度，让内容在大屏上不会铺得太散。 -->
     <div class="site-shell">
       <!-- 顶部导航：左边是个人品牌，右边是页面内锚点导航。 -->

@@ -55,6 +55,14 @@ let tocObserver = null;
 let searchRenderTimer = null;
 let routeRenderToken = 0;
 const SEARCH_RENDER_DELAY = 160;
+const SPLASH_SESSION_KEY = "qqqzj-crane-splash-seen-v1";
+const SPLASH_FALLBACK_MS = 9000;
+const SPLASH_PRE_EXIT_MS = 1900;
+const SPLASH_AUTO_CLOSE_REMAINING_MS = 1550;
+const SPLASH_LEAVE_DELAY_MS = 180;
+const SPLASH_EXIT_MS = 1500;
+
+initSplashScreen();
 
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
@@ -95,6 +103,117 @@ function registerServiceWorker() {
       // The site still works normally without PWA installation support.
     }
   });
+}
+
+function initSplashScreen() {
+  const splash = document.querySelector("#app-splash");
+  if (!splash) return;
+
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const forcePreview = new URLSearchParams(window.location.search).has("splash");
+  let alreadySeen = false;
+
+  try {
+    alreadySeen = window.sessionStorage.getItem(SPLASH_SESSION_KEY) === "1";
+  } catch {
+    alreadySeen = false;
+  }
+
+  if (reduceMotion || (!forcePreview && alreadySeen)) {
+    splash.remove();
+    return;
+  }
+
+  document.documentElement.classList.add("splash-active");
+
+  const videos = [...splash.querySelectorAll("video")];
+  const video = splash.querySelector(".app-splash-video");
+  let closed = false;
+  let finishing = false;
+  let fallbackTimer = 0;
+  let videoWatchFrame = 0;
+
+  const cancelVideoWatcher = () => {
+    if (!videoWatchFrame) return;
+    window.cancelAnimationFrame(videoWatchFrame);
+    videoWatchFrame = 0;
+  };
+
+  const beginFinish = () => {
+    if (finishing) return;
+    finishing = true;
+    splash.classList.add("is-finishing");
+  };
+
+  const closeSplash = ({ immediate = false } = {}) => {
+    if (closed) return;
+    closed = true;
+    window.clearTimeout(fallbackTimer);
+    cancelVideoWatcher();
+    beginFinish();
+    const leaveDelay = immediate ? 0 : SPLASH_LEAVE_DELAY_MS;
+    window.setTimeout(() => splash.classList.add("is-leaving"), leaveDelay);
+
+    if (!forcePreview) {
+      try {
+        window.sessionStorage.setItem(SPLASH_SESSION_KEY, "1");
+      } catch {
+        // sessionStorage 失效时只影响是否重复播放，不影响页面使用。
+      }
+    }
+
+    window.setTimeout(() => {
+      videos.forEach((item) => item.pause?.());
+      splash.remove();
+      document.documentElement.classList.remove("splash-active");
+    }, leaveDelay + SPLASH_EXIT_MS);
+  };
+
+  const syncVideoExit = () => {
+    if (closed || !video || !Number.isFinite(video.duration) || video.duration <= 0) return;
+    const remainingMs = (video.duration - video.currentTime) * 1000;
+    if (remainingMs <= SPLASH_PRE_EXIT_MS) beginFinish();
+    if (remainingMs <= SPLASH_AUTO_CLOSE_REMAINING_MS) closeSplash();
+  };
+
+  const watchVideoExit = () => {
+    videoWatchFrame = 0;
+    syncVideoExit();
+    if (!closed && video && !video.paused && !video.ended) {
+      videoWatchFrame = window.requestAnimationFrame(watchVideoExit);
+    }
+  };
+
+  const startVideoWatcher = () => {
+    if (videoWatchFrame || closed) return;
+    videoWatchFrame = window.requestAnimationFrame(watchVideoExit);
+  };
+
+  splash.querySelector(".app-splash-skip")?.addEventListener("click", () => closeSplash({ immediate: true }));
+  window.addEventListener("keydown", (event) => {
+    if (["Escape", "Enter", " "].includes(event.key)) closeSplash({ immediate: true });
+  }, { once: true });
+  window.addEventListener("wheel", () => closeSplash({ immediate: true }), { once: true, passive: true });
+  window.addEventListener("touchstart", () => closeSplash({ immediate: true }), { once: true, passive: true });
+
+  videos.forEach((item) => {
+    item.currentTime = 0;
+    item.play?.().catch(() => {
+      // Muted inline playback should work; if a browser still blocks it, the fallback timer exits.
+    });
+  });
+
+  if (video) {
+    video.addEventListener("loadedmetadata", () => {
+      syncVideoExit();
+      startVideoWatcher();
+    }, { once: true });
+    video.addEventListener("play", startVideoWatcher);
+    video.addEventListener("timeupdate", syncVideoExit);
+    video.addEventListener("ended", () => closeSplash({ immediate: true }), { once: true });
+    video.addEventListener("error", () => window.setTimeout(() => closeSplash({ immediate: true }), 900), { once: true });
+  }
+  fallbackTimer = window.setTimeout(() => closeSplash({ immediate: true }), SPLASH_FALLBACK_MS);
 }
 
 function activateWaitingServiceWorker(worker) {
