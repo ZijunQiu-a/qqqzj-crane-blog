@@ -86,6 +86,42 @@ html.splash-active body {
   overflow: hidden;
 }
 
+html.splash-active body::before {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  content: "";
+  background: #d9e5ef;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 1700ms cubic-bezier(0.22, 0.72, 0.18, 1);
+}
+
+:root[data-theme-state="ousia"].splash-active body::before {
+  background: #07111e;
+}
+
+html.splash-active.splash-revealing body::before {
+  opacity: 0;
+}
+
+html.splash-active .site-shell {
+  opacity: 0;
+  filter: blur(1.5px);
+  transform: translateY(6px) scale(0.998);
+  transition:
+    opacity 1600ms cubic-bezier(0.22, 0.72, 0.18, 1),
+    filter 1600ms cubic-bezier(0.22, 0.72, 0.18, 1),
+    transform 1600ms cubic-bezier(0.22, 0.72, 0.18, 1);
+  will-change: opacity, filter, transform;
+}
+
+html.splash-active.splash-revealing .site-shell {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
 .app-splash {
   position: fixed;
   inset: 0;
@@ -97,8 +133,8 @@ html.splash-active body {
   pointer-events: auto;
   transform: translateZ(0);
   transition:
-    opacity 1500ms cubic-bezier(0.22, 0.72, 0.18, 1),
-    visibility 1500ms ease;
+    opacity 1800ms cubic-bezier(0.22, 0.72, 0.18, 1),
+    visibility 1800ms ease;
   will-change: opacity;
 }
 
@@ -129,8 +165,8 @@ html.splash-active body {
   z-index: 4;
   content: "";
   background:
-    radial-gradient(circle at 50% 48%, rgba(226, 242, 251, 0.28), rgba(226, 242, 251, 0.14) 28%, transparent 58%),
-    linear-gradient(180deg, rgba(7, 17, 30, 0.02), rgba(7, 17, 30, 0.18));
+    radial-gradient(circle at 50% 48%, rgba(16, 38, 58, 0.16), rgba(16, 38, 58, 0.08) 34%, transparent 62%),
+    linear-gradient(180deg, rgba(7, 17, 30, 0.04), rgba(7, 17, 30, 0.16));
   opacity: 0;
   pointer-events: none;
   transform: scale(1);
@@ -140,7 +176,7 @@ html.splash-active body {
 }
 
 .app-splash.is-finishing::before {
-  opacity: 1;
+  opacity: 0.72;
   transform: scale(1.02);
 }
 
@@ -150,13 +186,13 @@ html.splash-active body {
 }
 
 .app-splash.is-finishing .app-splash-video {
-  filter: brightness(0.96) saturate(0.9);
-  opacity: 0.96;
+  filter: brightness(0.84) saturate(0.82);
+  opacity: 0.76;
 }
 
 .app-splash.is-finishing .app-splash-video-bg {
-  opacity: 0.62;
-  filter: blur(26px) saturate(0.82) brightness(0.98);
+  opacity: 0.34;
+  filter: blur(30px) saturate(0.76) brightness(0.86);
 }
 
 .app-splash-video-bg,
@@ -239,7 +275,8 @@ html.splash-active body {
   .app-splash::before,
   .app-splash-video-bg,
   .app-splash-video,
-  .app-splash-skip {
+  .app-splash-skip,
+  html.splash-active .site-shell {
     transition: none;
   }
 }

@@ -57,10 +57,12 @@ let routeRenderToken = 0;
 const SEARCH_RENDER_DELAY = 160;
 const SPLASH_SESSION_KEY = "qqqzj-crane-splash-seen-v1";
 const SPLASH_FALLBACK_MS = 9000;
-const SPLASH_PRE_EXIT_MS = 1900;
-const SPLASH_AUTO_CLOSE_REMAINING_MS = 1550;
+const SPLASH_SLOW_TAIL_MS = 760;
+const SPLASH_TAIL_MIN_PLAYBACK_RATE = 0.78;
+const SPLASH_PRE_EXIT_MS = 900;
+const SPLASH_AUTO_CLOSE_REMAINING_MS = 220;
 const SPLASH_LEAVE_DELAY_MS = 180;
-const SPLASH_EXIT_MS = 1500;
+const SPLASH_EXIT_MS = 1800;
 
 initSplashScreen();
 
@@ -125,6 +127,8 @@ function initSplashScreen() {
   }
 
   document.documentElement.classList.add("splash-active");
+  resetSplashScroll();
+  window.addEventListener("load", resetSplashScroll, { once: true });
 
   const videos = [...splash.querySelectorAll("video")];
   const video = splash.querySelector(".app-splash-video");
@@ -132,6 +136,12 @@ function initSplashScreen() {
   let finishing = false;
   let fallbackTimer = 0;
   let videoWatchFrame = 0;
+
+  const setSplashPlaybackRate = (rate) => {
+    videos.forEach((item) => {
+      item.playbackRate = rate;
+    });
+  };
 
   const cancelVideoWatcher = () => {
     if (!videoWatchFrame) return;
@@ -142,6 +152,7 @@ function initSplashScreen() {
   const beginFinish = () => {
     if (finishing) return;
     finishing = true;
+    document.documentElement.classList.add("splash-revealing");
     splash.classList.add("is-finishing");
   };
 
@@ -152,7 +163,9 @@ function initSplashScreen() {
     cancelVideoWatcher();
     beginFinish();
     const leaveDelay = immediate ? 0 : SPLASH_LEAVE_DELAY_MS;
-    window.setTimeout(() => splash.classList.add("is-leaving"), leaveDelay);
+    window.setTimeout(() => {
+      splash.classList.add("is-leaving");
+    }, leaveDelay);
 
     if (!forcePreview) {
       try {
@@ -165,13 +178,17 @@ function initSplashScreen() {
     window.setTimeout(() => {
       videos.forEach((item) => item.pause?.());
       splash.remove();
-      document.documentElement.classList.remove("splash-active");
+      document.documentElement.classList.remove("splash-active", "splash-revealing");
     }, leaveDelay + SPLASH_EXIT_MS);
   };
 
   const syncVideoExit = () => {
     if (closed || !video || !Number.isFinite(video.duration) || video.duration <= 0) return;
     const remainingMs = (video.duration - video.currentTime) * 1000;
+    const tailProgress = Math.max(0, Math.min(1, (SPLASH_SLOW_TAIL_MS - remainingMs) / SPLASH_SLOW_TAIL_MS));
+    const easedTailProgress = tailProgress * tailProgress * (3 - 2 * tailProgress);
+    const playbackRate = 1 - (1 - SPLASH_TAIL_MIN_PLAYBACK_RATE) * easedTailProgress;
+    if (Math.abs(video.playbackRate - playbackRate) > 0.01) setSplashPlaybackRate(playbackRate);
     if (remainingMs <= SPLASH_PRE_EXIT_MS) beginFinish();
     if (remainingMs <= SPLASH_AUTO_CLOSE_REMAINING_MS) closeSplash();
   };
@@ -198,6 +215,7 @@ function initSplashScreen() {
 
   videos.forEach((item) => {
     item.currentTime = 0;
+    item.playbackRate = 1;
     item.play?.().catch(() => {
       // Muted inline playback should work; if a browser still blocks it, the fallback timer exits.
     });
@@ -214,6 +232,14 @@ function initSplashScreen() {
     video.addEventListener("error", () => window.setTimeout(() => closeSplash({ immediate: true }), 900), { once: true });
   }
   fallbackTimer = window.setTimeout(() => closeSplash({ immediate: true }), SPLASH_FALLBACK_MS);
+}
+
+function resetSplashScroll() {
+  const hash = window.location.hash;
+  if (hash && hash !== "#home") return;
+  window.requestAnimationFrame(() => {
+    window.scrollTo({ left: 0, top: 0, behavior: "auto" });
+  });
 }
 
 function activateWaitingServiceWorker(worker) {
