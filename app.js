@@ -134,6 +134,7 @@ function initSplashScreen() {
 
   const videos = [...splash.querySelectorAll("video")];
   const video = splash.querySelector(".app-splash-video");
+  const splashVideoSrc = splash.dataset.splashVideo;
   let closed = false;
   let finishing = false;
   let fallbackTimer = 0;
@@ -229,7 +230,11 @@ function initSplashScreen() {
   window.addEventListener("touchstart", () => closeSplash({ immediate: true }), { once: true, passive: true });
 
   videos.forEach((item) => {
-    item.currentTime = 0;
+    if (splashVideoSrc && !item.getAttribute("src")) {
+      item.src = splashVideoSrc;
+      item.load?.();
+    }
+    if (item.readyState > 0) item.currentTime = 0;
     item.playbackRate = 1;
     item.play?.().catch(() => {
       // Muted inline playback should work; if a browser still blocks it, the fallback timer exits.
