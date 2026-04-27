@@ -72,20 +72,20 @@ window.PUBLISHED_POSTS = {
       "createdAt": "2026-04-27T00:00:00.000Z"
     },
     {
-      "id": "news/2026-04-27-site-app-admin-performance-update.md",
-      "slug": "2026-04-27-site-app-admin-performance-update",
-      "dataPath": "post-data/2026-04-27-site-app-admin-performance-update.json",
+      "id": "news/2026-04-27-site-app-performance-update.md",
+      "slug": "2026-04-27-site-app-performance-update",
+      "dataPath": "post-data/2026-04-27-site-app-performance-update.json",
       "source": "post",
       "kind": "growth",
-      "title": "网站 App 化、后台和性能继续打磨",
+      "title": "网站 App 化和阅读性能继续打磨",
       "publishedIndex": 14,
       "stage": "Site Update",
       "tag": "建站",
       "author": "ZijunQiu-a",
       "url": "",
       "previewImage": null,
-      "excerpt": "这两天 qqqzj@Crane 又往前推了一大截。它已经不只是一个能打开的静态博客，而是开始变成一个更像 App 的个人写作和资料管理工具：前台负责阅读，后台负责发布，中间的图片、附件、构建和部署流程也尽量少让人操心。 这一轮更新主要集中在...",
-      "readingMinutes": 3,
+      "excerpt": "这两天 qqqzj@Crane 又往前推了一截。对访客来说，它现在更像一个可以长期打开、长期阅读、长期回看的个人站：入口更清楚，页面更轻，文章和附件也更适合在手机和电脑上慢慢看。 这一轮更新主要集中在几个前台体验上。 域名和 App 化 主...",
+      "readingMinutes": 2,
       "createdAt": "2026-04-27T00:00:00.000Z"
     },
     {
