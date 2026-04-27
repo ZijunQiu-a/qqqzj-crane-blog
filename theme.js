@@ -74,6 +74,10 @@ function startThemeTransition(state) {
   }, 1180);
 }
 
+function playThemeTransitionEffect(state = resolveThemeState()) {
+  startThemeTransition(state === "ousia" ? "ousia" : "pneuma");
+}
+
 function updateThemeColor(state) {
   const themeColor = document.querySelector('meta[name="theme-color"]');
   themeColor?.setAttribute("content", CRANE_THEME_COLORS[state] || CRANE_THEME_COLORS.pneuma);
@@ -267,6 +271,7 @@ if (document.readyState === "loading") {
 
 window.craneTheme = {
   apply: applyThemeMode,
+  playTransition: playThemeTransitionEffect,
   preference: currentThemePreference,
   state: resolveThemeState,
 };

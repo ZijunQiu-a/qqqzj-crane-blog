@@ -37,6 +37,7 @@
 }
 
 html {
+  scrollbar-gutter: stable;
   scroll-padding-top: 96px;
   scroll-behavior: smooth;
 }
@@ -94,7 +95,7 @@ html.splash-active body::before {
   background: #d9e5ef;
   opacity: 1;
   pointer-events: none;
-  transition: opacity 1700ms cubic-bezier(0.22, 0.72, 0.18, 1);
+  transition: opacity 2100ms cubic-bezier(0.18, 0.72, 0.16, 1);
 }
 
 :root[data-theme-state="ousia"].splash-active body::before {
@@ -102,17 +103,21 @@ html.splash-active body::before {
 }
 
 html.splash-active.splash-revealing body::before {
+  opacity: 0.18;
+}
+
+html.splash-active.splash-fading body::before {
   opacity: 0;
 }
 
 html.splash-active .site-shell {
   opacity: 0;
-  filter: blur(1.5px);
-  transform: translateY(6px) scale(0.998);
+  filter: blur(2px);
+  transform: translateY(8px) scale(0.996);
   transition:
-    opacity 1600ms cubic-bezier(0.22, 0.72, 0.18, 1),
-    filter 1600ms cubic-bezier(0.22, 0.72, 0.18, 1),
-    transform 1600ms cubic-bezier(0.22, 0.72, 0.18, 1);
+    opacity 2000ms cubic-bezier(0.18, 0.72, 0.16, 1),
+    filter 2000ms cubic-bezier(0.18, 0.72, 0.16, 1),
+    transform 2000ms cubic-bezier(0.18, 0.72, 0.16, 1);
   will-change: opacity, filter, transform;
 }
 
@@ -130,12 +135,14 @@ html.splash-active.splash-revealing .site-shell {
   background: #d7e4ef;
   color: white;
   opacity: 1;
+  filter: blur(0) brightness(1);
   pointer-events: auto;
   transform: translateZ(0);
   transition:
-    opacity 1800ms cubic-bezier(0.22, 0.72, 0.18, 1),
-    visibility 1800ms ease;
-  will-change: opacity;
+    filter 2100ms cubic-bezier(0.18, 0.72, 0.16, 1),
+    opacity 2100ms cubic-bezier(0.18, 0.72, 0.16, 1),
+    visibility 2100ms ease;
+  will-change: filter, opacity;
 }
 
 :root[data-theme-state="ousia"] .app-splash {
@@ -145,6 +152,7 @@ html.splash-active.splash-revealing .site-shell {
 .app-splash.is-leaving {
   visibility: hidden;
   opacity: 0;
+  filter: blur(1.5px) brightness(1.03);
   pointer-events: none;
 }
 
@@ -156,7 +164,9 @@ html.splash-active.splash-revealing .site-shell {
   background:
     linear-gradient(180deg, rgba(7, 17, 30, 0.1), transparent 36%, rgba(7, 17, 30, 0.18)),
     linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent 32%, rgba(31, 68, 98, 0.12));
+  opacity: 1;
   pointer-events: none;
+  transition: opacity 1600ms cubic-bezier(0.18, 0.72, 0.16, 1);
 }
 
 .app-splash::before {
@@ -176,23 +186,39 @@ html.splash-active.splash-revealing .site-shell {
 }
 
 .app-splash.is-finishing::before {
-  opacity: 0.72;
-  transform: scale(1.02);
+  opacity: 0.58;
+  transform: scale(1.018);
+}
+
+.app-splash.is-leaving::after {
+  opacity: 0.38;
 }
 
 .app-splash.is-finishing .app-splash-video,
 .app-splash.is-finishing .app-splash-video-bg {
-  transform: translate(-50%, -50%) scale(1.018);
+  transform: translate(-50%, -50%) scale(1.014);
 }
 
 .app-splash.is-finishing .app-splash-video {
-  filter: brightness(0.84) saturate(0.82);
-  opacity: 0.76;
+  filter: brightness(0.9) saturate(0.86) contrast(0.98);
+  opacity: 0.7;
 }
 
 .app-splash.is-finishing .app-splash-video-bg {
-  opacity: 0.34;
-  filter: blur(30px) saturate(0.76) brightness(0.86);
+  opacity: 0.3;
+  filter: blur(30px) saturate(0.78) brightness(0.9);
+}
+
+.app-splash.is-leaving .app-splash-video {
+  filter: blur(1.4px) brightness(0.96) saturate(0.78) contrast(0.96);
+  opacity: 0.16;
+  transform: translate(-50%, -50%) scale(1.024);
+}
+
+.app-splash.is-leaving .app-splash-video-bg {
+  opacity: 0.1;
+  filter: blur(38px) saturate(0.7) brightness(0.96);
+  transform: translate(-50%, -50%) scale(1.028);
 }
 
 .app-splash-video-bg,
@@ -202,9 +228,9 @@ html.splash-active.splash-revealing .site-shell {
   background: #d7e4ef;
   transform: translate(-50%, -50%);
   transition:
-    filter 1300ms cubic-bezier(0.22, 0.72, 0.18, 1),
-    opacity 1300ms cubic-bezier(0.22, 0.72, 0.18, 1),
-    transform 1500ms cubic-bezier(0.22, 0.72, 0.18, 1);
+    filter 1800ms cubic-bezier(0.18, 0.72, 0.16, 1),
+    opacity 1800ms cubic-bezier(0.18, 0.72, 0.16, 1),
+    transform 2100ms cubic-bezier(0.18, 0.72, 0.16, 1);
   backface-visibility: hidden;
   will-change: filter, opacity, transform;
 }
@@ -220,8 +246,8 @@ html.splash-active.splash-revealing .site-shell {
 
 .app-splash-video {
   z-index: 2;
-  width: min(100vw, 177.78vh);
-  height: min(100vh, 56.25vw);
+  width: min(100vw, 177.78vh, 1920px);
+  height: min(100vh, 56.25vw, 1080px);
   object-fit: contain;
   opacity: 1;
   filter: brightness(1) saturate(1);
@@ -2834,6 +2860,37 @@ html.theme-transitioning::after {
   opacity: 0;
   transform: translateX(-10%) rotate(-5deg);
   animation: theme-soft-sheen 1160ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+html.splash-handoff-glow.theme-transitioning::before {
+  z-index: 1002;
+  animation-duration: 1320ms;
+}
+
+html.splash-handoff-glow.theme-transitioning::after {
+  z-index: 1003;
+  filter: saturate(1.12);
+  animation-duration: 1320ms;
+}
+
+html.splash-handoff-glow.theme-enter-ousia::before {
+  background:
+    linear-gradient(135deg, rgba(246, 253, 255, 0.18), rgba(87, 193, 219, 0.3) 36%, rgba(9, 21, 35, 0.72) 100%),
+    radial-gradient(circle at 70% 90%, rgba(102, 213, 240, 0.44), transparent 32%);
+}
+
+html.splash-handoff-glow.theme-enter-ousia::after {
+  background: linear-gradient(100deg, transparent 16%, rgba(255, 254, 253, 0.18) 34%, rgba(132, 224, 247, 0.42) 48%, rgba(8, 18, 31, 0.16) 64%, transparent 84%);
+}
+
+html.splash-handoff-glow.theme-enter-pneuma::before {
+  background:
+    linear-gradient(135deg, rgba(9, 21, 35, 0.12), rgba(126, 219, 236, 0.32) 38%, rgba(255, 254, 253, 0.82) 100%),
+    radial-gradient(circle at 70% 90%, rgba(255, 232, 175, 0.42), transparent 32%);
+}
+
+html.splash-handoff-glow.theme-enter-pneuma::after {
+  background: linear-gradient(100deg, transparent 16%, rgba(255, 254, 253, 0.46) 44%, rgba(115, 218, 237, 0.2) 62%, transparent 84%);
 }
 
 html.theme-enter-ousia::before {

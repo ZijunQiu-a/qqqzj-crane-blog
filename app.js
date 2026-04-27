@@ -57,12 +57,14 @@ let routeRenderToken = 0;
 const SEARCH_RENDER_DELAY = 160;
 const SPLASH_SESSION_KEY = "qqqzj-crane-splash-seen-v1";
 const SPLASH_FALLBACK_MS = 9000;
-const SPLASH_SLOW_TAIL_MS = 760;
-const SPLASH_TAIL_MIN_PLAYBACK_RATE = 0.78;
-const SPLASH_PRE_EXIT_MS = 900;
-const SPLASH_AUTO_CLOSE_REMAINING_MS = 220;
-const SPLASH_LEAVE_DELAY_MS = 180;
-const SPLASH_EXIT_MS = 1800;
+const SPLASH_SLOW_TAIL_MS = 720;
+const SPLASH_TAIL_MIN_PLAYBACK_RATE = 0.82;
+const SPLASH_PRE_EXIT_MS = 1380;
+const SPLASH_AUTO_CLOSE_REMAINING_MS = 820;
+const SPLASH_LEAVE_DELAY_MS = 100;
+const SPLASH_HANDOFF_DELAY_MS = 160;
+const SPLASH_HANDOFF_MS = 1300;
+const SPLASH_EXIT_MS = 1600;
 
 initSplashScreen();
 
@@ -135,6 +137,7 @@ function initSplashScreen() {
   let closed = false;
   let finishing = false;
   let fallbackTimer = 0;
+  let handoffTimer = 0;
   let videoWatchFrame = 0;
 
   const setSplashPlaybackRate = (rate) => {
@@ -160,12 +163,24 @@ function initSplashScreen() {
     if (closed) return;
     closed = true;
     window.clearTimeout(fallbackTimer);
+    window.clearTimeout(handoffTimer);
     cancelVideoWatcher();
     beginFinish();
     const leaveDelay = immediate ? 0 : SPLASH_LEAVE_DELAY_MS;
     window.setTimeout(() => {
+      document.documentElement.classList.add("splash-fading");
       splash.classList.add("is-leaving");
     }, leaveDelay);
+
+    if (!immediate) {
+      handoffTimer = window.setTimeout(() => {
+        document.documentElement.classList.add("splash-handoff-glow");
+        window.craneTheme?.playTransition?.();
+        window.setTimeout(() => {
+          document.documentElement.classList.remove("splash-handoff-glow");
+        }, SPLASH_HANDOFF_MS);
+      }, leaveDelay + SPLASH_HANDOFF_DELAY_MS);
+    }
 
     if (!forcePreview) {
       try {
@@ -178,7 +193,7 @@ function initSplashScreen() {
     window.setTimeout(() => {
       videos.forEach((item) => item.pause?.());
       splash.remove();
-      document.documentElement.classList.remove("splash-active", "splash-revealing");
+      document.documentElement.classList.remove("splash-active", "splash-revealing", "splash-fading");
     }, leaveDelay + SPLASH_EXIT_MS);
   };
 
