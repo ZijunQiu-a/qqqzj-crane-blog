@@ -321,6 +321,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "我好像天快晴了",
       "readingMinutes": 1,
       "createdAt": "2026-04-27T00:00:00.000Z"
+    },
+    {
+      "id": "life/2026-04-27-也许这是成长的必经之路吧.md",
+      "slug": "2026-04-27-也许这是成长的必经之路吧",
+      "dataPath": "post-data/2026-04-27-%E4%B9%9F%E8%AE%B8%E8%BF%99%E6%98%AF%E6%88%90%E9%95%BF%E7%9A%84%E5%BF%85%E7%BB%8F%E4%B9%8B%E8%B7%AF%E5%90%A7.json",
+      "source": "post",
+      "kind": "videos",
+      "title": "也许这是成长的必经之路吧",
+      "publishedIndex": 18,
+      "stage": "Life Log 生活记录",
+      "tag": "随笔",
+      "author": "ZijunQiu-a",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "4 月 27 日 天气 晴 复习了一个周末的普物终究是有了点起色，但是维护这个网站又耗费了我太多气力，尽管看着它一点点壮大，也有越来越多文字，心中不免涌上自豪之感，可这并不能冲淡我对人生的迷茫。或许不只是学业上。 诚然 LLM 与 Agen...",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-27T00:00:00.000Z"
     }
   ]
 };
