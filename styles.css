@@ -1332,6 +1332,21 @@ h3 {
   aspect-ratio: 16 / 9;
 }
 
+.entry-video-frame {
+  overflow: hidden;
+  border-radius: 8px;
+  aspect-ratio: 16 / 9;
+  background: #10232e;
+}
+
+.entry-video-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #111;
+}
+
 .entry-media figcaption {
   color: var(--muted);
   font-size: 12px;

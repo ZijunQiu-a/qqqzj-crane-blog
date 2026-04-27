@@ -1181,6 +1181,9 @@ function lifePostMarkup(title) {
 
 // 把 YouTube / Bilibili 的普通链接转换成可嵌入页面的链接。
 function toEmbedUrl(url) {
+  const bilibili = bilibiliEmbedUrl(url);
+  if (bilibili) return bilibili;
+
   try {
     const parsed = new URL(url);
     const host = parsed.hostname.replace(/^www\./, "");
@@ -1193,19 +1196,63 @@ function toEmbedUrl(url) {
       return `https://www.youtube.com/embed/${parsed.searchParams.get("v")}`;
     }
 
-    if (host === "player.bilibili.com") {
-      return parsed.href;
-    }
-
-    if (host === "bilibili.com" || host.endsWith(".bilibili.com")) {
-      const match = parsed.pathname.match(/\/video\/([^/?]+)/);
-      if (match) return `https://player.bilibili.com/player.html?bvid=${match[1]}`;
-    }
+    if (host === "player.bilibili.com") return parsed.href;
   } catch {
     return "";
   }
 
   return "";
+}
+
+function bilibiliEmbedUrl(value) {
+  const bvid = bilibiliBvid(value);
+  if (!bvid) return "";
+  const params = new URLSearchParams({
+    bvid,
+    page: "1",
+    autoplay: "0",
+    danmaku: "0",
+    isOutside: "true",
+  });
+  return `https://player.bilibili.com/player.html?${params.toString()}`;
+}
+
+function bilibiliPageUrl(value) {
+  const bvid = bilibiliBvid(value);
+  return bvid ? `https://www.bilibili.com/video/${bvid}` : "";
+}
+
+function bilibiliBvid(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+
+  const bare = raw.match(/^((?:BV|bv)[0-9A-Za-z]{8,})$/);
+  if (bare) return normalizeBvid(bare[1]);
+
+  try {
+    const parsed = new URL(raw);
+    const host = parsed.hostname.replace(/^www\./, "");
+    const supportedHost = host === "player.bilibili.com"
+      || host === "bilibili.com"
+      || host.endsWith(".bilibili.com")
+      || host === "b23.tv";
+    if (!supportedHost) return "";
+
+    const fromParam = parsed.searchParams.get("bvid");
+    if (fromParam && /^BV[0-9A-Za-z]+$/i.test(fromParam)) return normalizeBvid(fromParam);
+
+    const fromPath = parsed.pathname.match(/\/video\/((?:BV|bv)[0-9A-Za-z]+)/);
+    if (fromPath) return normalizeBvid(fromPath[1]);
+
+    const fallback = raw.match(/\b((?:BV|bv)[0-9A-Za-z]{8,})\b/);
+    return fallback ? normalizeBvid(fallback[1]) : "";
+  } catch {
+    return "";
+  }
+}
+
+function normalizeBvid(value) {
+  return String(value || "").replace(/^bv/i, "BV");
 }
 
 // 复制 HTML template，生成一个“暂无内容”的占位节点。
@@ -1231,6 +1278,9 @@ function renderMarkdown(markdown) {
     .map((block) => {
       const file = fileMarkdown(block);
       if (file) return file;
+
+      const externalVideo = externalVideoMarkdown(block);
+      if (externalVideo) return externalVideo;
 
       const media = mediaMarkdown(block);
       if (media) return media;
@@ -1513,18 +1563,53 @@ function mediaMarkdown(block) {
   if (!match) return "";
 
   const [, altText, rawUrl] = match;
+  const embedUrl = /^video:/i.test(altText) ? toEmbedUrl(rawUrl) : "";
   const url = normalizeMediaUrl(rawUrl);
+  if (!url && embedUrl) return embeddedVideoMarkup(embedUrl, altText.replace(/^video:/i, "").trim(), rawUrl);
   if (!url) return "";
 
   const alt = altText.replace(/^video:/i, "").trim();
   const escapedUrl = escapeAttribute(url);
   const escapedAlt = escapeAttribute(alt);
 
+  if (embedUrl) return embeddedVideoMarkup(embedUrl, alt, rawUrl);
+
   if (/^video:/i.test(altText) || /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url)) {
     return `<figure class="entry-media entry-video"><video src="${escapedUrl}" controls preload="metadata"></video>${alt ? `<figcaption>${escapeHtml(alt)}</figcaption>` : ""}</figure>`;
   }
 
   return `<figure class="entry-media"><img src="${escapedUrl}" alt="${escapedAlt}" loading="lazy" />${alt ? `<figcaption>${escapeHtml(alt)}</figcaption>` : ""}</figure>`;
+}
+
+function externalVideoMarkdown(block) {
+  const match = block.match(/^@\[([^\]]+)\]\(([^)\s]+)\)$/);
+  if (!match) return "";
+
+  const label = parseExternalVideoLabel(match[1]);
+  if (!label || label.provider !== "bilibili") return "";
+
+  const embedUrl = toEmbedUrl(match[2]);
+  if (!embedUrl) return "";
+
+  return embeddedVideoMarkup(embedUrl, label.title, match[2]);
+}
+
+function parseExternalVideoLabel(value) {
+  const [providerPart, ...titleParts] = String(value || "").split(/[:：]/);
+  const provider = providerPart.trim().toLowerCase();
+  if (!["bilibili", "b站", "哔哩哔哩"].includes(provider)) return null;
+
+  return {
+    provider: "bilibili",
+    title: titleParts.join(":").trim(),
+  };
+}
+
+function embeddedVideoMarkup(embedUrl, title, originalUrl) {
+  const pageUrl = bilibiliPageUrl(originalUrl) || originalUrl;
+  const captionText = title || "在 B 站打开";
+  const caption = `<figcaption><a href="${escapeAttribute(pageUrl)}" target="_blank" rel="noreferrer">${escapeHtml(captionText)}</a></figcaption>`;
+  return `<figure class="entry-media entry-video entry-video-embed"><div class="entry-video-frame"><iframe src="${escapeAttribute(embedUrl)}" title="${escapeAttribute(title || "Bilibili video")}" loading="lazy" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></div>${caption}</figure>`;
 }
 
 function inlineMarkdown(value) {
