@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>网站 App 化、后台和性能继续打磨 · qqqzj@Crane</title>
-    <meta name="description" content="这两天 qqqzj@Crane 又往前推了一大截。它已经不只是一个能打开的静态博客，而是开始变成一个更像 App 的个人写作和资料管理工具：前台负责阅读，后台负责发布，中间的图片、附件、构建和部署流程也尽量少让人操心。 这一轮更新主要集中在..." />
-    <link rel="canonical" href="https://qqqzj.cn/post/2026-04-27-site-app-admin-performance-update/" />
+    <title>现在前台能用什么：一份访客功能说明 · qqqzj@Crane</title>
+    <meta name="description" content="趁着这一轮更新刚收好，把 qqqzj@Crane 的前台也整理成一份说明。这里说的前台，就是普通访客打开 qqqzj.cn 后能直接看到、能直接使用的部分。 现在这个站点不只是文章列表，它更像一个小型个人档案馆：可以按时间看动态，按主题读笔..." />
+    <link rel="canonical" href="https://qqqzj.cn/post/2026-04-27-public-site-feature-guide/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="网站 App 化、后台和性能继续打磨 · qqqzj@Crane" />
-    <meta property="og:description" content="这两天 qqqzj@Crane 又往前推了一大截。它已经不只是一个能打开的静态博客，而是开始变成一个更像 App 的个人写作和资料管理工具：前台负责阅读，后台负责发布，中间的图片、附件、构建和部署流程也尽量少让人操心。 这一轮更新主要集中在..." />
-    <meta property="og:url" content="https://qqqzj.cn/post/2026-04-27-site-app-admin-performance-update/" />
+    <meta property="og:title" content="现在前台能用什么：一份访客功能说明 · qqqzj@Crane" />
+    <meta property="og:description" content="趁着这一轮更新刚收好，把 qqqzj@Crane 的前台也整理成一份说明。这里说的前台，就是普通访客打开 qqqzj.cn 后能直接看到、能直接使用的部分。 现在这个站点不只是文章列表，它更像一个小型个人档案馆：可以按时间看动态，按主题读笔..." />
+    <meta property="og:url" content="https://qqqzj.cn/post/2026-04-27-public-site-feature-guide/" />
     <meta property="og:image" content="https://qqqzj.cn/assets/blog-studio-og.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#f3f7f8" />
@@ -155,7 +155,7 @@
             <a class="back-link" href="../../index.html#home">Back to home / 返回首页</a>
             <article class="post-detail-card">
               <p class="eyebrow">News 动态</p>
-              <h1>网站 App 化、后台和性能继续打磨</h1>
+              <h1>现在前台能用什么：一份访客功能说明</h1>
               <div class="post-detail-meta">
                 <time datetime="2026-04-27T00:00:00.000Z">2026年4月27日</time>
                 <span>建站</span>
@@ -165,18 +165,18 @@
               <nav class="post-toc" aria-label="Table of contents / 文章目录">
                 <strong>Contents 目录</strong>
                 <div>
-                  <a class="toc-level-4" href="#域名和-app-化" data-heading-id="域名和-app-化">域名和 App 化</a><a class="toc-level-4" href="#后台写作更顺了" data-heading-id="后台写作更顺了">后台写作更顺了</a><a class="toc-level-4" href="#素材不会越堆越乱" data-heading-id="素材不会越堆越乱">素材不会越堆越乱</a><a class="toc-level-4" href="#前台加载更轻" data-heading-id="前台加载更轻">前台加载更轻</a><a class="toc-level-4" href="#部署和维护" data-heading-id="部署和维护">部署和维护</a>
+                  <a class="toc-level-4" href="#首页入口" data-heading-id="首页入口">首页入口</a><a class="toc-level-4" href="#搜索和筛选" data-heading-id="搜索和筛选">搜索和筛选</a><a class="toc-level-4" href="#文章阅读" data-heading-id="文章阅读">文章阅读</a><a class="toc-level-4" href="#正文支持" data-heading-id="正文支持">正文支持</a><a class="toc-level-4" href="#图片-视频和生活记录" data-heading-id="图片-视频和生活记录">图片、视频和生活记录</a><a class="toc-level-4" href="#主题和互动" data-heading-id="主题和互动">主题和互动</a><a class="toc-level-4" href="#安装和订阅" data-heading-id="安装和订阅">安装和订阅</a><a class="toc-level-4" href="#公开访问和搜索引擎" data-heading-id="公开访问和搜索引擎">公开访问和搜索引擎</a><a class="toc-level-4" href="#现在的前台定位" data-heading-id="现在的前台定位">现在的前台定位</a>
                 </div>
               </nav>
               <div class="post-detail-body">
-                <div class="entry-body"><p>这两天 qqqzj@Crane 又往前推了一大截。它已经不只是一个能打开的静态博客，而是开始变成一个更像 App 的个人写作和资料管理工具：前台负责阅读，后台负责发布，中间的图片、附件、构建和部署流程也尽量少让人操心。</p><p>这一轮更新主要集中在几个地方。</p><h4 id="域名和-app-化">域名和 App 化<a class="heading-anchor" href="#域名和-app-化" data-heading-id="域名和-app-化" aria-label="Copy section link / 复制小节链接">#</a></h4><p>主站现在已经切到 <code>qqqzj.cn</code>，后台也单独挂到了 <code>admin.qqqzj.cn</code>。这样前台和后台的入口更清楚：一个给读者看，一个给自己写和维护。</p><p>前台和后台都补上了 PWA 支持，可以像普通 App 一样添加到手机或电脑桌面。缓存策略也重新收紧了一遍，只缓存真正适合离线保留的外壳文件和轻量数据，不再把大图、PDF 和媒体文件塞进浏览器缓存里。</p><p>这样做的感觉会更接近日常使用的 App：打开快，入口固定，更新也更利落。</p><h4 id="后台写作更顺了">后台写作更顺了<a class="heading-anchor" href="#后台写作更顺了" data-heading-id="后台写作更顺了" aria-label="Copy section link / 复制小节链接">#</a></h4><p>后台编辑器继续围绕 Markdown 写作调整。现在上传图片、视频和附件之后，会自动插入可用的 Markdown 链接；图片会在上传前自动压缩，避免一张手机原图就把仓库和网页都拖慢。</p><p>新建文章时，素材会先进入稳定的 draft 目录。标题、分类或 slug 还没确定的时候，图片不会因为你改文章名就到处散落；等文章保存发布后，再由实际文章内容来决定哪些素材还在使用。</p><p>已有文章也能更方便地继续补图、补附件和移动目录。上传和保存会尽量合成一次提交，减少“图片传上去了，正文还没跟上”的断裂感。</p><h4 id="素材不会越堆越乱">素材不会越堆越乱<a class="heading-anchor" href="#素材不会越堆越乱" data-heading-id="素材不会越堆越乱" aria-label="Copy section link / 复制小节链接">#</a></h4><p>这次专门补了一层素材引用扫描。构建和后台都会用同一套逻辑判断文章里到底引用了哪些图片、视频和附件，避免前台漏文件，也方便后台清理没有被正文使用的草稿素材。</p><p>如果文件名重复，后台会自动改名保存，不会直接覆盖旧文件。草稿目录也加了清理入口，可以把没有插进文章里的临时素材收掉。</p><p>这部分不是很显眼，但对长期写博客很重要。文章一多，如果图片、PDF 和临时文件没有规则，仓库很快就会变成一团。现在至少有了一条比较稳的路：先写，先传，最后由文章内容来确认保留哪些文件。</p><h4 id="前台加载更轻">前台加载更轻<a class="heading-anchor" href="#前台加载更轻" data-heading-id="前台加载更轻" aria-label="Copy section link / 复制小节链接">#</a></h4><p>前台也做了一轮性能整理。首页不再一次性带上所有文章的完整 HTML，而是先加载轻量的文章列表；真正点进某篇文章时，再按需读取对应的文章详情数据。</p><p>几张体积比较大的图片也重新压缩过，社交分享图改成了更轻的版本。服务 worker 的缓存名单同步更新后，旧缓存会更快让位给新版本，减少“明明已经发布了，手机还在看旧页面”的情况。</p><p>这些调整加起来，效果不是页面样子突然大变，而是打开速度、更新速度和后台发布的稳定性都更接近一个可以长期用下去的站点。</p><h4 id="部署和维护">部署和维护<a class="heading-anchor" href="#部署和维护" data-heading-id="部署和维护" aria-label="Copy section link / 复制小节链接">#</a></h4><p>后台现在也能看到部署状态，发布链路从写 Markdown、上传素材、提交仓库到 GitHub Actions 构建发布，整体更透明。之前因为 token 权限导致的自动发布问题也顺手排了一遍，后台推送、源码仓库和公开站点之间的分工更清楚了。</p><p>这一轮不是单独加一个炫功能，而是把“写文章、插图片、放附件、换目录、发布、更新缓存、前台阅读”这整条链路补齐。后面继续写内容的时候，应该会少很多折腾，多一点真正把东西留下来的感觉。</p></div>
+                <div class="entry-body"><p>趁着这一轮更新刚收好，把 qqqzj@Crane 的前台也整理成一份说明。这里说的前台，就是普通访客打开 qqqzj.cn 后能直接看到、能直接使用的部分。</p><p>现在这个站点不只是文章列表，它更像一个小型个人档案馆：可以按时间看动态，按主题读笔记，也可以从归档、搜索、RSS 或文章内目录慢慢翻。</p><h4 id="首页入口">首页入口<a class="heading-anchor" href="#首页入口" data-heading-id="首页入口" aria-label="Copy section link / 复制小节链接">#</a></h4><p>首页第一屏保留了 qqqzj@Crane 的主视觉，下面是最近更新。访客一进来不用先判断栏目，直接看 Latest Posts 就能进入最新文章。</p><p>页面继续分成几个主要区域：</p><ul><li>About me：一段个人简介和联系入口。</li><li>News 动态：记录网站更新、阶段变化和公告。</li><li>Notes 笔记：放学习笔记、复习资料和整理好的长文。</li><li>Life 生活：放生活记录、照片、视频或日常片段。</li><li>Archive 归档：按月份集中列出所有公开文章。</li></ul><p>顶部导航可以直接跳到这些区域。手机端导航会横向滚动，尽量保留完整入口，不把页面压成一团。</p><h4 id="搜索和筛选">搜索和筛选<a class="heading-anchor" href="#搜索和筛选" data-heading-id="搜索和筛选" aria-label="Copy section link / 复制小节链接">#</a></h4><p>顶部搜索现在是前台的主要找文章方式。它不只搜标题，也会匹配标签、栏目、摘要、作者和正文文本。</p><p>输入关键词后，会出现即时搜索结果；按 Enter 可以直接打开最靠前的匹配文章。搜索框旁边有清空按钮，可以一键回到全部文章。</p><p>标签筛选也会跟着文章自动生成。Notes 区还额外有笔记分类按钮，比如数学、物理、随笔等，适合以后内容变多之后按主题回找。</p><h4 id="文章阅读">文章阅读<a class="heading-anchor" href="#文章阅读" data-heading-id="文章阅读" aria-label="Copy section link / 复制小节链接">#</a></h4><p>每篇公开文章都有详情页。详情页会显示标题、发布日期、标签、作者和大致阅读时间。长文章会自动生成目录，目录默认收在侧边，打开后可以跳到对应章节。</p><p>阅读时页面顶部会有进度条，能大概知道自己读到哪里。标题旁边的 # 可以复制这一小节的链接，适合把某一段笔记单独发给别人。</p><p>文章底部有回到顶部按钮，也会显示上一篇和下一篇。直接打开文章独立链接时，也能看到同样的正文、目录、主题切换和相邻文章入口。</p><h4 id="正文支持">正文支持<a class="heading-anchor" href="#正文支持" data-heading-id="正文支持" aria-label="Copy section link / 复制小节链接">#</a></h4><p>前台正文是从 Markdown 生成的，当前已经支持本站最常用的阅读元素：</p><ul><li>标题、段落、引用、分割线。</li><li>无序列表、有序列表和表格。</li><li>粗体、斜体、行内代码和代码块。</li><li>数学公式和物理公式渲染。</li><li>定理、证明、例题、定义、注意、提示等提示块。</li><li>图片、视频和图注。</li><li>附件下载。</li></ul><p>PDF 附件可以直接在页面里预览；Markdown、文本、代码、CSV、JSON 这类文本附件也可以展开看预览。大文件仍然以下载为主，不会强行塞进正文。</p><h4 id="图片-视频和生活记录">图片、视频和生活记录<a class="heading-anchor" href="#图片-视频和生活记录" data-heading-id="图片-视频和生活记录" aria-label="Copy section link / 复制小节链接">#</a></h4><p>文章里的图片会按正文宽度自适应，详情页里会尽量完整显示，不会故意裁掉关键信息。视频文件会显示播放器；如果文章提供了可嵌入的视频链接，前台也会以播放器形式展示。</p><p>Life 生活栏目会优先显示文章里的第一张图作为卡片预览。没有图片时，就使用统一的 Life 标记，保持列表整齐。</p><h4 id="主题和互动">主题和互动<a class="heading-anchor" href="#主题和互动" data-heading-id="主题和互动" aria-label="Copy section link / 复制小节链接">#</a></h4><p>前台有白天、黑夜、自动三种主题。自动模式会跟随系统深浅色；手动切换后会记住访客自己的选择。</p><p>左上角头像和右下角小人会跟随主题切换素材。右下角小人可以点击，会根据当前页面说不同的话；双击时可以回到顶部。它只是一个轻量互动入口，不影响正常阅读。</p><p>About me 里的邮箱按钮可以点击复制，省去手动改 [at] 和 [dot] 的麻烦。</p><h4 id="安装和订阅">安装和订阅<a class="heading-anchor" href="#安装和订阅" data-heading-id="安装和订阅" aria-label="Copy section link / 复制小节链接">#</a></h4><p>前台已经支持 PWA。手机或桌面浏览器如果支持添加到主屏幕，就可以把 qqqzj@Crane 当成一个小 App 打开。</p><p>站点会缓存基础外壳和轻量文章数据，让再次打开更快；图片、PDF 和视频这类大文件不做长期强缓存，避免更新后还看到旧内容。</p><p>RSS 订阅也可以直接使用。打开 RSS 页面时，浏览器里会显示成一份可读列表；放到 RSS 阅读器里，则仍然是标准订阅源。</p><h4 id="公开访问和搜索引擎">公开访问和搜索引擎<a class="heading-anchor" href="#公开访问和搜索引擎" data-heading-id="公开访问和搜索引擎" aria-label="Copy section link / 复制小节链接">#</a></h4><p>网站提供首页、独立文章页、RSS、网站地图和 404 页面。也就是说，访客可以从首页进入文章，也可以直接打开某篇文章的独立链接。</p><p>搜索引擎和社交平台能读到文章标题、摘要、正式链接和分享图。找不到的旧链接会进入站点风格一致的 404 页面，再引导回首页或归档。</p><h4 id="现在的前台定位">现在的前台定位<a class="heading-anchor" href="#现在的前台定位" data-heading-id="现在的前台定位" aria-label="Copy section link / 复制小节链接">#</a></h4><p>这一版前台的目标很明确：它不是复杂社区，也不要求访客学习额外操作；它是一个对阅读友好的个人站。</p><p>读者能做的事情包括：看最新更新，按栏目浏览，用搜索找文章，用目录读长文，预览附件，复制联系方式，订阅 RSS，把网站加到桌面，以及在手机上像小 App 一样打开。</p><p>后面再继续加内容时，这些入口会作为基础能力留在前台。内容越多，搜索、归档、目录和订阅就越有用。</p></div>
               </div>
               <div class="post-jump-nav" aria-label="文章跳转">
                 <button type="button" id="post-jump-top">回到顶部</button>
               </div>
               <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
-                <a href="../../post/2026-04-27-public-site-feature-guide/"><span>Newer / 更新</span><strong>现在前台能用什么：一份访客功能说明</strong></a>
-                <a href="../../post/2026-04-27-%E5%AE%9E%E7%8E%B0app/"><span>Older / 更早</span><strong>实现app</strong></a>
+                
+                <a href="../../post/2026-04-27-site-app-admin-performance-update/"><span>Older / 更早</span><strong>网站 App 化、后台和性能继续打磨</strong></a>
               </nav>
             </article>
           </div>

@@ -87,6 +87,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "这两天 qqqzj@Crane 又往前推了一大截。它已经不只是一个能打开的静态博客，而是开始变成一个更像 App 的个人写作和资料管理工具：前台负责阅读，后台负责发布，中间的图片、附件、构建和部署流程也尽量少让人操心。 这一轮更新主要集中在...",
       "readingMinutes": 3,
       "createdAt": "2026-04-27T00:00:00.000Z"
+    },
+    {
+      "id": "news/2026-04-27-public-site-feature-guide.md",
+      "slug": "2026-04-27-public-site-feature-guide",
+      "dataPath": "post-data/2026-04-27-public-site-feature-guide.json",
+      "source": "post",
+      "kind": "growth",
+      "title": "现在前台能用什么：一份访客功能说明",
+      "publishedIndex": 15,
+      "stage": "Site Guide",
+      "tag": "建站",
+      "author": "ZijunQiu-a",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "趁着这一轮更新刚收好，把 qqqzj@Crane 的前台也整理成一份说明。这里说的前台，就是普通访客打开 qqqzj.cn 后能直接看到、能直接使用的部分。 现在这个站点不只是文章列表，它更像一个小型个人档案馆：可以按时间看动态，按主题读笔...",
+      "readingMinutes": 3,
+      "createdAt": "2026-04-27T00:00:00.000Z"
     }
   ],
   "notes": [
