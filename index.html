@@ -16,7 +16,6 @@
     <link rel="icon" type="image/png" sizes="192x192" href="assets/site-icon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="assets/site-icon-512.png" />
     <link rel="preload" href="app.js" as="script" />
-    <link rel="preload" href="assets/furina-vision-splash-poster.jpg?v=20260427-fast" as="image" fetchpriority="high" />
     <script>
       (() => {
         const key = "qqqzj-crane-theme";
@@ -68,9 +67,10 @@
     <link rel="preload" href="published-posts.js" as="script" />
   </head>
   <body>
-    <div class="app-splash" id="app-splash" role="status" aria-live="polite" data-splash-video="assets/furina-vision-splash.mp4?v=20260427-fast">
-      <video class="app-splash-video-bg" poster="assets/furina-vision-splash-poster.jpg?v=20260427-fast" muted playsinline autoplay preload="auto" aria-hidden="true"></video>
-      <video class="app-splash-video" poster="assets/furina-vision-splash-poster.jpg?v=20260427-fast" muted playsinline autoplay preload="auto"></video>
+    <div class="app-splash" id="app-splash" role="status" aria-live="polite">
+      <div class="app-splash-mark" aria-hidden="true">
+        <span>qqqzj@Crane</span>
+      </div>
       <button class="app-splash-skip" type="button">
         <span>跳过</span>
         <span aria-hidden="true">→</span>

@@ -194,66 +194,81 @@ html.splash-active.splash-revealing .site-shell {
   opacity: 0.38;
 }
 
-.app-splash.is-finishing .app-splash-video,
-.app-splash.is-finishing .app-splash-video-bg {
-  transform: translate(-50%, -50%) scale(1.014);
-}
-
-.app-splash.is-finishing .app-splash-video {
-  filter: brightness(0.9) saturate(0.86) contrast(0.98);
-  opacity: 0.7;
-}
-
-.app-splash.is-finishing .app-splash-video-bg {
-  opacity: 0.3;
-  filter: blur(30px) saturate(0.78) brightness(0.9);
-}
-
-.app-splash.is-leaving .app-splash-video {
-  filter: blur(1.4px) brightness(0.96) saturate(0.78) contrast(0.96);
-  opacity: 0.16;
-  transform: translate(-50%, -50%) scale(1.024);
-}
-
-.app-splash.is-leaving .app-splash-video-bg {
-  opacity: 0.1;
-  filter: blur(38px) saturate(0.7) brightness(0.96);
-  transform: translate(-50%, -50%) scale(1.028);
-}
-
-.app-splash-video-bg,
-.app-splash-video {
+.app-splash-mark {
   position: absolute;
   inset: 50% auto auto 50%;
-  background: #d7e4ef;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: min(62vw, 360px);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255, 254, 253, 0.72), rgba(255, 254, 253, 0.26) 22%, transparent 54%),
+    radial-gradient(circle at 48% 52%, rgba(102, 213, 240, 0.36), transparent 42%),
+    radial-gradient(circle at 52% 58%, rgba(202, 161, 76, 0.16), transparent 56%);
   transform: translate(-50%, -50%);
+  opacity: 1;
+  filter: saturate(1.05);
   transition:
     filter 1800ms cubic-bezier(0.18, 0.72, 0.16, 1),
     opacity 1800ms cubic-bezier(0.18, 0.72, 0.16, 1),
     transform 2100ms cubic-bezier(0.18, 0.72, 0.16, 1);
-  backface-visibility: hidden;
   will-change: filter, opacity, transform;
+  animation: splash-mark-pulse 1800ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.app-splash-video-bg {
-  z-index: 1;
-  width: 112%;
-  height: 112%;
-  object-fit: cover;
-  opacity: 0.78;
-  filter: blur(22px) saturate(0.92) brightness(1.08);
+.app-splash-mark::before,
+.app-splash-mark::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
 }
 
-.app-splash-video {
-  z-index: 2;
-  width: min(100vw, 177.78vh, 1280px);
-  height: min(100vh, 56.25vw, 720px);
-  object-fit: contain;
-  opacity: 1;
-  filter: brightness(1) saturate(1);
-  mask-image: linear-gradient(180deg, transparent 0%, black 15%, black 85%, transparent 100%);
+.app-splash-mark::before {
+  inset: 18%;
+  border: 1px solid rgba(255, 254, 253, 0.72);
+  border-radius: 999px;
   box-shadow:
-    0 24px 80px rgba(34, 66, 94, 0.12);
+    0 0 30px rgba(102, 213, 240, 0.26),
+    inset 0 0 24px rgba(255, 254, 253, 0.3);
+}
+
+.app-splash-mark::after {
+  inset: 9%;
+  border-radius: 999px;
+  background: conic-gradient(from 210deg, transparent, rgba(102, 213, 240, 0.34), transparent 34%, rgba(255, 254, 253, 0.34), transparent 68%);
+  opacity: 0.78;
+  animation: splash-ring-spin 3400ms linear infinite;
+}
+
+.app-splash-mark span {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 254, 253, 0.92);
+  font-size: clamp(18px, 4vw, 34px);
+  font-weight: 950;
+  letter-spacing: 0;
+  text-shadow: 0 10px 36px rgba(7, 18, 31, 0.28);
+}
+
+:root[data-theme-state="ousia"] .app-splash-mark {
+  background:
+    radial-gradient(circle at 50% 44%, rgba(102, 213, 240, 0.28), rgba(102, 213, 240, 0.1) 25%, transparent 56%),
+    radial-gradient(circle at 48% 54%, rgba(166, 165, 245, 0.22), transparent 46%),
+    radial-gradient(circle at 54% 58%, rgba(255, 254, 253, 0.1), transparent 58%);
+}
+
+.app-splash.is-finishing .app-splash-mark {
+  filter: blur(0.8px) saturate(0.92) brightness(1.08);
+  opacity: 0.66;
+  transform: translate(-50%, -50%) scale(1.035);
+}
+
+.app-splash.is-leaving .app-splash-mark {
+  filter: blur(2.5px) saturate(0.78) brightness(1.12);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.08);
 }
 
 .app-splash-skip {
@@ -296,14 +311,37 @@ html.splash-active.splash-revealing .site-shell {
   transform: translateY(-1px);
 }
 
+@keyframes splash-mark-pulse {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.94);
+  }
+
+  38% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes splash-ring-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .app-splash,
   .app-splash::before,
-  .app-splash-video-bg,
-  .app-splash-video,
+  .app-splash-mark,
+  .app-splash-mark::after,
   .app-splash-skip,
   html.splash-active .site-shell {
     transition: none;
+    animation: none;
   }
 }
 

@@ -56,11 +56,7 @@ let searchRenderTimer = null;
 let routeRenderToken = 0;
 const SEARCH_RENDER_DELAY = 160;
 const SPLASH_SESSION_KEY = "qqqzj-crane-splash-seen-v1";
-const SPLASH_FALLBACK_MS = 9000;
-const SPLASH_SLOW_TAIL_MS = 720;
-const SPLASH_TAIL_MIN_PLAYBACK_RATE = 0.82;
-const SPLASH_PRE_EXIT_MS = 1380;
-const SPLASH_AUTO_CLOSE_REMAINING_MS = 820;
+const SPLASH_STILL_MS = 1450;
 const SPLASH_LEAVE_DELAY_MS = 100;
 const SPLASH_HANDOFF_DELAY_MS = 160;
 const SPLASH_HANDOFF_MS = 1300;
@@ -132,26 +128,10 @@ function initSplashScreen() {
   resetSplashScroll();
   window.addEventListener("load", resetSplashScroll, { once: true });
 
-  const videos = [...splash.querySelectorAll("video")];
-  const video = splash.querySelector(".app-splash-video");
-  const splashVideoSrc = splash.dataset.splashVideo;
   let closed = false;
   let finishing = false;
-  let fallbackTimer = 0;
+  let closeTimer = 0;
   let handoffTimer = 0;
-  let videoWatchFrame = 0;
-
-  const setSplashPlaybackRate = (rate) => {
-    videos.forEach((item) => {
-      item.playbackRate = rate;
-    });
-  };
-
-  const cancelVideoWatcher = () => {
-    if (!videoWatchFrame) return;
-    window.cancelAnimationFrame(videoWatchFrame);
-    videoWatchFrame = 0;
-  };
 
   const beginFinish = () => {
     if (finishing) return;
@@ -163,9 +143,8 @@ function initSplashScreen() {
   const closeSplash = ({ immediate = false } = {}) => {
     if (closed) return;
     closed = true;
-    window.clearTimeout(fallbackTimer);
+    window.clearTimeout(closeTimer);
     window.clearTimeout(handoffTimer);
-    cancelVideoWatcher();
     beginFinish();
     const leaveDelay = immediate ? 0 : SPLASH_LEAVE_DELAY_MS;
     window.setTimeout(() => {
@@ -192,34 +171,9 @@ function initSplashScreen() {
     }
 
     window.setTimeout(() => {
-      videos.forEach((item) => item.pause?.());
       splash.remove();
       document.documentElement.classList.remove("splash-active", "splash-revealing", "splash-fading");
     }, leaveDelay + SPLASH_EXIT_MS);
-  };
-
-  const syncVideoExit = () => {
-    if (closed || !video || !Number.isFinite(video.duration) || video.duration <= 0) return;
-    const remainingMs = (video.duration - video.currentTime) * 1000;
-    const tailProgress = Math.max(0, Math.min(1, (SPLASH_SLOW_TAIL_MS - remainingMs) / SPLASH_SLOW_TAIL_MS));
-    const easedTailProgress = tailProgress * tailProgress * (3 - 2 * tailProgress);
-    const playbackRate = 1 - (1 - SPLASH_TAIL_MIN_PLAYBACK_RATE) * easedTailProgress;
-    if (Math.abs(video.playbackRate - playbackRate) > 0.01) setSplashPlaybackRate(playbackRate);
-    if (remainingMs <= SPLASH_PRE_EXIT_MS) beginFinish();
-    if (remainingMs <= SPLASH_AUTO_CLOSE_REMAINING_MS) closeSplash();
-  };
-
-  const watchVideoExit = () => {
-    videoWatchFrame = 0;
-    syncVideoExit();
-    if (!closed && video && !video.paused && !video.ended) {
-      videoWatchFrame = window.requestAnimationFrame(watchVideoExit);
-    }
-  };
-
-  const startVideoWatcher = () => {
-    if (videoWatchFrame || closed) return;
-    videoWatchFrame = window.requestAnimationFrame(watchVideoExit);
   };
 
   splash.querySelector(".app-splash-skip")?.addEventListener("click", () => closeSplash({ immediate: true }));
@@ -229,29 +183,7 @@ function initSplashScreen() {
   window.addEventListener("wheel", () => closeSplash({ immediate: true }), { once: true, passive: true });
   window.addEventListener("touchstart", () => closeSplash({ immediate: true }), { once: true, passive: true });
 
-  videos.forEach((item) => {
-    if (splashVideoSrc && !item.getAttribute("src")) {
-      item.src = splashVideoSrc;
-      item.load?.();
-    }
-    if (item.readyState > 0) item.currentTime = 0;
-    item.playbackRate = 1;
-    item.play?.().catch(() => {
-      // Muted inline playback should work; if a browser still blocks it, the fallback timer exits.
-    });
-  });
-
-  if (video) {
-    video.addEventListener("loadedmetadata", () => {
-      syncVideoExit();
-      startVideoWatcher();
-    }, { once: true });
-    video.addEventListener("play", startVideoWatcher);
-    video.addEventListener("timeupdate", syncVideoExit);
-    video.addEventListener("ended", () => closeSplash({ immediate: true }), { once: true });
-    video.addEventListener("error", () => window.setTimeout(() => closeSplash({ immediate: true }), 900), { once: true });
-  }
-  fallbackTimer = window.setTimeout(() => closeSplash({ immediate: true }), SPLASH_FALLBACK_MS);
+  closeTimer = window.setTimeout(() => closeSplash(), SPLASH_STILL_MS);
 }
 
 function resetSplashScroll() {
