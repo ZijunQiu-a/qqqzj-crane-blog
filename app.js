@@ -57,11 +57,48 @@ const SEARCH_RENDER_DELAY = 160;
 
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/service-worker.js").catch(() => {
-      // The site still works normally without PWA installation support.
-    });
+
+  let hadController = Boolean(navigator.serviceWorker.controller);
+  let reloadingForUpdate = false;
+
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (!hadController) {
+      hadController = true;
+      return;
+    }
+
+    if (reloadingForUpdate) return;
+    reloadingForUpdate = true;
+    window.location.reload();
   });
+
+  window.addEventListener("load", async () => {
+    try {
+      const registration = await navigator.serviceWorker.register("/service-worker.js", {
+        updateViaCache: "none",
+      });
+
+      activateWaitingServiceWorker(registration.waiting);
+      registration.addEventListener("updatefound", () => {
+        const worker = registration.installing;
+        if (!worker) return;
+        worker.addEventListener("statechange", () => {
+          if (worker.state === "installed") {
+            activateWaitingServiceWorker(worker);
+          }
+        });
+      });
+
+      await registration.update();
+    } catch {
+      // The site still works normally without PWA installation support.
+    }
+  });
+}
+
+function activateWaitingServiceWorker(worker) {
+  if (!worker || !navigator.serviceWorker.controller) return;
+  worker.postMessage({ type: "SKIP_WAITING" });
 }
 
 // 总渲染入口：三类内容列表和顶部统计都在这里更新。
