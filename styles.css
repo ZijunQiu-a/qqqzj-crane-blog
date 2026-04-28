@@ -63,14 +63,18 @@
 }
 
 html {
+  max-width: 100%;
   scrollbar-gutter: stable;
   scroll-padding-top: 96px;
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
+  max-width: 100%;
   min-width: 320px;
+  overflow-x: clip;
   background:
     radial-gradient(circle at 16% 12%, rgba(20, 123, 145, 0.14), transparent 28%),
     radial-gradient(circle at 84% 20%, rgba(103, 97, 168, 0.12), transparent 26%),
@@ -106,6 +110,13 @@ input[type="search"]::-webkit-search-decoration {
 
 button {
   cursor: pointer;
+}
+
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
 }
 
 /* 页面外壳：限制最大宽度，并在小屏幕上保留左右边距。 */
@@ -3199,6 +3210,7 @@ html.theme-enter-pneuma::after {
   }
 
   .topbar::before {
+    inset: 0;
     border-radius: 0 0 24px 24px;
   }
 

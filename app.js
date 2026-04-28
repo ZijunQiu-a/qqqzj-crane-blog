@@ -968,11 +968,20 @@ views.jumpTop?.addEventListener("click", () => {
 window.addEventListener("scroll", updateReadingProgress, { passive: true });
 window.addEventListener("scroll", updateMobileTopbarVisibility, { passive: true });
 window.addEventListener("resize", () => {
+  resetHorizontalScroll();
   updateReadingProgress();
   updateMobileTopbarVisibility({ force: true });
 });
 mobileTopbarMedia?.addEventListener?.("change", () => updateMobileTopbarVisibility({ force: true }));
 updateMobileTopbarVisibility({ force: true });
+
+function resetHorizontalScroll() {
+  if (!window.scrollX && !document.documentElement.scrollLeft && !document.body.scrollLeft) return;
+  const top = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  window.scrollTo({ top, left: 0, behavior: "auto" });
+  document.documentElement.scrollLeft = 0;
+  document.body.scrollLeft = 0;
+}
 
 function scrollToHeading(id) {
   if (!id) return;
