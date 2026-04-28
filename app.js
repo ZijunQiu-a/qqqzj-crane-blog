@@ -371,7 +371,7 @@ async function loadPostFile(file, publishedIndex = 0) {
     publishedIndex,
     stage: meta.stage || category,
     tag: meta.tag || category,
-    author: meta.author || "ZijunQiu-a",
+    author: meta.author || "qqqzj-crane",
     url: meta.url || "",
     body,
     html: rendered.html,
@@ -446,7 +446,7 @@ function readTimeLabel(entry) {
 }
 
 function authorName(entry) {
-  return entry.author || "ZijunQiu-a";
+  return entry.author || "qqqzj-crane";
 }
 
 function authorChip(entry) {
