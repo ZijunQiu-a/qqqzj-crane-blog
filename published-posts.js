@@ -104,6 +104,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "趁着这一轮更新刚收好，把 qqqzj@Crane 的前台也整理成一份说明。这里说的前台，就是普通访客打开 qqqzj.cn 后能直接看到、能直接使用的部分。 现在这个站点不只是文章列表，它更像一个小型个人档案馆：可以按时间看动态，按主题读笔...",
       "readingMinutes": 3,
       "createdAt": "2026-04-27T00:00:00.000Z"
+    },
+    {
+      "id": "news/2026-04-28-重大决策.md",
+      "slug": "2026-04-28-重大决策",
+      "dataPath": "post-data/2026-04-28-%E9%87%8D%E5%A4%A7%E5%86%B3%E7%AD%96.json",
+      "source": "post",
+      "kind": "growth",
+      "title": "重大决策！",
+      "publishedIndex": 20,
+      "stage": "News 动态",
+      "tag": "更新",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "我决定将我的github用户名从 ZijunQiu-a改成qqqzj-crane！！！",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-28T00:00:00.000Z"
     }
   ],
   "notes": [
