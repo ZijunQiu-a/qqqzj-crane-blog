@@ -225,6 +225,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "General Physics I Midterm Review Outline / 普物 I 期中复习提纲（Mechanics 讲义全覆盖版） Main reference / 主参考：普物I/reference books/mechan...",
       "readingMinutes": 14,
       "createdAt": "2026-04-25T00:00:00.000Z"
+    },
+    {
+      "id": "notes/math/2026-04-28-离散数学笔记.md",
+      "slug": "2026-04-28-离散数学笔记",
+      "dataPath": "post-data/2026-04-28-%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E7%AC%94%E8%AE%B0.json",
+      "source": "post",
+      "kind": "notes",
+      "title": "离散数学笔记",
+      "publishedIndex": 21,
+      "stage": "Notes 笔记",
+      "tag": "数学",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "离散数学课堂笔记 / Discrete Mathematics Class Notes 本笔记按专题整理，而不是按课次整理。课件用于确认本地课程已讲到的顺序，Rosen《Discrete Mathematics and Its Applic...",
+      "readingMinutes": 36,
+      "createdAt": "2026-04-28T00:00:00.000Z"
     }
   ],
   "videos": [

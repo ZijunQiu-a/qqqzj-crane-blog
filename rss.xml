@@ -6,7 +6,14 @@
     <link>https://qqqzj.cn/</link>
     <description>qqqzj 的个人笔记、生活记录与学习档案。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 28 Apr 2026 07:14:18 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Apr 2026 11:23:24 GMT</lastBuildDate>
+    <item>
+      <title>离散数学笔记</title>
+      <link>https://qqqzj.cn/post/2026-04-28-%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E7%AC%94%E8%AE%B0/</link>
+      <guid>https://qqqzj.cn/post/2026-04-28-%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E7%AC%94%E8%AE%B0/</guid>
+      <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
+      <description>离散数学课堂笔记 / Discrete Mathematics Class Notes 本笔记按专题整理，而不是按课次整理。课件用于确认本地课程已讲到的顺序，Rosen《Discrete Mathematics and Its Applic...</description>
+    </item>
     <item>
       <title>重大决策！</title>
       <link>https://qqqzj.cn/post/2026-04-28-%E9%87%8D%E5%A4%A7%E5%86%B3%E7%AD%96/</link>
@@ -139,13 +146,6 @@
       <guid>https://qqqzj.cn/post/2026-04-24-physics-lab-markdown-template/</guid>
       <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
       <description>我弄了这个 Markdown 模版，之后写普物实验报告就不用再被 docx 格式卡住了。 文件放在这里，直接下载就能用。 下载实验报告 Markdown 模版 下载预习报告 Markdown 模版 下载配套 CSS 样式</description>
-    </item>
-    <item>
-      <title>完成个人网站第一版</title>
-      <link>https://qqqzj.cn/post/2026-04-24-first-news/</link>
-      <guid>https://qqqzj.cn/post/2026-04-24-first-news/</guid>
-      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
-      <description>今天借助 Codex 把 qqqzj@Crane 的第一版搭起来了，感谢 Chatgpt 呜呜呜。</description>
     </item>
   </channel>
 </rss>

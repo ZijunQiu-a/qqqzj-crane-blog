@@ -1,0 +1,700 @@
+{
+  "html": "<h4 id=\"离散数学课堂笔记-discrete-mathematics-class-notes\">离散数学课堂笔记 / Discrete Mathematics Class Notes<a class=\"heading-anchor\" href=\"#离散数学课堂笔记-discrete-mathematics-class-notes\" data-heading-id=\"离散数学课堂笔记-discrete-mathematics-class-notes\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><blockquote>本笔记按专题整理，而不是按课次整理。课件用于确认本地课程已讲到的顺序，Rosen《Discrete Mathematics and Its Applications》第 8 版及其中文版、MIT 6.042J/6.1200J Mathematics for Computer Science 用于补全全课程专题。<br /><br />These notes are organized by topics, not by lecture number. Local slides indicate the current lecture order, while Rosen and MIT MCS materials are used as the full-course backbone.</blockquote><div class=\"entry-file\"><a class=\"download-button\" href=\"files/2026-04-28-discrete-mathematics-notes/离散数学课堂笔记.pdf\" download><span>下载 PDF</span><small>离散数学课堂笔记.pdf</small></a><details class=\"file-preview\"><summary>Preview / 预览</summary><iframe src=\"files/2026-04-28-discrete-mathematics-notes/离散数学课堂笔记.pdf\" title=\"离散数学课堂笔记.pdf\" loading=\"lazy\"></iframe></details></div><h4 id=\"0-使用说明-how-to-use-this-note\">0. 使用说明 / How to Use This Note<a class=\"heading-anchor\" href=\"#0-使用说明-how-to-use-this-note\" data-heading-id=\"0-使用说明-how-to-use-this-note\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"0-1-笔记结构-structure\">0.1 笔记结构 / Structure<a class=\"heading-anchor\" href=\"#0-1-笔记结构-structure\" data-heading-id=\"0-1-笔记结构-structure\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li><code>Statement / 定理或公式</code>: 需要记住的标准结论。</li><li><code>Proof / 证明</code>: 课堂考试中可复现的证明思路。</li><li><code>Use / 用法</code>: 做题时什么时候用、怎样套。</li><li><code>EN</code>: English statement or keyword, useful for matching the English textbook and MIT notes.</li><li><code>CN</code>: 中文解释，便于复习和答题组织。</li></ul><h5 id=\"0-2-资料范围-source-scope\">0.2 资料范围 / Source Scope<a class=\"heading-anchor\" href=\"#0-2-资料范围-source-scope\" data-heading-id=\"0-2-资料范围-source-scope\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>Rosen 英文版: Chapters 1-13, especially logic, proof, sets, functions, algorithms, number theory, induction, counting, probability, recurrence, relations, graphs, trees, Boolean algebra, computation models.</li><li>Rosen 中文版: 中文术语对照和课堂表述参考。</li><li>MIT 6.042J textbook and MIT 6.1200J notes: proof methods, state machines, asymptotics, recurrences, graph theory, matching, probability, expectation, deviation bounds.</li><li>Local slides: currently emphasize Rosen Sections 1.1-8.4, but the course is not limited to those sections.</li></ul><h5 id=\"0-3-核心学习策略-core-study-strategy\">0.3 核心学习策略 / Core Study Strategy<a class=\"heading-anchor\" href=\"#0-3-核心学习策略-core-study-strategy\" data-heading-id=\"0-3-核心学习策略-core-study-strategy\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>CN: 离散数学题目通常不是“套一个大公式”，而是先判断对象类型: 命题、集合、函数、整数、序列、图、关系、概率空间。对象判断正确后，再选对应工具。</p><p>EN: Most discrete math problems begin by identifying the object: proposition, set, function, integer, sequence, graph, relation, or probability space. Once the object is identified, the correct theorem usually becomes visible.</p><hr /><h4 id=\"1-逻辑与证明-logic-and-proofs\">1. 逻辑与证明 / Logic and Proofs<a class=\"heading-anchor\" href=\"#1-逻辑与证明-logic-and-proofs\" data-heading-id=\"1-逻辑与证明-logic-and-proofs\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"1-1-命题与联结词-propositions-and-connectives\">1.1 命题与联结词 / Propositions and Connectives<a class=\"heading-anchor\" href=\"#1-1-命题与联结词-propositions-and-connectives\" data-heading-id=\"1-1-命题与联结词-propositions-and-connectives\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 命题是能判断真假的陈述句。常用联结词:</p><div class=\"table-scroll\"><table><thead><tr><th>Symbol</th><th>EN</th><th>CN</th><th>Truth condition</th></tr></thead><tbody><tr><td>$\\neg p$</td><td>negation</td><td>非</td><td>true iff $p$ is false</td></tr><tr><td>$p \\land q$</td><td>conjunction</td><td>合取, 且</td><td>true iff both are true</td></tr><tr><td>$p \\lor q$</td><td>disjunction</td><td>析取, 或</td><td>true iff at least one is true</td></tr><tr><td>$p \\oplus q$</td><td>exclusive or</td><td>异或</td><td>true iff exactly one is true</td></tr><tr><td>$p \\to q$</td><td>implication</td><td>蕴含</td><td>false only when $p$ true and $q$ false</td></tr><tr><td>$p \\leftrightarrow q$</td><td>biconditional</td><td>双条件</td><td>true iff $p$ and $q$ have same truth value</td></tr></tbody></table></div><p>EN: An implication $p \\to q$ does not claim causal relation. It only specifies a truth table.</p><p><strong>Use / 用法.</strong>  <br />CN: 证明条件命题 $p \\to q$ 时，不要试图证明 $p$ 为真，而是假设 $p$ 为真并推出 $q$。判断等价命题时可用真值表或等价变形。</p><h5 id=\"1-2-常用逻辑等价式-common-logical-equivalences\">1.2 常用逻辑等价式 / Common Logical Equivalences<a class=\"heading-anchor\" href=\"#1-2-常用逻辑等价式-common-logical-equivalences\" data-heading-id=\"1-2-常用逻辑等价式-common-logical-equivalences\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>For all propositions $p, q, r$:</p><div class=\"table-scroll\"><table><thead><tr><th>EN name</th><th>CN name</th><th>Formula</th></tr></thead><tbody><tr><td>Identity laws</td><td>恒等律</td><td>$p \\land T \\equiv p$, $p \\lor F \\equiv p$</td></tr><tr><td>Domination laws</td><td>支配律</td><td>$p \\lor T \\equiv T$, $p \\land F \\equiv F$</td></tr><tr><td>Idempotent laws</td><td>幂等律</td><td>$p \\lor p \\equiv p$, $p \\land p \\equiv p$</td></tr><tr><td>Double negation</td><td>双重否定律</td><td>$\\neg \\neg p \\equiv p$</td></tr><tr><td>Commutative laws</td><td>交换律</td><td>$p \\lor q \\equiv q \\lor p$, $p \\land q \\equiv q \\land p$</td></tr><tr><td>Associative laws</td><td>结合律</td><td>$(p \\lor q) \\lor r \\equiv p \\lor (q \\lor r)$, similarly for $\\land$</td></tr><tr><td>Distributive laws</td><td>分配律</td><td>$p \\lor (q \\land r) \\equiv (p \\lor q) \\land (p \\lor r)$; $p \\land (q \\lor r) \\equiv (p \\land q) \\lor (p \\land r)$</td></tr><tr><td>De Morgan laws</td><td>德摩根律</td><td>$\\neg (p \\land q) \\equiv \\neg p \\lor \\neg q$; $\\neg (p \\lor q) \\equiv \\neg p \\land \\neg q$</td></tr><tr><td>Absorption laws</td><td>吸收律</td><td>$p \\lor (p \\land q) \\equiv p$; $p \\land (p \\lor q) \\equiv p$</td></tr><tr><td>Negation laws</td><td>否定律</td><td>$p \\lor \\neg p \\equiv T$; $p \\land \\neg p \\equiv F$</td></tr><tr><td>Implication</td><td>蕴含等价</td><td>$p \\to q \\equiv \\neg p \\lor q$</td></tr><tr><td>Contrapositive</td><td>逆否等价</td><td>$p \\to q \\equiv \\neg q \\to \\neg p$</td></tr><tr><td>Biconditional</td><td>双条件等价</td><td>$p \\leftrightarrow q \\equiv (p \\to q) \\land (q \\to p)$</td></tr><tr><td>XOR</td><td>异或</td><td>$p \\oplus q \\equiv (p \\lor q) \\land \\neg (p \\land q)$</td></tr></tbody></table></div><p><strong>Proof / 证明.</strong>  <br />CN: 每个等价式都可用真值表逐行验证。比如 $p \\to q \\equiv \\neg p \\lor q$: 当 $p=T,q=F$ 时两边都假；其余三种情形两边都真。德摩根律可用真值表，也可理解为“不是同时发生”等于“至少一个不发生”。</p><p>EN: Each equivalence follows by truth-table verification. In proofs, equivalence replacement is valid because equivalent formulas have the same truth value under every assignment.</p><p><strong>Use / 用法.</strong>  <br />CN: 化简命题、证明永真式、把程序条件取反时使用。尤其注意 $\\neg (p \\to q) \\equiv p \\land \\neg q$，这常用于反证和找反例。</p><h5 id=\"1-3-谓词与量词-predicates-and-quantifiers\">1.3 谓词与量词 / Predicates and Quantifiers<a class=\"heading-anchor\" href=\"#1-3-谓词与量词-predicates-and-quantifiers\" data-heading-id=\"1-3-谓词与量词-predicates-and-quantifiers\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 谓词 $P(x)$ 是含变量的陈述，给定变量值后成为命题。量词:</p><ul><li>Universal quantifier / 全称量词: $\\forall x P(x)$, 对所有 $x$ 成立。</li><li>Existential quantifier / 存在量词: $\\exists x P(x)$, 存在至少一个 $x$ 成立。</li><li>Unique existence / 唯一存在: $\\exists!x P(x)$, 存在唯一一个 $x$ 成立。</li></ul><p><strong>Quantifier negation / 量词否定.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\neg \\forall x P(x) \\equiv \\exists x \\neg P(x) \\\\\n\\neg \\exists x P(x) \\equiv \\forall x \\neg P(x) \\\\\n\\neg \\forall x\\exists y P(x,y) \\equiv \\exists x\\forall y \\neg P(x,y) \\\\\n\\neg \\exists x\\forall y P(x,y) \\equiv \\forall x\\exists y \\neg P(x,y)\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: $\\neg \\forall xP(x)$ 表示“并非每个对象都满足”，即至少有一个对象不满足，所以等价于 $\\exists x\\neg P(x)$。第二式同理。嵌套量词取反时，每经过一个量词就翻转一次。</p><p><strong>Use / 用法.</strong>  <br />CN: 写反例时常用。要否定“每个学生都有一本书”，正确形式是“存在一个学生没有任何书”，而不是“每个学生都没有书”。</p><h5 id=\"1-4-推理规则-rules-of-inference\">1.4 推理规则 / Rules of Inference<a class=\"heading-anchor\" href=\"#1-4-推理规则-rules-of-inference\" data-heading-id=\"1-4-推理规则-rules-of-inference\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"table-scroll\"><table><thead><tr><th>Rule</th><th>EN statement</th><th>CN statement</th></tr></thead><tbody><tr><td>Modus Ponens</td><td>$p$, $p \\to q$, therefore $q$</td><td>肯定前件</td></tr><tr><td>Modus Tollens</td><td>$\\neg q$, $p \\to q$, therefore $\\neg p$</td><td>否定后件</td></tr><tr><td>Hypothetical Syllogism</td><td>$p \\to q$, $q \\to r$, therefore $p \\to r$</td><td>假言三段论</td></tr><tr><td>Disjunctive Syllogism</td><td>$p \\lor q$, $\\neg p$, therefore $q$</td><td>析取三段论</td></tr><tr><td>Addition</td><td>$p$, therefore $p \\lor q$</td><td>附加律</td></tr><tr><td>Simplification</td><td>$p \\land q$, therefore $p$</td><td>化简律</td></tr><tr><td>Conjunction</td><td>$p$, $q$, therefore $p \\land q$</td><td>合取律</td></tr><tr><td>Resolution</td><td>$p \\lor q$, $\\neg p \\lor r$, therefore $q \\lor r$</td><td>归结</td></tr><tr><td>Universal Instantiation</td><td>$\\forall xP(x)$, therefore $P(c)$</td><td>全称实例化</td></tr><tr><td>Universal Generalization</td><td>prove $P(c)$ for arbitrary $c$, therefore $\\forall xP(x)$</td><td>全称推广</td></tr><tr><td>Existential Instantiation</td><td>$\\exists xP(x)$, choose witness $c$ with $P(c)$</td><td>存在实例化</td></tr><tr><td>Existential Generalization</td><td>$P(c)$, therefore $\\exists xP(x)$</td><td>存在推广</td></tr></tbody></table></div><p><strong>Proof / 证明.</strong>  <br />CN: 命题逻辑规则可由真值表验证有效性。量词规则依赖“任意性”和“见证元”: 全称推广中的 $c$ 必须是任意对象，存在实例化中的 $c$ 不能偷带额外性质。</p><p><strong>Use / 用法.</strong>  <br />CN: 写形式化证明时用。若题目给出“所有 A 都是 B”和“x 是 A”，用全称实例化加肯定前件推出“x 是 B”。</p><h5 id=\"1-5-证明方法-proof-methods\">1.5 证明方法 / Proof Methods<a class=\"heading-anchor\" href=\"#1-5-证明方法-proof-methods\" data-heading-id=\"1-5-证明方法-proof-methods\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"direct-proof-直接证明\">Direct Proof / 直接证明<a class=\"heading-anchor\" href=\"#direct-proof-直接证明\" data-heading-id=\"direct-proof-直接证明\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Statement / 形式.</strong> To prove $p \\to q$, assume $p$ and derive $q$.</p><p><strong>Proof template / 证明模板.</strong>  <br />CN: 假设 $p$ 成立。利用定义、已知定理和代数变形，推出 $q$。因此 $p \\to q$ 成立。</p><p><strong>Use / 用法.</strong>  <br />CN: 适合定义直接展开的题，如整除、奇偶性、集合包含。</p><h5 id=\"contrapositive-proof-逆否证明\">Contrapositive Proof / 逆否证明<a class=\"heading-anchor\" href=\"#contrapositive-proof-逆否证明\" data-heading-id=\"contrapositive-proof-逆否证明\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Statement / 形式.</strong> Prove $\\neg q \\to \\neg p$, because $p \\to q \\equiv \\neg q \\to \\neg p$.</p><p><strong>Proof / 证明.</strong>  <br />CN: 由逆否等价，证明逆否命题就等于证明原命题。</p><p><strong>Use / 用法.</strong>  <br />CN: 当结论是否定形式或前件难用时常用。例如证明“若 $n^2$ 为偶数，则 $n$ 为偶数”，证明“若 $n$ 为奇数，则 $n^2$ 为奇数”更容易。</p><h5 id=\"proof-by-contradiction-反证法\">Proof by Contradiction / 反证法<a class=\"heading-anchor\" href=\"#proof-by-contradiction-反证法\" data-heading-id=\"proof-by-contradiction-反证法\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Statement / 形式.</strong> To prove $p$, assume $\\neg p$, derive contradiction $F$.</p><p><strong>Proof / 证明.</strong>  <br />CN: 若 $\\neg p$ 会推出矛盾，则 $\\neg p$ 不可能真，因此 $p$ 真。这依赖排中律 $p \\lor \\neg p$。</p><p><strong>Use / 用法.</strong>  <br />CN: 常用于无理数、无限性、唯一性、不可达性问题。</p><h5 id=\"proof-by-cases-分类讨论\">Proof by Cases / 分类讨论<a class=\"heading-anchor\" href=\"#proof-by-cases-分类讨论\" data-heading-id=\"proof-by-cases-分类讨论\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Statement / 形式.</strong> If $p_1 \\lor p_2 \\lor ... \\lor pk$ covers all cases, and each $pi \\to q$, then $q$.</p><p><strong>Proof / 证明.</strong>  <br />CN: 全部可能情形被穷尽，每一种情形都推出同一结论，所以结论成立。</p><p><strong>Use / 用法.</strong>  <br />CN: 奇偶、模余数、图中顶点度数、算法分支等题。</p><h5 id=\"existence-and-uniqueness-存在性与唯一性\">Existence and Uniqueness / 存在性与唯一性<a class=\"heading-anchor\" href=\"#existence-and-uniqueness-存在性与唯一性\" data-heading-id=\"existence-and-uniqueness-存在性与唯一性\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Statement / 形式.</strong> To prove $\\exists!xP(x)$, prove:</p><ol><li>Existence / 存在: $\\exists xP(x)$.</li><li>Uniqueness / 唯一: if $P(a)$ and $P(b)$, then $a=b$.</li></ol><p><strong>Use / 用法.</strong>  <br />CN: 除法算法、逆元、最小元素、图中某些构造的唯一性常用。</p><hr /><h4 id=\"2-集合-函数-序列-求和-矩阵-sets-functions-sequences-sums-matrices\">2. 集合、函数、序列、求和、矩阵 / Sets, Functions, Sequences, Sums, Matrices<a class=\"heading-anchor\" href=\"#2-集合-函数-序列-求和-矩阵-sets-functions-sequences-sums-matrices\" data-heading-id=\"2-集合-函数-序列-求和-矩阵-sets-functions-sequences-sums-matrices\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"2-1-集合基本概念-sets\">2.1 集合基本概念 / Sets<a class=\"heading-anchor\" href=\"#2-1-集合基本概念-sets\" data-heading-id=\"2-1-集合基本概念-sets\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>$x \\in A$: $x$ is an element of $A$ / $x$ 属于 $A$。</li><li>$A \\subseteq B$: every element of $A$ is in $B$ / 子集。</li><li>$A = B$: $A \\subseteq B$ and $B \\subseteq A$ / 集合相等。</li><li>$P(A)$: power set, the set of all subsets of $A$ / 幂集。</li><li>$|A|$: cardinality / 基数。</li><li>Cartesian product / 笛卡尔积: $A \\times B = {(a,b): a\\in A, b\\in B}$。</li></ul><p><strong>Power set formula / 幂集公式.</strong></p><div class=\"math-display\">$$\n|A|=n \\implies |\\mathcal{P}(A)|=2^n.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 对 $A$ 中每个元素，构造子集时有“选入/不选入”两种选择，独立相乘得 $2^n$。</p><p><strong>Use / 用法.</strong>  <br />CN: 数子集数量、二进制串与子集一一对应时使用。</p><h5 id=\"2-2-集合运算-set-operations\">2.2 集合运算 / Set Operations<a class=\"heading-anchor\" href=\"#2-2-集合运算-set-operations\" data-heading-id=\"2-2-集合运算-set-operations\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"table-scroll\"><table><thead><tr><th>Operation</th><th>EN</th><th>CN</th></tr></thead><tbody><tr><td>$A \\cup B$</td><td>union</td><td>并集</td></tr><tr><td>$A \\cap B$</td><td>intersection</td><td>交集</td></tr><tr><td>$A - B$</td><td>difference</td><td>差集</td></tr><tr><td>$A^c$</td><td>complement</td><td>补集</td></tr><tr><td>$A \\oplus B$</td><td>symmetric difference</td><td>对称差</td></tr></tbody></table></div><p><strong>Set identities / 集合恒等式.</strong>  <br />For all subsets of universe $U$:</p><div class=\"math-display\">$$\n\\begin{aligned}\nA\\cup\\emptyset&amp;=A,&amp; A\\cap U&amp;=A,\\\\\nA\\cup U&amp;=U,&amp; A\\cap\\emptyset&amp;=\\emptyset,\\\\\nA\\cup A&amp;=A,&amp; A\\cap A&amp;=A,\\\\\n(A^c)^c&amp;=A,\\\\\nA\\cup B&amp;=B\\cup A,&amp; A\\cap B&amp;=B\\cap A,\\\\\nA\\cup(B\\cup C)&amp;=(A\\cup B)\\cup C,\\\\\nA\\cap(B\\cap C)&amp;=(A\\cap B)\\cap C,\\\\\nA\\cup(B\\cap C)&amp;=(A\\cup B)\\cap(A\\cup C),\\\\\nA\\cap(B\\cup C)&amp;=(A\\cap B)\\cup(A\\cap C),\\\\\n(A\\cup B)^c&amp;=A^c\\cap B^c,\\\\\n(A\\cap B)^c&amp;=A^c\\cup B^c,\\\\\nA\\cup(A\\cap B)&amp;=A,\\\\\nA\\cap(A\\cup B)&amp;=A,\\\\\nA-B&amp;=A\\cap B^c.\n\\end{aligned}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 用元素追踪法。证明 $A \\cup (B\\cap C) = (A\\cup B)\\cap (A\\cup C)$: 任取 $x$，左边成立当且仅当 $x\\in A$ 或者 $x\\in B$ 且 $x\\in C$，按命题分配律等价于 $(x\\in A 或 x\\in B)$ 且 $(x\\in A 或 x\\in C)$，即右边。</p><p><strong>Use / 用法.</strong>  <br />CN: 集合证明一般用“两边互相包含”或“元素追踪法”。遇到补集先想德摩根律。</p><h5 id=\"2-3-容斥与集合大小-cardinality-and-inclusion-exclusion\">2.3 容斥与集合大小 / Cardinality and Inclusion-Exclusion<a class=\"heading-anchor\" href=\"#2-3-容斥与集合大小-cardinality-and-inclusion-exclusion\" data-heading-id=\"2-3-容斥与集合大小-cardinality-and-inclusion-exclusion\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Two-set formula / 二集合公式.</strong></p><div class=\"math-display\">$$\n|A \\cup B| = |A| + |B| - |A \\cap B|\n$$</div><p><strong>Three-set formula / 三集合公式.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n|A \\cup B \\cup C| \\\\\n= |A| + |B| + |C| \\\\\n- |A\\cap B| - |A\\cap C| - |B\\cap C| \\\\\n+ |A\\cap B\\cap C|\n\\end{gathered}\n$$</div><p><strong>General PIE / 一般容斥原理.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\left|\\bigcup_{i=1}^n A_i\\right| \\\\\n=\\sum_i |A_i| \\\\\n-\\sum_{i&lt;j}|A_i\\cap A_j| \\\\\n+\\sum_{i&lt;j&lt;k}|A_i\\cap A_j\\cap A_k| \\\\\n-\\cdots \\\\\n+(-1)^{n+1}|A_1\\cap\\cdots\\cap A_n|.\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 固定一个元素 $x$。若 $x$ 属于恰好 $r$ 个集合，则右边对它的贡献为<br />$C(r,1)-C(r,2)+...+(-1)^{r+1}C(r,r)=1$，因为 $(1-1)^r=0$。不属于任何集合的元素贡献为 $0$。所以总贡献等于并集大小。</p><p><strong>Use / 用法.</strong>  <br />CN: “至少满足一个条件”“不能被某些数整除”“排除重复计数”时使用。</p><h5 id=\"2-4-函数-functions\">2.4 函数 / Functions<a class=\"heading-anchor\" href=\"#2-4-函数-functions\" data-heading-id=\"2-4-函数-functions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Function / 函数: $f: A \\to B$ assigns each $a\\in A$ exactly one $f(a)\\in B$.</li><li>Domain / 定义域: $A$; codomain / 陪域: $B$; range / 值域: $f(A)$.</li><li>Injection / 单射: $f(a_1)=f(a_2) \\to a_1=a_2$.</li><li>Surjection / 满射: for every $b\\in B$, there exists $a\\in A$ with $f(a)=b$.</li><li>Bijection / 双射: both injection and surjection.</li><li>Inverse / 反函数: if $f$ bijective, $f^{-1}: B \\to A$.</li><li>Composition / 复合: $(g∘f)(x)=g(f(x))$.</li></ul><p><strong>Theorem / 定理: finite injection and surjection.</strong>  <br />EN: If $A$ and $B$ are finite and $|A|=|B|$, then for $f:A \\to B$, injection, surjection, and bijection are equivalent in pairs.</p><p>CN: 有限集合且大小相等时，单射必满射，满射必单射，因此等价于双射。</p><p><strong>Proof / 证明.</strong>  <br />CN: 若单射，则 $A$ 中不同元素落到 $B$ 中不同值，值域大小为 $|A|=|B|$，所以值域就是 $B$，即满射。满射反向同理: 若不是单射，则两个元素合并到同一值，最多只能覆盖 $|A|-1=|B|-1$ 个值，矛盾。</p><p><strong>Use / 用法.</strong>  <br />CN: 证明有限集合等势、计数、构造反函数时用。要证明两个有限集合大小相等，最常用办法是找双射。</p><h5 id=\"2-5-可数与不可数-countability\">2.5 可数与不可数 / Countability<a class=\"heading-anchor\" href=\"#2-5-可数与不可数-countability\" data-heading-id=\"2-5-可数与不可数-countability\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Countably infinite / 可数无限: a set has a bijection with $N$.</li><li>Countable / 可数: finite or countably infinite.</li><li>Uncountable / 不可数: not countable.</li></ul><p><strong>Theorem / 定理: $Z$ is countable.</strong>  <br />CN: 整数集可数。</p><p><strong>Proof / 证明.</strong>  <br />CN: 排列为 $0,1,-1,2,-2,3,-3,...$，这给出从 $N$ 到 $Z$ 的枚举。</p><p><strong>Use / 用法.</strong>  <br />CN: 只要能把元素排成一个无遗漏序列，就证明了可数。</p><p><strong>Theorem / 定理: positive rational numbers are countable.</strong>  <br />CN: 正有理数可数。</p><p><strong>Proof / 证明.</strong>  <br />CN: 把 $p/q$ 放在二维表中，按 $p+q=2,3,4,...$ 的对角线枚举，并跳过已出现的等值分数。每个正有理数最终出现在某条对角线上。</p><p><strong>Use / 用法.</strong>  <br />CN: 证明二维自然数对、整数对、有理数等可数时用“对角线枚举”。</p><p><strong>Theorem / 定理: real numbers in $(0,1)$ are uncountable.</strong>  <br />CN: $(0,1)$ 中实数不可数。</p><p><strong>Proof / 证明.</strong>  <br />CN: 假设可列为 $r_1,r_2,...$，写十进制展开。构造新数 $x$，第 $i$ 位小数与 $ri$ 的第 $i$ 位不同，并避免使用 9 造成二义性。则 $x$ 与列表中每个 $ri$ 至少一位不同，矛盾。</p><p><strong>Use / 用法.</strong>  <br />CN: 这是 Cantor 对角线法。用于证明所有无限集合并不一样大。</p><p><strong>Theorem / 定理: algebraic numbers are countable.</strong>  <br />EN: The set of real numbers that are roots of nonzero polynomial equations with integer coefficients is countable.</p><p>CN: 所有整系数非零多项式的实根组成的集合可数。</p><p><strong>Proof / 证明.</strong>  <br />CN: 固定次数 $d$ 和系数绝对值总和上界 $H$，满足条件的整系数多项式只有有限个，每个多项式最多有 $d$ 个实根。所有代数数可按 $d+H=1,2,3,...$ 分层枚举为可数个有限集合的并，因此可数。</p><p><strong>Use / 用法.</strong>  <br />CN: Quiz 中常出现“整系数二次/三次方程的实根集合是否可数”。固定次数时也可数，因为多项式集合可数且每个根有限。</p><h5 id=\"2-6-序列与求和-sequences-and-summations\">2.6 序列与求和 / Sequences and Summations<a class=\"heading-anchor\" href=\"#2-6-序列与求和-sequences-and-summations\" data-heading-id=\"2-6-序列与求和-sequences-and-summations\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Sequence / 序列: function from integers, usually $N$ or positive integers, to a set.</li><li>Arithmetic progression / 等差数列: $a_n = a_0 + nd$.</li><li>Geometric progression / 等比数列: $a_n = ar^n$.</li><li>Recurrence relation / 递推关系: defines $a_n$ from previous terms.</li></ul><p><strong>Standard sums / 常用求和公式.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\sum_{i=1}^n i = n(n+1)/2 \\\\\n\\sum_{i=1}^n i^2 = n(n+1)(2n+1)/6 \\\\\n\\sum_{i=1}^n i^3 = [n(n+1)/2]^2 \\\\\n\\sum_{i=0}^n r^i = (r^{n+1}-1)/(r-1), r\\ne 1 \\\\\n\\sum_{i=0}^{\\infty} r^i = 1/(1-r), |r|&lt;1 \\\\\n\\sum_{i=0}^n 2^i = 2^{n+1}-1 \\\\\n\\sum_{i=1}^n 1 = n \\\\\nH_n = \\sum_{i=1}^n 1/i = \\Theta(\\log n)\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 等差和可把 $1+...+n$ 与 $n+...+1$ 相加，得到 $n$ 个 $n+1$。等比和令 $S=1+r+...+r^n$，计算 $(r-1)S=r^{n+1}-1$。平方和、立方和可用归纳法。</p><p><strong>Use / 用法.</strong>  <br />CN: 算法循环次数、计数题、递推展开常用。几何级数尤其常见于二分、树层数、概率无限过程。</p><h5 id=\"2-7-矩阵-matrices\">2.7 矩阵 / Matrices<a class=\"heading-anchor\" href=\"#2-7-矩阵-matrices\" data-heading-id=\"2-7-矩阵-matrices\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Matrix / 矩阵: rectangular array $A=[a_{ij}]$.</li><li>Matrix product / 矩阵乘法: $(AB)_ij = \\sum_k a_{ik} b_{kj}$.</li><li>Identity matrix / 单位矩阵: $I$.</li><li>Boolean matrix product / 布尔矩阵乘法: replace $+$ by $\\lor$, multiplication by $\\land$.</li></ul><p><strong>Theorem / 定理: relation matrix and composition.</strong>  <br />EN: If relations are represented by Boolean matrices, composition corresponds to Boolean matrix multiplication.</p><p>CN: 若关系用 0-1 矩阵表示，则关系复合对应布尔矩阵乘法。</p><p><strong>Proof / 证明.</strong>  <br />CN: $(A∘B)$ 中 $i$ 与 $j$ 有关系，当且仅当存在中间点 $k$ 使 $iBk$ 且 $kAj$。矩阵上正是对所有 $k$ 做 “或-且” 运算。</p><p><strong>Use / 用法.</strong>  <br />CN: 求关系复合、传递闭包、图的可达性。</p><hr /><h4 id=\"3-算法与增长阶-algorithms-and-growth\">3. 算法与增长阶 / Algorithms and Growth<a class=\"heading-anchor\" href=\"#3-算法与增长阶-algorithms-and-growth\" data-heading-id=\"3-算法与增长阶-algorithms-and-growth\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"3-1-算法-algorithms\">3.1 算法 / Algorithms<a class=\"heading-anchor\" href=\"#3-1-算法-algorithms\" data-heading-id=\"3-1-算法-algorithms\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 算法是有限、明确、可执行的步骤序列，输入给定后产生输出并终止。</p><p>EN: An algorithm is a finite, precise procedure that takes input, performs steps, terminates, and returns output.</p><p><strong>Use / 用法.</strong>  <br />CN: 证明算法时通常要证明两件事: 正确性和终止性。分析算法时通常计算时间复杂度和空间复杂度。</p><h5 id=\"3-2-渐近符号-asymptotic-notation\">3.2 渐近符号 / Asymptotic Notation<a class=\"heading-anchor\" href=\"#3-2-渐近符号-asymptotic-notation\" data-heading-id=\"3-2-渐近符号-asymptotic-notation\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><div class=\"math-display\">$$\n\\begin{aligned}\nf(n)=O(g(n)) &amp;\\iff \\exists C,n_0&gt;0,\\ |f(n)|\\le C|g(n)|\\quad(n\\ge n_0),\\\\\nf(n)=\\Omega(g(n)) &amp;\\iff \\exists C,n_0&gt;0,\\ |f(n)|\\ge C|g(n)|\\quad(n\\ge n_0),\\\\\nf(n)=\\Theta(g(n)) &amp;\\iff f(n)=O(g(n))\\ \\text{and}\\ f(n)=\\Omega(g(n)),\\\\\nf(n)=o(g(n)) &amp;\\iff \\lim_{n\\to\\infty}\\frac{f(n)}{g(n)}=0,\\\\\nf(n)\\sim g(n) &amp;\\iff \\lim_{n\\to\\infty}\\frac{f(n)}{g(n)}=1.\n\\end{aligned}\n$$</div><p><strong>Limit tests / 极限判别.</strong></p><div class=\"math-display\">$$\n\\begin{aligned}\n\\lim_{n\\to\\infty}\\left|\\frac{f(n)}{g(n)}\\right|=L&lt;\\infty &amp;\\implies f=O(g),\\\\\n\\lim_{n\\to\\infty}\\left|\\frac{f(n)}{g(n)}\\right|=L&gt;0 &amp;\\implies f=\\Omega(g),\\\\\n0&lt;L&lt;\\infty &amp;\\implies f=\\Theta(g),\\\\\nL=0 &amp;\\implies f=o(g).\n\\end{aligned}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 由极限定义。若比值趋于有限 $L$，则充分大的 $n$ 后比值小于某个常数 $C$，这正是 Big-O。其他结论类似。</p><p><strong>Use / 用法.</strong>  <br />CN: 比较算法增长速度。考试中常用极限法，也可直接找常数。</p><h5 id=\"3-3-常见增长阶-common-growth-orders\">3.3 常见增长阶 / Common Growth Orders<a class=\"heading-anchor\" href=\"#3-3-常见增长阶-common-growth-orders\" data-heading-id=\"3-3-常见增长阶-common-growth-orders\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\n\\begin{gathered}\n1&lt;\\log n&lt;n^a&lt;n&lt;n\\log n&lt;n^2&lt;n^3&lt;c^n&lt;n!&lt;n^n, \\\\\n\\qquad 0&lt;a&lt;1,\\ c&gt;1.\n\\end{gathered}\n$$</div><p><strong>Stirling formula / Stirling 公式.</strong></p><div class=\"math-display\">$$\nn! ~ \\sqrt{2\\pi n}(n/e)^n.\n$$</div><p><strong>Use / 用法.</strong>  <br />CN: 比较阶乘、指数、组合数时使用。比如 $\\log(n!) = \\Theta(n \\log n)$。</p><h5 id=\"3-4-算法复杂度-complexity-of-algorithms\">3.4 算法复杂度 / Complexity of Algorithms<a class=\"heading-anchor\" href=\"#3-4-算法复杂度-complexity-of-algorithms\" data-heading-id=\"3-4-算法复杂度-complexity-of-algorithms\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Typical complexity / 常见复杂度.</strong></p><ul><li>Linear search / 线性搜索: $O(n)$.</li><li>Binary search / 二分搜索: $O(\\log n)$.</li><li>Bubble/insertion selection sort / 基础排序: $O(n^2)$.</li><li>Merge sort / 归并排序: $O(n \\log n)$.</li><li>Matrix multiplication classical / 普通矩阵乘法: $O(n^3)$.</li></ul><p><strong>Use / 用法.</strong>  <br />CN: 写复杂度时说明输入规模 $n$ 是什么。循环嵌套通常相乘，顺序执行取最大阶。</p><hr /><h4 id=\"4-数论与密码-number-theory-and-cryptography\">4. 数论与密码 / Number Theory and Cryptography<a class=\"heading-anchor\" href=\"#4-数论与密码-number-theory-and-cryptography\" data-heading-id=\"4-数论与密码-number-theory-and-cryptography\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"4-1-整除-divisibility\">4.1 整除 / Divisibility<a class=\"heading-anchor\" href=\"#4-1-整除-divisibility\" data-heading-id=\"4-1-整除-divisibility\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong></p><div class=\"math-display\">$$\na\\mid b \\iff \\exists k\\in\\mathbb{Z}\\text{ such that }b=ak.\n$$</div><p>CN: 读作 $a$ divides $b$，即 $a$ 整除 $b$。</p><p><strong>Basic properties / 基本性质.</strong></p><div class=\"math-display\">$$\n\\begin{aligned}\na\\mid b\\ \\land\\ a\\mid c &amp;\\implies a\\mid(b+c),\\\\\na\\mid b &amp;\\implies a\\mid bc,\\\\\na\\mid b\\ \\land\\ b\\mid c &amp;\\implies a\\mid c,\\\\\na\\mid b\\ \\land\\ a\\mid c &amp;\\implies a\\mid(mb+nc),\\quad m,n\\in\\mathbb{Z}.\n\\end{aligned}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 直接展开定义。若 $b=ar,c=as$，则 $mb+nc=a(mr+ns)$。</p><p><strong>Use / 用法.</strong>  <br />CN: 证明整除题先写出 $b=ak$，再做代数变形。</p><h5 id=\"4-2-除法算法-division-algorithm\">4.2 除法算法 / Division Algorithm<a class=\"heading-anchor\" href=\"#4-2-除法算法-division-algorithm\" data-heading-id=\"4-2-除法算法-division-algorithm\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong>  <br />EN: For integers $a$ and positive integer $d$, there exist unique integers $q,r$ such that</p><div class=\"math-display\">$$\na = dq + r, 0 \\le r &lt; d.\n$$</div><p>CN: 对任意整数 $a$ 和正整数 $d$，存在唯一商 $q$ 和余数 $r$。</p><p><strong>Proof / 证明.</strong>  <br />CN: 考虑集合 ${a-dk : k\\in Z, a-dk\\ge 0}$，由良序性有最小元 $r$。若 $r\\ge d$，则 $r-d$ 更小且非负，矛盾，所以 $0\\le r&lt;d$。唯一性: 若 $a=dq+r=dq&#039;+r&#039;$，则 $d(q-q&#039;)=r&#039;-r$。右边绝对值小于 $d$，只有可能为 $0$，故 $r=r&#039;$ 且 $q=q&#039;$。</p><p><strong>Use / 用法.</strong>  <br />CN: 一切模运算、欧几里得算法、进制表示的基础。</p><h5 id=\"4-3-同余-modular-arithmetic\">4.3 同余 / Modular Arithmetic<a class=\"heading-anchor\" href=\"#4-3-同余-modular-arithmetic\" data-heading-id=\"4-3-同余-modular-arithmetic\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong></p><div class=\"math-display\">$$\na\\equiv b\\pmod{m} \\iff m\\mid(a-b).\n$$</div><p><strong>Equivalent condition / 等价条件.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\na\\equiv b\\pmod{m} \\\\\n\\iff \\\\\na\\text{ and }b\\text{ have the same remainder modulo }m.\n\\end{gathered}\n$$</div><p><strong>Congruence arithmetic / 同余运算规则.</strong></p><p>If $a\\equiv b \\pmod{m}$ and $c\\equiv d \\pmod{m}$, then</p><div class=\"math-display\">$$\n\\begin{gathered}\na+c \\equiv b+d \\pmod{m} \\\\\na-c \\equiv b-d \\pmod{m} \\\\\nac \\equiv bd \\pmod{m} \\\\\na^k \\equiv b^k \\pmod{m}, k\\ge 1\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 由 $m|(a-b)$ 和 $m|(c-d)$，线性组合得到加减法；乘法用 $ac-bd=a(c-d)+d(a-b)$。</p><p><strong>Use / 用法.</strong>  <br />CN: 化简大数余数、证明整除、计算循环节、密码学。</p><h5 id=\"4-4-最大公约数与欧几里得算法-gcd-and-euclidean-algorithm\">4.4 最大公约数与欧几里得算法 / GCD and Euclidean Algorithm<a class=\"heading-anchor\" href=\"#4-4-最大公约数与欧几里得算法-gcd-and-euclidean-algorithm\" data-heading-id=\"4-4-最大公约数与欧几里得算法-gcd-and-euclidean-algorithm\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong></p><div class=\"math-display\">$$\n\\gcd(a,b)=\\max\\{d\\in\\mathbb{Z}_{&gt;0}: d\\mid a\\ \\land\\ d\\mid b\\}.\n$$</div><p><strong>Lemma / 引理.</strong></p><div class=\"math-display\">$$\n\\gcd(a,b) = \\gcd(b, a mod b), b\\ne 0.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 由除法算法 $a=bq+r$。任何同时整除 $a,b$ 的数也整除 $r=a-bq$；任何同时整除 $b,r$ 的数也整除 $a=bq+r$。公共因子集合相同，所以最大公约数相同。</p><p><strong>Use / 用法.</strong>  <br />CN: 用连续取余快速求 $gcd$。</p><p><strong>Euclidean algorithm / 欧几里得算法.</strong></p><ol><li>Start with integers $a,b$.</li><li>While $b\\ne 0$, replace $(a,b)$ by $(b, a \\bmod b)$.</li><li>Return $|a|$.</li></ol><p><strong>Bezout identity / 贝祖等式.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\forall a,b\\in\\mathbb{Z}\\text{ not both }0,\\quad \\\\\n\\exists s,t\\in\\mathbb{Z}\\text{ such that }\\gcd(a,b)=sa+tb.\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 用扩展欧几里得算法把每一步余数倒推成 $a,b$ 的整数线性组合。最后一个非零余数就是 $\\gcd(a,b)$。</p><p><strong>Use / 用法.</strong>  <br />CN: 求模逆元、解线性同余、证明互素性质。</p><h5 id=\"4-5-素数与唯一分解-primes-and-fundamental-theorem-of-arithmetic\">4.5 素数与唯一分解 / Primes and Fundamental Theorem of Arithmetic<a class=\"heading-anchor\" href=\"#4-5-素数与唯一分解-primes-and-fundamental-theorem-of-arithmetic\" data-heading-id=\"4-5-素数与唯一分解-primes-and-fundamental-theorem-of-arithmetic\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 大于 1 的整数 $p$ 若正因子只有 $1$ 和 $p$，则为素数。</p><p><strong>Euclid theorem / 欧几里得素数无穷定理.</strong></p><div class=\"math-display\">$$\n\\text{There are infinitely many primes.}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 假设素数只有 $p_1,...,pn$。令 $N=p1p2...pn+1$。任意 $pi$ 都不整除 $N$，但 $N&gt;1$ 必有素因子，矛盾。</p><p><strong>Use / 用法.</strong>  <br />CN: 典型反证法。也说明构造 $product+1$ 是找新素因子的常见技巧。</p><p><strong>Fundamental theorem of arithmetic / 算术基本定理.</strong></p><div class=\"math-display\">$$\n\\forall n&gt;1,\\quad n\\text{ can be written uniquely as a product of primes, up to order.}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 存在性用强归纳: 若 $n$ 非素数，则 $n=ab$ 且 $1&lt;a,b&lt;n$，由归纳假设分解。唯一性用欧几里得引理: 若素数 $p|ab$，则 $p|a$ 或 $p|b$。逐个消去两种分解中的素因子。</p><p><strong>Use / 用法.</strong>  <br />CN: 计算 $gcd/lcm$，证明整除关系，处理指数型数论题。</p><p><strong>Formula / 公式.</strong> If</p><div class=\"math-display\">$$\na = \\prod p_i^{\\alpha_i}, b = \\prod p_i^{\\beta_i},\n$$</div><p>then</p><div class=\"math-display\">$$\n\\gcd(a,b)=\\prod p_i^{\\min(\\alpha_i,\\beta_i)}, \\operatorname{lcm}(a,b)=\\prod p_i^{\\max(\\alpha_i,\\beta_i)}.\n$$</div><h5 id=\"4-6-模逆元与线性同余-modular-inverses-and-linear-congruences\">4.6 模逆元与线性同余 / Modular Inverses and Linear Congruences<a class=\"heading-anchor\" href=\"#4-6-模逆元与线性同余-modular-inverses-and-linear-congruences\" data-heading-id=\"4-6-模逆元与线性同余-modular-inverses-and-linear-congruences\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理: inverse criterion.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\na\\text{ has an inverse modulo }m \\\\\n\\iff \\\\\n\\gcd(a,m)=1.\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 若 $ax\\equiv 1 \\pmod{m}$，则 $ax+my=1$，所以任何公因子只能整除 1，$\\gcd(a,m)=1$。反过来若 $\\gcd(a,m)=1$，贝祖等式给出 $sa+tm=1$，故 $sa\\equiv 1 \\pmod{m}$，$s$ 是逆元。</p><p><strong>Use / 用法.</strong>  <br />CN: 解 $ax\\equiv b \\pmod{m}$ 之前先看 $\\gcd(a,m)$。</p><p><strong>Linear congruence theorem / 线性同余定理.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\nax\\equiv b\\pmod{m}\\text{ is solvable} \\\\\n\\iff \\\\\n\\gcd(a,m)\\mid b. \\\\\n\\quad \\\\\nd=\\gcd(a,m)\\implies \\text{there are }d\\text{ incongruent solutions modulo }m.\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: $ax\\equiv b \\pmod{m}$ 等价于 $ax-my=b$。整数线性组合 $ax+my$ 能取到的数正是 $\\gcd(a,m)$ 的倍数。若可解，除以 $d$ 得到互素情形，然后用逆元。</p><p><strong>Use / 用法.</strong>  <br />CN: 先求 $d=\\gcd(a,m)$。若 $d\\nmid b$ 无解；若整除，化为 $(a/d)x\\equiv b/d \\pmod{m/d}$，再乘逆元。</p><h5 id=\"4-7-中国剩余定理-chinese-remainder-theorem\">4.7 中国剩余定理 / Chinese Remainder Theorem<a class=\"heading-anchor\" href=\"#4-7-中国剩余定理-chinese-remainder-theorem\" data-heading-id=\"4-7-中国剩余定理-chinese-remainder-theorem\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong></p><p>EN: If $m_1,...,mk$ are pairwise coprime positive integers, then the system</p><div class=\"math-display\">$$\nx \\equiv a_i \\pmod{m_i}, i=1,...,k\n$$</div><p>has a unique solution modulo $M=m1m2...mk$.</p><p>CN: 两两互素模数下，同余方程组模 $M$ 有唯一解。</p><p><strong>Constructive formula / 构造公式.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\nM = \\prod m_i, M_i = M/m_i, y_i \\equiv M_i^{-1} \\pmod{m_i} \\\\\nx \\equiv \\sum a_i M_i y_i \\pmod{M}.\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 对第 $i$ 个模数，$M_j$ 若 $j\\ne i$ 含有因子 $m_i$，所以对应项为 0；只有 $a_i M_i y_i\\equiv a_i$。唯一性: 两个解之差被每个 $m_i$ 整除，因模数两两互素，所以被 $M$ 整除。</p><p><strong>Use / 用法.</strong>  <br />CN: 解多个模条件、RSA、把大模计算拆成小模计算。</p><h5 id=\"4-8-费马小定理-欧拉定理-fermat-and-euler\">4.8 费马小定理、欧拉定理 / Fermat and Euler<a class=\"heading-anchor\" href=\"#4-8-费马小定理-欧拉定理-fermat-and-euler\" data-heading-id=\"4-8-费马小定理-欧拉定理-fermat-and-euler\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Fermat&#039;s little theorem / 费马小定理.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\np\\text{ prime}\\ \\land\\ p\\nmid a \\\\\n\\implies \\\\\na^{p-1}\\equiv1\\pmod{p}. \\\\\n\\qquad \\\\\na^p\\equiv a\\pmod{p}.\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 集合 ${1,2,...,p-1}$ 乘以 $a$ 后模 $p$ 仍是非零剩余的一个排列。故<br />$a\\cdot 2a\\cdot ...\\cdot (p-1)a \\equiv 1\\cdot 2\\cdot ...\\cdot (p-1) \\pmod{p}$，消去 $(p-1)!$ 得 $a^{p-1}\\equiv 1$。</p><p><strong>Use / 用法.</strong>  <br />CN: 快速化简素数模下的大指数、证明 RSA 正确性、构造伪素数测试。</p><p><strong>Euler phi function / 欧拉函数.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\varphi(n)=|\\{k:1\\le k\\le n,\\ \\gcd(k,n)=1\\}|. \\\\\n\\qquad \\\\\nn=\\prod_i p_i^{\\alpha_i} \\\\\n\\implies \\\\\n\\varphi(n)=n\\prod_i\\left(1-\\frac1{p_i}\\right).\n\\end{gathered}\n$$</div><p><strong>Euler theorem / 欧拉定理.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\gcd(a,n)=1 \\\\\n\\implies \\\\\na^{\\varphi(n)}\\equiv1\\pmod{n}.\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 将模 $n$ 的所有既约剩余乘以 $a$，仍得到同一集合的排列。两边连乘并消去所有可逆元素，得到结论。</p><p><strong>Use / 用法.</strong>  <br />CN: 非素数模下化简指数。注意必须互素。</p><h5 id=\"4-9-进制表示与快速幂-representations-and-fast-exponentiation\">4.9 进制表示与快速幂 / Representations and Fast Exponentiation<a class=\"heading-anchor\" href=\"#4-9-进制表示与快速幂-representations-and-fast-exponentiation\" data-heading-id=\"4-9-进制表示与快速幂-representations-and-fast-exponentiation\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Base-b representation / b 进制表示.</strong></p><div class=\"math-display\">$$\nn=a_kb^k+a_{k-1}b^{k-1}+\\cdots+a_1b+a_0,\\qquad 0\\le a_i&lt;b.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 反复用除法算法除以 $b$，余数给出低位数字，商继续除。</p><p><strong>Use / 用法.</strong>  <br />CN: 二进制、十六进制转换，算法复杂度分析。</p><p><strong>Fast modular exponentiation / 快速模幂.</strong></p><p>CN: 用二进制展开指数，反复平方取模。</p><div class=\"math-display\">$$\n\\begin{gathered}\na^n\\bmod m \\\\\n= \\\\\n\\prod_{i:n_i=1}\\left(a^{2^i}\\bmod m\\right).\n\\end{gathered}\n$$</div><p><strong>Use / 用法.</strong>  <br />CN: 计算 RSA、费马/欧拉题中的大指数。</p><h5 id=\"4-10-rsa\">4.10 RSA<a class=\"heading-anchor\" href=\"#4-10-rsa\" data-heading-id=\"4-10-rsa\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Algorithm / 算法.</strong></p><ol><li>Choose distinct primes $p,q$; let $n=pq$.</li><li>Let $\\varphi(n)=(p-1)(q-1)$.</li><li>Choose $e$ with $\\gcd(e,\\varphi(n))=1$.</li><li>Find $d$ with $ed\\equiv 1 \\pmod{\\varphi(n)}$.</li><li>Encrypt $C\\equiv M^e \\pmod{n}$.</li><li>Decrypt $M\\equiv C^d \\pmod{n}$.</li></ol><p><strong>Correctness / 正确性证明.</strong>  <br />CN: 因 $ed=1+k\\varphi(n)$。若 $\\gcd(M,n)=1$，欧拉定理给出 $M^{ed}=M(M^{\\varphi(n)})^k\\equiv M \\pmod{n}$。若 $M$ 与 $n$ 不互素，可分别在模 $p$ 和模 $q$ 下验证，再用 CRT 合并。</p><p><strong>Use / 用法.</strong>  <br />CN: 题目常要求生成密钥、加密解密、证明正确性。关键是求逆元 $d$。</p><h5 id=\"4-11-伪素数-原根-离散对数-pseudoprimes-primitive-roots-discrete-logs\">4.11 伪素数、原根、离散对数 / Pseudoprimes, Primitive Roots, Discrete Logs<a class=\"heading-anchor\" href=\"#4-11-伪素数-原根-离散对数-pseudoprimes-primitive-roots-discrete-logs\" data-heading-id=\"4-11-伪素数-原根-离散对数-pseudoprimes-primitive-roots-discrete-logs\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Pseudoprime / 伪素数.</strong>  <br />CN: 若合数 $n$ 对某个底 $a$ 满足</p><div class=\"math-display\">$$\na^{n-1} \\equiv 1 \\pmod{n}, \\gcd(a,n)=1,\n$$</div><p>则称 $n$ 是以 $a$ 为底的 Fermat 伪素数。</p><p><strong>Use / 用法.</strong>  <br />CN: Fermat 小定理的逆命题不成立。若 $a^{n-1} \\not\\equiv 1 \\pmod{n}$，可判定 $n$ 合数；若成立，只能说明 $n$ 可能为素数。</p><p><strong>Carmichael number / Carmichael 数.</strong>  <br />CN: 合数 $n$ 若对所有与 $n$ 互素的 $a$ 都满足 $a^{n-1}\\equiv 1 \\pmod{n}$，则为 Carmichael 数。</p><p><strong>Primitive root / 原根.</strong>  <br />CN: 若 $g$ 的幂模 $p$ 生成所有非零剩余</p><div class=\"math-display\">$$\ng, g^2, ..., g^{p-1} mod p\n$$</div><p>则 $g$ 是模素数 $p$ 的原根。</p><p><strong>Discrete logarithm / 离散对数.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\ny\\equiv g^x\\pmod{p} \\\\\n\\implies \\\\\nx=\\log_g y\\pmod{p}.\n\\end{gathered}\n$$</div><p><strong>Use / 用法.</strong>  <br />CN: 离散对数难题是 Diffie-Hellman 密钥交换等密码协议的基础。计算正向幂容易，反求指数通常困难。</p><h5 id=\"4-12-同余的应用-applications-of-congruences\">4.12 同余的应用 / Applications of Congruences<a class=\"heading-anchor\" href=\"#4-12-同余的应用-applications-of-congruences\" data-heading-id=\"4-12-同余的应用-applications-of-congruences\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Hashing / 哈希.</strong></p><div class=\"math-display\">$$\nh(k)=k mod m\n$$</div><p>CN: 把键映射到 $0,...,m-1$ 的槽位。$m$ 常取素数以减少模式性冲突。</p><p><strong>Pseudorandom numbers / 伪随机数.</strong></p><div class=\"math-display\">$$\nx_{n+1} = (ax_n + c) mod m.\n$$</div><p>CN: 线性同余生成器。周期长度依赖 $a,c,m$ 的数论性质。</p><p><strong>Check digits / 校验码.</strong></p><p>CN: ISBN、UPC 等用加权和模某个数检测输入错误。基本思想是让合法编码满足一个同余条件。</p><p><strong>Affine cipher / 仿射密码.</strong></p><div class=\"math-display\">$$\nE(x)=(ax+b) mod 26, D(y)=a^{-1}(y-b) mod 26.\n$$</div><p>CN: 必须有 $\\gcd(a,26)=1$ 才能解密，因为需要 $a$ 的模逆元。</p><hr /><h4 id=\"5-归纳与递归-induction-and-recursion\">5. 归纳与递归 / Induction and Recursion<a class=\"heading-anchor\" href=\"#5-归纳与递归-induction-and-recursion\" data-heading-id=\"5-归纳与递归-induction-and-recursion\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"5-1-良序原理-well-ordering-principle\">5.1 良序原理 / Well-Ordering Principle<a class=\"heading-anchor\" href=\"#5-1-良序原理-well-ordering-principle\" data-heading-id=\"5-1-良序原理-well-ordering-principle\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong></p><div class=\"math-display\">$$\n\\text{Every nonempty subset of }\\mathbb{N}\\text{ has a least element.}\n$$</div><p>CN: 非负整数的任意非空子集都有最小元。</p><p><strong>Proof / 证明.</strong>  <br />CN: 在本课程中通常作为公理或与数学归纳法等价的原则使用。</p><p><strong>Use / 用法.</strong>  <br />CN: 证明存在“最小反例”时使用，是反证法和归纳法的基础。</p><h5 id=\"5-2-数学归纳法-mathematical-induction\">5.2 数学归纳法 / Mathematical Induction<a class=\"heading-anchor\" href=\"#5-2-数学归纳法-mathematical-induction\" data-heading-id=\"5-2-数学归纳法-mathematical-induction\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong></p><p>If</p><div class=\"math-display\">$$\n\\begin{gathered}\nP(0)\\ \\text{is true},\\qquad \\\\\n\\forall k\\ge0,\\ P(k)\\to P(k+1),\n\\end{gathered}\n$$</div><p>then $P(n)$ is true for all $n\\ge 0$.</p><p><strong>Proof / 证明.</strong>  <br />CN: 若存在反例，则反例集合非空，由良序性取最小反例 $m$。$m\\ne 0$，所以 $m-1$ 不是反例，即 $P(m-1)$ 真。由归纳步推出 $P(m)$ 真，矛盾。</p><p><strong>Use / 用法.</strong>  <br />CN: 证明所有自然数命题，尤其是求和公式、整除、递推、图和树性质。</p><p><strong>Template / 模板.</strong></p><ol><li>Base case / 基础步: prove $P(0)$ or $P(1)$.</li><li>Inductive hypothesis / 归纳假设: assume $P(k)$.</li><li>Inductive step / 归纳步: prove $P(k+1)$.</li><li>Conclusion / 结论: by induction, $P(n)$ for all $n$.</li></ol><h5 id=\"5-3-强归纳法-strong-induction\">5.3 强归纳法 / Strong Induction<a class=\"heading-anchor\" href=\"#5-3-强归纳法-strong-induction\" data-heading-id=\"5-3-强归纳法-strong-induction\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong></p><p>If</p><div class=\"math-display\">$$\n\\begin{gathered}\nP(0)\\ \\text{is true},\\qquad \\\\\n\\forall k\\ge0,\\ [P(0)\\land\\cdots\\land P(k)]\\to P(k+1),\n\\end{gathered}\n$$</div><p>then $P(n)$ holds for all $n\\ge 0$.</p><p><strong>Proof / 证明.</strong>  <br />CN: 对命题 $Q(n): P(0)\\land ...\\land P(n)$ 做普通归纳即可。</p><p><strong>Use / 用法.</strong>  <br />CN: 当证明 $P(k+1)$ 需要不止 $P(k)$，而需要所有更小情形时使用。典型例子: 素因子分解、递归算法、组合拆分。</p><h5 id=\"5-4-递归定义-recursive-definitions\">5.4 递归定义 / Recursive Definitions<a class=\"heading-anchor\" href=\"#5-4-递归定义-recursive-definitions\" data-heading-id=\"5-4-递归定义-recursive-definitions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 递归定义包括基础步和递归步。</p><p>Example / 例:</p><div class=\"math-display\">$$\n\\begin{gathered}\n0! = 1, n! = n(n-1)! for n\\ge 1. \\\\\nF_0=0, F_1=1, F_n=F_{n-1}+F_{n-2}.\n\\end{gathered}\n$$</div><p><strong>Use / 用法.</strong>  <br />CN: 遇到递归定义，计算前几项，猜闭式，再用归纳证明。</p><h5 id=\"5-5-结构归纳-structural-induction\">5.5 结构归纳 / Structural Induction<a class=\"heading-anchor\" href=\"#5-5-结构归纳-structural-induction\" data-heading-id=\"5-5-结构归纳-structural-induction\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong>  <br />EN: To prove a property for all objects in a recursively defined set, prove it for basis objects and prove that recursive constructors preserve it.</p><p>CN: 对递归定义的结构，若基础对象满足性质，且构造新对象时性质保持，则所有对象都满足性质。</p><p><strong>Proof / 证明.</strong>  <br />CN: 递归生成对象有构造层数，对层数做数学归纳。</p><p><strong>Use / 用法.</strong>  <br />CN: 字符串、树、表达式、公式、递归集合。</p><h5 id=\"5-6-递归算法正确性-recursive-algorithm-correctness\">5.6 递归算法正确性 / Recursive Algorithm Correctness<a class=\"heading-anchor\" href=\"#5-6-递归算法正确性-recursive-algorithm-correctness\" data-heading-id=\"5-6-递归算法正确性-recursive-algorithm-correctness\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Principle / 原理.</strong>  <br />CN: 递归算法正确性通常用归纳证明: 假设所有更小输入能正确求解，证明当前输入通过递归调用和合并步骤得到正确输出。</p><p><strong>Example / 例: factorial.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\nfactorial(0)=1 \\\\\nfactorial(n)=n*factorial(n-1)\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 基础情形 $0! = 1$。若递归调用能返回 $(n-1)!$，算法返回 $n(n-1)!=n!$。</p><p><strong>Use / 用法.</strong>  <br />CN: 归并排序、二分查找、汉诺塔、递归求幂。</p><h5 id=\"5-7-程序正确性与不变量-program-correctness-and-invariants\">5.7 程序正确性与不变量 / Program Correctness and Invariants<a class=\"heading-anchor\" href=\"#5-7-程序正确性与不变量-program-correctness-and-invariants\" data-heading-id=\"5-7-程序正确性与不变量-program-correctness-and-invariants\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Loop invariant / 循环不变量.</strong>  <br />CN: 循环每次迭代前后都保持为真的性质。</p><p><strong>Proof steps / 证明步骤.</strong></p><ol><li>Initialization / 初始化: 循环前不变量成立。</li><li>Maintenance / 保持: 若一次迭代前成立，则迭代后仍成立。</li><li>Termination / 终止: 循环结束时，不变量加终止条件推出结果。</li></ol><p><strong>Use / 用法.</strong>  <br />CN: 证明循环算法，如查找、排序、欧几里得算法。</p><hr /><h4 id=\"6-计数-counting\">6. 计数 / Counting<a class=\"heading-anchor\" href=\"#6-计数-counting\" data-heading-id=\"6-计数-counting\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"6-1-基本计数原则-basic-counting-principles\">6.1 基本计数原则 / Basic Counting Principles<a class=\"heading-anchor\" href=\"#6-1-基本计数原则-basic-counting-principles\" data-heading-id=\"6-1-基本计数原则-basic-counting-principles\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Sum rule / 加法原则.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\nA\\cap B=\\emptyset \\\\\n\\implies \\\\\n|A\\cup B|=|A|+|B|.\n\\end{gathered}\n$$</div><p><strong>Product rule / 乘法原则.</strong></p><div class=\"math-display\">$$\n\\text{total choices}=n_1n_2\\cdots n_k.\n$$</div><p><strong>Division rule / 除法原则.</strong></p><div class=\"math-display\">$$\n\\text{actual number}=\\frac{\\text{counted number}}{d}.\n$$</div><p><strong>Bijection rule / 双射原则.</strong></p><div class=\"math-display\">$$\nA\\leftrightarrow B\\text{ bijective}\\implies |A|=|B|.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 加法原则来自不相交并集。乘法原则可对阶段数归纳。除法原则把计数结果按每个真实对象的 $d$ 个表示分组。</p><p><strong>Use / 用法.</strong>  <br />CN: 先判断选择过程是“或者”还是“然后”。如果有重复表示，用除法原则。</p><h5 id=\"6-2-排列与组合-permutations-and-combinations\">6.2 排列与组合 / Permutations and Combinations<a class=\"heading-anchor\" href=\"#6-2-排列与组合-permutations-and-combinations\" data-heading-id=\"6-2-排列与组合-permutations-and-combinations\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Permutation / 排列.</strong></p><div class=\"math-display\">$$\nP(n,r)=n(n-1)...(n-r+1)=n!/(n-r)!.\n$$</div><p>CN: 从 $n$ 个不同对象中有序选 $r$ 个。</p><p><strong>Combination / 组合.</strong></p><div class=\"math-display\">$$\nC(n,r)=\\binom{n}{r}=n!/[r!(n-r)!].\n$$</div><p>CN: 从 $n$ 个不同对象中无序选 $r$ 个。</p><p><strong>Proof / 证明.</strong>  <br />CN: 排列由乘法原则。组合先有序选 $r$ 个得 $P(n,r)$，但每个无序集合被 $r!$ 种顺序重复计数，故除以 $r!$。</p><p><strong>Use / 用法.</strong>  <br />CN: 有顺序用排列，无顺序用组合。关键词: arrangement/order 通常排列，subset/committee 通常组合。</p><h5 id=\"6-3-二项式系数恒等式-binomial-coefficient-identities\">6.3 二项式系数恒等式 / Binomial Coefficient Identities<a class=\"heading-anchor\" href=\"#6-3-二项式系数恒等式-binomial-coefficient-identities\" data-heading-id=\"6-3-二项式系数恒等式-binomial-coefficient-identities\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\n\\begin{gathered}\n\\binom{n}{r}=\\binom{n}{n-r} \\\\\n\\binom{n}{0}=\\binom{n}{n}=1 \\\\\n\\binom{n}{r}=\\binom{n-1}{r-1}+\\binom{n-1}{r} \\\\\n\\sum_{r=0}^n \\binom{n}{r}=2^n \\\\\n\\sum_{r=0}^n (-1)^r \\binom{n}{r}=0 \\\\\n\\sum_{r=0}^n r \\binom{n}{r}=n 2^{n-1} \\\\\n\\sum_{r=0}^n \\binom{n}{r}^2=\\binom{2n}{n}\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 对称性来自选 $r$ 个等价于排除 $n-r$ 个。Pascal 恒等式按某个固定元素是否被选分类。求和为 $2^n$ 是数所有子集。平方和可从两个 $n$ 元集合中共选 $n$ 个来解释。</p><p><strong>Use / 用法.</strong>  <br />CN: 化简组合式、证明组合恒等式、二项分布期望。</p><h5 id=\"6-4-二项式定理与多项式定理-binomial-and-multinomial-theorems\">6.4 二项式定理与多项式定理 / Binomial and Multinomial Theorems<a class=\"heading-anchor\" href=\"#6-4-二项式定理与多项式定理-binomial-and-multinomial-theorems\" data-heading-id=\"6-4-二项式定理与多项式定理-binomial-and-multinomial-theorems\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Binomial theorem / 二项式定理.</strong></p><div class=\"math-display\">$$\n(x+y)^n = \\sum_{k=0}^n \\binom{n}{k}x^{n-k}y^k.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 展开 $n$ 个因子 $(x+y)$。要得到 $x^{n-k}y^k$，需从 $n$ 个因子中选择 $k$ 个提供 $y$，共有 $\\binom{n}{k}$ 种。</p><p><strong>Use / 用法.</strong>  <br />CN: 展开式系数、组合恒等式、概率分布。</p><p><strong>Multinomial theorem / 多项式定理.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n(x_1+...+x_m)^n = \\\\\n\\sum_{k_1+...+k_m=n} n!/(k_1!...k_m!) x_1^{k_1}...x_m^{k_m}.\n\\end{gathered}\n$$</div><p><strong>Use / 用法.</strong>  <br />CN: 多类别分配、字符串字母频数、多项分布。</p><h5 id=\"6-5-鸽巢原理-pigeonhole-principle\">6.5 鸽巢原理 / Pigeonhole Principle<a class=\"heading-anchor\" href=\"#6-5-鸽巢原理-pigeonhole-principle\" data-heading-id=\"6-5-鸽巢原理-pigeonhole-principle\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Basic theorem / 基本鸽巢原理.</strong></p><div class=\"math-display\">$$\nn+1\\text{ objects in }n\\text{ boxes}\\implies \\text{some box has at least }2\\text{ objects.}\n$$</div><p><strong>Generalized theorem / 广义鸽巢原理.</strong></p><div class=\"math-display\">$$\nN\\text{ objects in }k\\text{ boxes}\\implies \\text{some box has at least }\\left\\lceil\\frac Nk\\right\\rceil\\text{ objects.}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 若每个盒子最多 $ceil(N/k)-1$ 个，则总数至多 $k(ceil(N/k)-1)&lt;N$，矛盾。</p><p><strong>Use / 用法.</strong>  <br />CN: 证明“必有两个相同/至少多少个”的存在性。先设计盒子，物体是被分类的对象。</p><h5 id=\"6-6-可重复组合与星棒法-stars-and-bars\">6.6 可重复组合与星棒法 / Stars and Bars<a class=\"heading-anchor\" href=\"#6-6-可重复组合与星棒法-stars-and-bars\" data-heading-id=\"6-6-可重复组合与星棒法-stars-and-bars\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong></p><p>Number of nonnegative integer solutions to</p><div class=\"math-display\">$$\nx_1+x_2+...+x_k=n\n$$</div><p>is</p><div class=\"math-display\">$$\n\\binom{n+k-1}{k-1}.\n$$</div><p>Number of positive integer solutions is</p><div class=\"math-display\">$$\n\\binom{n-1}{k-1}.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 把 $n$ 个星号排成一行，用 $k-1$ 个隔板分成 $k$ 组。总共有 $n+k-1$ 个位置，选隔板位置。正整数情形先给每组 1 个，剩余 $n-k$ 个非负分配。</p><p><strong>Use / 用法.</strong>  <br />CN: 分糖果、方程非负整数解、多重集合选择。</p><h5 id=\"6-7-有重复元素的排列-permutations-with-repetition\">6.7 有重复元素的排列 / Permutations with Repetition<a class=\"heading-anchor\" href=\"#6-7-有重复元素的排列-permutations-with-repetition\" data-heading-id=\"6-7-有重复元素的排列-permutations-with-repetition\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Formula / 公式.</strong></p><div class=\"math-display\">$$\n\\frac{n!}{n_1!n_2!\\cdots n_k!}.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 若先把所有对象标号区分，有 $n!$ 种。每类内部 $n_i!$ 种标号交换不改变结果，除去重复。</p><p><strong>Use / 用法.</strong>  <br />CN: 含重复字母单词重排。</p><h5 id=\"6-8-错排-derangements\">6.8 错排 / Derangements<a class=\"heading-anchor\" href=\"#6-8-错排-derangements\" data-heading-id=\"6-8-错排-derangements\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Formula / 公式.</strong></p><div class=\"math-display\">$$\nD_n = n! \\sum_{k=0}^n (-1)^k/k! \\approx n!/e.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 令 $A_i$ 为第 $i$ 个元素固定。错排数为总排列数减去至少一个固定点的排列数。由容斥:<br />$D_n = n! - C(n,1)(n-1)! + C(n,2)(n-2)! - ... = n!\\sum (-1)^k/k!$。</p><p><strong>Use / 用法.</strong>  <br />CN: “没有人拿到自己的东西”“没有位置保持原样”的题。</p><hr /><h4 id=\"7-离散概率-discrete-probability\">7. 离散概率 / Discrete Probability<a class=\"heading-anchor\" href=\"#7-离散概率-discrete-probability\" data-heading-id=\"7-离散概率-discrete-probability\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"7-1-概率空间-probability-spaces\">7.1 概率空间 / Probability Spaces<a class=\"heading-anchor\" href=\"#7-1-概率空间-probability-spaces\" data-heading-id=\"7-1-概率空间-probability-spaces\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong></p><ul><li>Sample space / 样本空间: $S$, all outcomes.</li><li>Event / 事件: subset $A\\subseteq S$.</li><li>Probability / 概率: function $Pr$ with $\\Pr(S)=1$, $\\Pr(A)\\ge 0$, and additivity for disjoint events.</li></ul><p><strong>Laplace model / 古典概型.</strong></p><div class=\"math-display\">$$\n\\text{equally likely outcomes}\\implies \\Pr(A)=\\frac{|A|}{|S|}.\n$$</div><p><strong>Use / 用法.</strong>  <br />CN: 概率题先定义样本空间，确保等可能后才能用 $|A|/|S|$。</p><h5 id=\"7-2-概率规则-probability-rules\">7.2 概率规则 / Probability Rules<a class=\"heading-anchor\" href=\"#7-2-概率规则-probability-rules\" data-heading-id=\"7-2-概率规则-probability-rules\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\n\\begin{aligned}\n\\Pr(A^c)&amp;=1-\\Pr(A),\\\\\n\\Pr(A-B)&amp;=\\Pr(A)-\\Pr(A\\cap B),\\\\\n\\Pr(A\\cup B)&amp;=\\Pr(A)+\\Pr(B)-\\Pr(A\\cap B),\\\\\n\\Pr(A\\cup B)&amp;\\le \\Pr(A)+\\Pr(B)\\qquad\\text{(union bound)},\\\\\nA\\subseteq B&amp;\\implies \\Pr(A)\\le \\Pr(B).\n\\end{aligned}\n$$</div><p><strong>General inclusion-exclusion / 概率容斥.</strong></p><div class=\"math-display\">$$\n\\Pr(\\cup A_i)=\\sum \\Pr(A_i)-\\sum \\Pr(A_i\\cap A_j)+\\sum \\Pr(A_i\\cap A_j\\cap A_k)-...\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 概率规则是集合计数公式的加权版本，由互斥可加性推出。</p><p><strong>Use / 用法.</strong>  <br />CN: 至少发生一个事件、生日问题、并界估计。</p><h5 id=\"7-3-条件概率与贝叶斯-conditional-probability-and-bayes\">7.3 条件概率与贝叶斯 / Conditional Probability and Bayes<a class=\"heading-anchor\" href=\"#7-3-条件概率与贝叶斯-conditional-probability-and-bayes\" data-heading-id=\"7-3-条件概率与贝叶斯-conditional-probability-and-bayes\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong></p><div class=\"math-display\">$$\n\\Pr(A|B)=\\Pr(A\\cap B)/\\Pr(B), if \\Pr(B)&gt;0.\n$$</div><p><strong>Product rule / 乘法公式.</strong></p><div class=\"math-display\">$$\n\\Pr(A\\cap B)=\\Pr(A|B)\\Pr(B)=\\Pr(B|A)\\Pr(A).\n$$</div><p><strong>Total probability / 全概率公式.</strong></p><p>If $B_1,...,B_n$ partition $S$, then</p><div class=\"math-display\">$$\n\\Pr(A)=\\sum \\Pr(A|B_i)\\Pr(B_i).\n$$</div><p><strong>Bayes theorem / 贝叶斯公式.</strong></p><div class=\"math-display\">$$\n\\Pr(B_j|A)= \\Pr(A|B_j)\\Pr(B_j) / \\sum_i \\Pr(A|B_i)\\Pr(B_i).\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 条件概率定义给出乘法公式。全概率公式把 $A$ 分解成互不相交的 $A\\cap B_i$。贝叶斯公式由 $\\Pr(B_j|A)=\\Pr(A\\cap B_j)/\\Pr(A)$ 并代入乘法公式。</p><p><strong>Use / 用法.</strong>  <br />CN: 已知“原因到结果”的概率，求“看到结果后原因”的概率。医学检测、垃圾邮件、Monty Hall 类题常用。</p><h5 id=\"7-4-独立性-independence\">7.4 独立性 / Independence<a class=\"heading-anchor\" href=\"#7-4-独立性-independence\" data-heading-id=\"7-4-独立性-independence\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong></p><div class=\"math-display\">$$\nA,B\\text{ independent}\\iff \\Pr(A\\cap B)=\\Pr(A)\\Pr(B).\n$$</div><p>Equivalent if probabilities positive:</p><div class=\"math-display\">$$\n\\Pr(A|B)=\\Pr(A), \\Pr(B|A)=\\Pr(B).\n$$</div><p><strong>Mutual independence / 相互独立.</strong></p><p>Events $A_1,...,A_n$ are mutually independent iff for every nonempty subset $I$,</p><div class=\"math-display\">$$\n\\Pr(\\cap _{i\\in I} A_i)=\\prod_{i\\in I} \\Pr(A_i).\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 两事件等价式由条件概率定义。相互独立需要检查所有子集，不仅是两两独立。</p><p><strong>Use / 用法.</strong>  <br />CN: 连续抛硬币、独立试验乘法。注意“互斥”和“独立”不同: 非零概率互斥事件通常不独立。</p><h5 id=\"7-5-随机变量-期望-方差-random-variables-expectation-variance\">7.5 随机变量、期望、方差 / Random Variables, Expectation, Variance<a class=\"heading-anchor\" href=\"#7-5-随机变量-期望-方差-random-variables-expectation-variance\" data-heading-id=\"7-5-随机变量-期望-方差-random-variables-expectation-variance\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 随机变量 $X$ 是从样本空间到实数的函数。</p><p><strong>Expectation / 期望.</strong></p><div class=\"math-display\">$$\n\\mathbb{E}[X]=\\sum_x x \\Pr(X=x).\n$$</div><p><strong>Indicator variable / 指示随机变量.</strong></p><div class=\"math-display\">$$\nI_A = 1 if A occurs, else 0; \\mathbb{E}[I_A]=\\Pr(A).\n$$</div><p><strong>Linearity of expectation / 期望线性性.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\mathbb{E}[X+Y]=\\mathbb{E}[X]+\\mathbb{E}[Y]. \\\\\n\\mathbb{E}[\\sum X_i]=\\sum \\mathbb{E}[X_i].\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 对有限样本空间，$\\mathbb{E}[X+Y]=\\sum_\\omega (X(\\omega)+Y(\\omega))\\Pr(\\omega)=\\sum X(\\omega)\\Pr(\\omega)+\\sum Y(\\omega)\\Pr(\\omega)$。不需要独立。</p><p><strong>Use / 用法.</strong>  <br />CN: 计数随机对象时非常强。把总数拆成指示变量之和，再求每个事件概率。</p><p><strong>Variance / 方差.</strong></p><div class=\"math-display\">$$\n\\operatorname{Var}(X)=\\mathbb{E}[(X-\\mathbb{E}[X])^2]=\\mathbb{E}[X^2]-\\mathbb{E}[X]^2.\n$$</div><p>If $X,Y$ independent:</p><div class=\"math-display\">$$\n\\operatorname{Var}(X+Y)=\\operatorname{Var}(X)+\\operatorname{Var}(Y).\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 展开平方得到 $\\mathbb{E}[X^2]-2E[X]\\mathbb{E}[X]+\\mathbb{E}[X]^2$。独立时 $\\mathbb{E}[XY]=\\mathbb{E}[X]\\mathbb{E}[Y]$，协方差为 0。</p><p><strong>Use / 用法.</strong>  <br />CN: 衡量偏离均值大小，配合 Chebyshev 不等式。</p><h5 id=\"7-6-常见分布-common-distributions\">7.6 常见分布 / Common Distributions<a class=\"heading-anchor\" href=\"#7-6-常见分布-common-distributions\" data-heading-id=\"7-6-常见分布-common-distributions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"table-scroll\"><table><thead><tr><th>Distribution</th><th>EN</th><th>Formula</th></tr></thead><tbody><tr><td>Bernoulli</td><td>one success/failure trial</td><td>$\\Pr(X=1)=p$, $\\mathbb{E}[X]=p$, $\\operatorname{Var}(X)=p(1-p)$</td></tr><tr><td>Binomial</td><td>number of successes in $n$ independent trials</td><td>$\\Pr(X=k)=\\binom{n}{k}p^k(1-p)^{n-k}$, $\\mathbb{E}=np$, $Var=np(1-p)$</td></tr><tr><td>Geometric</td><td>trials until first success</td><td>$\\Pr(X=k)=(1-p)^{k-1}p$, $\\mathbb{E}=1/p$</td></tr></tbody></table></div><p><strong>Use / 用法.</strong>  <br />CN: 独立重复试验数成功次数通常是二项分布；第一次成功等待时间是几何分布。</p><h5 id=\"7-7-偏差界-deviation-bounds\">7.7 偏差界 / Deviation Bounds<a class=\"heading-anchor\" href=\"#7-7-偏差界-deviation-bounds\" data-heading-id=\"7-7-偏差界-deviation-bounds\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Markov inequality / 马尔可夫不等式.</strong></p><div class=\"math-display\">$$\nX\\ge0,\\ a&gt;0\\implies \\Pr(X\\ge a)\\le \\frac{\\mathbb{E}[X]}{a}.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: $\\mathbb{E}[X]$ 至少包含事件 $X\\ge a$ 上的贡献，而该贡献不少于 $a \\Pr(X\\ge a)$。</p><p><strong>Use / 用法.</strong>  <br />CN: 只知道期望且变量非负时估计尾概率。</p><p><strong>Chebyshev inequality / 切比雪夫不等式.</strong></p><div class=\"math-display\">$$\n\\Pr(|X-\\mathbb{E}[X]| \\ge a) \\le \\operatorname{Var}(X)/a^2.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 对非负变量 $(X-\\mathbb{E}[X])^2$ 用 Markov:<br />$\\Pr((X-\\mathbb{E}[X])^2\\ge a^2) \\le \\mathbb{E}[(X-\\mathbb{E}[X])^2]/a^2$。</p><p><strong>Use / 用法.</strong>  <br />CN: 知道均值和方差时估计偏离概率。</p><p><strong>Chernoff bound / Chernoff 界.</strong></p><p>For independent Bernoulli variables with $X=\\sum X_i$, $\\mu =\\mathbb{E}[X]$:</p><div class=\"math-display\">$$\n\\begin{gathered}\n\\Pr(X \\ge (1+\\delta)\\mu) \\le [e^{\\delta}/(1+\\delta)^{1+\\delta}]^\\mu , \\delta &gt;0. \\\\\n\\Pr(X \\le (1-\\delta)\\mu) \\le e^{-\\delta^2 \\mu /2}, 0&lt;\\delta &lt;1.\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 对 $e^{tX}$ 用 Markov，再利用独立性分解矩母函数，最后优化 $t$。</p><p><strong>Use / 用法.</strong>  <br />CN: 独立 0-1 随机变量和的强尾界，比 Chebyshev 通常指数级更强。</p><hr /><h4 id=\"8-高级计数-递推与生成函数-advanced-counting-recurrences-generating-functions\">8. 高级计数、递推与生成函数 / Advanced Counting, Recurrences, Generating Functions<a class=\"heading-anchor\" href=\"#8-高级计数-递推与生成函数-advanced-counting-recurrences-generating-functions\" data-heading-id=\"8-高级计数-递推与生成函数-advanced-counting-recurrences-generating-functions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"8-1-递推关系-recurrence-relations\">8.1 递推关系 / Recurrence Relations<a class=\"heading-anchor\" href=\"#8-1-递推关系-recurrence-relations\" data-heading-id=\"8-1-递推关系-recurrence-relations\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 递推关系用前面若干项定义后一项。</p><p><strong>Examples / 例.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\nF_n=F_{n-1}+F_{n-2}, F_0=0,F_1=1. \\\\\nTower of Hanoi: H_n=2H_{n-1}+1, H_1=1. \\\\\nMerge sort: T(n)=2T(n/2)+n. \\\\\nBinary search: T(n)=T(n/2)+1.\n\\end{gathered}\n$$</div><p><strong>Use / 用法.</strong>  <br />CN: 先写清初值，再求闭式或渐近阶。</p><h5 id=\"8-2-一阶线性递推-first-order-linear-recurrences\">8.2 一阶线性递推 / First-Order Linear Recurrences<a class=\"heading-anchor\" href=\"#8-2-一阶线性递推-first-order-linear-recurrences\" data-heading-id=\"8-2-一阶线性递推-first-order-linear-recurrences\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Formula / 公式.</strong></p><p>For</p><div class=\"math-display\">$$\na_n = c a_{n-1} + f(n),\n$$</div><p>repeated substitution gives</p><div class=\"math-display\">$$\na_n = c^n a_0 + \\sum_{i=1}^n c^{n-i} f(i).\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 展开:<br />$a_n=ca_{n-1}+f(n)=c(ca_{n-2}+f(n-1))+f(n)=...$。</p><p><strong>Use / 用法.</strong>  <br />CN: 求汉诺塔、复利、简单算法递推。</p><p><strong>Tower of Hanoi / 汉诺塔.</strong></p><div class=\"math-display\">$$\nH_n=2H_{n-1}+1, H_1=1 \\to H_n=2^n-1.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 猜测 $2^n-1$ 后归纳验证。移动 $n$ 个盘: 先移 $n-1$ 个，移最大盘，再移 $n-1$ 个。</p><h5 id=\"8-3-常系数齐次线性递推-linear-homogeneous-recurrences\">8.3 常系数齐次线性递推 / Linear Homogeneous Recurrences<a class=\"heading-anchor\" href=\"#8-3-常系数齐次线性递推-linear-homogeneous-recurrences\" data-heading-id=\"8-3-常系数齐次线性递推-linear-homogeneous-recurrences\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong></p><p>For</p><div class=\"math-display\">$$\na_n = c_1 a_{n-1}+...+c_k a_{n-k},\n$$</div><p>try $a_n=r^n$. Characteristic equation:</p><div class=\"math-display\">$$\nr^k - c_{1r}^{k-1} - ... - c_k = 0.\n$$</div><p>If roots $r_1,...,r_k$ are distinct, then</p><div class=\"math-display\">$$\na_n = \\alpha_1r_1^n + ... + \\alpha_kr_k^n.\n$$</div><p>If root $r$ has multiplicity $m$, terms are</p><div class=\"math-display\">$$\n(\\alpha_0+\\alpha_1n+...+\\alpha_{m-1}n^{m-1})r^n.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 将 $r^n$ 代入递推得到特征方程。线性组合仍满足递推。初值构成线性方程组确定系数。重根情形由线性递推理论或差分算子推出。</p><p><strong>Use / 用法.</strong>  <br />CN: Fibonacci、二阶递推、组合计数闭式。</p><p><strong>Fibonacci closed form / 斐波那契闭式.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\nF_n = (\\varphi^n - \\psi^n)/\\sqrt{5}, \\\\\n\\varphi =(1+\\sqrt{5})/2, \\psi =(1-\\sqrt{5})/2.\n\\end{gathered}\n$$</div><p><strong>Zeckendorf existence / Zeckendorf 表示的存在性.</strong></p><div class=\"math-display\">$$\n\\text{Every positive integer is a sum of distinct Fibonacci numbers.}\n$$</div><p>CN: 更强的 Zeckendorf 定理说每个正整数可唯一表示成若干个不相邻 Fibonacci 数之和。Quiz 常只要求证明“不同 Fibonacci 数之和”的存在性。</p><p><strong>Proof / 证明.</strong>  <br />CN: 对 $n$ 强归纳。取不超过 $n$ 的最大 Fibonacci 数 $F_k$。若 $n=F_k$，完成。否则 $0&lt;n-F_k&lt;F_k$，由归纳假设，$n-F_k$ 可写成若干不同 Fibonacci 数之和。因为这些 Fibonacci 数都不超过 $F_{k-1}$，不会与 $F_k$ 重复，故 $n$ 也可表示成不同 Fibonacci 数之和。</p><p><strong>Use / 用法.</strong>  <br />CN: 看到“每个正整数都能表示成某类数之和”时，常用强归纳加“取不超过它的最大特殊数”。</p><h5 id=\"8-4-非齐次递推-nonhomogeneous-recurrences\">8.4 非齐次递推 / Nonhomogeneous Recurrences<a class=\"heading-anchor\" href=\"#8-4-非齐次递推-nonhomogeneous-recurrences\" data-heading-id=\"8-4-非齐次递推-nonhomogeneous-recurrences\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Method / 方法.</strong></p><div class=\"math-display\">$$\ngeneral solution = homogeneous solution + particular solution.\n$$</div><p>For RHS of form polynomial, exponential, or their product, guess a similar form. If it overlaps with homogeneous solution, multiply by enough powers of $n$.</p><p><strong>Use / 用法.</strong>  <br />CN: $a_n=2a_{n-1}+3$, $a_n=a_{n-1}+n$, $a_n=3a_{n-1}+2^n$ 等题。</p><h5 id=\"8-5-分治递推与主定理-divide-and-conquer-and-master-theorem\">8.5 分治递推与主定理 / Divide-and-Conquer and Master Theorem<a class=\"heading-anchor\" href=\"#8-5-分治递推与主定理-divide-and-conquer-and-master-theorem\" data-heading-id=\"8-5-分治递推与主定理-divide-and-conquer-and-master-theorem\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Master theorem / 主定理.</strong></p><p>For</p><div class=\"math-display\">$$\nT(n)=aT(n/b)+f(n), a\\ge 1, b&gt;1.\n$$</div><p>Let $n^{\\log_b a}$ be the critical term.</p><ol><li>If $f(n)=O(n^{\\log_b a - \\varepsilon})$, then $T(n)=\\Theta(n^{\\log_b a})$.</li><li>If $f(n)=\\Theta(n^{\\log_b a} \\log^k n)$, then $T(n)=\\Theta(n^{\\log_b a} \\log^{k+1} n)$.</li><li>If $f(n)=\\Omega(n^{\\log_b a + \\varepsilon})$ and regularity holds, then $T(n)=\\Theta(f(n))$.</li></ol><p><strong>Proof / 证明.</strong>  <br />CN: 递归树第 $i$ 层有 $a^i$ 个子问题，规模 $n/b^i$，该层代价 $a^i f(n/b^i)$。与叶子总量 $n^{\\log_b a}$ 比较，三种情形分别是叶子主导、各层同阶、根部主导。</p><p><strong>Use / 用法.</strong>  <br />CN: 二分、归并、Karatsuba 等分治算法。先找 $a,b,f(n)$，再比较 $f(n)$ 与 $n^{\\log_b a}$。</p><h5 id=\"8-6-生成函数-generating-functions\">8.6 生成函数 / Generating Functions<a class=\"heading-anchor\" href=\"#8-6-生成函数-generating-functions\" data-heading-id=\"8-6-生成函数-generating-functions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong></p><p>For sequence ${a_n}$, ordinary generating function is</p><div class=\"math-display\">$$\nG(x)=\\sum_{n\\ge 0} a_n x^n.\n$$</div><p><strong>Standard generating functions / 常用生成函数.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n1/(1-x)=\\sum_{n\\ge 0} x^n \\\\\n1/(1-x)^2=\\sum_{n\\ge 0} (n+1)x^n \\\\\n1/(1-ax)=\\sum_{n\\ge 0} a^n x^n \\\\\n(1+x)^n=\\sum_{k=0}^n \\binom{n}{k}x^k\n\\end{gathered}\n$$</div><p><strong>Operations / 运算.</strong></p><ul><li>Addition / 加法: coefficients add.</li><li>Multiplication / 乘法: coefficient of $x^n$ in $A(x)B(x)$ is $\\sum_{k=0}^n a_k b_{n-k}$.</li><li>Derivative / 求导: if $A(x)=\\sum a_n x^n$, then $A&#039;(x)=\\sum n a_n x^{n-1}$.</li></ul><p><strong>Proof / 证明.</strong>  <br />CN: 乘法公式来自收集所有指数和为 $n$ 的项。</p><p><strong>Use / 用法.</strong>  <br />CN: 解递推、计数受限制组合、把卷积变成乘法。</p><p><strong>Example / 例.</strong>  <br />CN: 非负整数解 $x_1+...+x_k=n$ 的生成函数为 $(1+x+x^2+...)^k=1/(1-x)^k$，$x^n$ 系数为 $\\binom{n+k-1}{k-1}$。</p><h5 id=\"8-7-双重求和与乘积-double-sums-and-products\">8.7 双重求和与乘积 / Double Sums and Products<a class=\"heading-anchor\" href=\"#8-7-双重求和与乘积-double-sums-and-products\" data-heading-id=\"8-7-双重求和与乘积-double-sums-and-products\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Double sum switch / 双重求和换序.</strong></p><div class=\"math-display\">$$\n\\sum_{i=1}^m \\sum_{j=1}^n a_{ij} = \\sum_{j=1}^n \\sum_{i=1}^m a_{ij}.\n$$</div><p><strong>Triangular region / 三角区域换序.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\sum_{i=1}^n \\sum_{j=1}^i a_{ij} \\\\\n= \\sum_{j=1}^n \\sum_{i=j}^n a_{ij}.\n\\end{gathered}\n$$</div><p><strong>Product notation / 连乘.</strong></p><div class=\"math-display\">$$\n\\prod_{i=1}^n a_i = a_{1a}_2...a_n.\n$$</div><p><strong>Use / 用法.</strong>  <br />CN: 算法嵌套循环、期望线性性、组合计数中经常需要换序。先画出指标区域再换上下限。</p><hr /><h4 id=\"9-关系-等价关系-偏序-relations-equivalence-relations-partial-orders\">9. 关系、等价关系、偏序 / Relations, Equivalence Relations, Partial Orders<a class=\"heading-anchor\" href=\"#9-关系-等价关系-偏序-relations-equivalence-relations-partial-orders\" data-heading-id=\"9-关系-等价关系-偏序-relations-equivalence-relations-partial-orders\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"9-1-关系及性质-relations-and-properties\">9.1 关系及性质 / Relations and Properties<a class=\"heading-anchor\" href=\"#9-1-关系及性质-relations-and-properties\" data-heading-id=\"9-1-关系及性质-relations-and-properties\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 从 $A$ 到 $B$ 的关系是 $A\\times B$ 的子集。$A$ 上的二元关系是 $A\\times A$ 的子集。</p><p><strong>Properties / 性质.</strong></p><div class=\"table-scroll\"><table><thead><tr><th>Property</th><th>EN formula</th><th>CN</th></tr></thead><tbody><tr><td>Reflexive</td><td>$\\forall a, aRa$</td><td>自反</td></tr><tr><td>Irreflexive</td><td>$\\forall a, \\neg aRa$</td><td>反自反</td></tr><tr><td>Symmetric</td><td>$aRb \\to bRa$</td><td>对称</td></tr><tr><td>Antisymmetric</td><td>$aRb and bRa \\to a=b$</td><td>反对称</td></tr><tr><td>Asymmetric</td><td>$aRb \\to \\neg bRa$</td><td>非对称</td></tr><tr><td>Transitive</td><td>$aRb and bRc \\to aRc$</td><td>传递</td></tr></tbody></table></div><p><strong>Use / 用法.</strong>  <br />CN: 判断关系类型时逐条回到定义。反对称不是“不对称”，它允许 $aRa$。</p><h5 id=\"9-2-关系表示与闭包-representing-relations-and-closures\">9.2 关系表示与闭包 / Representing Relations and Closures<a class=\"heading-anchor\" href=\"#9-2-关系表示与闭包-representing-relations-and-closures\" data-heading-id=\"9-2-关系表示与闭包-representing-relations-and-closures\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Matrix representation / 矩阵表示.</strong>  <br />CN: 关系 $R$ 的矩阵 $M_R$ 中，$m_{ij}=1$ 当且仅当 $a_i R a_j$。</p><p><strong>Graph representation / 图表示.</strong>  <br />CN: 有向边 $a_i \\to a_j$ 表示 $a_i R a_j$。</p><p><strong>Closures / 闭包.</strong></p><ul><li>Reflexive closure / 自反闭包: add all $(a,a)$.</li><li>Symmetric closure / 对称闭包: add $(b,a)$ whenever $(a,b)$ exists.</li><li>Transitive closure / 传递闭包: add all pairs connected by directed paths.</li></ul><p><strong>Warshall algorithm / Warshall 算法.</strong></p><p>CN: 对每个中间点 $k$，更新可达性:</p><div class=\"math-display\">$$\nW[i,j]\\gets W[i,j]\\lor\\bigl(W[i,k]\\land W[k,j]\\bigr).\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 第 $k$ 轮后，$W[i,j]$ 表示是否存在只使用前 $k$ 个顶点作为中间点的路径。对 $k$ 归纳。</p><p><strong>Use / 用法.</strong>  <br />CN: 求传递闭包、可达矩阵、先修关系推导。</p><h5 id=\"9-3-等价关系与划分-equivalence-relations-and-partitions\">9.3 等价关系与划分 / Equivalence Relations and Partitions<a class=\"heading-anchor\" href=\"#9-3-等价关系与划分-equivalence-relations-and-partitions\" data-heading-id=\"9-3-等价关系与划分-equivalence-relations-and-partitions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\text{equivalence relation} \\\\\n= \\\\\n\\text{reflexive}+\\text{symmetric}+\\text{transitive}.\n\\end{gathered}\n$$</div><p><strong>Equivalence class / 等价类.</strong></p><div class=\"math-display\">$$\n[a] = {x\\in A : xRa}.\n$$</div><p><strong>Theorem / 定理.</strong></p><p>EN: An equivalence relation on $A$ partitions $A$ into equivalence classes, and every partition of $A$ defines an equivalence relation.</p><p>CN: 等价关系与集合划分一一对应。</p><p><strong>Proof / 证明.</strong>  <br />CN: 自反性保证每个元素在自己的等价类中。若两个等价类相交，设 $x\\in [a]\\cap [b]$，则 $aRx$ 且 $xRb$，由对称和传递得 $aRb$，进而 $[a]=[b]$。因此等价类两两不交且覆盖 $A$。反向: 同一块中的元素定义为等价，显然自反、对称、传递。</p><p><strong>Use / 用法.</strong>  <br />CN: 模同余类、图连通分量、分类问题。</p><h5 id=\"9-4-偏序-partial-orders\">9.4 偏序 / Partial Orders<a class=\"heading-anchor\" href=\"#9-4-偏序-partial-orders\" data-heading-id=\"9-4-偏序-partial-orders\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\text{partial order} \\\\\n= \\\\\n\\text{reflexive}+\\text{antisymmetric}+\\text{transitive}.\n\\end{gathered}\n$$</div><p>CN: 偏序集写作 $(P,\\le )$。</p><p><strong>Important terms / 术语.</strong></p><ul><li>Comparable / 可比: $a\\le b$ or $b\\le a$.</li><li>Chain / 链: every pair comparable.</li><li>Antichain / 反链: no two distinct elements comparable.</li><li>Maximal / 极大元: no strictly larger element above it.</li><li>Maximum / 最大元: greater than or equal to every element.</li><li>Minimal / 极小元, minimum / 最小元。</li><li>Upper bound / 上界, least upper bound / 最小上界 or join.</li><li>Lower bound / 下界, greatest lower bound / 最大下界 or meet.</li><li>Lattice / 格: every pair has join and meet.</li></ul><p><strong>Use / 用法.</strong>  <br />CN: 先区分 maximum 和 maximal。最大元若存在唯一；极大元可以多个。</p><h5 id=\"9-5-hasse-图与拓扑排序-hasse-diagrams-and-topological-sorting\">9.5 Hasse 图与拓扑排序 / Hasse Diagrams and Topological Sorting<a class=\"heading-anchor\" href=\"#9-5-hasse-图与拓扑排序-hasse-diagrams-and-topological-sorting\" data-heading-id=\"9-5-hasse-图与拓扑排序-hasse-diagrams-and-topological-sorting\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Hasse diagram / Hasse 图.</strong>  <br />CN: 对有限偏序，去掉自环和传递边，只画覆盖关系，较大元素放上方。</p><p><strong>Theorem / 定理: finite DAG has topological order.</strong></p><p>EN: Every finite directed acyclic graph has a topological ordering.</p><p>CN: 每个有限有向无环图都有拓扑序。</p><p><strong>Proof / 证明.</strong>  <br />CN: 有限 DAG 至少有一个入度为 0 的点。否则从任一点不断沿入边往前走，由有限性必重复，形成环。删除该点后递归排序。</p><p><strong>Use / 用法.</strong>  <br />CN: 任务调度、先修课程、偏序线性扩展。</p><h5 id=\"9-6-dilworth-型结论-dilworth-type-statements\">9.6 Dilworth 型结论 / Dilworth-Type Statements<a class=\"heading-anchor\" href=\"#9-6-dilworth-型结论-dilworth-type-statements\" data-heading-id=\"9-6-dilworth-型结论-dilworth-type-statements\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Dilworth theorem / Dilworth 定理.</strong>  <br />CN: 在有限偏序集中，最少需要多少条链覆盖全部元素，等于最大反链的大小。</p><p><strong>Dual intuition / 对偶直觉.</strong>  <br />CN: 链表示完全可比较的一组任务，反链表示两两不可比较、可并行的一组任务。</p><p><strong>Use / 用法.</strong>  <br />CN: MIT 资料中常作为偏序和 DAG 调度的补充。若考试不要求完整证明，重点会是会识别 chain、antichain、critical path，并用它们描述调度瓶颈。</p><hr /><h4 id=\"10-图论-graph-theory\">10. 图论 / Graph Theory<a class=\"heading-anchor\" href=\"#10-图论-graph-theory\" data-heading-id=\"10-图论-graph-theory\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"10-1-图的基本概念-basic-graph-concepts\">10.1 图的基本概念 / Basic Graph Concepts<a class=\"heading-anchor\" href=\"#10-1-图的基本概念-basic-graph-concepts\" data-heading-id=\"10-1-图的基本概念-basic-graph-concepts\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Simple graph / 简单图: $G=(V,E)$ with undirected edges and no loops or multiple edges.</li><li>Multigraph / 多重图: allows multiple edges.</li><li>Directed graph / 有向图: edges have directions.</li><li>Degree / 度: $\\deg(v)$ number of incident edges; loop counts twice.</li><li>In-degree/out-degree / 入度/出度: for digraphs.</li><li>Complete graph / 完全图: $K_n$.</li><li>Cycle graph / 圈图: $C_n$.</li><li>Path graph / 路图: $P_n$.</li><li>Bipartite graph / 二分图: vertices split into two parts, edges only cross parts.</li></ul><h5 id=\"10-2-握手定理-handshake-lemma\">10.2 握手定理 / Handshake Lemma<a class=\"heading-anchor\" href=\"#10-2-握手定理-handshake-lemma\" data-heading-id=\"10-2-握手定理-handshake-lemma\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong></p><div class=\"math-display\">$$\n\\sum_{v\\in V} \\deg(v) = 2|E|.\n$$</div><p>CN: 所有顶点度数之和等于边数两倍。</p><p><strong>Proof / 证明.</strong>  <br />CN: 每条边贡献给两个端点各 1 次，总贡献 2。</p><p><strong>Use / 用法.</strong>  <br />CN: 求边数、证明奇度顶点个数为偶数。</p><p><strong>Corollary / 推论.</strong></p><div class=\"math-display\">$$\n\\#\\{v:\\deg(v)\\text{ is odd}\\}\\text{ is even.}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 度数和为偶数，偶度顶点贡献偶数，所以奇度顶点个数必须为偶数。</p><h5 id=\"10-3-图同构-graph-isomorphism\">10.3 图同构 / Graph Isomorphism<a class=\"heading-anchor\" href=\"#10-3-图同构-graph-isomorphism\" data-heading-id=\"10-3-图同构-graph-isomorphism\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 图 $G,H$ 同构若存在顶点双射 $f:V(G) \\to V(H)$，使得 ${u,v}$ 是边当且仅当 ${f(u),f(v)}$ 是边。</p><p><strong>Use / 用法.</strong>  <br />CN: 证明不同构可比较顶点数、边数、度数序列、连通性、环数量。证明同构则给出明确双射。</p><h5 id=\"10-4-连通性-connectivity\">10.4 连通性 / Connectivity<a class=\"heading-anchor\" href=\"#10-4-连通性-connectivity\" data-heading-id=\"10-4-连通性-connectivity\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Walk / 通道: consecutive vertices connected by edges, may repeat.</li><li>Trail / 迹: no repeated edge.</li><li>Path / 路径: no repeated vertex.</li><li>Connected / 连通: every pair has a path.</li><li>Component / 连通分量: maximal connected subgraph.</li></ul><p><strong>Theorem / 定理.</strong></p><div class=\"math-display\">$$\nu\\leadsto v\\text{ by a walk}\\implies u\\leadsto v\\text{ by a path.}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 若通道重复某个顶点，删除两次出现之间的闭合部分，仍连接 $u$ 到 $v$。反复删除直到无重复顶点。</p><p><strong>Use / 用法.</strong>  <br />CN: 可达性证明中可把 walk 简化成 path。</p><h5 id=\"10-5-欧拉路与欧拉回路-euler-paths-and-circuits\">10.5 欧拉路与欧拉回路 / Euler Paths and Circuits<a class=\"heading-anchor\" href=\"#10-5-欧拉路与欧拉回路-euler-paths-and-circuits\" data-heading-id=\"10-5-欧拉路与欧拉回路-euler-paths-and-circuits\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Euler circuit/tour / 欧拉回路: uses every edge exactly once and returns to start.</li><li>Euler path/trail / 欧拉路: uses every edge exactly once, start and end may differ.</li></ul><p><strong>Theorem / 定理: undirected Euler criterion.</strong></p><p>For a connected graph with at least one edge:</p><div class=\"math-display\">$$\n\\begin{aligned}\n\\text{Euler circuit exists}\n&amp;\\iff \\text{every vertex has even degree},\\\\\n\\text{Euler path but not circuit exists}\n&amp;\\iff \\text{exactly two vertices have odd degree}.\n\\end{aligned}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 必要性: 欧拉回路每次进入一个顶点也必须离开，边成对贡献，所以度为偶数。欧拉路中只有起点和终点的进出不配对，所以它们为奇度。充分性可用逐步走未用边形成闭回路，再把剩余边所在闭回路拼接进来。</p><p><strong>Use / 用法.</strong>  <br />CN: 一笔画问题。先看连通，再数奇度顶点。</p><p><strong>Directed Euler criterion / 有向欧拉回路.</strong></p><div class=\"math-display\">$$\n\\text{strongly connected}\\ \\land\\ \\forall v,\\ \\operatorname{indeg}(v)=\\operatorname{outdeg}(v).\n$$</div><p>For directed Euler path from $s$ to $t$: $outdeg(s)=indeg(s)+1$, $indeg(t)=outdeg(t)+1$, all others equal, plus connectivity condition.</p><h5 id=\"10-6-哈密顿路与哈密顿圈-hamilton-paths-and-cycles\">10.6 哈密顿路与哈密顿圈 / Hamilton Paths and Cycles<a class=\"heading-anchor\" href=\"#10-6-哈密顿路与哈密顿圈-hamilton-paths-and-cycles\" data-heading-id=\"10-6-哈密顿路与哈密顿圈-hamilton-paths-and-cycles\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Hamilton path / 哈密顿路: visits every vertex exactly once.</li><li>Hamilton cycle / 哈密顿圈: visits every vertex exactly once and returns to start.</li></ul><p><strong>Dirac theorem / Dirac 定理.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\nG\\text{ simple},\\ n\\ge3,\\ \\delta(G)\\ge\\frac n2 \\\\\n\\implies \\\\\nG\\text{ has a Hamilton cycle.}\n\\end{gathered}\n$$</div><p><strong>Ore theorem / Ore 定理.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\forall u\\ne v,\\ uv\\notin E,\\quad \\deg(u)+\\deg(v)\\ge n \\\\\n\\implies \\\\\nG\\text{ has a Hamilton cycle.}\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 这些定理的完整证明较长。考试通常要求会用条件判断存在性，而不是重证。证明思想是取最长路径或最长圈，若不能覆盖全部顶点，则用度数条件构造更长圈，矛盾。</p><p><strong>Use / 用法.</strong>  <br />CN: 欧拉看边，哈密顿看点。哈密顿问题通常难得多。</p><h5 id=\"10-7-最短路-shortest-paths\">10.7 最短路 / Shortest Paths<a class=\"heading-anchor\" href=\"#10-7-最短路-shortest-paths\" data-heading-id=\"10-7-最短路-shortest-paths\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Dijkstra algorithm / Dijkstra 算法.</strong>  <br />CN: 对非负权图，从源点开始反复确定当前距离最小的未确定顶点，并松弛其邻边。</p><p><strong>Correctness / 正确性.</strong>  <br />CN: 每次选出的未确定顶点 $u$ 的暂定距离已是最短。若存在更短路，它必须先经过某个未确定顶点，但非负边权使该路径长度不可能小于当前最小暂定距离。</p><p><strong>Use / 用法.</strong>  <br />CN: 非负权最短路。若有负权边，不能直接用 Dijkstra。</p><h5 id=\"10-8-平面图-planar-graphs\">10.8 平面图 / Planar Graphs<a class=\"heading-anchor\" href=\"#10-8-平面图-planar-graphs\" data-heading-id=\"10-8-平面图-planar-graphs\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 图可画在平面上且边只在端点相交，则为平面图。</p><p><strong>Euler formula / 欧拉公式.</strong></p><p>For connected planar graph:</p><div class=\"math-display\">$$\nv - e + f = 2.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 对边数归纳。若图有环，删除环上一条边，面数和边数各减 1，$v-e+f$ 不变。不断删到树。树有 $e=v-1$ 且 $f=1$，所以 $v-e+f=2$。</p><p><strong>Use / 用法.</strong>  <br />CN: 判断非平面、求面数、证明边数上界。</p><p><strong>Edge bounds / 边数上界.</strong></p><p>For simple connected planar graph with $v\\ge 3$:</p><div class=\"math-display\">$$\ne \\le 3v - 6.\n$$</div><p>If no triangles, especially bipartite planar:</p><div class=\"math-display\">$$\ne \\le 2v - 4.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 每个面边界至少 3 条边，且每条边被两个面计数，故 $3f\\le 2e$。代入欧拉公式得 $e\\le 3v-6$。无三角时每个面至少 4 条边，得 $4f\\le 2e$，从而 $e\\le 2v-4$。</p><p><strong>Use / 用法.</strong>  <br />CN: $K_5$ 有 $e=10&gt;3<em>5-6=9$，非平面。$K_{3,3}$ 二分且 $e=9&gt;2</em>6-4=8$，非平面。</p><h5 id=\"10-9-图着色-graph-coloring\">10.9 图着色 / Graph Coloring<a class=\"heading-anchor\" href=\"#10-9-图着色-graph-coloring\" data-heading-id=\"10-9-图着色-graph-coloring\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Proper coloring / 正常着色: adjacent vertices have different colors.</li><li>Chromatic number / 色数: $\\chi(G)$, minimum number of colors.</li></ul><p><strong>Basic facts / 基本事实.</strong></p><div class=\"math-display\">$$\n\\begin{aligned}\n\\chi(K_n)&amp;=n,\\\\\n\\chi(C_n)&amp;=\n\\begin{cases}\n2,&amp; n\\text{ even},\\\\\n3,&amp; n\\text{ odd},\n\\end{cases}\\\\\nT\\text{ tree with at least one edge}&amp;\\implies \\chi(T)=2,\\\\\nG\\text{ bipartite}&amp;\\iff \\chi(G)\\le2\\iff G\\text{ has no odd cycle},\\\\\nG\\text{ planar}&amp;\\implies \\chi(G)\\le4.\n\\end{aligned}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 偶圈和树可按层或交替 2 色染色。奇圈不能 2 色，因为绕一圈回来会迫使起点同时用两色。二分图无奇圈的证明用 BFS 层奇偶分类。</p><p><strong>Use / 用法.</strong>  <br />CN: 排课、寄存器分配、地图染色、冲突图。</p><p><strong>Greedy coloring bound / 贪心着色上界.</strong></p><div class=\"math-display\">$$\n\\Delta(G)=\\Delta\\implies \\chi(G)\\le \\Delta+1.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 任意顺序给顶点染色。给某个顶点染色时，它至多有 $\\Delta$ 个已染邻居，因此在 $\\Delta+1$ 种颜色中至少有一种没被邻居使用。</p><p><strong>Use / 用法.</strong>  <br />CN: 快速给出色数上界。若能找到大小为 $k$ 的完全子图，则 $\\chi(G)\\ge k$，上下界相等时得到准确色数。</p><p><strong>Ramsey example / Ramsey 例: $R(3,3)=6$.</strong></p><div class=\"math-display\">$$\nR(3,3)=6.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 固定一人 $v$。其余 5 人中，至少有 3 人与 $v$ 的关系同类，设为都认识 $v$。若这 3 人中有两人相识，则加上 $v$ 得 3 个两两相识；若这 3 人两两不相识，则得到 3 个两两陌生。另一类同理。</p><p><strong>Use / 用法.</strong>  <br />CN: 证明“足够大时必然出现有序结构”。这是分类讨论加鸽巢原理的经典题。</p><h5 id=\"10-10-匹配与稳定婚姻-matching-and-stable-marriage\">10.10 匹配与稳定婚姻 / Matching and Stable Marriage<a class=\"heading-anchor\" href=\"#10-10-匹配与稳定婚姻-matching-and-stable-marriage\" data-heading-id=\"10-10-匹配与稳定婚姻-matching-and-stable-marriage\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Matching / 匹配: no two edges share a vertex.</li><li>Maximum matching / 最大匹配: largest size.</li><li>Perfect matching / 完美匹配: covers every vertex.</li><li>Stable matching / 稳定匹配: no rogue/blocking pair prefers each other to current partners.</li></ul><p><strong>Hall theorem / Hall 定理.</strong></p><p>For bipartite graph with left part $L$ and right part $R$, a matching covering all vertices of $L$ exists iff for every $S\\subseteq L$,</p><div class=\"math-display\">$$\n|N(S)| \\ge |S|.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 必要性显然: 若 $S$ 中每个点都匹配到不同邻居，则邻居数至少 $|S|$。充分性可用增广路或极小反例证明。</p><p><strong>Use / 用法.</strong>  <br />CN: 任务分配、婚配、系统代表元。</p><p><strong>Gale-Shapley theorem / Gale-Shapley 定理.</strong></p><div class=\"math-display\">$$\n\\text{Deferred acceptance terminates and returns a stable matching.}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 每个申请者最多向每个评价者申请一次，所以有限终止。若存在阻挡对 $(a,e)$，则 $a$ 一定曾向 $e$ 申请过；$e$ 拒绝或后来替换 $a$ 只会因为持有更喜欢的对象，且评价者手中对象随时间不变差，所以终局不会更喜欢 $a$，矛盾。</p><p><strong>Use / 用法.</strong>  <br />CN: 稳定匹配构造题。申请方得到申请方最优稳定匹配，另一方得到相对最差稳定匹配。</p><h5 id=\"10-11-通信网络指标-communication-network-metrics\">10.11 通信网络指标 / Communication Network Metrics<a class=\"heading-anchor\" href=\"#10-11-通信网络指标-communication-network-metrics\" data-heading-id=\"10-11-通信网络指标-communication-network-metrics\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Network graph model / 网络图模型.</strong>  <br />CN: 顶点表示处理器或交换机，边表示通信链路。</p><p><strong>Metrics / 指标.</strong></p><ul><li>Diameter / 直径: maximum shortest-path distance between two vertices.</li><li>Degree/switch count / 度数或交换机数: hardware cost proxy.</li><li>Bisection width / 对分宽度: minimum number of edges crossing a balanced cut.</li><li>Congestion / 拥塞: maximum load on a link under a routing scheme.</li><li>Latency / 延迟: time for a message to traverse a route.</li></ul><p><strong>Common networks / 常见网络.</strong></p><ul><li>Complete binary tree / 完全二叉树: 节点少、结构简单，但根附近容易拥塞。</li><li>2-D array / 二维网格: 布线自然，直径约为行列规模之和。</li><li>Butterfly network / 蝶形网络: 常用于并行路由，层数约为 $\\log n$。</li><li>Benes network / Benes 网络: 可重排网络，能实现任意置换路由。</li></ul><p><strong>Use / 用法.</strong>  <br />CN: MIT MCS 中这部分把图论指标用于计算机网络。做题时先明确要优化的是直径、边数、拥塞还是可重排性。</p><hr /><h4 id=\"11-树-trees\">11. 树 / Trees<a class=\"heading-anchor\" href=\"#11-树-trees\" data-heading-id=\"11-树-trees\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"11-1-树的等价刻画-equivalent-characterizations-of-trees\">11.1 树的等价刻画 / Equivalent Characterizations of Trees<a class=\"heading-anchor\" href=\"#11-1-树的等价刻画-equivalent-characterizations-of-trees\" data-heading-id=\"11-1-树的等价刻画-equivalent-characterizations-of-trees\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 树是连通且无环的无向图。</p><p><strong>Theorem / 定理.</strong> For a graph $G$ with $n$ vertices, the following are equivalent:</p><ol><li>$G$ is a tree.</li><li>$G$ is connected and has $n-1$ edges.</li><li>$G$ is acyclic and has $n-1$ edges.</li><li>Between every pair of vertices there is a unique simple path.</li><li>$G$ is minimally connected: removing any edge disconnects it.</li><li>$G$ is maximally acyclic: adding any new edge creates a cycle.</li></ol><p><strong>Proof / 证明.</strong>  <br />CN: 树中任意两点存在路径；若有两条不同简单路径，合起来形成环，所以路径唯一。对树删叶子归纳可得边数 $n-1$。连通且 $n-1$ 边若有环，删环上一边仍连通，边数会少于连通图最少边数，矛盾。其他等价由“唯一路径”直接推出。</p><p><strong>Use / 用法.</strong>  <br />CN: 树题常在这些刻画之间切换。给边数和连通性可立刻判断树。</p><h5 id=\"11-2-叶子与度数公式-leaves-and-degree-formula\">11.2 叶子与度数公式 / Leaves and Degree Formula<a class=\"heading-anchor\" href=\"#11-2-叶子与度数公式-leaves-and-degree-formula\" data-heading-id=\"11-2-叶子与度数公式-leaves-and-degree-formula\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong></p><div class=\"math-display\">$$\nn\\ge2\\implies \\text{every }n\\text{-vertex tree has at least two leaves.}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 取树中最长简单路径。路径两端若度数大于 1，就能继续延长，矛盾。因此两端都是叶子。</p><p><strong>Use / 用法.</strong>  <br />CN: 树的归纳证明通常删叶子。</p><p><strong>Degree sum / 度数公式.</strong></p><div class=\"math-display\">$$\n\\sum \\deg(v)=2(n-1).\n$$</div><p>CN: 来自握手定理和树边数 $n-1$。</p><h5 id=\"11-3-根树与-m-叉树-rooted-and-m-ary-trees\">11.3 根树与 m 叉树 / Rooted and m-ary Trees<a class=\"heading-anchor\" href=\"#11-3-根树与-m-叉树-rooted-and-m-ary-trees\" data-heading-id=\"11-3-根树与-m-叉树-rooted-and-m-ary-trees\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Root / 根, parent / 父, child / 子, sibling / 兄弟。</li><li>Internal vertex / 内部点, leaf / 叶。</li><li>Height / 高度, level / 层。</li><li>Full m-ary tree / 满 m 叉树: every internal vertex has exactly $m$ children.</li></ul><p><strong>Formula / 公式: full m-ary tree.</strong></p><p>If a full m-ary tree has $i$ internal vertices and $l$ leaves, then</p><div class=\"math-display\">$$\n\\begin{gathered}\nn = mi + 1 \\\\\nl = (m-1)i + 1 \\\\\ni = (l-1)/(m-1)\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 每个内部点发出 $m$ 条父子边，共 $mi$ 条边。树有 $n-1$ 条边，所以 $n-1=mi$。又 $n=i+l$，代入得叶子公式。</p><p><strong>Use / 用法.</strong>  <br />CN: 决策树、编码树、表达式树。</p><h5 id=\"11-4-遍历-tree-traversal\">11.4 遍历 / Tree Traversal<a class=\"heading-anchor\" href=\"#11-4-遍历-tree-traversal\" data-heading-id=\"11-4-遍历-tree-traversal\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Orders / 顺序.</strong></p><ul><li>Preorder / 前序: root, left, right.</li><li>Inorder / 中序: left, root, right.</li><li>Postorder / 后序: left, right, root.</li><li>Level order / 层序: BFS by levels.</li></ul><p><strong>Use / 用法.</strong>  <br />CN: 表达式树、二叉搜索树、语法树。</p><h5 id=\"11-5-生成树与最小生成树-spanning-trees-and-mst\">11.5 生成树与最小生成树 / Spanning Trees and MST<a class=\"heading-anchor\" href=\"#11-5-生成树与最小生成树-spanning-trees-and-mst\" data-heading-id=\"11-5-生成树与最小生成树-spanning-trees-and-mst\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong></p><div class=\"math-display\">$$\n\\text{Every connected graph has a spanning tree.}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 若连通图有环，删除环上一条边仍连通。反复删除直到无环，得到连通无环的生成子图，即生成树。</p><p><strong>Use / 用法.</strong>  <br />CN: 网络连接、图连通性、MST 算法。</p><p><strong>Kruskal correctness / Kruskal 正确性.</strong></p><p>CN: 每次选择连接不同连通分量的最小边。割性质保证安全: 对任意割，跨越该割的最轻边属于某棵 MST。</p><p><strong>Prim correctness / Prim 正确性.</strong></p><p>CN: 从一个连通块开始，每次加入跨出当前块的最轻边。由同一割性质，该边安全。</p><p><strong>Use / 用法.</strong>  <br />CN: 求最小成本连接所有顶点。</p><h5 id=\"11-6-huffman-编码-huffman-coding\">11.6 Huffman 编码 / Huffman Coding<a class=\"heading-anchor\" href=\"#11-6-huffman-编码-huffman-coding\" data-heading-id=\"11-6-huffman-编码-huffman-coding\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong>  <br />CN: Huffman 算法构造最优前缀码。</p><p><strong>Proof / 证明.</strong>  <br />CN: 最优前缀码可表示为二叉树。最低频率的两个符号可安排为最深层兄弟叶子；合并它们为一个频率和的伪符号后，子问题仍最优。递归得到 Huffman 算法。</p><p><strong>Use / 用法.</strong>  <br />CN: 数据压缩、最优前缀码、加权外部路径长度最小。</p><hr /><h4 id=\"12-布尔代数-boolean-algebra\">12. 布尔代数 / Boolean Algebra<a class=\"heading-anchor\" href=\"#12-布尔代数-boolean-algebra\" data-heading-id=\"12-布尔代数-boolean-algebra\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"12-1-布尔函数-boolean-functions\">12.1 布尔函数 / Boolean Functions<a class=\"heading-anchor\" href=\"#12-1-布尔函数-boolean-functions\" data-heading-id=\"12-1-布尔函数-boolean-functions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 布尔函数 $F:{0,1}^n\\to{0,1}$。变量取 0/1，运算包括 complement, join, meet。</p><p><strong>Boolean identities / 布尔恒等式.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\nx+0=x, x\\cdot 1=x \\\\\nx+1=1, x\\cdot 0=0 \\\\\nx+x=x, x\\cdot x=x \\\\\nx+x&#039;=1, x\\cdot x&#039;=0 \\\\\n(x&#039;)&#039;=x \\\\\nx+y=y+x, xy=yx \\\\\nx+(y+z)=(x+y)+z \\\\\nx(yz)=(xy)z \\\\\nx+yz=(x+y)(x+z) \\\\\nx(y+z)=xy+xz \\\\\n(x+y)&#039;=x&#039;y&#039; \\\\\n(xy)&#039;=x&#039;+y&#039; \\\\\nx+xy=x \\\\\nx(x+y)=x\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 与命题逻辑等价式一致，可用真值表证明。</p><p><strong>Use / 用法.</strong>  <br />CN: 化简逻辑电路、证明布尔表达式等价。</p><h5 id=\"12-2-表示布尔函数-representing-boolean-functions\">12.2 表示布尔函数 / Representing Boolean Functions<a class=\"heading-anchor\" href=\"#12-2-表示布尔函数-representing-boolean-functions\" data-heading-id=\"12-2-表示布尔函数-representing-boolean-functions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Sum-of-products / 析取范式 DNF.</strong>  <br />CN: 对真值表中每一行为 1 的输入，写一个 minterm，使变量或补变量匹配该行；把所有 minterm 用 OR 相连。</p><p><strong>Product-of-sums / 合取范式 CNF.</strong>  <br />CN: 对真值表中每一行为 0 的输入，写一个 maxterm；把所有 maxterm 用 AND 相连。</p><p><strong>Theorem / 定理.</strong></p><div class=\"math-display\">$$\n\\text{Every Boolean function can be represented by a Boolean expression.}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 用 DNF 构造。函数为 1 的每一行对应一个只在该行取 1 的 minterm。所有 minterm 析取后正好表示函数。</p><p><strong>Use / 用法.</strong>  <br />CN: 从真值表写表达式，从电路写公式。</p><h5 id=\"12-3-逻辑门与完备性-logic-gates-and-functional-completeness\">12.3 逻辑门与完备性 / Logic Gates and Functional Completeness<a class=\"heading-anchor\" href=\"#12-3-逻辑门与完备性-logic-gates-and-functional-completeness\" data-heading-id=\"12-3-逻辑门与完备性-logic-gates-and-functional-completeness\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Important facts / 重要事实.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\n\\{\\mathrm{AND},\\mathrm{OR},\\mathrm{NOT}\\}\\text{ is functionally complete.} \\\\\n\\qquad \\\\\n\\mathrm{NAND}\\text{ and }\\mathrm{NOR}\\text{ are each functionally complete.}\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 任意布尔函数可用 AND/OR/NOT 表示。NAND 可构造 $NOT x = x NAND x$，$x AND y = (x NAND y) NAND (x NAND y)$，再由德摩根构造 OR。NOR 类似。</p><p><strong>Use / 用法.</strong>  <br />CN: 用单一门实现电路。</p><h5 id=\"12-4-karnaugh-图-karnaugh-maps\">12.4 Karnaugh 图 / Karnaugh Maps<a class=\"heading-anchor\" href=\"#12-4-karnaugh-图-karnaugh-maps\" data-heading-id=\"12-4-karnaugh-图-karnaugh-maps\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Principle / 原理.</strong>  <br />CN: 相邻格只差一个变量。把 1 组成大小为 $1,2,4,8,...$ 的矩形块，可消去变化的变量，得到更简单的 SOP 表达式。</p><p><strong>Use / 用法.</strong>  <br />CN: 小变量数布尔函数化简。注意可环绕相邻。</p><hr /><h4 id=\"13-计算模型-modeling-computation\">13. 计算模型 / Modeling Computation<a class=\"heading-anchor\" href=\"#13-计算模型-modeling-computation\" data-heading-id=\"13-计算模型-modeling-computation\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"13-1-语言与文法-languages-and-grammars\">13.1 语言与文法 / Languages and Grammars<a class=\"heading-anchor\" href=\"#13-1-语言与文法-languages-and-grammars\" data-heading-id=\"13-1-语言与文法-languages-and-grammars\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>Alphabet / 字母表: finite set of symbols.</li><li>String / 字符串: finite sequence over alphabet.</li><li>Language / 语言: set of strings.</li><li>Grammar / 文法: production rules generating strings.</li></ul><p><strong>Chomsky hierarchy / 乔姆斯基层级.</strong></p><p>CN: 正则语言、上下文无关语言、上下文有关语言、递归可枚举语言，表达能力逐级增强。</p><p><strong>Use / 用法.</strong>  <br />CN: 描述程序语言语法、字符串模式、形式语言。</p><h5 id=\"13-2-有限状态机-finite-state-machines\">13.2 有限状态机 / Finite-State Machines<a class=\"heading-anchor\" href=\"#13-2-有限状态机-finite-state-machines\" data-heading-id=\"13-2-有限状态机-finite-state-machines\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definitions / 定义.</strong></p><ul><li>FSM with output / 带输出有限状态机: state, input, transition, output.</li><li>DFA / deterministic finite automaton: $(Q,\\sum ,\\delta ,q_0,F)$.</li><li>Accepted language / 接受语言: all strings ending in accepting states.</li></ul><p><strong>Use / 用法.</strong>  <br />CN: 识别正则语言、设计控制器、模式匹配。</p><h5 id=\"13-3-正则表达式与自动机-regular-expressions-and-automata\">13.3 正则表达式与自动机 / Regular Expressions and Automata<a class=\"heading-anchor\" href=\"#13-3-正则表达式与自动机-regular-expressions-and-automata\" data-heading-id=\"13-3-正则表达式与自动机-regular-expressions-and-automata\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理: Kleene theorem.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\nL\\text{ is regular} \\\\\n\\iff \\\\\nL\\text{ is recognized by a finite automaton} \\\\\n\\iff \\\\\nL\\text{ is described by a regular expression.}\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 正则表达式到自动机用结构归纳构造；自动机到正则表达式可逐步消除状态，保留路径标签表达式。</p><p><strong>Use / 用法.</strong>  <br />CN: 正则表达式和有限自动机可以互相转换。</p><h5 id=\"13-4-图灵机与可计算性-turing-machines-and-computability\">13.4 图灵机与可计算性 / Turing Machines and Computability<a class=\"heading-anchor\" href=\"#13-4-图灵机与可计算性-turing-machines-and-computability\" data-heading-id=\"13-4-图灵机与可计算性-turing-machines-and-computability\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义.</strong>  <br />CN: 图灵机包含有限控制、无限纸带、读写头和转移函数，可形式化“算法”。</p><p><strong>Church-Turing thesis / Church-Turing 论题.</strong></p><p>EN: Effectively computable functions are exactly those computable by a Turing machine.</p><p>CN: 一切有效可计算函数都可由图灵机计算。这不是数学定理，而是计算模型一致性的原则。</p><p><strong>Halting problem / 停机问题.</strong></p><div class=\"math-display\">$$\n\\text{There is no algorithm deciding whether every program-input pair halts.}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 假设存在判定器 $H(P,x)$。构造程序 $D(P)$: 若 $H(P,P)$ 说会停机，则 $D$ 死循环；若说不会停机，则 $D$ 停机。问 $D(D)$，会得到自相矛盾。因此 $H$ 不存在。</p><p><strong>Use / 用法.</strong>  <br />CN: 证明不可判定性，理解计算能力边界。</p><hr /><h4 id=\"14-mit-6-1200j-补充专题-mit-6-1200j-additions\">14. MIT 6.1200J 补充专题 / MIT 6.1200J Additions<a class=\"heading-anchor\" href=\"#14-mit-6-1200j-补充专题-mit-6-1200j-additions\" data-heading-id=\"14-mit-6-1200j-补充专题-mit-6-1200j-additions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"14-1-状态机与不变量-state-machines-and-invariants\">14.1 状态机与不变量 / State Machines and Invariants<a class=\"heading-anchor\" href=\"#14-1-状态机与不变量-state-machines-and-invariants\" data-heading-id=\"14-1-状态机与不变量-state-machines-and-invariants\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Invariant principle / 不变量原则.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\nP(s_0)\\ \\land\\ \\bigl(P\\text{ is preserved by every transition}\\bigr) \\\\\n\\implies \\\\\nP(s)\\text{ for every reachable state }s.\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 对从初始状态到当前状态的转移步数做归纳。</p><p><strong>Use / 用法.</strong>  <br />CN: 证明某状态不可达。找一个所有可达状态都满足但目标状态不满足的性质。</p><p><strong>Termination via derived variable / 用派生变量证明终止.</strong></p><div class=\"math-display\">$$\n\\begin{gathered}\nf:S\\to\\mathbb{N},\\quad f\\text{ strictly decreases at every step} \\\\\n\\implies \\\\\n\\text{the process terminates.}\n\\end{gathered}\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 非负整数不存在无限严格下降链，由良序性。</p><h5 id=\"14-2-积分估计求和-integral-bounds-for-sums\">14.2 积分估计求和 / Integral Bounds for Sums<a class=\"heading-anchor\" href=\"#14-2-积分估计求和-integral-bounds-for-sums\" data-heading-id=\"14-2-积分估计求和-integral-bounds-for-sums\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理.</strong></p><p>If $f$ is nonnegative increasing on $[1,n]$,</p><div class=\"math-display\">$$\n\\int_1^n f(x)dx \\le \\sum_{i=1}^n f(i) \\le \\int_1^n f(x)dx + f(n).\n$$</div><p>If $f$ is nonnegative decreasing,</p><div class=\"math-display\">$$\n\\int_1^{n+1} f(x)dx \\le \\sum_{i=1}^n f(i) \\le f(1)+\\int_1^n f(x)dx.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 用矩形面积夹逼曲线面积。递增函数右端点矩形高估，左端点矩形低估；递减函数反过来。</p><p><strong>Use / 用法.</strong>  <br />CN: 估计调和数、幂和、算法求和。</p><h5 id=\"14-3-生日原理-birthday-principle\">14.3 生日原理 / Birthday Principle<a class=\"heading-anchor\" href=\"#14-3-生日原理-birthday-principle\" data-heading-id=\"14-3-生日原理-birthday-principle\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Formula / 公式.</strong></p><p>For $n$ people and $d$ equally likely birthdays:</p><div class=\"math-display\">$$\n\\begin{gathered}\n\\Pr(\\text{no collision})=\\frac{d(d-1)\\cdots(d-n+1)}{d^n}. \\\\\n\\Pr(\\text{at least one collision})=1-\\Pr(\\text{no collision}).\n\\end{gathered}\n$$</div><p>Approximation:</p><div class=\"math-display\">$$\n\\Pr(\\text{no collision})\\approx \\exp\\left(-\\frac{n(n-1)}{2d}\\right).\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 无碰撞时第 $i$ 个人有 $d-i+1$ 个可用生日。近似用 $\\ln(1-x)\\approx -x$。</p><p><strong>Use / 用法.</strong>  <br />CN: 哈希碰撞、随机抽样重复概率。</p><h5 id=\"14-4-随机游走-random-walks\">14.4 随机游走 / Random Walks<a class=\"heading-anchor\" href=\"#14-4-随机游走-random-walks\" data-heading-id=\"14-4-随机游走-random-walks\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Idea / 思想.</strong>  <br />CN: 随机游走是状态按概率转移的过程。常用工具包括期望递推、马尔可夫链、吸收状态分析。</p><p><strong>Use / 用法.</strong>  <br />CN: 赌博破产、图上随机游走、算法随机化。若课程后续涉及，可把状态期望写成方程组求解。</p><hr /><h4 id=\"15-高频证明模板-high-frequency-proof-templates\">15. 高频证明模板 / High-Frequency Proof Templates<a class=\"heading-anchor\" href=\"#15-高频证明模板-high-frequency-proof-templates\" data-heading-id=\"15-高频证明模板-high-frequency-proof-templates\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"15-1-证明集合相等-proving-set-equality\">15.1 证明集合相等 / Proving Set Equality<a class=\"heading-anchor\" href=\"#15-1-证明集合相等-proving-set-equality\" data-heading-id=\"15-1-证明集合相等-proving-set-equality\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>CN: 证明 $A=B$:</p><ol><li>Take arbitrary $x\\in A$, prove $x\\in B$.</li><li>Take arbitrary $x\\in B$, prove $x\\in A$.</li></ol><p>EN: Prove both inclusions.</p><h5 id=\"15-2-证明函数单射-满射-injection-and-surjection\">15.2 证明函数单射、满射 / Injection and Surjection<a class=\"heading-anchor\" href=\"#15-2-证明函数单射-满射-injection-and-surjection\" data-heading-id=\"15-2-证明函数单射-满射-injection-and-surjection\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>Injection / 单射: assume $f(x_1)=f(x_2)$, prove $x_1=x_2$.</li><li>Surjection / 满射: take arbitrary $y$ in codomain, find $x$ with $f(x)=y$.</li><li>Bijection / 双射: prove both or construct inverse.</li></ul><h5 id=\"15-3-证明整除-divisibility-proof\">15.3 证明整除 / Divisibility Proof<a class=\"heading-anchor\" href=\"#15-3-证明整除-divisibility-proof\" data-heading-id=\"15-3-证明整除-divisibility-proof\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\na\\mid b \\iff \\exists k\\in\\mathbb{Z}\\text{ such that }b=ak.\n$$</div><h5 id=\"15-4-证明同余-congruence-proof\">15.4 证明同余 / Congruence Proof<a class=\"heading-anchor\" href=\"#15-4-证明同余-congruence-proof\" data-heading-id=\"15-4-证明同余-congruence-proof\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\na\\equiv b\\pmod{m}\\iff \\exists k\\in\\mathbb{Z}\\text{ such that }a-b=mk.\n$$</div><p>CN: 先把同余转成整除，再用代数。</p><h5 id=\"15-5-组合证明-combinatorial-proof\">15.5 组合证明 / Combinatorial Proof<a class=\"heading-anchor\" href=\"#15-5-组合证明-combinatorial-proof\" data-heading-id=\"15-5-组合证明-combinatorial-proof\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>CN: 要证明等式 $LHS=RHS$，找一个集合，左边和右边用两种方法计数。  <br />EN: Count the same set in two ways.</p><h5 id=\"15-6-概率四步法-probability-four-step-method\">15.6 概率四步法 / Probability Four-Step Method<a class=\"heading-anchor\" href=\"#15-6-概率四步法-probability-four-step-method\" data-heading-id=\"15-6-概率四步法-probability-four-step-method\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ol><li>Define the sample space.</li><li>Check whether outcomes are equally likely.</li><li>Define the event.</li><li>Count or compute probability.</li></ol><h5 id=\"15-7-图论题流程-graph-problem-checklist\">15.7 图论题流程 / Graph Problem Checklist<a class=\"heading-anchor\" href=\"#15-7-图论题流程-graph-problem-checklist\" data-heading-id=\"15-7-图论题流程-graph-problem-checklist\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ol><li>Is the graph directed or undirected?</li><li>Simple graph or multigraph?</li><li>Are you counting edges, vertices, paths, or colors?</li><li>For Euler: check degrees and connectivity.</li><li>For planar: use Euler formula and edge bounds.</li><li>For trees: use connected plus acyclic or $e=n-1$.</li><li>For bipartite: check odd cycles or 2-coloring.</li></ol><hr /><h4 id=\"16-公式索引-formula-index\">16. 公式索引 / Formula Index<a class=\"heading-anchor\" href=\"#16-公式索引-formula-index\" data-heading-id=\"16-公式索引-formula-index\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"16-1-logic\">16.1 Logic<a class=\"heading-anchor\" href=\"#16-1-logic\" data-heading-id=\"16-1-logic\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>$p \\to q \\equiv \\neg p \\lor q$</li><li>$p \\leftrightarrow q \\equiv (p \\to q) \\land (q \\to p)$</li><li>$\\neg\\forall x\\,P(x) \\equiv \\exists x\\,\\neg P(x)$</li><li>$\\neg\\exists x\\,P(x) \\equiv \\forall x\\,\\neg P(x)$</li></ul><h5 id=\"16-2-sets\">16.2 Sets<a class=\"heading-anchor\" href=\"#16-2-sets\" data-heading-id=\"16-2-sets\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>$|\\mathcal{P}(A)|=2^{|A|}$</li><li>$|A\\cup B|=|A|+|B|-|A\\cap B|$</li><li>$\\left|\\bigcup_{i=1}^n A_i\\right|=\\sum_i |A_i|-\\sum_{i&lt;j}|A_i\\cap A_j|+\\sum_{i&lt;j&lt;k}|A_i\\cap A_j\\cap A_k|-\\cdots$</li></ul><h5 id=\"16-3-sums\">16.3 Sums<a class=\"heading-anchor\" href=\"#16-3-sums\" data-heading-id=\"16-3-sums\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>$\\sum_{i=1}^n i=\\dfrac{n(n+1)}{2}$</li><li>$\\sum_{i=1}^n i^2=\\dfrac{n(n+1)(2n+1)}{6}$</li><li>$\\sum_{i=1}^n i^3=\\left[\\dfrac{n(n+1)}{2}\\right]^2$</li><li>$\\sum_{i=0}^n r^i=\\dfrac{r^{n+1}-1}{r-1}$, $r\\ne 1$</li><li>$\\sum_{i=0}^{\\infty} r^i=\\dfrac{1}{1-r}$, $|r|&lt;1$</li><li>Double sums $\\sum_i\\sum_j a_{ij}$ can be switched by rewriting the index region.</li></ul><h5 id=\"16-4-asymptotics\">16.4 Asymptotics<a class=\"heading-anchor\" href=\"#16-4-asymptotics\" data-heading-id=\"16-4-asymptotics\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>$f=O(g)$ iff $|f(n)|\\le C|g(n)|$ eventually.</li><li>$f=\\Theta(g)$ iff $f=O(g)$ and $f=\\Omega(g)$.</li><li>$n!\\sim \\sqrt{2\\pi n}\\left(\\dfrac{n}{e}\\right)^n$.</li></ul><h5 id=\"16-5-number-theory\">16.5 Number Theory<a class=\"heading-anchor\" href=\"#16-5-number-theory\" data-heading-id=\"16-5-number-theory\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>$a\\mid b$ iff $b=ak$ for some $k\\in\\mathbb{Z}$.</li><li>$a\\equiv b\\pmod{m}$ iff $m\\mid(a-b)$.</li><li>$a=dq+r$, $0\\le r&lt;d$.</li><li>$\\gcd(a,b)=\\gcd(b,a\\bmod b)$.</li><li>$\\gcd(a,b)=sa+tb$ for some $s,t\\in\\mathbb{Z}$.</li><li>$a$ has an inverse modulo $m$ iff $\\gcd(a,m)=1$.</li><li>$ax\\equiv b\\pmod{m}$ is solvable iff $\\gcd(a,m)\\mid b$.</li><li>Fermat: $a^{p-1}\\equiv 1\\pmod{p}$ if $p$ is prime and $p\\nmid a$.</li><li>Euler: $a^{\\varphi(n)}\\equiv 1\\pmod{n}$ if $\\gcd(a,n)=1$.</li><li>CRT: $x\\equiv\\sum_i a_iM_iy_i\\pmod{M}$.</li><li>Pseudoprime base $a$: composite $n$ with $a^{n-1}\\equiv1\\pmod{n}$.</li><li>Affine cipher: $E(x)\\equiv ax+b\\pmod{26}$, where $\\gcd(a,26)=1$.</li></ul><h5 id=\"16-6-counting\">16.6 Counting<a class=\"heading-anchor\" href=\"#16-6-counting\" data-heading-id=\"16-6-counting\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>$P(n,r)=\\dfrac{n!}{(n-r)!}$</li><li>$\\binom{n}{r}=\\dfrac{n!}{r!(n-r)!}$</li><li>$\\binom{n}{r}=\\binom{n}{n-r}$</li><li>$\\binom{n}{r}=\\binom{n-1}{r-1}+\\binom{n-1}{r}$</li><li>$\\sum_{r=0}^n\\binom{n}{r}=2^n$</li><li>$(x+y)^n=\\sum_{k=0}^n\\binom{n}{k}x^{n-k}y^k$</li><li>Stars and bars: the number of nonnegative solutions to $x_1+\\cdots+x_k=n$ is $\\binom{n+k-1}{k-1}$.</li><li>Derangements: $D_n=n!\\sum_{k=0}^n\\dfrac{(-1)^k}{k!}$.</li></ul><h5 id=\"16-7-probability\">16.7 Probability<a class=\"heading-anchor\" href=\"#16-7-probability\" data-heading-id=\"16-7-probability\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>$\\Pr(A^c)=1-\\Pr(A)$</li><li>$\\Pr(A\\cup B)=\\Pr(A)+\\Pr(B)-\\Pr(A\\cap B)$</li><li>$\\Pr(A\\mid B)=\\dfrac{\\Pr(A\\cap B)}{\\Pr(B)}$</li><li>Bayes: $\\Pr(B_j\\mid A)=\\dfrac{\\Pr(A\\mid B_j)\\Pr(B_j)}{\\sum_i\\Pr(A\\mid B_i)\\Pr(B_i)}$</li><li>$\\mathbb{E}[X]=\\sum_x x\\Pr(X=x)$</li><li>$\\mathbb{E}\\left[\\sum_iX_i\\right]=\\sum_i\\mathbb{E}[X_i]$</li><li>$\\operatorname{Var}(X)=\\mathbb{E}[X^2]-\\mathbb{E}[X]^2$</li><li>Markov: $\\Pr(X\\ge a)\\le\\dfrac{\\mathbb{E}[X]}{a}$</li><li>Chebyshev: $\\Pr(|X-\\mathbb{E}[X]|\\ge a)\\le\\dfrac{\\operatorname{Var}(X)}{a^2}$</li></ul><h5 id=\"16-8-recurrences\">16.8 Recurrences<a class=\"heading-anchor\" href=\"#16-8-recurrences\" data-heading-id=\"16-8-recurrences\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>For $T(n)=aT(n/b)+f(n)$, compare $f(n)$ with $n^{\\log_b a}$.</li><li>$G(x)=\\sum_{n\\ge0}a_nx^n$</li><li>$\\dfrac{1}{1-x}=\\sum_{n\\ge0}x^n$</li><li>$\\dfrac{1}{(1-x)^2}=\\sum_{n\\ge0}(n+1)x^n$</li></ul><h5 id=\"16-9-relations\">16.9 Relations<a class=\"heading-anchor\" href=\"#16-9-relations\" data-heading-id=\"16-9-relations\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>Equivalence relation $=$ reflexive $+$ symmetric $+$ transitive.</li><li>Partial order $=$ reflexive $+$ antisymmetric $+$ transitive.</li></ul><h5 id=\"16-10-graphs-and-trees\">16.10 Graphs and Trees<a class=\"heading-anchor\" href=\"#16-10-graphs-and-trees\" data-heading-id=\"16-10-graphs-and-trees\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>$\\sum_{v\\in V}\\deg(v)=2|E|$</li><li>Tree: $e=n-1$</li><li>Connected planar graph: $v-e+f=2$</li><li>Simple planar graph: $e\\le3v-6$</li><li>Bipartite planar graph: $e\\le2v-4$</li><li>$\\chi(K_n)=n$</li><li>$\\chi(C_n)=2$ if $n$ is even; $\\chi(C_n)=3$ if $n$ is odd.</li><li>$\\chi(G)\\le\\Delta+1$</li><li>$R(3,3)=6$</li><li>Hall condition: $|N(S)|\\ge|S|$ for every $S\\subseteq L$.</li><li>Full $m$-ary tree: $n=mi+1$, $l=(m-1)i+1$.</li></ul><h5 id=\"16-11-boolean-algebra\">16.11 Boolean Algebra<a class=\"heading-anchor\" href=\"#16-11-boolean-algebra\" data-heading-id=\"16-11-boolean-algebra\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ul><li>$(x+y)&#039;=x&#039;y&#039;$</li><li>$(xy)&#039;=x&#039;+y&#039;$</li><li>DNF and CNF represent every Boolean function.</li><li>NAND alone and NOR alone are functionally complete.</li></ul><hr /><h4 id=\"17-quiz-高频题型-frequent-quiz-patterns\">17. Quiz 高频题型 / Frequent Quiz Patterns<a class=\"heading-anchor\" href=\"#17-quiz-高频题型-frequent-quiz-patterns\" data-heading-id=\"17-quiz-高频题型-frequent-quiz-patterns\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>CN: 本目录中的 Quiz 1 主要考早期基础，但题目经常把基础概念揉在一起。下面是对应的复习入口。</p><div class=\"table-scroll\"><table><thead><tr><th>Pattern</th><th>EN</th><th>Where in notes</th></tr></thead><tbody><tr><td>判断逻辑等价、永真式</td><td>logical equivalence, tautology</td><td>1.2</td></tr><tr><td>英文句子翻译成量词</td><td>predicate translation</td><td>1.3</td></tr><tr><td>NAND/NOR 表达式</td><td>functional completeness</td><td>12.3</td></tr><tr><td>完全析取/合取范式</td><td>full DNF/CNF</td><td>12.2</td></tr><tr><td>集合恒等式证明</td><td>set identities</td><td>2.2, 15.1</td></tr><tr><td>幂集与集合包含判断</td><td>power set logic</td><td>2.1</td></tr><tr><td>Cantor 对角线法</td><td>diagonalization</td><td>2.5</td></tr><tr><td>代数数可数</td><td>countability of algebraic roots</td><td>2.5</td></tr><tr><td>函数复合、单射满射双射</td><td>function composition and bijection</td><td>2.4</td></tr><tr><td>Big-O 排序</td><td>asymptotic ordering</td><td>3.2, 3.3</td></tr><tr><td>同余与 CRT 构造</td><td>congruences and CRT</td><td>4.3, 4.7</td></tr><tr><td>Fibonacci 归纳</td><td>Fibonacci induction</td><td>5.2, 8.3</td></tr><tr><td>不同 Fibonacci 数表示</td><td>Zeckendorf existence</td><td>8.3</td></tr><tr><td>取石子游戏</td><td>subtraction game/Nim idea</td><td>below</td></tr></tbody></table></div><h5 id=\"17-1-取石子游戏-stone-games\">17.1 取石子游戏 / Stone Games<a class=\"heading-anchor\" href=\"#17-1-取石子游戏-stone-games\" data-heading-id=\"17-1-取石子游戏-stone-games\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Single pile, remove 1 to 3 / 单堆每次取 1 到 3 个.</strong></p><div class=\"math-display\">$$\n\\text{losing positions}=\\{4k:k\\ge0\\}.\n$$</div><p><strong>Proof / 证明.</strong>  <br />CN: 若剩 $4k$ 个，无论取 $1,2,3$，对方都可取到下一个 $4(k-1)$。若剩数不是 4 的倍数，当前玩家可取 $r$ 个使剩数变成 4 的倍数。</p><p><strong>Two-pile Nim idea / 双堆 Nim 思想.</strong></p><div class=\"math-display\">$$\n\\text{normal-play Nim losing positions satisfy }\\operatorname{xor}=0.\n$$</div><p>CN: 若题目只允许每次从一堆取 $1,2,3$，可把每堆大小按模 4 化成 Grundy 值；两堆的异或非 0 时先手有必胜策略。</p><p><strong>Use / 用法.</strong>  <br />CN: Quiz 中出现“两堆石子每次从一堆取 1,2,3 个，取最后者胜”时，先看每堆模 4。$115\\equiv 3 \\pmod{4}$, $125\\equiv 1 \\pmod{4}$，$3 xor 1 \\ne 0$，所以先手能赢。</p><hr /><h4 id=\"18-中英术语表-bilingual-glossary\">18. 中英术语表 / Bilingual Glossary<a class=\"heading-anchor\" href=\"#18-中英术语表-bilingual-glossary\" data-heading-id=\"18-中英术语表-bilingual-glossary\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"table-scroll\"><table><thead><tr><th>English</th><th>中文</th></tr></thead><tbody><tr><td>proposition</td><td>命题</td></tr><tr><td>predicate</td><td>谓词</td></tr><tr><td>quantifier</td><td>量词</td></tr><tr><td>tautology</td><td>永真式</td></tr><tr><td>contradiction</td><td>矛盾式</td></tr><tr><td>logical equivalence</td><td>逻辑等价</td></tr><tr><td>rule of inference</td><td>推理规则</td></tr><tr><td>direct proof</td><td>直接证明</td></tr><tr><td>proof by contrapositive</td><td>逆否证明</td></tr><tr><td>proof by contradiction</td><td>反证法</td></tr><tr><td>induction</td><td>归纳法</td></tr><tr><td>strong induction</td><td>强归纳法</td></tr><tr><td>well-ordering principle</td><td>良序原理</td></tr><tr><td>set</td><td>集合</td></tr><tr><td>power set</td><td>幂集</td></tr><tr><td>Cartesian product</td><td>笛卡尔积</td></tr><tr><td>function</td><td>函数</td></tr><tr><td>injection</td><td>单射</td></tr><tr><td>surjection</td><td>满射</td></tr><tr><td>bijection</td><td>双射</td></tr><tr><td>countable</td><td>可数</td></tr><tr><td>uncountable</td><td>不可数</td></tr><tr><td>sequence</td><td>序列</td></tr><tr><td>summation</td><td>求和</td></tr><tr><td>matrix</td><td>矩阵</td></tr><tr><td>algorithm</td><td>算法</td></tr><tr><td>asymptotic notation</td><td>渐近符号</td></tr><tr><td>divisibility</td><td>整除</td></tr><tr><td>congruence</td><td>同余</td></tr><tr><td>greatest common divisor</td><td>最大公约数</td></tr><tr><td>Bezout identity</td><td>贝祖等式</td></tr><tr><td>modular inverse</td><td>模逆元</td></tr><tr><td>Chinese remainder theorem</td><td>中国剩余定理</td></tr><tr><td>Fermat&#039;s little theorem</td><td>费马小定理</td></tr><tr><td>Euler&#039;s theorem</td><td>欧拉定理</td></tr><tr><td>recurrence relation</td><td>递推关系</td></tr><tr><td>generating function</td><td>生成函数</td></tr><tr><td>permutation</td><td>排列</td></tr><tr><td>combination</td><td>组合</td></tr><tr><td>pigeonhole principle</td><td>鸽巢原理</td></tr><tr><td>inclusion-exclusion</td><td>容斥</td></tr><tr><td>sample space</td><td>样本空间</td></tr><tr><td>event</td><td>事件</td></tr><tr><td>conditional probability</td><td>条件概率</td></tr><tr><td>independence</td><td>独立性</td></tr><tr><td>random variable</td><td>随机变量</td></tr><tr><td>expectation</td><td>期望</td></tr><tr><td>variance</td><td>方差</td></tr><tr><td>relation</td><td>关系</td></tr><tr><td>equivalence relation</td><td>等价关系</td></tr><tr><td>partition</td><td>划分</td></tr><tr><td>partial order</td><td>偏序</td></tr><tr><td>Hasse diagram</td><td>Hasse 图</td></tr><tr><td>graph</td><td>图</td></tr><tr><td>vertex</td><td>顶点</td></tr><tr><td>edge</td><td>边</td></tr><tr><td>degree</td><td>度</td></tr><tr><td>path</td><td>路径</td></tr><tr><td>cycle</td><td>圈</td></tr><tr><td>connected component</td><td>连通分量</td></tr><tr><td>Euler circuit</td><td>欧拉回路</td></tr><tr><td>Hamilton cycle</td><td>哈密顿圈</td></tr><tr><td>planar graph</td><td>平面图</td></tr><tr><td>graph coloring</td><td>图着色</td></tr><tr><td>matching</td><td>匹配</td></tr><tr><td>tree</td><td>树</td></tr><tr><td>spanning tree</td><td>生成树</td></tr><tr><td>minimum spanning tree</td><td>最小生成树</td></tr><tr><td>Boolean algebra</td><td>布尔代数</td></tr><tr><td>finite-state machine</td><td>有限状态机</td></tr><tr><td>grammar</td><td>文法</td></tr><tr><td>Turing machine</td><td>图灵机</td></tr></tbody></table></div>",
+  "headings": [
+    {
+      "id": "离散数学课堂笔记-discrete-mathematics-class-notes",
+      "title": "离散数学课堂笔记 / Discrete Mathematics Class Notes",
+      "level": 3
+    },
+    {
+      "id": "0-使用说明-how-to-use-this-note",
+      "title": "0. 使用说明 / How to Use This Note",
+      "level": 4
+    },
+    {
+      "id": "0-1-笔记结构-structure",
+      "title": "0.1 笔记结构 / Structure",
+      "level": 5
+    },
+    {
+      "id": "0-2-资料范围-source-scope",
+      "title": "0.2 资料范围 / Source Scope",
+      "level": 5
+    },
+    {
+      "id": "0-3-核心学习策略-core-study-strategy",
+      "title": "0.3 核心学习策略 / Core Study Strategy",
+      "level": 5
+    },
+    {
+      "id": "1-逻辑与证明-logic-and-proofs",
+      "title": "1. 逻辑与证明 / Logic and Proofs",
+      "level": 4
+    },
+    {
+      "id": "1-1-命题与联结词-propositions-and-connectives",
+      "title": "1.1 命题与联结词 / Propositions and Connectives",
+      "level": 5
+    },
+    {
+      "id": "1-2-常用逻辑等价式-common-logical-equivalences",
+      "title": "1.2 常用逻辑等价式 / Common Logical Equivalences",
+      "level": 5
+    },
+    {
+      "id": "1-3-谓词与量词-predicates-and-quantifiers",
+      "title": "1.3 谓词与量词 / Predicates and Quantifiers",
+      "level": 5
+    },
+    {
+      "id": "1-4-推理规则-rules-of-inference",
+      "title": "1.4 推理规则 / Rules of Inference",
+      "level": 5
+    },
+    {
+      "id": "1-5-证明方法-proof-methods",
+      "title": "1.5 证明方法 / Proof Methods",
+      "level": 5
+    },
+    {
+      "id": "direct-proof-直接证明",
+      "title": "Direct Proof / 直接证明",
+      "level": 6
+    },
+    {
+      "id": "contrapositive-proof-逆否证明",
+      "title": "Contrapositive Proof / 逆否证明",
+      "level": 6
+    },
+    {
+      "id": "proof-by-contradiction-反证法",
+      "title": "Proof by Contradiction / 反证法",
+      "level": 6
+    },
+    {
+      "id": "proof-by-cases-分类讨论",
+      "title": "Proof by Cases / 分类讨论",
+      "level": 6
+    },
+    {
+      "id": "existence-and-uniqueness-存在性与唯一性",
+      "title": "Existence and Uniqueness / 存在性与唯一性",
+      "level": 6
+    },
+    {
+      "id": "2-集合-函数-序列-求和-矩阵-sets-functions-sequences-sums-matrices",
+      "title": "2. 集合、函数、序列、求和、矩阵 / Sets, Functions, Sequences, Sums, Matrices",
+      "level": 4
+    },
+    {
+      "id": "2-1-集合基本概念-sets",
+      "title": "2.1 集合基本概念 / Sets",
+      "level": 5
+    },
+    {
+      "id": "2-2-集合运算-set-operations",
+      "title": "2.2 集合运算 / Set Operations",
+      "level": 5
+    },
+    {
+      "id": "2-3-容斥与集合大小-cardinality-and-inclusion-exclusion",
+      "title": "2.3 容斥与集合大小 / Cardinality and Inclusion-Exclusion",
+      "level": 5
+    },
+    {
+      "id": "2-4-函数-functions",
+      "title": "2.4 函数 / Functions",
+      "level": 5
+    },
+    {
+      "id": "2-5-可数与不可数-countability",
+      "title": "2.5 可数与不可数 / Countability",
+      "level": 5
+    },
+    {
+      "id": "2-6-序列与求和-sequences-and-summations",
+      "title": "2.6 序列与求和 / Sequences and Summations",
+      "level": 5
+    },
+    {
+      "id": "2-7-矩阵-matrices",
+      "title": "2.7 矩阵 / Matrices",
+      "level": 5
+    },
+    {
+      "id": "3-算法与增长阶-algorithms-and-growth",
+      "title": "3. 算法与增长阶 / Algorithms and Growth",
+      "level": 4
+    },
+    {
+      "id": "3-1-算法-algorithms",
+      "title": "3.1 算法 / Algorithms",
+      "level": 5
+    },
+    {
+      "id": "3-2-渐近符号-asymptotic-notation",
+      "title": "3.2 渐近符号 / Asymptotic Notation",
+      "level": 5
+    },
+    {
+      "id": "3-3-常见增长阶-common-growth-orders",
+      "title": "3.3 常见增长阶 / Common Growth Orders",
+      "level": 5
+    },
+    {
+      "id": "3-4-算法复杂度-complexity-of-algorithms",
+      "title": "3.4 算法复杂度 / Complexity of Algorithms",
+      "level": 5
+    },
+    {
+      "id": "4-数论与密码-number-theory-and-cryptography",
+      "title": "4. 数论与密码 / Number Theory and Cryptography",
+      "level": 4
+    },
+    {
+      "id": "4-1-整除-divisibility",
+      "title": "4.1 整除 / Divisibility",
+      "level": 5
+    },
+    {
+      "id": "4-2-除法算法-division-algorithm",
+      "title": "4.2 除法算法 / Division Algorithm",
+      "level": 5
+    },
+    {
+      "id": "4-3-同余-modular-arithmetic",
+      "title": "4.3 同余 / Modular Arithmetic",
+      "level": 5
+    },
+    {
+      "id": "4-4-最大公约数与欧几里得算法-gcd-and-euclidean-algorithm",
+      "title": "4.4 最大公约数与欧几里得算法 / GCD and Euclidean Algorithm",
+      "level": 5
+    },
+    {
+      "id": "4-5-素数与唯一分解-primes-and-fundamental-theorem-of-arithmetic",
+      "title": "4.5 素数与唯一分解 / Primes and Fundamental Theorem of Arithmetic",
+      "level": 5
+    },
+    {
+      "id": "4-6-模逆元与线性同余-modular-inverses-and-linear-congruences",
+      "title": "4.6 模逆元与线性同余 / Modular Inverses and Linear Congruences",
+      "level": 5
+    },
+    {
+      "id": "4-7-中国剩余定理-chinese-remainder-theorem",
+      "title": "4.7 中国剩余定理 / Chinese Remainder Theorem",
+      "level": 5
+    },
+    {
+      "id": "4-8-费马小定理-欧拉定理-fermat-and-euler",
+      "title": "4.8 费马小定理、欧拉定理 / Fermat and Euler",
+      "level": 5
+    },
+    {
+      "id": "4-9-进制表示与快速幂-representations-and-fast-exponentiation",
+      "title": "4.9 进制表示与快速幂 / Representations and Fast Exponentiation",
+      "level": 5
+    },
+    {
+      "id": "4-10-rsa",
+      "title": "4.10 RSA",
+      "level": 5
+    },
+    {
+      "id": "4-11-伪素数-原根-离散对数-pseudoprimes-primitive-roots-discrete-logs",
+      "title": "4.11 伪素数、原根、离散对数 / Pseudoprimes, Primitive Roots, Discrete Logs",
+      "level": 5
+    },
+    {
+      "id": "4-12-同余的应用-applications-of-congruences",
+      "title": "4.12 同余的应用 / Applications of Congruences",
+      "level": 5
+    },
+    {
+      "id": "5-归纳与递归-induction-and-recursion",
+      "title": "5. 归纳与递归 / Induction and Recursion",
+      "level": 4
+    },
+    {
+      "id": "5-1-良序原理-well-ordering-principle",
+      "title": "5.1 良序原理 / Well-Ordering Principle",
+      "level": 5
+    },
+    {
+      "id": "5-2-数学归纳法-mathematical-induction",
+      "title": "5.2 数学归纳法 / Mathematical Induction",
+      "level": 5
+    },
+    {
+      "id": "5-3-强归纳法-strong-induction",
+      "title": "5.3 强归纳法 / Strong Induction",
+      "level": 5
+    },
+    {
+      "id": "5-4-递归定义-recursive-definitions",
+      "title": "5.4 递归定义 / Recursive Definitions",
+      "level": 5
+    },
+    {
+      "id": "5-5-结构归纳-structural-induction",
+      "title": "5.5 结构归纳 / Structural Induction",
+      "level": 5
+    },
+    {
+      "id": "5-6-递归算法正确性-recursive-algorithm-correctness",
+      "title": "5.6 递归算法正确性 / Recursive Algorithm Correctness",
+      "level": 5
+    },
+    {
+      "id": "5-7-程序正确性与不变量-program-correctness-and-invariants",
+      "title": "5.7 程序正确性与不变量 / Program Correctness and Invariants",
+      "level": 5
+    },
+    {
+      "id": "6-计数-counting",
+      "title": "6. 计数 / Counting",
+      "level": 4
+    },
+    {
+      "id": "6-1-基本计数原则-basic-counting-principles",
+      "title": "6.1 基本计数原则 / Basic Counting Principles",
+      "level": 5
+    },
+    {
+      "id": "6-2-排列与组合-permutations-and-combinations",
+      "title": "6.2 排列与组合 / Permutations and Combinations",
+      "level": 5
+    },
+    {
+      "id": "6-3-二项式系数恒等式-binomial-coefficient-identities",
+      "title": "6.3 二项式系数恒等式 / Binomial Coefficient Identities",
+      "level": 5
+    },
+    {
+      "id": "6-4-二项式定理与多项式定理-binomial-and-multinomial-theorems",
+      "title": "6.4 二项式定理与多项式定理 / Binomial and Multinomial Theorems",
+      "level": 5
+    },
+    {
+      "id": "6-5-鸽巢原理-pigeonhole-principle",
+      "title": "6.5 鸽巢原理 / Pigeonhole Principle",
+      "level": 5
+    },
+    {
+      "id": "6-6-可重复组合与星棒法-stars-and-bars",
+      "title": "6.6 可重复组合与星棒法 / Stars and Bars",
+      "level": 5
+    },
+    {
+      "id": "6-7-有重复元素的排列-permutations-with-repetition",
+      "title": "6.7 有重复元素的排列 / Permutations with Repetition",
+      "level": 5
+    },
+    {
+      "id": "6-8-错排-derangements",
+      "title": "6.8 错排 / Derangements",
+      "level": 5
+    },
+    {
+      "id": "7-离散概率-discrete-probability",
+      "title": "7. 离散概率 / Discrete Probability",
+      "level": 4
+    },
+    {
+      "id": "7-1-概率空间-probability-spaces",
+      "title": "7.1 概率空间 / Probability Spaces",
+      "level": 5
+    },
+    {
+      "id": "7-2-概率规则-probability-rules",
+      "title": "7.2 概率规则 / Probability Rules",
+      "level": 5
+    },
+    {
+      "id": "7-3-条件概率与贝叶斯-conditional-probability-and-bayes",
+      "title": "7.3 条件概率与贝叶斯 / Conditional Probability and Bayes",
+      "level": 5
+    },
+    {
+      "id": "7-4-独立性-independence",
+      "title": "7.4 独立性 / Independence",
+      "level": 5
+    },
+    {
+      "id": "7-5-随机变量-期望-方差-random-variables-expectation-variance",
+      "title": "7.5 随机变量、期望、方差 / Random Variables, Expectation, Variance",
+      "level": 5
+    },
+    {
+      "id": "7-6-常见分布-common-distributions",
+      "title": "7.6 常见分布 / Common Distributions",
+      "level": 5
+    },
+    {
+      "id": "7-7-偏差界-deviation-bounds",
+      "title": "7.7 偏差界 / Deviation Bounds",
+      "level": 5
+    },
+    {
+      "id": "8-高级计数-递推与生成函数-advanced-counting-recurrences-generating-functions",
+      "title": "8. 高级计数、递推与生成函数 / Advanced Counting, Recurrences, Generating Functions",
+      "level": 4
+    },
+    {
+      "id": "8-1-递推关系-recurrence-relations",
+      "title": "8.1 递推关系 / Recurrence Relations",
+      "level": 5
+    },
+    {
+      "id": "8-2-一阶线性递推-first-order-linear-recurrences",
+      "title": "8.2 一阶线性递推 / First-Order Linear Recurrences",
+      "level": 5
+    },
+    {
+      "id": "8-3-常系数齐次线性递推-linear-homogeneous-recurrences",
+      "title": "8.3 常系数齐次线性递推 / Linear Homogeneous Recurrences",
+      "level": 5
+    },
+    {
+      "id": "8-4-非齐次递推-nonhomogeneous-recurrences",
+      "title": "8.4 非齐次递推 / Nonhomogeneous Recurrences",
+      "level": 5
+    },
+    {
+      "id": "8-5-分治递推与主定理-divide-and-conquer-and-master-theorem",
+      "title": "8.5 分治递推与主定理 / Divide-and-Conquer and Master Theorem",
+      "level": 5
+    },
+    {
+      "id": "8-6-生成函数-generating-functions",
+      "title": "8.6 生成函数 / Generating Functions",
+      "level": 5
+    },
+    {
+      "id": "8-7-双重求和与乘积-double-sums-and-products",
+      "title": "8.7 双重求和与乘积 / Double Sums and Products",
+      "level": 5
+    },
+    {
+      "id": "9-关系-等价关系-偏序-relations-equivalence-relations-partial-orders",
+      "title": "9. 关系、等价关系、偏序 / Relations, Equivalence Relations, Partial Orders",
+      "level": 4
+    },
+    {
+      "id": "9-1-关系及性质-relations-and-properties",
+      "title": "9.1 关系及性质 / Relations and Properties",
+      "level": 5
+    },
+    {
+      "id": "9-2-关系表示与闭包-representing-relations-and-closures",
+      "title": "9.2 关系表示与闭包 / Representing Relations and Closures",
+      "level": 5
+    },
+    {
+      "id": "9-3-等价关系与划分-equivalence-relations-and-partitions",
+      "title": "9.3 等价关系与划分 / Equivalence Relations and Partitions",
+      "level": 5
+    },
+    {
+      "id": "9-4-偏序-partial-orders",
+      "title": "9.4 偏序 / Partial Orders",
+      "level": 5
+    },
+    {
+      "id": "9-5-hasse-图与拓扑排序-hasse-diagrams-and-topological-sorting",
+      "title": "9.5 Hasse 图与拓扑排序 / Hasse Diagrams and Topological Sorting",
+      "level": 5
+    },
+    {
+      "id": "9-6-dilworth-型结论-dilworth-type-statements",
+      "title": "9.6 Dilworth 型结论 / Dilworth-Type Statements",
+      "level": 5
+    },
+    {
+      "id": "10-图论-graph-theory",
+      "title": "10. 图论 / Graph Theory",
+      "level": 4
+    },
+    {
+      "id": "10-1-图的基本概念-basic-graph-concepts",
+      "title": "10.1 图的基本概念 / Basic Graph Concepts",
+      "level": 5
+    },
+    {
+      "id": "10-2-握手定理-handshake-lemma",
+      "title": "10.2 握手定理 / Handshake Lemma",
+      "level": 5
+    },
+    {
+      "id": "10-3-图同构-graph-isomorphism",
+      "title": "10.3 图同构 / Graph Isomorphism",
+      "level": 5
+    },
+    {
+      "id": "10-4-连通性-connectivity",
+      "title": "10.4 连通性 / Connectivity",
+      "level": 5
+    },
+    {
+      "id": "10-5-欧拉路与欧拉回路-euler-paths-and-circuits",
+      "title": "10.5 欧拉路与欧拉回路 / Euler Paths and Circuits",
+      "level": 5
+    },
+    {
+      "id": "10-6-哈密顿路与哈密顿圈-hamilton-paths-and-cycles",
+      "title": "10.6 哈密顿路与哈密顿圈 / Hamilton Paths and Cycles",
+      "level": 5
+    },
+    {
+      "id": "10-7-最短路-shortest-paths",
+      "title": "10.7 最短路 / Shortest Paths",
+      "level": 5
+    },
+    {
+      "id": "10-8-平面图-planar-graphs",
+      "title": "10.8 平面图 / Planar Graphs",
+      "level": 5
+    },
+    {
+      "id": "10-9-图着色-graph-coloring",
+      "title": "10.9 图着色 / Graph Coloring",
+      "level": 5
+    },
+    {
+      "id": "10-10-匹配与稳定婚姻-matching-and-stable-marriage",
+      "title": "10.10 匹配与稳定婚姻 / Matching and Stable Marriage",
+      "level": 5
+    },
+    {
+      "id": "10-11-通信网络指标-communication-network-metrics",
+      "title": "10.11 通信网络指标 / Communication Network Metrics",
+      "level": 5
+    },
+    {
+      "id": "11-树-trees",
+      "title": "11. 树 / Trees",
+      "level": 4
+    },
+    {
+      "id": "11-1-树的等价刻画-equivalent-characterizations-of-trees",
+      "title": "11.1 树的等价刻画 / Equivalent Characterizations of Trees",
+      "level": 5
+    },
+    {
+      "id": "11-2-叶子与度数公式-leaves-and-degree-formula",
+      "title": "11.2 叶子与度数公式 / Leaves and Degree Formula",
+      "level": 5
+    },
+    {
+      "id": "11-3-根树与-m-叉树-rooted-and-m-ary-trees",
+      "title": "11.3 根树与 m 叉树 / Rooted and m-ary Trees",
+      "level": 5
+    },
+    {
+      "id": "11-4-遍历-tree-traversal",
+      "title": "11.4 遍历 / Tree Traversal",
+      "level": 5
+    },
+    {
+      "id": "11-5-生成树与最小生成树-spanning-trees-and-mst",
+      "title": "11.5 生成树与最小生成树 / Spanning Trees and MST",
+      "level": 5
+    },
+    {
+      "id": "11-6-huffman-编码-huffman-coding",
+      "title": "11.6 Huffman 编码 / Huffman Coding",
+      "level": 5
+    },
+    {
+      "id": "12-布尔代数-boolean-algebra",
+      "title": "12. 布尔代数 / Boolean Algebra",
+      "level": 4
+    },
+    {
+      "id": "12-1-布尔函数-boolean-functions",
+      "title": "12.1 布尔函数 / Boolean Functions",
+      "level": 5
+    },
+    {
+      "id": "12-2-表示布尔函数-representing-boolean-functions",
+      "title": "12.2 表示布尔函数 / Representing Boolean Functions",
+      "level": 5
+    },
+    {
+      "id": "12-3-逻辑门与完备性-logic-gates-and-functional-completeness",
+      "title": "12.3 逻辑门与完备性 / Logic Gates and Functional Completeness",
+      "level": 5
+    },
+    {
+      "id": "12-4-karnaugh-图-karnaugh-maps",
+      "title": "12.4 Karnaugh 图 / Karnaugh Maps",
+      "level": 5
+    },
+    {
+      "id": "13-计算模型-modeling-computation",
+      "title": "13. 计算模型 / Modeling Computation",
+      "level": 4
+    },
+    {
+      "id": "13-1-语言与文法-languages-and-grammars",
+      "title": "13.1 语言与文法 / Languages and Grammars",
+      "level": 5
+    },
+    {
+      "id": "13-2-有限状态机-finite-state-machines",
+      "title": "13.2 有限状态机 / Finite-State Machines",
+      "level": 5
+    },
+    {
+      "id": "13-3-正则表达式与自动机-regular-expressions-and-automata",
+      "title": "13.3 正则表达式与自动机 / Regular Expressions and Automata",
+      "level": 5
+    },
+    {
+      "id": "13-4-图灵机与可计算性-turing-machines-and-computability",
+      "title": "13.4 图灵机与可计算性 / Turing Machines and Computability",
+      "level": 5
+    },
+    {
+      "id": "14-mit-6-1200j-补充专题-mit-6-1200j-additions",
+      "title": "14. MIT 6.1200J 补充专题 / MIT 6.1200J Additions",
+      "level": 4
+    },
+    {
+      "id": "14-1-状态机与不变量-state-machines-and-invariants",
+      "title": "14.1 状态机与不变量 / State Machines and Invariants",
+      "level": 5
+    },
+    {
+      "id": "14-2-积分估计求和-integral-bounds-for-sums",
+      "title": "14.2 积分估计求和 / Integral Bounds for Sums",
+      "level": 5
+    },
+    {
+      "id": "14-3-生日原理-birthday-principle",
+      "title": "14.3 生日原理 / Birthday Principle",
+      "level": 5
+    },
+    {
+      "id": "14-4-随机游走-random-walks",
+      "title": "14.4 随机游走 / Random Walks",
+      "level": 5
+    },
+    {
+      "id": "15-高频证明模板-high-frequency-proof-templates",
+      "title": "15. 高频证明模板 / High-Frequency Proof Templates",
+      "level": 4
+    },
+    {
+      "id": "15-1-证明集合相等-proving-set-equality",
+      "title": "15.1 证明集合相等 / Proving Set Equality",
+      "level": 5
+    },
+    {
+      "id": "15-2-证明函数单射-满射-injection-and-surjection",
+      "title": "15.2 证明函数单射、满射 / Injection and Surjection",
+      "level": 5
+    },
+    {
+      "id": "15-3-证明整除-divisibility-proof",
+      "title": "15.3 证明整除 / Divisibility Proof",
+      "level": 5
+    },
+    {
+      "id": "15-4-证明同余-congruence-proof",
+      "title": "15.4 证明同余 / Congruence Proof",
+      "level": 5
+    },
+    {
+      "id": "15-5-组合证明-combinatorial-proof",
+      "title": "15.5 组合证明 / Combinatorial Proof",
+      "level": 5
+    },
+    {
+      "id": "15-6-概率四步法-probability-four-step-method",
+      "title": "15.6 概率四步法 / Probability Four-Step Method",
+      "level": 5
+    },
+    {
+      "id": "15-7-图论题流程-graph-problem-checklist",
+      "title": "15.7 图论题流程 / Graph Problem Checklist",
+      "level": 5
+    },
+    {
+      "id": "16-公式索引-formula-index",
+      "title": "16. 公式索引 / Formula Index",
+      "level": 4
+    },
+    {
+      "id": "16-1-logic",
+      "title": "16.1 Logic",
+      "level": 5
+    },
+    {
+      "id": "16-2-sets",
+      "title": "16.2 Sets",
+      "level": 5
+    },
+    {
+      "id": "16-3-sums",
+      "title": "16.3 Sums",
+      "level": 5
+    },
+    {
+      "id": "16-4-asymptotics",
+      "title": "16.4 Asymptotics",
+      "level": 5
+    },
+    {
+      "id": "16-5-number-theory",
+      "title": "16.5 Number Theory",
+      "level": 5
+    },
+    {
+      "id": "16-6-counting",
+      "title": "16.6 Counting",
+      "level": 5
+    },
+    {
+      "id": "16-7-probability",
+      "title": "16.7 Probability",
+      "level": 5
+    },
+    {
+      "id": "16-8-recurrences",
+      "title": "16.8 Recurrences",
+      "level": 5
+    },
+    {
+      "id": "16-9-relations",
+      "title": "16.9 Relations",
+      "level": 5
+    },
+    {
+      "id": "16-10-graphs-and-trees",
+      "title": "16.10 Graphs and Trees",
+      "level": 5
+    },
+    {
+      "id": "16-11-boolean-algebra",
+      "title": "16.11 Boolean Algebra",
+      "level": 5
+    },
+    {
+      "id": "17-quiz-高频题型-frequent-quiz-patterns",
+      "title": "17. Quiz 高频题型 / Frequent Quiz Patterns",
+      "level": 4
+    },
+    {
+      "id": "17-1-取石子游戏-stone-games",
+      "title": "17.1 取石子游戏 / Stone Games",
+      "level": 5
+    },
+    {
+      "id": "18-中英术语表-bilingual-glossary",
+      "title": "18. 中英术语表 / Bilingual Glossary",
+      "level": 4
+    }
+  ]
+}
