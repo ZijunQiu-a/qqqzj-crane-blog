@@ -4,6 +4,7 @@ const APP_SHELL = [
   "/index.html",
   "/styles.css",
   "/theme.js",
+  "/shared/markdown-core.js",
   "/app.js",
   "/published-posts.js",
   "/manifest.webmanifest",
