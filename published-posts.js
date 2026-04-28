@@ -338,6 +338,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "4 月 27 日 天气 晴 复习了一个周末的普物终究是有了点起色，但是维护这个网站又耗费了我太多气力，尽管看着它一点点壮大，也有越来越多文字，心中不免涌上自豪之感，可这并不能冲淡我对人生的迷茫。或许不只是学业上。 诚然 LLM 与 Agen...",
       "readingMinutes": 1,
       "createdAt": "2026-04-27T00:00:00.000Z"
+    },
+    {
+      "id": "life/2026-04-28-恍若昨日-恍若隔世.md",
+      "slug": "2026-04-28-恍若昨日-恍若隔世",
+      "dataPath": "post-data/2026-04-28-%E6%81%8D%E8%8B%A5%E6%98%A8%E6%97%A5-%E6%81%8D%E8%8B%A5%E9%9A%94%E4%B8%96.json",
+      "source": "post",
+      "kind": "videos",
+      "title": "恍若昨日 恍若隔世",
+      "publishedIndex": 19,
+      "stage": "Life Log 生活记录",
+      "tag": "钢琴",
+      "author": "ZijunQiu-a",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "我要卖掉我的房子 浪迹天涯 @bilibili:弹唱",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-28T00:00:00.000Z"
     }
   ]
 };
