@@ -239,8 +239,8 @@ window.PUBLISHED_POSTS = {
       "author": "qqqzj-crane",
       "url": "",
       "previewImage": null,
-      "excerpt": "离散数学课堂笔记 / Discrete Mathematics Class Notes 本笔记按专题整理，而不是按课次整理。课件用于确认本地课程已讲到的顺序，Rosen《Discrete Mathematics and Its Applic...",
-      "readingMinutes": 36,
+      "excerpt": "离散数学课堂笔记/ Discrete Mathematics Notes 参考资料 / Main references: MIT 6.042J / 6.1200J Mathematics for Computer Science, Rose...",
+      "readingMinutes": 68,
       "createdAt": "2026-04-28T00:00:00.000Z"
     }
   ],
