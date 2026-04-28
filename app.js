@@ -607,12 +607,26 @@ function renderSearchResults(entries) {
     const link = document.createElement("a");
     link.href = postHref(entry);
     link.innerHTML = `
-      <span>${escapeHtml(kindLabel(entry.kind))} · ${escapeHtml(entry.tag || "")}</span>
-      <strong>${escapeHtml(entry.title)}</strong>
+      <span>${highlightSearchText(kindLabel(entry.kind), query)} · ${highlightSearchText(entry.tag || "", query)}</span>
+      <strong>${highlightSearchText(entry.title, query)}</strong>
       <small>${escapeHtml(authorName(entry))} · ${snippet || escapeHtml(previewText(entry, "Open post / 打开文章"))}</small>
     `;
     discovery.results.append(link);
   });
+}
+
+function highlightSearchText(value, query) {
+  const text = String(value || "");
+  if (!query) return escapeHtml(text);
+  const lower = text.toLowerCase();
+  const needle = String(query).toLowerCase();
+  const index = lower.indexOf(needle);
+  if (index < 0) return escapeHtml(text);
+  return [
+    escapeHtml(text.slice(0, index)),
+    `<mark>${escapeHtml(text.slice(index, index + needle.length))}</mark>`,
+    escapeHtml(text.slice(index + needle.length)),
+  ].join("");
 }
 
 function searchRank(entry, query) {
