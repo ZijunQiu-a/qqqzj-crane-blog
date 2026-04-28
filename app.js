@@ -622,6 +622,7 @@ function highlightSearchText(value, query) {
   const needle = String(query).toLowerCase();
   const index = lower.indexOf(needle);
   if (index < 0) return escapeHtml(text);
+  // Escape each slice before inserting mark so search terms cannot turn into HTML.
   return [
     escapeHtml(text.slice(0, index)),
     `<mark>${escapeHtml(text.slice(index, index + needle.length))}</mark>`,
