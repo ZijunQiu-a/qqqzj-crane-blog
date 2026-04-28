@@ -1497,25 +1497,66 @@ function codeFenceMarkdown(block) {
 
 function tableMarkdown(block) {
   const lines = block.split("\n").map((line) => line.trim()).filter(Boolean);
-  if (lines.length < 2 || !isTableDivider(lines[1]) || !lines[0].includes("|")) return "";
+  const table = markdownTable(lines);
+  if (!table) return "";
 
-  const headers = splitTableRow(lines[0]);
-  if (headers.length < 2) return "";
-
-  const rows = lines.slice(2).map(splitTableRow).filter((row) => row.length);
-  return `<div class="table-scroll"><table><thead><tr>${headers.map((header) => `<th>${inlineMarkdown(header)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${headers.map((_, index) => `<td>${inlineMarkdown(row[index] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  return `<div class="table-scroll"><table><thead><tr>${table.headers.map((header) => `<th>${inlineMarkdown(header)}</th>`).join("")}</tr></thead><tbody>${table.rows.map((row) => `<tr>${table.headers.map((_, index) => `<td>${inlineMarkdown(row[index] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
 }
 
-function isTableDivider(value) {
-  return /^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?$/.test(value);
+function markdownTable(lines) {
+  if (lines.length < 2) return null;
+
+  const headers = splitTableRow(lines[0]);
+  const divider = splitTableRow(lines[1]);
+  if (headers.length < 2 || divider.length < 2) return null;
+  if (!divider.every(isTableDividerCell)) return null;
+
+  const rows = lines
+    .slice(2)
+    .map(splitTableRow)
+    .filter((row) => row.some((cell) => cell));
+
+  return { headers, rows };
+}
+
+function isTableDividerCell(value) {
+  return /^:?-{3,}:?$/.test(String(value || "").trim());
 }
 
 function splitTableRow(value) {
-  return value
-    .replace(/^\|/, "")
-    .replace(/\|$/, "")
-    .split("|")
-    .map((cell) => cell.trim());
+  const text = trimOuterTablePipes(String(value || "").trim());
+  const cells = [];
+  let cell = "";
+  let inCode = false;
+
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    if (char === "`") inCode = !inCode;
+    if (char === "|" && !inCode && !isEscaped(text, index)) {
+      cells.push(cell);
+      cell = "";
+      continue;
+    }
+    cell += char;
+  }
+  cells.push(cell);
+
+  return cells.map((part) => part.trim().replace(/\\\|/g, "|"));
+}
+
+function trimOuterTablePipes(value) {
+  let text = value;
+  if (text.startsWith("|")) text = text.slice(1);
+  if (text.endsWith("|") && !isEscaped(text, text.length - 1)) text = text.slice(0, -1);
+  return text;
+}
+
+function isEscaped(value, index) {
+  let slashes = 0;
+  for (let cursor = index - 1; cursor >= 0 && value[cursor] === "\\"; cursor -= 1) {
+    slashes += 1;
+  }
+  return slashes % 2 === 1;
 }
 
 function blockquoteMarkdown(block) {
@@ -1761,15 +1802,25 @@ function normalizeCodeLanguage(value) {
   const language = codeInfoString(value).toLowerCase();
   const aliases = {
     bash: "shell",
+    cc: "c++",
     cjs: "javascript",
+    cpp: "c++",
+    cxx: "c++",
+    h: "c",
+    hh: "c++",
     htm: "html",
+    hpp: "c++",
     js: "javascript",
     jsx: "javascript",
     mjs: "javascript",
     py: "python",
     sh: "shell",
+    sv: "verilog",
+    svh: "verilog",
     ts: "typescript",
     tsx: "typescript",
+    v: "verilog",
+    vh: "verilog",
     zsh: "shell",
   };
   return aliases[language] || language;
@@ -1848,6 +1899,29 @@ function syntaxRules(language) {
       syntaxRule("string", /"(?:\\[\s\S]|[^"\\])*"|'(?:\\[\s\S]|[^'\\])*'/y),
       syntaxRule("keyword", new RegExp(`\\b(?:${keywords})\\b`, "y")),
       syntaxRule("number", /\b\d+(?:\.\d+)?\b/y),
+      syntaxRule("function", /\b[A-Za-z_]\w*(?=\s*\()/y),
+    ];
+  }
+
+  if (["c", "c++"].includes(language)) {
+    const keywords = language === "c++"
+      ? "alignas|alignof|and|and_eq|asm|auto|bitand|bitor|bool|break|case|catch|char|char8_t|char16_t|char32_t|class|compl|concept|const|consteval|constexpr|constinit|const_cast|continue|co_await|co_return|co_yield|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|false|float|for|friend|goto|if|inline|int|long|mutable|namespace|new|noexcept|not|not_eq|nullptr|operator|or|or_eq|private|protected|public|register|reinterpret_cast|requires|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|true|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|wchar_t|while|xor|xor_eq"
+      : "auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|inline|int|long|register|restrict|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while|_Bool|_Complex|_Generic|_Imaginary|_Noreturn|_Static_assert|_Thread_local";
+    return [
+      syntaxRule("comment", /\/\/[^\n]*|\/\*[\s\S]*?\*\//y),
+      syntaxRule("string", /L?"(?:\\[\s\S]|[^"\\])*"|L?'(?:\\[\s\S]|[^'\\])+'/y),
+      syntaxRule("keyword", new RegExp(`\\b(?:${keywords})\\b`, "y")),
+      syntaxRule("number", /\b(?:0x[\da-f]+|\d+(?:\.\d+)?(?:e[+-]?\d+)?)(?:[uUlLfF]*)\b/iy),
+      syntaxRule("function", /\b[A-Za-z_]\w*(?=\s*\()/y),
+    ];
+  }
+
+  if (language === "verilog") {
+    return [
+      syntaxRule("comment", /\/\/[^\n]*|\/\*[\s\S]*?\*\//y),
+      syntaxRule("string", /"(?:\\[\s\S]|[^"\\])*"/y),
+      syntaxRule("number", /\b(?:\d+)?'[sS]?[bBoOdDhH][0-9a-fA-F_xXzZ?]+|\b\d+(?:\.\d+)?\b/y),
+      syntaxRule("keyword", /\b(?:always|always_comb|always_ff|always_latch|and|assign|automatic|begin|buf|case|casex|casez|cell|cmos|config|deassign|default|defparam|design|disable|edge|else|end|endcase|endconfig|endfunction|endgenerate|endmodule|endprimitive|endspecify|endtable|endtask|enum|event|for|force|forever|fork|function|generate|genvar|highz0|highz1|if|ifnone|incdir|include|initial|inout|input|integer|join|large|liblist|library|localparam|macromodule|medium|module|nand|negedge|nmos|nor|noshowcancelled|not|notif0|notif1|or|output|parameter|pmos|posedge|primitive|pull0|pull1|pulldown|pullup|pulsestyle_onevent|pulsestyle_ondetect|rcmos|real|realtime|reg|release|repeat|rnmos|rpmos|rtran|rtranif0|rtranif1|scalared|showcancelled|signed|small|specify|specparam|strong0|strong1|supply0|supply1|table|task|time|tran|tranif0|tranif1|tri|tri0|tri1|triand|trior|trireg|unsigned|use|uwire|vectored|wait|wand|weak0|weak1|while|wire|wor|xnor|xor|logic|bit|byte|shortint|int|longint|shortreal|struct|typedef|union|var|interface|modport|package|import|export|class|constraint|covergroup|coverpoint|property|sequence|assert|assume|cover)\b/y),
       syntaxRule("function", /\b[A-Za-z_]\w*(?=\s*\()/y),
     ];
   }
