@@ -1913,13 +1913,22 @@ function normalizeFileUrl(value) {
 
 function filePreviewMarkup(url, fileName) {
   const extension = fileExtension(url);
-  if (extension === "pdf") {
+  if (extension === "pdf" && !isGitHubReleaseAsset(url)) {
     return `<details class="file-preview"><summary>Preview / 预览</summary><iframe src="${escapeAttribute(url)}" title="${escapeAttribute(fileName)}" loading="lazy"></iframe></details>`;
   }
 
   if (!["md", "markdown", "txt", "css", "csv", "json", "html", "js"].includes(extension)) return "";
 
   return `<details class="file-preview"><summary>Preview / 预览</summary><pre data-file-preview-url="${escapeAttribute(url)}"><code>Loading preview / 正在加载预览...</code></pre></details>`;
+}
+
+function isGitHubReleaseAsset(value) {
+  try {
+    const url = new URL(value);
+    return url.hostname === "github.com" && url.pathname.includes("/releases/download/");
+  } catch {
+    return false;
+  }
 }
 
 async function hydrateFilePreviews(root) {

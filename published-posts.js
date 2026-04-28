@@ -64,7 +64,7 @@ window.PUBLISHED_POSTS = {
       "author": "Trae645",
       "url": "",
       "previewImage": {
-        "src": "media/news-2026-04-27-实现app/IMG_8988.jpg",
+        "src": "https://github.com/qqqzj-crane/qqqzj-crane-blog-assets/releases/download/assets-news-2026-04-27-%E5%AE%9E%E7%8E%B0app/IMG_8988.jpg",
         "alt": "IMG_8988"
       },
       "excerpt": "ai王朝了我说",
@@ -258,7 +258,7 @@ window.PUBLISHED_POSTS = {
       "author": "qqqzj-crane",
       "url": "",
       "previewImage": {
-        "src": "media/2026-04-24-travel-jinan-taishan/baotuquan.jpeg",
+        "src": "https://github.com/qqqzj-crane/qqqzj-crane-blog-assets/releases/download/assets-2026-04-24-travel-jinan-taishan/baotuquan.jpeg",
         "alt": "趵突泉"
       },
       "excerpt": "为了这次出行，清明前我真的付出了太多～～ 趵突泉 竟然只是三个冒水的洞？！ 夜里的泰山 泰山日出 “日上，正赤如丹，下有红光动摇承之”",
@@ -312,7 +312,7 @@ window.PUBLISHED_POSTS = {
       "author": "junchao353-glitch",
       "url": "",
       "previewImage": {
-        "src": "media/notes-随笔-2026-04-26-qzj-老爹莅临检查/IMG_8415.jpg",
+        "src": "https://github.com/qqqzj-crane/qqqzj-crane-blog-assets/releases/download/assets-notes-%E9%9A%8F%E7%AC%94-2026-04-26-qzj-%E8%80%81%E7%88%B9%E8%8E%85%E4%B8%B4%E6%A3%80%E6%9F%A5/IMG_8415.jpg",
         "alt": "ljc我是你爸爸"
       },
       "excerpt": "加油吧撑过这段时间就好了宝宝",
@@ -332,7 +332,7 @@ window.PUBLISHED_POSTS = {
       "author": "Trae645",
       "url": "",
       "previewImage": {
-        "src": "media/drafts/draft-2026-04-27-mogw92dy-d7548828/1ddc629b5dc3d09b77765b440753fbd8.png",
+        "src": "https://github.com/qqqzj-crane/qqqzj-crane-blog-assets/releases/download/assets-drafts-draft-2026-04-27-mogw92dy-d7548828/1ddc629b5dc3d09b77765b440753fbd8.png",
         "alt": "没救了"
       },
       "excerpt": "严肃品鉴unitree代码中",
@@ -387,6 +387,23 @@ window.PUBLISHED_POSTS = {
       "url": "",
       "previewImage": null,
       "excerpt": "我要卖掉我的房子 浪迹天涯 @bilibili:弹唱",
+      "readingMinutes": 1,
+      "createdAt": "2026-04-28T00:00:00.000Z"
+    },
+    {
+      "id": "life/2026-04-28-我迷失在了黑夜里.md",
+      "slug": "2026-04-28-我迷失在了黑夜里",
+      "dataPath": "post-data/2026-04-28-%E6%88%91%E8%BF%B7%E5%A4%B1%E5%9C%A8%E4%BA%86%E9%BB%91%E5%A4%9C%E9%87%8C.json",
+      "source": "post",
+      "kind": "videos",
+      "title": "我迷失在了黑夜里",
+      "publishedIndex": 22,
+      "stage": "Life Log 生活记录",
+      "tag": "随笔",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "::: note Warning！！！ 观前提醒： 本文仅为脸滚键盘的随意组合，请勿与本人联系在一起。 ::: “我祈祷拥有一颗透明的心灵，和会流泪的眼睛。” 可是，“会流泪的眼睛” 没有用，哭 解决不了任何问题，就好像今天的杭州又下起了雨...",
       "readingMinutes": 1,
       "createdAt": "2026-04-28T00:00:00.000Z"
     }
