@@ -299,7 +299,7 @@ window.PUBLISHED_POSTS = {
       "url": "",
       "previewImage": {
         "src": "media/drafts/draft-2026-04-27-mogw92dy-d7548828/1ddc629b5dc3d09b77765b440753fbd8.png",
-        "alt": "1ddc629b5dc3d09b77765b440753fbd8"
+        "alt": "没救了"
       },
       "excerpt": "严肃品鉴unitree代码中",
       "readingMinutes": 1,
