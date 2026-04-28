@@ -402,7 +402,10 @@ window.PUBLISHED_POSTS = {
       "tag": "随笔",
       "author": "qqqzj-crane",
       "url": "",
-      "previewImage": null,
+      "previewImage": {
+        "src": "https://github.com/qqqzj-crane/qqqzj-crane-blog-assets/releases/download/assets-draft-draft-2026-04-28-moiqov4f-98a1b42d/inthedark.jpg",
+        "alt": "inthedark"
+      },
       "excerpt": "::: note Warning！！！ 观前提醒： 本文仅为脸滚键盘的随意组合，请勿与本人联系在一起。 ::: “我祈祷拥有一颗透明的心灵，和会流泪的眼睛。” 可是，“会流泪的眼睛” 没有用，哭 解决不了任何问题，就好像今天的杭州又下起了雨...",
       "readingMinutes": 1,
       "createdAt": "2026-04-28T00:00:00.000Z"
