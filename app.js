@@ -1323,7 +1323,7 @@ function markdownToHtml(markdown) {
 }
 
 function renderMarkdown(markdown) {
-  const blocks = markdown.split(/\n{2,}/).map((block) => block.trim()).filter(Boolean);
+  const blocks = markdownBlocks(markdown);
   const context = {
     headings: [],
     headingIds: new Map(),
@@ -1390,6 +1390,64 @@ function renderMarkdown(markdown) {
   return { html, headings: context.headings };
 }
 
+function markdownBlocks(markdown) {
+  const lines = String(markdown || "").replace(/\r\n/g, "\n").split("\n");
+  const blocks = [];
+  let current = [];
+  let fence = "";
+
+  const flush = () => {
+    const block = current.join("\n").trim();
+    if (block) blocks.push(block);
+    current = [];
+  };
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+
+    if (fence) {
+      current.push(line);
+      if (isClosingFence(trimmed, fence)) {
+        flush();
+        fence = "";
+      }
+      return;
+    }
+
+    const nextFence = openingFence(trimmed);
+    if (nextFence) {
+      flush();
+      current.push(line);
+      fence = nextFence;
+      return;
+    }
+
+    if (!trimmed) {
+      flush();
+      return;
+    }
+
+    current.push(line);
+  });
+
+  flush();
+  return blocks;
+}
+
+function openingFence(line) {
+  if (/^```/.test(line)) return "```";
+  if (/^:::\s*(?:note|tip|important|warning|caution|theorem|proof|example|definition|lemma|corollary)\b/i.test(line)) return ":::";
+  if (/^\$\$\s*$/.test(line)) return "$$";
+  return "";
+}
+
+function isClosingFence(line, fence) {
+  if (fence === "```") return /^```\s*$/.test(line);
+  if (fence === ":::") return /^:::\s*$/.test(line);
+  if (fence === "$$") return /^\$\$\s*$/.test(line);
+  return false;
+}
+
 function headingMarkdown(value, level, context, tocLevel = level) {
   const title = plainInlineText(value);
   const id = uniqueHeadingId(title, context.headingIds);
@@ -1427,11 +1485,14 @@ function paragraphMarkdown(block) {
 }
 
 function codeFenceMarkdown(block) {
-  const match = block.match(/^```([a-z0-9_-]+)?\n([\s\S]*?)\n```$/i);
+  const match = block.match(/^```([^\n`]*)\n([\s\S]*?)\n```\s*$/);
   if (!match) return "";
 
-  const language = match[1] ? ` data-language="${escapeAttribute(match[1])}"` : "";
-  return `<pre${language}><code>${escapeHtml(match[2])}</code></pre>`;
+  const infoString = codeInfoString(match[1]);
+  const language = normalizeCodeLanguage(infoString);
+  const languageAttribute = language ? ` data-language="${escapeAttribute(language)}"` : "";
+  const languageClass = language ? ` language-${escapeAttribute(language)}` : "";
+  return `<pre class="code-block${languageClass}"${languageAttribute}><code>${highlightCode(match[2], language)}</code></pre>`;
 }
 
 function tableMarkdown(block) {
@@ -1694,6 +1755,118 @@ function inlineCodeMarkdown(escapedCode) {
   }
 
   return `<code>${escapedCode}</code>`;
+}
+
+function normalizeCodeLanguage(value) {
+  const language = codeInfoString(value).toLowerCase();
+  const aliases = {
+    bash: "shell",
+    cjs: "javascript",
+    htm: "html",
+    js: "javascript",
+    jsx: "javascript",
+    mjs: "javascript",
+    py: "python",
+    sh: "shell",
+    ts: "typescript",
+    tsx: "typescript",
+    zsh: "shell",
+  };
+  return aliases[language] || language;
+}
+
+function codeInfoString(value) {
+  return String(value || "").trim().split(/\s+/)[0];
+}
+
+function highlightCode(code, language) {
+  const rules = syntaxRules(language);
+  if (!rules.length) return escapeHtml(code);
+
+  let html = "";
+  let index = 0;
+  while (index < code.length) {
+    const match = nextSyntaxMatch(code, index, rules);
+    if (match) {
+      html += `<span class="syntax-${match.type}">${escapeHtml(match.value)}</span>`;
+      index += match.value.length;
+      continue;
+    }
+
+    html += escapeHtml(code[index]);
+    index += 1;
+  }
+
+  return html;
+}
+
+function nextSyntaxMatch(code, index, rules) {
+  for (const rule of rules) {
+    rule.pattern.lastIndex = index;
+    const match = rule.pattern.exec(code);
+    if (match?.index === index && match[0]) {
+      return { type: rule.type, value: match[0] };
+    }
+  }
+  return null;
+}
+
+function syntaxRules(language) {
+  if (language === "json") {
+    return [
+      syntaxRule("attr", /"(?:\\[\s\S]|[^"\\])*"(?=\s*:)/y),
+      syntaxRule("string", /"(?:\\[\s\S]|[^"\\])*"/y),
+      syntaxRule("number", /-?\b(?:0|[1-9]\d*)(?:\.\d+)?(?:e[+-]?\d+)?\b/iy),
+      syntaxRule("keyword", /\b(?:true|false|null)\b/y),
+    ];
+  }
+
+  if (["html", "xml", "vue"].includes(language)) {
+    return [
+      syntaxRule("comment", /<!--[\s\S]*?-->/y),
+      syntaxRule("tag", /<\/?[A-Za-z][\w:-]*(?:\s+[^\n<>]*?)?\/?>/y),
+      syntaxRule("string", /"(?:\\[\s\S]|[^"\\])*"|'(?:\\[\s\S]|[^'\\])*'/y),
+    ];
+  }
+
+  if (["css", "scss", "less"].includes(language)) {
+    return [
+      syntaxRule("comment", /\/\*[\s\S]*?\*\//y),
+      syntaxRule("string", /"(?:\\[\s\S]|[^"\\])*"|'(?:\\[\s\S]|[^'\\])*'/y),
+      syntaxRule("number", /#[\da-f]{3,8}\b|\b\d+(?:\.\d+)?(?:%|[a-z]+)?\b/iy),
+      syntaxRule("attr", /-?[_a-z][\w-]*(?=\s*:)/iy),
+      syntaxRule("keyword", /\b(?:important|inherit|initial|unset|auto|none|block|inline|grid|flex|relative|absolute|fixed|sticky)\b/iy),
+    ];
+  }
+
+  if (["python", "shell"].includes(language)) {
+    const keywords = language === "python"
+      ? "and|as|assert|async|await|break|class|continue|def|del|elif|else|except|False|finally|for|from|global|if|import|in|is|lambda|None|nonlocal|not|or|pass|raise|return|True|try|while|with|yield"
+      : "case|do|done|elif|else|esac|export|fi|for|function|if|in|local|then|while";
+    return [
+      syntaxRule("comment", /#[^\n]*/y),
+      syntaxRule("string", /"(?:\\[\s\S]|[^"\\])*"|'(?:\\[\s\S]|[^'\\])*'/y),
+      syntaxRule("keyword", new RegExp(`\\b(?:${keywords})\\b`, "y")),
+      syntaxRule("number", /\b\d+(?:\.\d+)?\b/y),
+      syntaxRule("function", /\b[A-Za-z_]\w*(?=\s*\()/y),
+    ];
+  }
+
+  if (["javascript", "typescript"].includes(language)) {
+    return [
+      syntaxRule("comment", /\/\/[^\n]*|\/\*[\s\S]*?\*\//y),
+      syntaxRule("string", /`(?:\\[\s\S]|[^`\\])*`|"(?:\\[\s\S]|[^"\\])*"|'(?:\\[\s\S]|[^'\\])*'/y),
+      syntaxRule("keyword", /\b(?:async|await|break|case|catch|class|const|continue|default|delete|do|else|export|extends|finally|for|from|function|if|import|in|instanceof|interface|let|new|null|of|return|switch|this|throw|try|type|typeof|undefined|var|void|while|yield|true|false)\b/y),
+      syntaxRule("number", /\b(?:0x[\da-f]+|\d+(?:\.\d+)?(?:e[+-]?\d+)?)\b/iy),
+      syntaxRule("function", /\b[A-Za-z_$][\w$]*(?=\s*\()/y),
+    ];
+  }
+
+  return [];
+}
+
+function syntaxRule(type, pattern) {
+  return { type, pattern };
 }
 
 function isFormulaCodeSpan(value) {
