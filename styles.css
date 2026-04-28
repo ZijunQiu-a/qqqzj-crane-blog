@@ -13,6 +13,19 @@
   --gold: #caa14c;
   --violet: #6761a8;
   --shadow: 0 22px 70px rgba(16, 35, 46, 0.14);
+  --code-bg: #ffffff;
+  --code-text: #24292f;
+  --code-border: #d0d7de;
+  --code-label-bg: #f6f8fa;
+  --code-label-text: #57606a;
+  --code-label-border: #d0d7de;
+  --syntax-comment: #008000;
+  --syntax-string: #a31515;
+  --syntax-keyword: #0000ff;
+  --syntax-number: #098658;
+  --syntax-function: #795e26;
+  --syntax-attr: #267f99;
+  --syntax-tag: #800000;
 }
 
 :root[data-theme-state="ousia"] {
@@ -29,6 +42,19 @@
   --gold: #e4c36b;
   --violet: #a6a5f5;
   --shadow: 0 24px 76px rgba(0, 0, 0, 0.46);
+  --code-bg: #1f1f1f;
+  --code-text: #cccccc;
+  --code-border: #3c3c3c;
+  --code-label-bg: #2d2d30;
+  --code-label-text: #cccccc;
+  --code-label-border: #3c3c3c;
+  --syntax-comment: #6a9955;
+  --syntax-string: #ce9178;
+  --syntax-keyword: #569cd6;
+  --syntax-number: #b5cea8;
+  --syntax-function: #dcdcaa;
+  --syntax-attr: #9cdcfe;
+  --syntax-tag: #569cd6;
 }
 
 /* 基础重置：让盒模型和默认字体更可控。 */
@@ -1237,12 +1263,12 @@ h3 {
   position: relative;
   max-width: 100%;
   overflow: auto;
-  border: 1px solid rgba(16, 35, 46, 0.16);
+  border: 1px solid var(--code-border);
   border-radius: 10px;
   margin: 0;
   padding: 18px 16px 16px;
-  background: #10232e;
-  color: #edf7f8;
+  background: var(--code-bg);
+  color: var(--code-text);
   white-space: pre;
 }
 
@@ -1254,11 +1280,11 @@ h3 {
   position: absolute;
   top: 9px;
   right: 12px;
-  border: 1px solid rgba(237, 247, 248, 0.16);
+  border: 1px solid var(--code-label-border);
   border-radius: 999px;
   padding: 3px 8px;
-  background: rgba(237, 247, 248, 0.08);
-  color: rgba(237, 247, 248, 0.78);
+  background: var(--code-label-bg);
+  color: var(--code-label-text);
   content: attr(data-language);
   font-size: 11px;
   font-weight: 900;
@@ -1279,28 +1305,31 @@ h3 {
 }
 
 .syntax-comment {
-  color: #8aa4ad;
+  color: var(--syntax-comment);
 }
 
 .syntax-string {
-  color: #a8d49a;
+  color: var(--syntax-string);
 }
 
 .syntax-keyword {
-  color: #7dcfff;
+  color: var(--syntax-keyword);
 }
 
 .syntax-number {
-  color: #f0c674;
+  color: var(--syntax-number);
 }
 
 .syntax-function {
-  color: #ffd27e;
+  color: var(--syntax-function);
 }
 
-.syntax-attr,
+.syntax-attr {
+  color: var(--syntax-attr);
+}
+
 .syntax-tag {
-  color: #f2a6b5;
+  color: var(--syntax-tag);
 }
 
 .entry-body blockquote {
@@ -2994,6 +3023,12 @@ html.theme-enter-pneuma::after {
 :root[data-theme-state="ousia"] .clear-search-button {
   border-color: rgba(129, 218, 242, 0.2);
   background: rgba(102, 213, 240, 0.09);
+}
+
+:root[data-theme-state="ousia"] .entry-body pre.code-block code {
+  border-color: transparent;
+  background: transparent;
+  color: inherit;
 }
 
 :root[data-theme-state="ousia"] .topbar-search .search-panel {
