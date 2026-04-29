@@ -2402,6 +2402,49 @@ h3 {
   color: var(--muted);
 }
 
+.comment-login-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.comment-email-form {
+  display: grid;
+  grid-template-columns: minmax(110px, 0.8fr) minmax(180px, 1.2fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.comment-email-code-form {
+  grid-template-columns: minmax(140px, 220px) auto;
+}
+
+.comment-login-actions,
+.comment-github-login {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.comment-email-form input {
+  min-width: 0;
+  border: 1px solid rgba(20, 123, 145, 0.16);
+  border-radius: 8px;
+  padding: 9px 11px;
+  background: rgba(255, 254, 253, 0.86);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.comment-email-form input:focus {
+  border-color: rgba(14, 78, 102, 0.4);
+  outline: 0;
+}
+
 .comment-form textarea {
   min-height: 112px;
   resize: vertical;
@@ -2523,6 +2566,7 @@ h3 {
 
 .comment-button:disabled,
 .comment-link-button:disabled,
+.comment-email-form input:disabled,
 .comment-form textarea:disabled {
   cursor: wait;
   opacity: 0.62;
@@ -3374,6 +3418,7 @@ html.theme-enter-pneuma::after {
 :root[data-theme-state="ousia"] .post-toc,
 :root[data-theme-state="ousia"] .search-results,
 :root[data-theme-state="ousia"] .search-field input,
+:root[data-theme-state="ousia"] .comment-email-form input,
 :root[data-theme-state="ousia"] .file-preview,
 :root[data-theme-state="ousia"] .file-preview pre,
 :root[data-theme-state="ousia"] .entry-callout {
@@ -3393,6 +3438,7 @@ html.theme-enter-pneuma::after {
 
 :root[data-theme-state="ousia"] .entry-body code,
 :root[data-theme-state="ousia"] .download-button,
+:root[data-theme-state="ousia"] .comment-email-form input,
 :root[data-theme-state="ousia"] .comment-form textarea,
 :root[data-theme-state="ousia"] .comment-button,
 :root[data-theme-state="ousia"] .clear-search-button {
@@ -3406,6 +3452,7 @@ html.theme-enter-pneuma::after {
   color: inherit;
 }
 
+:root[data-theme-state="ousia"] .comment-email-form input,
 :root[data-theme-state="ousia"] .comment-form textarea {
   color: var(--ink);
 }
@@ -3710,6 +3757,25 @@ html.theme-enter-pneuma::after {
 
 /* 手机宽度：导航、统计卡片和内容卡片都改成更窄的布局。 */
 @media (max-width: 680px) {
+  .comment-login-grid,
+  .comment-email-form,
+  .comment-email-code-form {
+    grid-template-columns: 1fr;
+  }
+
+  .comment-login-actions,
+  .comment-github-login,
+  .comment-login .comment-button {
+    width: 100%;
+  }
+
+  .comment-login-actions .comment-button,
+  .comment-github-login .comment-button,
+  .comment-email-form .comment-button {
+    justify-content: center;
+    text-align: center;
+  }
+
   .site-shell {
     width: min(100% - 14px, 1180px);
   }
