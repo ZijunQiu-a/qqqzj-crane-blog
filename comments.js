@@ -36,10 +36,11 @@
       if (!event.target.matches("[data-comment-form]")) return;
       event.preventDefault();
       const textarea = event.target.querySelector("[name='comment']");
+      const parentId = event.target.dataset.parentId || "";
       const body = textarea?.value.trim() || "";
       if (!body) return setStatus(container, "写点内容再发。", "error");
-      await mutate(container, settings, "POST", { term, body });
-      textarea.value = "";
+      const ok = await mutate(container, settings, "POST", { term, body, parentId });
+      if (ok) textarea.value = "";
     });
 
     container.addEventListener("click", async (event) => {
@@ -68,8 +69,18 @@
         return;
       }
 
+      if (type === "reply") {
+        openReplyForm(container, action, settings);
+        return;
+      }
+
+      if (type === "cancel-reply") {
+        action.closest("[data-reply-slot]")?.replaceChildren();
+        return;
+      }
+
       if (type === "delete") {
-        const confirmed = window.confirm("删除这条评论？这个操作只会删除评论，不会影响文章。");
+        const confirmed = window.confirm("删除这条评论？如果它下面有回复，也会一起删除。");
         if (!confirmed) return;
         await mutate(container, settings, "DELETE", { term, id });
       }
@@ -95,8 +106,10 @@
         body: JSON.stringify(payload),
       });
       renderState(container, settings, payload.term, data);
+      return true;
     } catch (error) {
       setStatus(container, error.message || "操作失败。", "error");
+      return false;
     } finally {
       setBusy(container, false);
     }
@@ -132,7 +145,10 @@
     if (!body || !composer) return;
 
     composer.innerHTML = user ? composerMarkup(user, settings) : loginMarkup(settings);
-    body.innerHTML = comments.length ? comments.map(commentMarkup).join("") : '<p class="comment-empty">还没有评论。</p>';
+    const thread = threadComments(comments);
+    body.innerHTML = comments.length
+      ? thread.roots.map((comment) => commentMarkup(comment, user, settings, thread.children)).join("")
+      : '<p class="comment-empty">还没有评论。</p>';
     setStatus(container, comments.length ? `${comments.length} 条评论` : "暂无评论", "success");
     container.dataset.commentTerm = term;
   }
@@ -172,15 +188,16 @@
         </div>
         <textarea name="comment" maxlength="${Number(settings.maxLength) || 2000}" placeholder="写下你的评论..." required></textarea>
         <div class="comment-form-actions">
-          <small>你可以随时编辑或删除自己的评论。</small>
+          <small>你可以回复他人，也可以随时编辑或删除自己的评论。</small>
           <button class="comment-button comment-button-primary" type="submit">发表评论</button>
         </div>
       </form>
     `;
   }
 
-  function commentMarkup(comment) {
+  function commentMarkup(comment, user, settings, children, depth = 0) {
     const updated = comment.updatedAt && comment.updatedAt !== comment.createdAt ? " · 已编辑" : "";
+    const replies = children.get(comment.id) || [];
     return `
       <article class="comment-item" data-comment-id="${escapeAttribute(comment.id)}">
         <header>
@@ -189,16 +206,75 @@
             <strong>${escapeHtml(comment.author?.login || "unknown")}</strong>
             <time datetime="${escapeAttribute(comment.createdAt || "")}">${escapeHtml(formatTime(comment.createdAt))}${updated}</time>
           </div>
-          ${comment.canEdit || comment.canDelete ? `
+          ${user || comment.canEdit || comment.canDelete ? `
             <div class="comment-actions">
+              ${user ? `<button class="comment-link-button" type="button" data-comment-action="reply" data-comment-id="${escapeAttribute(comment.id)}" data-comment-author="${escapeAttribute(comment.author?.login || "unknown")}">回复</button>` : ""}
               ${comment.canEdit ? `<button class="comment-link-button" type="button" data-comment-action="edit" data-comment-id="${escapeAttribute(comment.id)}">编辑</button>` : ""}
               ${comment.canDelete ? `<button class="comment-link-button is-danger" type="button" data-comment-action="delete" data-comment-id="${escapeAttribute(comment.id)}">删除</button>` : ""}
             </div>
           ` : ""}
         </header>
         <p data-comment-body>${formatBody(comment.body)}</p>
+        <div class="comment-reply-slot" data-reply-slot="${escapeAttribute(comment.id)}"></div>
+        ${replies.length ? `
+          <div class="comment-replies">
+            ${replies.map((reply) => commentMarkup(reply, user, settings, children, depth + 1)).join("")}
+          </div>
+        ` : ""}
       </article>
     `;
+  }
+
+  function openReplyForm(container, action, settings) {
+    const parentId = action.dataset.commentId || "";
+    const author = action.dataset.commentAuthor || "unknown";
+    const slots = [...container.querySelectorAll("[data-reply-slot]")];
+    const slot = slots.find((item) => item.dataset.replySlot === parentId);
+    if (!slot) return;
+
+    slots.forEach((item) => {
+      if (item !== slot) item.replaceChildren();
+    });
+
+    slot.innerHTML = replyFormMarkup(settings, parentId, author);
+    slot.querySelector("textarea")?.focus();
+  }
+
+  function replyFormMarkup(settings, parentId, author) {
+    return `
+      <form class="comment-form comment-reply-form" data-comment-form data-parent-id="${escapeAttribute(parentId)}">
+        <p class="comment-reply-target">回复 @${escapeHtml(author)}</p>
+        <textarea name="comment" maxlength="${Number(settings.maxLength) || 2000}" placeholder="写下你的回复..." required></textarea>
+        <div class="comment-form-actions">
+          <button class="comment-link-button" type="button" data-comment-action="cancel-reply">取消</button>
+          <button class="comment-button comment-button-primary" type="submit">发布回复</button>
+        </div>
+      </form>
+    `;
+  }
+
+  function threadComments(comments) {
+    const byId = new Map();
+    const children = new Map();
+    const roots = [];
+
+    comments.forEach((comment) => {
+      byId.set(comment.id, comment);
+      children.set(comment.id, []);
+    });
+
+    comments.forEach((comment) => {
+      const parentId = comment.parentId && comment.parentId !== comment.id && byId.has(comment.parentId)
+        ? comment.parentId
+        : "";
+      if (parentId) {
+        children.get(parentId).push(comment);
+      } else {
+        roots.push(comment);
+      }
+    });
+
+    return { roots, children };
   }
 
   function setStatus(container, message, type = "") {

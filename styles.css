@@ -2386,6 +2386,13 @@ h3 {
   font-weight: 800;
 }
 
+.comment-reply-target {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+}
+
 .comment-actions {
   display: flex;
   flex-wrap: wrap;
@@ -2443,6 +2450,33 @@ h3 {
 .comment-list {
   display: grid;
   gap: 12px;
+}
+
+.comment-reply-slot {
+  display: grid;
+  gap: 10px;
+}
+
+.comment-reply-form {
+  padding: 12px;
+  background: rgba(255, 254, 253, 0.62);
+}
+
+.comment-reply-form textarea {
+  min-height: 86px;
+}
+
+.comment-replies {
+  display: grid;
+  gap: 10px;
+  margin-top: 2px;
+  margin-left: clamp(12px, 4vw, 28px);
+  border-left: 2px solid rgba(20, 123, 145, 0.14);
+  padding-left: 12px;
+}
+
+.comment-replies .comment-item {
+  background: rgba(255, 254, 253, 0.58);
 }
 
 .comment-item p {
@@ -3298,6 +3332,10 @@ html.theme-enter-pneuma::after {
 :root[data-theme-state="ousia"] .comment-button-primary {
   background: var(--teal);
   color: var(--paper);
+}
+
+:root[data-theme-state="ousia"] .comment-replies {
+  border-left-color: rgba(129, 218, 242, 0.18);
 }
 
 :root[data-theme-state="ousia"] .topbar-search .search-panel {
