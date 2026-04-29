@@ -1844,10 +1844,11 @@ h3 {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  max-width: 780px;
+  width: 100%;
 }
 
 .post-detail-kicker .eyebrow {
+  flex: 1 1 auto;
   min-width: 0;
   margin: 0;
 }
@@ -4101,6 +4102,10 @@ html.theme-enter-pneuma::after {
     align-items: flex-start;
     flex-direction: column;
     gap: 9px;
+  }
+
+  .post-detail-kicker .eyebrow {
+    flex: 0 1 auto;
   }
 
   .post-detail-body {
