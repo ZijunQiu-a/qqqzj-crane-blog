@@ -172,7 +172,6 @@
                 <a href="../../post/2026-04-27-site-app-performance-update/"><span>Newer / 更新</span><strong>网站 App 化和阅读性能继续打磨</strong></a>
                 <a href="../../post/2026-04-26-qzj-%E8%80%81%E7%88%B9%E8%8E%85%E4%B8%B4%E6%A3%80%E6%9F%A5/"><span>Older / 更早</span><strong>qzj 老爹（并非）莅临检查</strong></a>
               </nav>
-              <section class="post-comments" id="post-comments" aria-label="Comments / 评论区" hidden></section>
             </article>
           </div>
         </section>
@@ -185,15 +184,7 @@
       </footer>
     </div>
     <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
-    <script src="../../comments-config.js"></script>
-    <script src="../../comments.js"></script>
     <script>
-      window.CraneComments?.render(document.querySelector("#post-comments"), {
-        slug: "2026-04-27-实现app",
-        title: "实现app",
-        commentTerm: "post:2026-04-27-实现app",
-      });
-
       const readingProgress = document.querySelector("#reading-progress");
       function updateReadingProgress() {
         const max = document.documentElement.scrollHeight - window.innerHeight;

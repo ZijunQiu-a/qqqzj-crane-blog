@@ -178,7 +178,6 @@
                 <a href="../../post/2026-04-27-public-site-feature-guide/"><span>Newer / 更新</span><strong>现在前台能用什么：一份访客功能说明</strong></a>
                 <a href="../../post/2026-04-27-%E5%AE%9E%E7%8E%B0app/"><span>Older / 更早</span><strong>实现app</strong></a>
               </nav>
-              <section class="post-comments" id="post-comments" aria-label="Comments / 评论区" hidden></section>
             </article>
           </div>
         </section>
@@ -191,15 +190,7 @@
       </footer>
     </div>
     <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
-    <script src="../../comments-config.js"></script>
-    <script src="../../comments.js"></script>
     <script>
-      window.CraneComments?.render(document.querySelector("#post-comments"), {
-        slug: "2026-04-27-site-app-performance-update",
-        title: "网站 App 化和阅读性能继续打磨",
-        commentTerm: "post:2026-04-27-site-app-performance-update",
-      });
-
       const readingProgress = document.querySelector("#reading-progress");
       function updateReadingProgress() {
         const max = document.documentElement.scrollHeight - window.innerHeight;

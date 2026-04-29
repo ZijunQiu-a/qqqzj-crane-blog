@@ -1,14 +1,10 @@
-const CACHE_NAME = "crane-site-shell-v6";
+const CACHE_NAME = "crane-site-shell-v7";
 const APP_SHELL = [
   "/",
   "/index.html",
   "/styles.css",
-  "/giscus-light.css",
-  "/giscus-dark.css",
   "/theme.js",
   "/shared/markdown-core.js",
-  "/comments-config.js",
-  "/comments.js",
   "/app.js",
   "/published-posts.js",
   "/manifest.webmanifest",

@@ -31,7 +31,6 @@ const views = {
   detailBody: document.querySelector("#post-detail-body"),
   jumpTop: document.querySelector("#post-jump-top"),
   neighborNav: document.querySelector("#post-neighbor-nav"),
-  comments: document.querySelector("#post-comments"),
   progress: document.querySelector("#reading-progress"),
 };
 
@@ -709,8 +708,6 @@ function showHome() {
   views.home.hidden = false;
   views.detail.hidden = true;
   disconnectTocObserver();
-  window.CraneComments?.clear(views.comments);
-  if (views.comments) views.comments.hidden = true;
   if (views.progress) views.progress.style.transform = "scaleX(0)";
   document.title = "qqqzj@Crane";
   typesetMath();
@@ -764,7 +761,6 @@ async function showPostDetail(entry, token = routeRenderToken) {
   renderPostToc(entry);
   setupTocHighlight(views.detailToc, views.detailBody);
   renderNeighborNav(entry);
-  renderPostComments(entry);
   document.title = `${entry.title} · qqqzj@Crane`;
   hydrateFilePreviews(views.detailBody);
   typesetMath();
@@ -887,14 +883,6 @@ function renderNeighborNav(entry) {
     ${newer ? neighborLinkMarkup(newer, "Newer / 上一篇") : "<span></span>"}
     ${older ? neighborLinkMarkup(older, "Older / 下一篇") : "<span></span>"}
   `;
-}
-
-function renderPostComments(entry) {
-  window.CraneComments?.render(views.comments, {
-    slug: postKey(entry),
-    title: entry.title,
-    commentTerm: `post:${postKey(entry)}`,
-  });
 }
 
 function neighborLinkMarkup(entry, label) {
