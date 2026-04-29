@@ -31,6 +31,15 @@
     container.replaceChildren();
   }
 
+  function focus(container) {
+    if (!container || container.hidden) return;
+    container.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.setTimeout(() => {
+      const target = container.querySelector("textarea:not(:disabled), [data-comment-action='login']:not(:disabled)");
+      target?.focus({ preventScroll: true });
+    }, 260);
+  }
+
   function bind(container, settings, term) {
     container.addEventListener("submit", async (event) => {
       if (!event.target.matches("[data-comment-form]")) return;
@@ -50,6 +59,7 @@
       const type = action.dataset.commentAction;
 
       if (type === "login") {
+        rememberCommentFocus();
         window.location.href = loginUrl(settings);
         return;
       }
@@ -122,6 +132,7 @@
       await load(container, settings, term);
     } catch (error) {
       setStatus(container, "正在跳转退出...", "success");
+      rememberCommentFocus();
       window.location.href = logoutUrl(settings);
     } finally {
       setBusy(container, false);
@@ -152,6 +163,7 @@
       : '<p class="comment-empty">还没有评论。</p>';
     setStatus(container, comments.length ? `${comments.length} 条评论` : "暂无评论", "success");
     container.dataset.commentTerm = term;
+    restoreCommentFocus(container);
   }
 
   function shellMarkup(settings) {
@@ -315,6 +327,26 @@
     return url.toString();
   }
 
+  function rememberCommentFocus() {
+    try {
+      window.sessionStorage.setItem("crane_comment_focus", String(Date.now()));
+    } catch {
+      // Session storage can be unavailable in strict privacy modes.
+    }
+  }
+
+  function restoreCommentFocus(container) {
+    let shouldFocus = false;
+    try {
+      shouldFocus = Boolean(window.sessionStorage.getItem("crane_comment_focus"));
+      if (shouldFocus) window.sessionStorage.removeItem("crane_comment_focus");
+    } catch {
+      shouldFocus = false;
+    }
+    if (!shouldFocus) return;
+    window.requestAnimationFrame(() => focus(container));
+  }
+
   function formatBody(value) {
     return escapeHtml(value).replace(/\n/g, "<br>");
   }
@@ -347,5 +379,6 @@
   window.CraneComments = {
     render,
     clear,
+    focus,
   };
 })();

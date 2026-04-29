@@ -162,6 +162,9 @@
                 <span class="author-chip">作者 qqqzj-crane</span>
                 <span>约 1 分钟</span>
               </div>
+              <div class="post-detail-actions">
+                <button class="post-comment-jump" id="post-jump-comments" type="button">发布评论</button>
+              </div>
               <div class="post-detail-body">
                 <div class="entry-body"><p>我真花了一早上 现在午饭还没吃<br />又玩了一早上AI<br />两点了还没吃</p></div>
               </div>
@@ -206,6 +209,10 @@
 
       document.querySelector("#post-jump-top")?.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-comments")?.addEventListener("click", () => {
+        window.CraneComments?.focus(document.querySelector("#post-comments"));
       });
 
       const toc = document.querySelector(".post-toc");

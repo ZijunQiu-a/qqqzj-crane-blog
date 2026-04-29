@@ -162,6 +162,9 @@
                 <span class="author-chip">作者 qqqzj-crane</span>
                 <span>约 1 分钟</span>
               </div>
+              <div class="post-detail-actions">
+                <button class="post-comment-jump" id="post-jump-comments" type="button">发布评论</button>
+              </div>
               <div class="post-detail-body">
                 <div class="entry-body"><aside class="entry-callout callout-note"><strong>Warning！！！</strong><p>观前提醒：<br />本文仅为脸滚键盘的随意组合，请勿与本人联系在一起。</p></aside><blockquote>“我祈祷拥有一颗透明的心灵，和会流泪的眼睛。”</blockquote><figure class="entry-media"><img src="https://github.com/qqqzj-crane/qqqzj-crane-blog-assets/releases/download/assets-draft-draft-2026-04-28-moiqov4f-98a1b42d/inthedark.jpg" alt="inthedark" loading="lazy" /><figcaption>inthedark</figcaption></figure><p>可是，<em>“会流泪的眼睛”</em>  没有用，<strong>哭</strong> 解决不了任何问题，就好像今天的杭州又下起了雨，雨下了这么多天不还是得停，你哭了这么久不还是得擦干眼泪。</p><p>那么，<em>“透明的心灵呢”</em> ？我似乎没有。</p><p>我能做什么呢？好像我只能逼迫自己往前走，逼迫自己忘掉过去的种种不快，但忘得掉吗？我不知道。</p><p>何况，“走”就一定能出去吗？走出去了又会到哪？</p><p>我的人生仿佛被锁在了一条不知道何时就会终止的轨道上。</p><p>我好害怕。</p><p>算了，也只能走了，那便走着，走一步，算一步。</p></div>
               </div>
@@ -206,6 +209,10 @@
 
       document.querySelector("#post-jump-top")?.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-comments")?.addEventListener("click", () => {
+        window.CraneComments?.focus(document.querySelector("#post-comments"));
       });
 
       const toc = document.querySelector(".post-toc");

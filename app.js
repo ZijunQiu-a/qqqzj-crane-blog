@@ -30,6 +30,7 @@ const views = {
   detailToc: document.querySelector("#post-detail-toc"),
   detailBody: document.querySelector("#post-detail-body"),
   jumpTop: document.querySelector("#post-jump-top"),
+  jumpComments: document.querySelector("#post-jump-comments"),
   neighborNav: document.querySelector("#post-neighbor-nav"),
   comments: document.querySelector("#post-comments"),
   progress: document.querySelector("#reading-progress"),
@@ -975,6 +976,10 @@ views.detailBody?.addEventListener("click", async (event) => {
 
 views.jumpTop?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+views.jumpComments?.addEventListener("click", () => {
+  window.CraneComments?.focus(views.comments);
 });
 
 window.addEventListener("scroll", updateReadingProgress, { passive: true });

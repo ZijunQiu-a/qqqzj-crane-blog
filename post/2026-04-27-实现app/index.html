@@ -162,6 +162,9 @@
                 <span class="author-chip">作者 Trae645</span>
                 <span>约 1 分钟</span>
               </div>
+              <div class="post-detail-actions">
+                <button class="post-comment-jump" id="post-jump-comments" type="button">发布评论</button>
+              </div>
               <div class="post-detail-body">
                 <div class="entry-body"><p>ai王朝了我说</p><figure class="entry-media"><img src="https://github.com/qqqzj-crane/qqqzj-crane-blog-assets/releases/download/assets-news-2026-04-27-%E5%AE%9E%E7%8E%B0app/IMG_8988.jpg" alt="IMG_8988" loading="lazy" /><figcaption>IMG_8988</figcaption></figure></div>
               </div>
@@ -206,6 +209,10 @@
 
       document.querySelector("#post-jump-top")?.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-comments")?.addEventListener("click", () => {
+        window.CraneComments?.focus(document.querySelector("#post-comments"));
       });
 
       const toc = document.querySelector(".post-toc");
