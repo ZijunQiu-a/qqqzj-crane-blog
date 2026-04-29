@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DataStructure_Tree · qqqzj@Crane</title>
+    <meta name="description" content="树专题复习笔记 0. 总览 树专题在这门课里大致分成四块： 1. 普通树与二叉树：术语、表示法、遍历、表达式树、线索二叉树。 2. 二叉搜索树 BST：ADT、查找、插入、删除、平均情况分析。 3. 优先队列与二叉堆：堆的结构性质、堆序性质..." />
+    <link rel="canonical" href="https://qqqzj.cn/post/2026-04-29-datastructure-tree/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="DataStructure_Tree · qqqzj@Crane" />
+    <meta property="og:description" content="树专题复习笔记 0. 总览 树专题在这门课里大致分成四块： 1. 普通树与二叉树：术语、表示法、遍历、表达式树、线索二叉树。 2. 二叉搜索树 BST：ADT、查找、插入、删除、平均情况分析。 3. 优先队列与二叉堆：堆的结构性质、堆序性质..." />
+    <meta property="og:url" content="https://qqqzj.cn/post/2026-04-29-datastructure-tree/" />
+    <meta property="og:image" content="https://qqqzj.cn/assets/blog-studio-og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f3f7f8" />
+    <meta name="application-name" content="qqqzj@Crane" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="qqqzj@Crane" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="manifest" href="../../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../../assets/site-icon-192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/site-icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="../../assets/site-icon-512.png" />
+    <link rel="alternate" type="application/rss+xml" title="qqqzj@Crane RSS" href="../../rss.xml" />
+    <link rel="icon" href="../../assets/furina-avatar-pneuma.png?v=20260425-1" type="image/png" />
+    <script>
+      (() => {
+        const key = "qqqzj-crane-theme";
+        const modes = ["pneuma", "ousia", "auto"];
+        let preference = "auto";
+        try {
+          const stored = window.localStorage.getItem(key);
+          preference = modes.includes(stored) ? stored : "auto";
+        } catch {
+          preference = "auto";
+        }
+
+        const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const state = preference === "auto" ? (prefersDark ? "ousia" : "pneuma") : preference;
+        document.documentElement.dataset.themePreference = preference;
+        document.documentElement.dataset.themeState = state;
+        document.documentElement.style.colorScheme = state === "ousia" ? "dark" : "light";
+      })();
+    </script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <script defer src="../../theme.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" crossorigin="anonymous" />
+    <script>
+      window.BLOG_MATH_OPTIONS = {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
+        throwOnError: false,
+      };
+      window.renderBlogMath = (root = document.body) => {
+        if (!window.renderMathInElement || !root) return;
+        window.renderMathInElement(root, window.BLOG_MATH_OPTIONS);
+      };
+      window.renderBlogMermaid = async (root = document.body) => {
+        if (!window.mermaid || !root) return;
+        const nodes = [...root.querySelectorAll(".mermaid:not([data-processed])")];
+        if (!nodes.length) return;
+        window.mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: "default" });
+        try {
+          await window.mermaid.run({ nodes });
+        } catch (error) {
+          console.warn("Mermaid render failed", error);
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="window.renderBlogMath?.(document.body);"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" crossorigin="anonymous" onload="window.renderBlogMermaid?.(document.body);"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        let hadController = Boolean(navigator.serviceWorker.controller);
+        let reloadingForUpdate = false;
+        const activateWaitingServiceWorker = (worker) => {
+          if (!worker || !navigator.serviceWorker.controller) return;
+          worker.postMessage({ type: "SKIP_WAITING" });
+        };
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (!hadController) {
+            hadController = true;
+            return;
+          }
+          if (reloadingForUpdate) return;
+          reloadingForUpdate = true;
+          window.location.reload();
+        });
+        window.addEventListener("load", async () => {
+          try {
+            const registration = await navigator.serviceWorker.register("/service-worker.js", {
+              updateViaCache: "none",
+            });
+            activateWaitingServiceWorker(registration.waiting);
+            registration.addEventListener("updatefound", () => {
+              const worker = registration.installing;
+              if (!worker) return;
+              worker.addEventListener("statechange", () => {
+                if (worker.state === "installed") {
+                  activateWaitingServiceWorker(worker);
+                }
+              });
+            });
+            await registration.update();
+          } catch {}
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="../../index.html#home" aria-label="Back to home / 回到首页">
+          <span class="brand-mark brand-avatar" aria-hidden="true">
+            <img
+              src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
+              data-theme-asset
+              data-pneuma-src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
+              data-ousia-src="../../assets/furina-avatar-ousia.webp"
+              data-fallback-src="../../assets/furina-avatar.png"
+              alt=""
+            />
+          </span>
+          <span>qqqzj@Crane</span>
+        </a>
+        <div class="topbar-actions">
+          <nav class="nav-links" aria-label="Primary navigation / 主导航">
+            <a href="../../index.html#about">About me</a>
+            <a href="../../index.html#growth">News 动态</a>
+            <a href="../../index.html#notes">Notes 笔记</a>
+            <a href="../../index.html#life">Life 生活</a>
+            <a href="../../index.html#archive">Archive 归档</a>
+            <a href="../../rss.xml">RSS</a>
+          </nav>
+          <div class="theme-switcher" data-theme-switcher aria-label="Theme mode / 主题模式">
+            <button class="theme-trigger" type="button" data-theme-trigger aria-haspopup="menu" aria-expanded="false" title="选择主题模式">
+              <span class="theme-trigger-icon" data-theme-current-icon aria-hidden="true">A</span>
+              <span data-theme-current-label>自动</span>
+            </button>
+            <div class="theme-options" role="menu" aria-label="Theme choices / 主题选项">
+              <button type="button" role="menuitemradio" data-theme-mode="pneuma" aria-checked="false" aria-pressed="false" title="固定白天主题">
+                <span aria-hidden="true">☀</span>
+                白天
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="ousia" aria-checked="false" aria-pressed="false" title="固定黑夜主题">
+                <span aria-hidden="true">☾</span>
+                黑夜
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="auto" aria-checked="false" aria-pressed="false" title="跟随系统">
+                <span aria-hidden="true">A</span>
+                自动
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="home">
+        <section class="post-detail-section">
+          <div class="post-detail-shell">
+            <a class="back-link" href="../../index.html#home">Back to home / 返回首页</a>
+            <article class="post-detail-card">
+              <div class="post-detail-kicker">
+                <p class="eyebrow">Notes 笔记</p>
+                <button class="post-comment-jump" id="post-jump-comments" type="button">发布评论</button>
+              </div>
+              <h1>DataStructure_Tree</h1>
+              <div class="post-detail-meta">
+                <time datetime="2026-04-29T00:00:00.000Z">2026年4月29日</time>
+                <span>programming</span>
+                <span class="author-chip">作者 qqqzj-crane</span>
+                <span>约 10 分钟</span>
+              </div>
+              <nav class="post-toc" aria-label="Table of contents / 文章目录">
+                <strong>Contents 目录</strong>
+                <div>
+                  <a class="toc-level-3" href="#树专题复习笔记" data-heading-id="树专题复习笔记">树专题复习笔记</a><a class="toc-level-4" href="#0-总览" data-heading-id="0-总览">0. 总览</a><a class="toc-level-4" href="#1-trees-preliminaries" data-heading-id="1-trees-preliminaries">1. Trees Preliminaries</a><a class="toc-level-5" href="#1-1-树的定义" data-heading-id="1-1-树的定义">1.1 树的定义</a><a class="toc-level-5" href="#1-2-基本术语" data-heading-id="1-2-基本术语">1.2 基本术语</a><a class="toc-level-5" href="#1-3-树的表示法" data-heading-id="1-3-树的表示法">1.3 树的表示法</a><a class="toc-level-6" href="#list-representation" data-heading-id="list-representation">List Representation</a><a class="toc-level-6" href="#firstchild-nextsibling-representation" data-heading-id="firstchild-nextsibling-representation">FirstChild-NextSibling Representation</a><a class="toc-level-6" href="#普通树转二叉树" data-heading-id="普通树转二叉树">普通树转二叉树</a><a class="toc-level-4" href="#2-binary-trees" data-heading-id="2-binary-trees">2. Binary Trees</a><a class="toc-level-5" href="#2-1-定义与形态" data-heading-id="2-1-定义与形态">2.1 定义与形态</a><a class="toc-level-5" href="#2-2-二叉树性质" data-heading-id="2-2-二叉树性质">2.2 二叉树性质</a><a class="toc-level-5" href="#2-3-traversals" data-heading-id="2-3-traversals">2.3 Traversals</a><a class="toc-level-5" href="#2-4-表达式树-expression-trees" data-heading-id="2-4-表达式树-expression-trees">2.4 表达式树 Expression Trees</a><a class="toc-level-5" href="#2-5-树递归应用" data-heading-id="2-5-树递归应用">2.5 树递归应用</a><a class="toc-level-5" href="#2-6-threaded-binary-trees" data-heading-id="2-6-threaded-binary-trees">2.6 Threaded Binary Trees</a><a class="toc-level-4" href="#3-binary-search-trees" data-heading-id="3-binary-search-trees">3. Binary Search Trees</a><a class="toc-level-5" href="#3-1-定义" data-heading-id="3-1-定义">3.1 定义</a><a class="toc-level-5" href="#3-2-search-tree-adt" data-heading-id="3-2-search-tree-adt">3.2 Search Tree ADT</a><a class="toc-level-5" href="#3-3-find" data-heading-id="3-3-find">3.3 Find</a><a class="toc-level-5" href="#3-4-findmin-findmax" data-heading-id="3-4-findmin-findmax">3.4 FindMin / FindMax</a><a class="toc-level-5" href="#3-5-insert" data-heading-id="3-5-insert">3.5 Insert</a><a class="toc-level-5" href="#3-6-delete" data-heading-id="3-6-delete">3.6 Delete</a><a class="toc-level-5" href="#3-7-lazy-deletion" data-heading-id="3-7-lazy-deletion">3.7 Lazy Deletion</a><a class="toc-level-5" href="#3-8-average-case-analysis" data-heading-id="3-8-average-case-analysis">3.8 Average-Case Analysis</a><a class="toc-level-4" href="#4-priority-queues-and-binary-heaps" data-heading-id="4-priority-queues-and-binary-heaps">4. Priority Queues and Binary Heaps</a><a class="toc-level-5" href="#4-1-priority-queue-adt" data-heading-id="4-1-priority-queue-adt">4.1 Priority Queue ADT</a><a class="toc-level-5" href="#4-2-简单实现比较" data-heading-id="4-2-简单实现比较">4.2 简单实现比较</a><a class="toc-level-5" href="#4-3-binary-heap-的两个性质" data-heading-id="4-3-binary-heap-的两个性质">4.3 Binary Heap 的两个性质</a><a class="toc-level-6" href="#structure-property" data-heading-id="structure-property">Structure Property</a><a class="toc-level-6" href="#heap-order-property" data-heading-id="heap-order-property">Heap Order Property</a><a class="toc-level-5" href="#4-4-initialize" data-heading-id="4-4-initialize">4.4 Initialize</a><a class="toc-level-5" href="#4-5-insert-percolate-up" data-heading-id="4-5-insert-percolate-up">4.5 Insert: Percolate Up</a><a class="toc-level-5" href="#4-6-deletemin-percolate-down" data-heading-id="4-6-deletemin-percolate-down">4.6 DeleteMin: Percolate Down</a><a class="toc-level-5" href="#4-7-other-heap-operations" data-heading-id="4-7-other-heap-operations">4.7 Other Heap Operations</a><a class="toc-level-5" href="#4-8-d-heaps" data-heading-id="4-8-d-heaps">4.8 d-Heaps</a><a class="toc-level-4" href="#5-segment-tree" data-heading-id="5-segment-tree">5. Segment Tree</a><a class="toc-level-5" href="#5-1-动机" data-heading-id="5-1-动机">5.1 动机</a><a class="toc-level-5" href="#5-2-结构" data-heading-id="5-2-结构">5.2 结构</a><a class="toc-level-5" href="#5-3-build" data-heading-id="5-3-build">5.3 Build</a><a class="toc-level-5" href="#5-4-query" data-heading-id="5-4-query">5.4 Query</a><a class="toc-level-5" href="#5-5-update" data-heading-id="5-5-update">5.5 Update</a><a class="toc-level-5" href="#5-6-不只用于-sum" data-heading-id="5-6-不只用于-sum">5.6 不只用于 sum</a><a class="toc-level-5" href="#5-7-lazy-propagation" data-heading-id="5-7-lazy-propagation">5.7 Lazy Propagation</a><a class="toc-level-4" href="#6-和本仓库作业-项目的对应关系" data-heading-id="6-和本仓库作业-项目的对应关系">6. 和本仓库作业/项目的对应关系</a><a class="toc-level-4" href="#7-常考抓手" data-heading-id="7-常考抓手">7. 常考抓手</a><a class="toc-level-5" href="#7-1-建树类题" data-heading-id="7-1-建树类题">7.1 建树类题</a><a class="toc-level-5" href="#7-2-bst-题" data-heading-id="7-2-bst-题">7.2 BST 题</a><a class="toc-level-5" href="#7-3-heap-题" data-heading-id="7-3-heap-题">7.3 Heap 题</a><a class="toc-level-5" href="#7-4-segment-tree-题" data-heading-id="7-4-segment-tree-题">7.4 Segment Tree 题</a><a class="toc-level-4" href="#8-一页速记" data-heading-id="8-一页速记">8. 一页速记</a>
+                </div>
+              </nav>
+              <div class="post-detail-body">
+                <div class="entry-body"><h4 id="树专题复习笔记">树专题复习笔记<a class="heading-anchor" href="#树专题复习笔记" data-heading-id="树专题复习笔记" aria-label="Copy section link / 复制小节链接">#</a></h4><h4 id="0-总览">0. 总览<a class="heading-anchor" href="#0-总览" data-heading-id="0-总览" aria-label="Copy section link / 复制小节链接">#</a></h4><p>树专题在这门课里大致分成四块：</p><ol><li>普通树与二叉树：术语、表示法、遍历、表达式树、线索二叉树。</li><li>二叉搜索树 BST：ADT、查找、插入、删除、平均情况分析。</li><li>优先队列与二叉堆：堆的结构性质、堆序性质、插入、删除最小元、建堆、d-heap。</li><li>线段树 Segment Tree：区间聚合、构建、查询、单点更新、lazy propagation 的引子。</li></ol><p>复习时可以抓住一句话：树类结构的题目通常都在问“结构约束 + 递归/路径操作 + 复杂度”。</p><h4 id="1-trees-preliminaries">1. Trees Preliminaries<a class="heading-anchor" href="#1-trees-preliminaries" data-heading-id="1-trees-preliminaries" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="1-1-树的定义">1.1 树的定义<a class="heading-anchor" href="#1-1-树的定义" data-heading-id="1-1-树的定义" aria-label="Copy section link / 复制小节链接">#</a></h5><p>课程 PPT 的定义：</p><ul><li>A tree is a collection of nodes.</li><li>It can be empty.</li><li>Otherwise, it consists of a distinguished node $r$, called the root, and zero or more nonempty subtrees $T_1, \dots, T_k$.</li><li>Each subtree root is connected by a directed edge from $r$.</li></ul><p>要点：</p><ul><li>子树之间不能相连，所以树中每个结点都可以看成某棵子树的根。</li><li>有 $N$ 个结点的树有 $N-1$ 条边。</li><li>通常把 root 画在最上面。</li></ul><h5 id="1-2-基本术语">1.2 基本术语<a class="heading-anchor" href="#1-2-基本术语" data-heading-id="1-2-基本术语" aria-label="Copy section link / 复制小节链接">#</a></h5><div class="table-scroll"><table><thead><tr><th>术语</th><th>含义</th></tr></thead><tbody><tr><td>degree of a node</td><td>该结点的子树个数</td></tr><tr><td>degree of a tree</td><td>所有结点度数的最大值</td></tr><tr><td>leaf / terminal node</td><td>度为 0 的结点</td></tr><tr><td>parent</td><td>有子树的结点</td></tr><tr><td>children</td><td>某个 parent 的子树根</td></tr><tr><td>siblings</td><td>同一个 parent 的 children</td></tr><tr><td>ancestors</td><td>从该结点往 root 路径上的所有祖先</td></tr><tr><td>descendants</td><td>该结点所有子树里的结点</td></tr><tr><td>path</td><td>从 $n_1$ 到 $n_k$ 的唯一结点序列</td></tr><tr><td>length of path</td><td>路径上的边数</td></tr><tr><td>depth of $n_i$</td><td>root 到 $n_i$ 的路径长度，$Depth(root)=0$</td></tr><tr><td>height of $n_i$</td><td>$n_i$ 到叶子的最长路径长度，$Height(leaf)=0$</td></tr><tr><td>height/depth of tree</td><td>$height(root)$，也等于 deepest leaf 的 depth</td></tr></tbody></table></div><h5 id="1-3-树的表示法">1.3 树的表示法<a class="heading-anchor" href="#1-3-树的表示法" data-heading-id="1-3-树的表示法" aria-label="Copy section link / 复制小节链接">#</a></h5><h5 id="list-representation">List Representation<a class="heading-anchor" href="#list-representation" data-heading-id="list-representation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>用嵌套括号表示：</p><pre class="code-block language-text" data-language="text"><code>( A )
+( A ( B, C, D ) )
+( A ( B ( E, F ), C ( G ), D ( H, I, J ) ) )</code></pre><p>问题：每个结点的分支数不固定，所以每个结点需要的 child 指针数量不固定，结构不统一。</p><h5 id="firstchild-nextsibling-representation">FirstChild-NextSibling Representation<a class="heading-anchor" href="#firstchild-nextsibling-representation" data-heading-id="firstchild-nextsibling-representation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>每个结点固定三个域：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">typedef</span> <span class="syntax-keyword">struct</span> TreeNode *Tree;
+<span class="syntax-keyword">struct</span> TreeNode {
+    ElementType Element;
+    Tree FirstChild;
+    Tree NextSibling;
+};</code></pre><p>含义：</p><ul><li><code>FirstChild</code> 指向第一个孩子。</li><li><code>NextSibling</code> 指向右边的下一个兄弟。</li><li>这种表示不唯一，因为普通树中 children 的顺序可以任意调整。</li></ul><h5 id="普通树转二叉树">普通树转二叉树<a class="heading-anchor" href="#普通树转二叉树" data-heading-id="普通树转二叉树" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 的说法是把 FirstChild-NextSibling tree 顺时针旋转 $45^\circ$。</p><p>转化规则：</p><ul><li>二叉树的 left child = 原普通树的 first child。</li><li>二叉树的 right child = 原普通树的 next sibling。</li><li>根结点没有兄弟，所以转化后的根通常没有右子树。</li></ul><h4 id="2-binary-trees">2. Binary Trees<a class="heading-anchor" href="#2-binary-trees" data-heading-id="2-binary-trees" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="2-1-定义与形态">2.1 定义与形态<a class="heading-anchor" href="#2-1-定义与形态" data-heading-id="2-1-定义与形态" aria-label="Copy section link / 复制小节链接">#</a></h5><p>Binary tree：每个结点最多有两个孩子。</p><p>注意：</p><ul><li>普通树中 children 的顺序不重要。</li><li>二叉树中 left child 和 right child 不同，所以只有一个孩子时，放左边和放右边是两棵不同的二叉树。</li></ul><p>常见形态：</p><ul><li>Skewed binary tree：所有结点几乎都偏向一侧，最坏高度可达 $N-1$。</li><li>Complete binary tree：所有叶子只出现在相邻两层，并且最后一层从左到右连续填充。</li></ul><h5 id="2-2-二叉树性质">2.2 二叉树性质<a class="heading-anchor" href="#2-2-二叉树性质" data-heading-id="2-2-二叉树性质" aria-label="Copy section link / 复制小节链接">#</a></h5><p>第 $i$ 层最多结点数：</p><div class="math-display">$$
+2^{i-1}, \quad i \ge 1
+$$</div><p>深度为 $k$ 的二叉树最多结点数：</p><div class="math-display">$$
+2^k - 1, \quad k \ge 1
+$$</div><p>这里沿用 PPT 的写法，$k$ 按“层数”理解；如果按前面 <span class="math-inline">\(Depth(root)=0\)</span> 的边数定义，树高为 $h$ 时最多是 $2^{h+1}-1$ 个结点。</p><p>任意非空二叉树中：</p><div class="math-display">$$
+n_0 = n_2 + 1
+$$</div><p>其中 $n_0$ 是叶子结点数，$n_2$ 是度为 2 的结点数。</p><p>证明思路：</p><div class="math-display">$$
+n = n_0 + n_1 + n_2
+$$</div><p>树有 $n$ 个结点，则边数：</p><div class="math-display">$$
+B = n - 1
+$$</div><p>所有边都来自度为 1 或 2 的结点：</p><div class="math-display">$$
+B = n_1 + 2n_2
+$$</div><p>所以：</p><div class="math-display">$$
+n_0 + n_1 + n_2 - 1 = n_1 + 2n_2
+$$</div><p>得到：</p><div class="math-display">$$
+n_0 = n_2 + 1
+$$</div><h5 id="2-3-traversals">2.3 Traversals<a class="heading-anchor" href="#2-3-traversals" data-heading-id="2-3-traversals" aria-label="Copy section link / 复制小节链接">#</a></h5><p>普通树版本：</p><ul><li>Preorder：visit root，再访问每棵 child subtree。</li><li>Postorder：先访问所有 child subtree，再 visit root。</li><li>Levelorder：用 queue，从上到下、从左到右访问。</li></ul><p>二叉树常用四种：</p><div class="table-scroll"><table><thead><tr><th>遍历</th><th>顺序</th><th>典型用途</th></tr></thead><tbody><tr><td>Preorder</td><td>Root, Left, Right</td><td>输出树结构、复制树、由 preorder + inorder 建树</td></tr><tr><td>Inorder</td><td>Left, Root, Right</td><td>BST 中得到升序序列</td></tr><tr><td>Postorder</td><td>Left, Right, Root</td><td>删除/释放树、表达式树后缀表达式</td></tr><tr><td>Levelorder</td><td>按层访问</td><td>完全二叉树输出、Z 字形遍历、堆结构检查</td></tr></tbody></table></div><p>二叉树 inorder 递归：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">inorder</span>(Tree T) {
+    <span class="syntax-keyword">if</span> (T) {
+        <span class="syntax-function">inorder</span>(T-&gt;Left);
+        <span class="syntax-function">visit</span>(T-&gt;Element);
+        <span class="syntax-function">inorder</span>(T-&gt;Right);
+    }
+}</code></pre><p>迭代 inorder 的核心是“沿左链入栈，弹出访问，再转向右子树”：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">iter_inorder</span>(Tree T) {
+    Stack S = <span class="syntax-function">CreateStack</span>(MAX_SIZE);
+    <span class="syntax-keyword">for</span> (;;) {
+        <span class="syntax-keyword">for</span> (; T; T = T-&gt;Left) {
+            <span class="syntax-function">Push</span>(T, S);
+        }
+        T = <span class="syntax-function">Top</span>(S);
+        <span class="syntax-function">Pop</span>(S);
+        <span class="syntax-keyword">if</span> (!T) <span class="syntax-keyword">break</span>;
+        <span class="syntax-function">visit</span>(T-&gt;Element);
+        T = T-&gt;Right;
+    }
+}</code></pre><h5 id="2-4-表达式树-expression-trees">2.4 表达式树 Expression Trees<a class="heading-anchor" href="#2-4-表达式树-expression-trees" data-heading-id="2-4-表达式树-expression-trees" aria-label="Copy section link / 复制小节链接">#</a></h5><p>Expression tree / syntax tree 用二叉树表示表达式：</p><ul><li>叶子结点通常是 operand。</li><li>内部结点通常是 operator。</li><li>对表达式树做 inorder 可得到中缀表达式。</li><li>preorder 对应前缀表达式。</li><li>postorder 对应后缀表达式。</li></ul><p>PPT 示例：</p><pre class="code-block language-text" data-language="text"><code>infix:   A + B * C / D
+postfix: A B C * D / +
+prefix:  + A / * B C D</code></pre><p>由 postfix 构造表达式树：</p><ol><li>扫描 postfix。</li><li>遇到 operand，建单结点树并入栈。</li><li>遇到 operator，弹出两个树：先弹出的是 right subtree，后弹出的是 left subtree。</li><li>用 operator 建根，把两个子树接上，再把新树入栈。</li><li>最后栈顶就是表达式树。</li></ol><h5 id="2-5-树递归应用">2.5 树递归应用<a class="heading-anchor" href="#2-5-树递归应用" data-heading-id="2-5-树递归应用" aria-label="Copy section link / 复制小节链接">#</a></h5><p>目录列表：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">static</span> <span class="syntax-keyword">void</span> <span class="syntax-function">ListDir</span>(DirOrFile D, <span class="syntax-keyword">int</span> Depth) {
+    <span class="syntax-keyword">if</span> (D is a legitimate entry) {
+        <span class="syntax-function">PrintName</span>(D, Depth);
+        <span class="syntax-keyword">if</span> (D is a directory) {
+            <span class="syntax-keyword">for</span> (each child C of D) {
+                <span class="syntax-function">ListDir</span>(C, Depth + <span class="syntax-number">1</span>);
+            }
+        }
+    }
+}</code></pre><p>复杂度：</p><div class="math-display">$$
+T(N) = O(N)
+$$</div><p>目录大小：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">static</span> <span class="syntax-keyword">int</span> <span class="syntax-function">SizeDir</span>(DirOrFile D) {
+    <span class="syntax-keyword">int</span> TotalSize = <span class="syntax-number">0</span>;
+    <span class="syntax-keyword">if</span> (D is a legitimate entry) {
+        TotalSize = <span class="syntax-function">FileSize</span>(D);
+        <span class="syntax-keyword">if</span> (D is a directory) {
+            <span class="syntax-keyword">for</span> (each child C of D) {
+                TotalSize += <span class="syntax-function">SizeDir</span>(C);
+            }
+        }
+    }
+    <span class="syntax-keyword">return</span> TotalSize;
+}</code></pre><p>同样是每个结点访问一次：</p><div class="math-display">$$
+T(N) = O(N)
+$$</div><h5 id="2-6-threaded-binary-trees">2.6 Threaded Binary Trees<a class="heading-anchor" href="#2-6-threaded-binary-trees" data-heading-id="2-6-threaded-binary-trees" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 的动机：</p><ul><li>一棵有 $n$ 个结点的普通二叉链表有 $2n$ 个 child links。</li><li>实际边数只有 $n-1$。</li><li>所以 null links 数量是：</li></ul><div class="math-display">$$
+2n - (n - 1) = n + 1
+$$</div><p>线索二叉树把这些 null links 利用起来，让遍历更方便。</p><p>规则：</p><ol><li>如果 <span class="math-inline">\(Tree-&gt;Left == NULL\)</span>，把它替换成 inorder predecessor。</li><li>如果 <span class="math-inline">\(Tree-&gt;Right == NULL\)</span>，把它替换成 inorder successor。</li><li>不能有 loose threads，所以需要一个 head node，head 的 left child 指向第一结点。</li></ol><p>结点结构要加 flag：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">typedef</span> <span class="syntax-keyword">struct</span> ThreadedTreeNode *ThreadedTree;
+
+<span class="syntax-keyword">struct</span> ThreadedTreeNode {
+    <span class="syntax-keyword">int</span> LeftThread;
+    ThreadedTree Left;
+    ElementType Element;
+    <span class="syntax-keyword">int</span> RightThread;
+    ThreadedTree Right;
+};</code></pre><p><span class="math-inline">\(LeftThread == TRUE\)</span> 表示 <code>Left</code> 是线索，不是真孩子；<code>RightThread</code> 同理。</p><h4 id="3-binary-search-trees">3. Binary Search Trees<a class="heading-anchor" href="#3-binary-search-trees" data-heading-id="3-binary-search-trees" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="3-1-定义">3.1 定义<a class="heading-anchor" href="#3-1-定义" data-heading-id="3-1-定义" aria-label="Copy section link / 复制小节链接">#</a></h5><p>BST 是一种二叉树，可以为空；非空时满足：</p><ol><li>每个结点有一个 key，课程 PPT 中假设 key 是整数且互异。</li><li>左子树所有 key 小于 root key。</li><li>右子树所有 key 大于 root key。</li><li>左右子树也都是 BST。</li></ol><p>一句话：</p><div class="math-display">$$
+Left &lt; Root &lt; Right
+$$</div><p>如果允许重复 key，要额外约定重复值放左边还是右边，或者在结点里维护 <code>count</code>。</p><h5 id="3-2-search-tree-adt">3.2 Search Tree ADT<a class="heading-anchor" href="#3-2-search-tree-adt" data-heading-id="3-2-search-tree-adt" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 给出的对象：</p><ul><li>A finite ordered list with zero or more elements.</li></ul><p>核心操作：</p><pre class="code-block language-c" data-language="c"><code>SearchTree <span class="syntax-function">MakeEmpty</span>(SearchTree T);
+Position <span class="syntax-function">Find</span>(ElementType X, SearchTree T);
+Position <span class="syntax-function">FindMin</span>(SearchTree T);
+Position <span class="syntax-function">FindMax</span>(SearchTree T);
+SearchTree <span class="syntax-function">Insert</span>(ElementType X, SearchTree T);
+SearchTree <span class="syntax-function">Delete</span>(ElementType X, SearchTree T);
+ElementType <span class="syntax-function">Retrieve</span>(Position P);</code></pre><h5 id="3-3-find">3.3 Find<a class="heading-anchor" href="#3-3-find" data-heading-id="3-3-find" aria-label="Copy section link / 复制小节链接">#</a></h5><p>递归版：</p><pre class="code-block language-c" data-language="c"><code>Position <span class="syntax-function">Find</span>(ElementType X, SearchTree T) {
+    <span class="syntax-keyword">if</span> (T == NULL) <span class="syntax-keyword">return</span> NULL;
+
+    <span class="syntax-keyword">if</span> (X &lt; T-&gt;Element)
+        <span class="syntax-keyword">return</span> <span class="syntax-function">Find</span>(X, T-&gt;Left);
+    <span class="syntax-keyword">else</span> <span class="syntax-keyword">if</span> (X &gt; T-&gt;Element)
+        <span class="syntax-keyword">return</span> <span class="syntax-function">Find</span>(X, T-&gt;Right);
+    <span class="syntax-keyword">else</span>
+        <span class="syntax-keyword">return</span> T;
+}</code></pre><p>迭代版：</p><pre class="code-block language-c" data-language="c"><code>Position <span class="syntax-function">Iter_Find</span>(ElementType X, SearchTree T) {
+    <span class="syntax-keyword">while</span> (T) {
+        <span class="syntax-keyword">if</span> (X == T-&gt;Element) <span class="syntax-keyword">return</span> T;
+        <span class="syntax-keyword">if</span> (X &lt; T-&gt;Element)
+            T = T-&gt;Left;
+        <span class="syntax-keyword">else</span>
+            T = T-&gt;Right;
+    }
+    <span class="syntax-keyword">return</span> NULL;
+}</code></pre><p>复杂度：</p><div class="math-display">$$
+T(N) = S(N) = O(d)
+$$</div><p>其中 $d$ 是目标结点深度。递归版是 tail recursion，可以自然改成迭代。</p><h5 id="3-4-findmin-findmax">3.4 FindMin / FindMax<a class="heading-anchor" href="#3-4-findmin-findmax" data-heading-id="3-4-findmin-findmax" aria-label="Copy section link / 复制小节链接">#</a></h5><p>最小值一定沿左链走到底：</p><pre class="code-block language-c" data-language="c"><code>Position <span class="syntax-function">FindMin</span>(SearchTree T) {
+    <span class="syntax-keyword">if</span> (T == NULL) <span class="syntax-keyword">return</span> NULL;
+    <span class="syntax-keyword">else</span> <span class="syntax-keyword">if</span> (T-&gt;Left == NULL) <span class="syntax-keyword">return</span> T;
+    <span class="syntax-keyword">else</span> <span class="syntax-keyword">return</span> <span class="syntax-function">FindMin</span>(T-&gt;Left);
+}</code></pre><p>最大值一定沿右链走到底：</p><pre class="code-block language-c" data-language="c"><code>Position <span class="syntax-function">FindMax</span>(SearchTree T) {
+    <span class="syntax-keyword">if</span> (T != NULL) {
+        <span class="syntax-keyword">while</span> (T-&gt;Right != NULL) {
+            T = T-&gt;Right;
+        }
+    }
+    <span class="syntax-keyword">return</span> T;
+}</code></pre><p>复杂度：</p><div class="math-display">$$
+O(d)
+$$</div><h5 id="3-5-insert">3.5 Insert<a class="heading-anchor" href="#3-5-insert" data-heading-id="3-5-insert" aria-label="Copy section link / 复制小节链接">#</a></h5><p>思路：</p><ol><li>先按 <code>Find</code> 的路径寻找插入位置。</li><li>如果遇到空位置，就在那里建立新结点。</li><li>搜索过程中遇到的最后一个结点会成为新结点的 parent。</li></ol><p>递归插入模板：</p><pre class="code-block language-c" data-language="c"><code>SearchTree <span class="syntax-function">Insert</span>(ElementType X, SearchTree T) {
+    <span class="syntax-keyword">if</span> (T == NULL) {
+        T = <span class="syntax-function">malloc</span>(<span class="syntax-keyword">sizeof</span>(<span class="syntax-keyword">struct</span> TreeNode));
+        <span class="syntax-keyword">if</span> (T == NULL) {
+            <span class="syntax-function">FatalError</span>(<span class="syntax-string">&quot;Out of space!!!&quot;</span>);
+        } <span class="syntax-keyword">else</span> {
+            T-&gt;Element = X;
+            T-&gt;Left = T-&gt;Right = NULL;
+        }
+    } <span class="syntax-keyword">else</span> <span class="syntax-keyword">if</span> (X &lt; T-&gt;Element) {
+        T-&gt;Left = <span class="syntax-function">Insert</span>(X, T-&gt;Left);
+    } <span class="syntax-keyword">else</span> <span class="syntax-keyword">if</span> (X &gt; T-&gt;Element) {
+        T-&gt;Right = <span class="syntax-function">Insert</span>(X, T-&gt;Right);
+    }
+    <span class="syntax-keyword">return</span> T;
+}</code></pre><p>注意最后必须 <code>return T</code>，否则递归接回父结点时会丢树。</p><p>复杂度：</p><div class="math-display">$$
+T(N) = O(d)
+$$</div><h5 id="3-6-delete">3.6 Delete<a class="heading-anchor" href="#3-6-delete" data-heading-id="3-6-delete" aria-label="Copy section link / 复制小节链接">#</a></h5><p>删除分三种情况：</p><ol><li>删除叶子：把 parent 对它的链接置为 <code>NULL</code>。</li><li>删除度为 1 的结点：用它唯一的 child 替代它。</li><li>删除度为 2 的结点：<ul><li>用左子树最大结点，或右子树最小结点替换当前结点。</li><li>再到对应子树中删除那个替换结点。</li><li>替换结点的度一定至多为 1，所以后续删除会变简单。</li></ul></li></ol><p>课程代码模板使用右子树最小结点：</p><pre class="code-block language-c" data-language="c"><code>SearchTree <span class="syntax-function">Delete</span>(ElementType X, SearchTree T) {
+    Position TmpCell;
+
+    <span class="syntax-keyword">if</span> (T == NULL) {
+        <span class="syntax-function">Error</span>(<span class="syntax-string">&quot;Element not found&quot;</span>);
+    } <span class="syntax-keyword">else</span> <span class="syntax-keyword">if</span> (X &lt; T-&gt;Element) {
+        T-&gt;Left = <span class="syntax-function">Delete</span>(X, T-&gt;Left);
+    } <span class="syntax-keyword">else</span> <span class="syntax-keyword">if</span> (X &gt; T-&gt;Element) {
+        T-&gt;Right = <span class="syntax-function">Delete</span>(X, T-&gt;Right);
+    } <span class="syntax-keyword">else</span> <span class="syntax-keyword">if</span> (T-&gt;Left &amp;&amp; T-&gt;Right) {
+        TmpCell = <span class="syntax-function">FindMin</span>(T-&gt;Right);
+        T-&gt;Element = TmpCell-&gt;Element;
+        T-&gt;Right = <span class="syntax-function">Delete</span>(T-&gt;Element, T-&gt;Right);
+    } <span class="syntax-keyword">else</span> {
+        TmpCell = T;
+        <span class="syntax-keyword">if</span> (T-&gt;Left == NULL)
+            T = T-&gt;Right;
+        <span class="syntax-keyword">else</span> <span class="syntax-keyword">if</span> (T-&gt;Right == NULL)
+            T = T-&gt;Left;
+        <span class="syntax-function">free</span>(TmpCell);
+    }
+
+    <span class="syntax-keyword">return</span> T;
+}</code></pre><p>复杂度：</p><div class="math-display">$$
+T(N) = O(h)
+$$</div><p>其中 $h$ 是树高。</p><h5 id="3-7-lazy-deletion">3.7 Lazy Deletion<a class="heading-anchor" href="#3-7-lazy-deletion" data-heading-id="3-7-lazy-deletion" aria-label="Copy section link / 复制小节链接">#</a></h5><p>如果删除不多，可以在每个结点里加一个 flag：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> Active;</code></pre><p>删除时只标记 inactive，不立即 <code>free</code>。</p><p>好处：</p><ul><li>删除变快。</li><li>如果同一个 key 之后重新插入，可以直接恢复 active，不用重新 <code>malloc</code>。</li></ul><p>风险：</p><ul><li>inactive 结点太多时，会让后续操作路径变长，影响效率。</li></ul><h5 id="3-8-average-case-analysis">3.8 Average-Case Analysis<a class="heading-anchor" href="#3-8-average-case-analysis" data-heading-id="3-8-average-case-analysis" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 强调：BST 的高度取决于插入顺序。</p><p>例子：插入 $1,2,3,4,5,6,7$。</p><ul><li>顺序 <code>4,2,1,3,6,5,7</code> 可以得到高度 $h=2$ 的较平衡树。</li><li>顺序 <code>1,2,3,4,5,6,7</code> 会退化成高度 $h=6$ 的 skewed tree。</li></ul><p>所以 BST 操作复杂度不是天然 $O(\log N)$：</p><div class="table-scroll"><table><thead><tr><th>情况</th><th>高度</th><th>操作复杂度</th></tr></thead><tbody><tr><td>平衡或随机较好</td><td>$O(\log N)$</td><td>$O(\log N)$</td></tr><tr><td>完全退化</td><td>$O(N)$</td><td>$O(N)$</td></tr></tbody></table></div><h4 id="4-priority-queues-and-binary-heaps">4. Priority Queues and Binary Heaps<a class="heading-anchor" href="#4-priority-queues-and-binary-heaps" data-heading-id="4-priority-queues-and-binary-heaps" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="4-1-priority-queue-adt">4.1 Priority Queue ADT<a class="heading-anchor" href="#4-1-priority-queue-adt" data-heading-id="4-1-priority-queue-adt" aria-label="Copy section link / 复制小节链接">#</a></h5><p>对象：</p><ul><li>A finite ordered list with zero or more elements.</li></ul><p>操作：</p><pre class="code-block language-c" data-language="c"><code>PriorityQueue <span class="syntax-function">Initialize</span>(<span class="syntax-keyword">int</span> MaxElements);
+<span class="syntax-keyword">void</span> <span class="syntax-function">Insert</span>(ElementType X, PriorityQueue H);
+ElementType <span class="syntax-function">DeleteMin</span>(PriorityQueue H);
+ElementType <span class="syntax-function">FindMin</span>(PriorityQueue H);</code></pre><p>含义：每次删除最高优先级或最低优先级的元素。课程主要讲 min heap，所以 <code>DeleteMin</code> 删除最小值。</p><h5 id="4-2-简单实现比较">4.2 简单实现比较<a class="heading-anchor" href="#4-2-简单实现比较" data-heading-id="4-2-简单实现比较" aria-label="Copy section link / 复制小节链接">#</a></h5><div class="table-scroll"><table><thead><tr><th>实现</th><th>Insert</th><th>DeleteMin/DeleteMax</th><th>评价</th></tr></thead><tbody><tr><td>Unordered array</td><td>$\Theta(1)$</td><td>$\Theta(N)$ 查找，再 $O(N)$ 移动</td><td>插入快，删除慢</td></tr><tr><td>Unordered linked list</td><td>$\Theta(1)$</td><td>$\Theta(N)$ 查找，再 $\Theta(1)$ 删除</td><td>仍然删除慢</td></tr><tr><td>Ordered array</td><td>$O(N)$ 查找和移动</td><td>$\Theta(1)$</td><td>删除快，插入慢</td></tr><tr><td>Ordered linked list</td><td>$O(N)$ 查找，$\Theta(1)$ 插入</td><td>$\Theta(1)$</td><td>删除快，插入慢</td></tr><tr><td>BST</td><td>平均 $O(\log N)$</td><td>平均 $O(\log N)$</td><td>对 PQ 来说功能过多，指针成本也高</td></tr><tr><td>Binary heap</td><td>$O(\log N)$</td><td>$O(\log N)$</td><td>课程主方案</td></tr></tbody></table></div><p>PPT 里特别说明：BST 看起来不错，但优先队列只需要一直删最小元，AVL 等平衡树有很多不需要的操作，而且指针实现更复杂。</p><h5 id="4-3-binary-heap-的两个性质">4.3 Binary Heap 的两个性质<a class="heading-anchor" href="#4-3-binary-heap-的两个性质" data-heading-id="4-3-binary-heap-的两个性质" aria-label="Copy section link / 复制小节链接">#</a></h5><h5 id="structure-property">Structure Property<a class="heading-anchor" href="#structure-property" data-heading-id="structure-property" aria-label="Copy section link / 复制小节链接">#</a></h5><p>Binary heap 必须是 complete binary tree。</p><p>PPT 定义：</p><ul><li>A binary tree with $n$ nodes and height $h$ is complete iff its nodes correspond to the nodes numbered from $1$ to $n$ in the perfect binary tree of height $h$.</li></ul><p>高度为 $h$ 的 complete binary tree 结点数范围：</p><div class="math-display">$$
+2^h \le N \le 2^{h+1} - 1
+$$</div><p>所以：</p><div class="math-display">$$
+h = \lfloor \log N \rfloor
+$$</div><p>顺序存储：</p><pre class="code-block language-c" data-language="c"><code>ElementType BT[n + <span class="syntax-number">1</span>];  <span class="syntax-comment">// BT[0] not used</span></code></pre><p>下标关系：</p><div class="table-scroll"><table><thead><tr><th>结点下标</th><th>关系</th></tr></thead><tbody><tr><td>$i$</td><td>当前结点</td></tr><tr><td>$\lfloor i/2 \rfloor$</td><td>parent</td></tr><tr><td>$2i$</td><td>left child</td></tr><tr><td>$2i+1$</td><td>right child</td></tr></tbody></table></div><h5 id="heap-order-property">Heap Order Property<a class="heading-anchor" href="#heap-order-property" data-heading-id="heap-order-property" aria-label="Copy section link / 复制小节链接">#</a></h5><p>Min tree：每个结点的 key 不大于它孩子的 key。</p><p>Min heap：</p><ul><li>complete binary tree</li><li>同时满足 min tree 性质</li></ul><p>因此：</p><ul><li>最小值在根 <span class="math-inline">\(H-&gt;Elements[1]\)</span>。</li><li>其他任意 key 的查找通常要线性扫描整个 heap，因为 heap 只保证父子局部有序，不保证左右子树整体排序。</li></ul><h5 id="4-4-initialize">4.4 Initialize<a class="heading-anchor" href="#4-4-initialize" data-heading-id="4-4-initialize" aria-label="Copy section link / 复制小节链接">#</a></h5><p>课程模板使用 <code>Elements[0]</code> 作为 sentinel：</p><pre class="code-block language-c" data-language="c"><code>PriorityQueue <span class="syntax-function">Initialize</span>(<span class="syntax-keyword">int</span> MaxElements) {
+    PriorityQueue H;
+
+    <span class="syntax-keyword">if</span> (MaxElements &lt; MinPQSize)
+        <span class="syntax-keyword">return</span> <span class="syntax-function">Error</span>(<span class="syntax-string">&quot;Priority queue size is too small&quot;</span>);
+
+    H = <span class="syntax-function">malloc</span>(<span class="syntax-keyword">sizeof</span>(<span class="syntax-keyword">struct</span> HeapStruct));
+    <span class="syntax-keyword">if</span> (H == NULL)
+        <span class="syntax-keyword">return</span> <span class="syntax-function">FatalError</span>(<span class="syntax-string">&quot;Out of space!!!&quot;</span>);
+
+    H-&gt;Elements = <span class="syntax-function">malloc</span>((MaxElements + <span class="syntax-number">1</span>) * <span class="syntax-keyword">sizeof</span>(ElementType));
+    <span class="syntax-keyword">if</span> (H-&gt;Elements == NULL)
+        <span class="syntax-keyword">return</span> <span class="syntax-function">FatalError</span>(<span class="syntax-string">&quot;Out of space!!!&quot;</span>);
+
+    H-&gt;Capacity = MaxElements;
+    H-&gt;Size = <span class="syntax-number">0</span>;
+    H-&gt;Elements[<span class="syntax-number">0</span>] = MinData;
+    <span class="syntax-keyword">return</span> H;
+}</code></pre><p><code>Elements[0]</code> 不存真实数据，设成比所有元素都小的值，用来让上滤停止。</p><h5 id="4-5-insert-percolate-up">4.5 Insert: Percolate Up<a class="heading-anchor" href="#4-5-insert-percolate-up" data-heading-id="4-5-insert-percolate-up" aria-label="Copy section link / 复制小节链接">#</a></h5><p>思路：</p><ol><li>新元素只能先放到数组末尾，因为要保持 complete binary tree。</li><li>如果新元素比 parent 小，parent 下移。</li><li>一路向上，直到 parent 不大于新元素。</li><li>最后把新元素放入空位。</li></ol><p>课程模板：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">Insert</span>(ElementType X, PriorityQueue H) {
+    <span class="syntax-keyword">int</span> i;
+
+    <span class="syntax-keyword">if</span> (<span class="syntax-function">IsFull</span>(H)) {
+        <span class="syntax-function">Error</span>(<span class="syntax-string">&quot;Priority queue is full&quot;</span>);
+        <span class="syntax-keyword">return</span>;
+    }
+
+    <span class="syntax-keyword">for</span> (i = ++H-&gt;Size; H-&gt;Elements[i / <span class="syntax-number">2</span>] &gt; X; i /= <span class="syntax-number">2</span>) {
+        H-&gt;Elements[i] = H-&gt;Elements[i / <span class="syntax-number">2</span>];
+    }
+    H-&gt;Elements[i] = X;
+}</code></pre><p>注意 PPT 说这个写法 “Faster than swap”，因为它不是每层交换，而是一路挪 parent，最后一次性放入 <span class="math-inline">\(X\)</span>。</p><p>复杂度：</p><div class="math-display">$$
+T(N) = O(\log N)
+$$</div><h5 id="4-6-deletemin-percolate-down">4.6 DeleteMin: Percolate Down<a class="heading-anchor" href="#4-6-deletemin-percolate-down" data-heading-id="4-6-deletemin-percolate-down" aria-label="Copy section link / 复制小节链接">#</a></h5><p>思路：</p><ol><li>保存根结点最小值。</li><li>取最后一个元素 <code>LastElement</code>。</li><li>删除最后一个位置以维持 complete binary tree。</li><li>从根开始向下找较小的 child。</li><li>若 <code>LastElement</code> 大于较小 child，则 child 上移。</li><li>找到合适位置后放入 <code>LastElement</code>。</li></ol><p>课程模板：</p><pre class="code-block language-c" data-language="c"><code>ElementType <span class="syntax-function">DeleteMin</span>(PriorityQueue H) {
+    <span class="syntax-keyword">int</span> i, Child;
+    ElementType MinElement, LastElement;
+
+    <span class="syntax-keyword">if</span> (<span class="syntax-function">IsEmpty</span>(H)) {
+        <span class="syntax-function">Error</span>(<span class="syntax-string">&quot;Priority queue is empty&quot;</span>);
+        <span class="syntax-keyword">return</span> H-&gt;Elements[<span class="syntax-number">0</span>];
+    }
+
+    MinElement = H-&gt;Elements[<span class="syntax-number">1</span>];
+    LastElement = H-&gt;Elements[H-&gt;Size--];
+
+    <span class="syntax-keyword">for</span> (i = <span class="syntax-number">1</span>; i * <span class="syntax-number">2</span> &lt;= H-&gt;Size; i = Child) {
+        Child = i * <span class="syntax-number">2</span>;
+        <span class="syntax-keyword">if</span> (Child != H-&gt;Size &amp;&amp;
+            H-&gt;Elements[Child + <span class="syntax-number">1</span>] &lt; H-&gt;Elements[Child]) {
+            Child++;
+        }
+
+        <span class="syntax-keyword">if</span> (LastElement &gt; H-&gt;Elements[Child])
+            H-&gt;Elements[i] = H-&gt;Elements[Child];
+        <span class="syntax-keyword">else</span>
+            <span class="syntax-keyword">break</span>;
+    }
+
+    H-&gt;Elements[i] = LastElement;
+    <span class="syntax-keyword">return</span> MinElement;
+}</code></pre><p>易错点：</p><ul><li><span class="math-inline">\(Child \ne  H-&gt;Size\)</span> 是为了确认右孩子存在。省略后可能访问不存在的右孩子。</li><li><span class="math-inline">\(i * 2 \le  H-&gt;Size\)</span> 表示当前结点至少有左孩子。</li></ul><p>复杂度：</p><div class="math-display">$$
+T(N) = O(\log N)
+$$</div><h5 id="4-7-other-heap-operations">4.7 Other Heap Operations<a class="heading-anchor" href="#4-7-other-heap-operations" data-heading-id="4-7-other-heap-operations" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 强调：除了 minimum，heap 中查找任何 key 都要线性扫描。</p><p>常见扩展：</p><div class="table-scroll"><table><thead><tr><th>操作</th><th>做法</th><th>复杂度</th></tr></thead><tbody><tr><td><span class="math-inline">\(DecreaseKey(P, \Delta, H)\)</span></td><td>降低位置 $P$ 的 key，然后 percolate up</td><td>$O(\log N)$</td></tr><tr><td><span class="math-inline">\(IncreaseKey(P, \Delta, H)\)</span></td><td>增大位置 $P$ 的 key，然后 percolate down</td><td>$O(\log N)$</td></tr><tr><td><code>Delete(P, H)</code></td><td><code>DecreaseKey(P, infinity, H)</code> 后 <code>DeleteMin(H)</code></td><td>$O(\log N)$</td></tr><tr><td><code>BuildHeap(H)</code></td><td>从最后一个非叶结点开始反复 <code>PercolateDown</code></td><td>$O(N)$</td></tr></tbody></table></div><p>BuildHeap 不是做 $N$ 次 Insert。$N$ 次 Insert 是 $O(N \log N)$，PPT 中强调太慢。</p><p>从数组建堆的写法：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">for</span> (<span class="syntax-keyword">int</span> i = H-&gt;Size / <span class="syntax-number">2</span>; i &gt;= <span class="syntax-number">1</span>; --i) {
+    <span class="syntax-function">PercolateDown</span>(i, H);
+}</code></pre><p>为什么是 $O(N)$：</p><p>PPT 定理：</p><div class="math-display">$$
+\text{perfect binary tree height } h \text{ has sum of node heights }
+= 2^{h+1} - 1 - (h+1)
+$$</div><p>所有下滤成本加起来是线性的，所以：</p><div class="math-display">$$
+T(N) = O(N)
+$$</div><h5 id="4-8-d-heaps">4.8 d-Heaps<a class="heading-anchor" href="#4-8-d-heaps" data-heading-id="4-8-d-heaps" aria-label="Copy section link / 复制小节链接">#</a></h5><p>d-heap：所有结点有 $d$ 个孩子。</p><p>问题：是不是 $d$ 越大越好？不是。</p><p>PPT 给出的原因：</p><ol><li><code>DeleteMin</code> 需要 $d-1$ 次比较才能找最小 child，所以复杂度约为：</li></ol><div class="math-display">$$
+O(d \log_d N)
+$$</div><ol><li>二叉堆的 <span class="math-inline">\(*2\)</span> 和 <code>/2</code> 可以用 bit shift，<span class="math-inline">\(*d\)</span> 和 <code>/d</code> 不一定。</li><li>当优先队列太大，不能完全放进主存时，d-heap 会比较有意思。</li></ol><h4 id="5-segment-tree">5. Segment Tree<a class="heading-anchor" href="#5-segment-tree" data-heading-id="5-segment-tree" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="5-1-动机">5.1 动机<a class="heading-anchor" href="#5-1-动机" data-heading-id="5-1-动机" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 问题：</p><p>给定数组 <code>A[1000000]</code>，需要频繁计算任意区间 <code>[L, R]</code> 的和。</p><p>朴素查询：</p><pre class="code-block language-c" data-language="c"><code>ElementType <span class="syntax-function">Query</span>(ElementType A[], <span class="syntax-keyword">int</span> L, <span class="syntax-keyword">int</span> R) {
+    ElementType sum = <span class="syntax-number">0</span>;
+    <span class="syntax-keyword">for</span> (<span class="syntax-keyword">int</span> i = L; i &lt;= R; ++i) {
+        sum += A[i];
+    }
+    <span class="syntax-keyword">return</span> sum;
+}</code></pre><p>复杂度：</p><div class="math-display">$$
+T(N) = O(N)
+$$</div><p>如果 query 很频繁，这个代价太高。</p><h5 id="5-2-结构">5.2 结构<a class="heading-anchor" href="#5-2-结构" data-heading-id="5-2-结构" aria-label="Copy section link / 复制小节链接">#</a></h5><p>Segment tree 把数组区间递归拆成左右两半：</p><ul><li>根表示整个区间 <code>[0, n-1]</code>。</li><li>每个内部结点表示一个区间 <code>[start, end]</code>。</li><li>左孩子表示 <code>[start, mid]</code>。</li><li>右孩子表示 <span class="math-inline">\([mid+1, end]\)</span>。</li><li>叶子结点表示单个元素 <code>[i]</code>。</li></ul><p>对 sum segment tree，结点值是对应区间的和。</p><p>PPT 示例数组：</p><pre class="code-block language-text" data-language="text"><code>A = [7, 2, 5, 3, 8]
+root [0,4] = 25
+[0,2] = 14
+[3,4] = 11
+[0,1] = 9
+[2] = 5
+[3] = 3
+[4] = 8</code></pre><p>线段树可以用数组存储：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> tree[<span class="syntax-number">2</span> * N];   <span class="syntax-comment">// PPT 简化写法</span></code></pre><p>实际写题时常用：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> tree[<span class="syntax-number">4</span> * MAXN];</code></pre><p>因为非 $2^k$ 长度时，<code>4N</code> 是更稳的数组空间上界。</p><p>空间复杂度：</p><div class="math-display">$$
+S(N) = O(N)
+$$</div><p>PPT 中完整二叉树视角写作 $O(2N - 1)$。</p><h5 id="5-3-build">5.3 Build<a class="heading-anchor" href="#5-3-build" data-heading-id="5-3-build" aria-label="Copy section link / 复制小节链接">#</a></h5><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">Build</span>(<span class="syntax-keyword">int</span> node, <span class="syntax-keyword">int</span> start, <span class="syntax-keyword">int</span> end) {
+    <span class="syntax-keyword">if</span> (start == end) {
+        tree[node] = A[start];
+        <span class="syntax-keyword">return</span>;
+    }
+
+    <span class="syntax-keyword">int</span> mid = (start + end) / <span class="syntax-number">2</span>;
+    <span class="syntax-function">Build</span>(<span class="syntax-number">2</span> * node, start, mid);
+    <span class="syntax-function">Build</span>(<span class="syntax-number">2</span> * node + <span class="syntax-number">1</span>, mid + <span class="syntax-number">1</span>, end);
+
+    tree[node] = tree[<span class="syntax-number">2</span> * node] + tree[<span class="syntax-number">2</span> * node + <span class="syntax-number">1</span>];
+}</code></pre><p>复杂度：</p><div class="math-display">$$
+T(N) = O(N)
+$$</div><p>PPT 注：build 只运行一次。</p><h5 id="5-4-query">5.4 Query<a class="heading-anchor" href="#5-4-query" data-heading-id="5-4-query" aria-label="Copy section link / 复制小节链接">#</a></h5><p>查询 <code>[L, R]</code> 时有三种情况：</p><div class="table-scroll"><table><thead><tr><th>情况</th><th>条件</th><th>返回</th></tr></thead><tbody><tr><td>No Overlap</td><td><span class="math-inline">\(R &lt; start || end &lt; L\)</span></td><td>对 sum 返回 <code>0</code></td></tr><tr><td>Total Overlap</td><td><span class="math-inline">\(L \le  start &amp;&amp; end \le  R\)</span></td><td>返回 <code>tree[node]</code></td></tr><tr><td>Partial Overlap</td><td>其余情况</td><td>递归查左右孩子并合并</td></tr></tbody></table></div><p>代码：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> <span class="syntax-function">Query</span>(<span class="syntax-keyword">int</span> node, <span class="syntax-keyword">int</span> start, <span class="syntax-keyword">int</span> end, <span class="syntax-keyword">int</span> L, <span class="syntax-keyword">int</span> R) {
+    <span class="syntax-keyword">if</span> (R &lt; start || end &lt; L) {
+        <span class="syntax-keyword">return</span> <span class="syntax-number">0</span>;
+    }
+
+    <span class="syntax-keyword">if</span> (L &lt;= start &amp;&amp; end &lt;= R) {
+        <span class="syntax-keyword">return</span> tree[node];
+    }
+
+    <span class="syntax-keyword">int</span> mid = (start + end) / <span class="syntax-number">2</span>;
+    <span class="syntax-keyword">int</span> left_sum = <span class="syntax-function">Query</span>(<span class="syntax-number">2</span> * node, start, mid, L, R);
+    <span class="syntax-keyword">int</span> right_sum = <span class="syntax-function">Query</span>(<span class="syntax-number">2</span> * node + <span class="syntax-number">1</span>, mid + <span class="syntax-number">1</span>, end, L, R);
+
+    <span class="syntax-keyword">return</span> left_sum + right_sum;
+}</code></pre><p>复杂度：</p><div class="math-display">$$
+T(N) = O(\log N)
+$$</div><p>严格说区间查询常写为 $O(\log N)$ 或 $O(\log N + k)$，本课程 PPT 记为 $O(\log N)$。</p><h5 id="5-5-update">5.5 Update<a class="heading-anchor" href="#5-5-update" data-heading-id="5-5-update" aria-label="Copy section link / 复制小节链接">#</a></h5><p>单点更新：令 <span class="math-inline">\(A[idx] = val\)</span>。</p><p>思路：</p><ol><li>从 root 开始判断 <code>idx</code> 在左区间还是右区间。</li><li>递归直到叶子 <code>[idx]</code>。</li><li>修改叶子值。</li><li>回溯时重新计算沿途所有祖先结点。</li></ol><p>代码：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">Update</span>(<span class="syntax-keyword">int</span> node, <span class="syntax-keyword">int</span> start, <span class="syntax-keyword">int</span> end, <span class="syntax-keyword">int</span> idx, <span class="syntax-keyword">int</span> val) {
+    <span class="syntax-keyword">if</span> (start == end) {
+        tree[node] = val;
+        <span class="syntax-keyword">return</span>;
+    }
+
+    <span class="syntax-keyword">int</span> mid = (start + end) / <span class="syntax-number">2</span>;
+    <span class="syntax-keyword">if</span> (start &lt;= idx &amp;&amp; idx &lt;= mid) {
+        <span class="syntax-function">Update</span>(<span class="syntax-number">2</span> * node, start, mid, idx, val);
+    } <span class="syntax-keyword">else</span> {
+        <span class="syntax-function">Update</span>(<span class="syntax-number">2</span> * node + <span class="syntax-number">1</span>, mid + <span class="syntax-number">1</span>, end, idx, val);
+    }
+
+    tree[node] = tree[<span class="syntax-number">2</span> * node] + tree[<span class="syntax-number">2</span> * node + <span class="syntax-number">1</span>];
+}</code></pre><p>复杂度：</p><div class="math-display">$$
+T(N) = O(\log N)
+$$</div><h5 id="5-6-不只用于-sum">5.6 不只用于 sum<a class="heading-anchor" href="#5-6-不只用于-sum" data-heading-id="5-6-不只用于-sum" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT notes：</p><p>Segment tree 不限于 sum，只要是区间 aggregation operator，都可以用类似结构：</p><ul><li><span class="math-inline">\(\sum\)</span></li><li><code>min</code></li><li><code>max</code></li><li><code>average</code></li></ul><p>注意：</p><ul><li><code>sum/min/max</code> 都很自然。</li><li><code>average</code> 通常要维护 <span class="math-inline">\((\sum, count)\)</span>，最后再除，不是简单只存 average 就万事大吉。</li></ul><h5 id="5-7-lazy-propagation">5.7 Lazy Propagation<a class="heading-anchor" href="#5-7-lazy-propagation" data-heading-id="5-7-lazy-propagation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 只作为 self study 提到：</p><p>如果需要更一般的 RangeUpdate，比如：</p><pre class="code-block language-text" data-language="text"><code>add 10 to all numbers from index 2 to 1000</code></pre><p>可以用 lazy propagation。</p><p>核心思想：</p><ul><li>对完全覆盖的区间，不立刻更新所有叶子。</li><li>把更新信息暂存在当前结点的 lazy tag。</li><li>之后查询或继续下探时，再把 tag push down。</li></ul><p>这部分如果考试不展开，知道用途和动机即可。</p><h4 id="6-和本仓库作业-项目的对应关系">6. 和本仓库作业/项目的对应关系<a class="heading-anchor" href="#6-和本仓库作业-项目的对应关系" data-heading-id="6-和本仓库作业-项目的对应关系" aria-label="Copy section link / 复制小节链接">#</a></h4><div class="table-scroll"><table><thead><tr><th>课程点</th><th>仓库文件</th><th>对应能力</th></tr></thead><tbody><tr><td>preorder + inorder/postorder 建树</td><td><code>w4_binary_tree/treversal.c</code>、<code>w4_binary_tree/zigzag.c</code></td><td>用遍历序列恢复树</td></tr><tr><td>zigzag level order</td><td><code>w4_binary_tree/best_zigzag.c</code></td><td>层序遍历 + 每层反向输出</td></tr><tr><td>complete BST</td><td><code>w6_binary_heap/complete binary search tree.c</code></td><td>sorted array 建完全 BST，层序输出</td></tr><tr><td>BST ADT</td><td><code>project/project2/.../functions.c</code></td><td>BST 建树、preorder、inorder 转有序数组</td></tr><tr><td>heap / DeleteMin</td><td><code>bonus/with_comments.c</code></td><td>小顶堆、上滤、下滤、置换选择</td></tr><tr><td>expression tree</td><td><code>project/autograd/main.c</code></td><td>表达式转树的项目雏形</td></tr></tbody></table></div><h4 id="7-常考抓手">7. 常考抓手<a class="heading-anchor" href="#7-常考抓手" data-heading-id="7-常考抓手" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="7-1-建树类题">7.1 建树类题<a class="heading-anchor" href="#7-1-建树类题" data-heading-id="7-1-建树类题" aria-label="Copy section link / 复制小节链接">#</a></h5><p>常见条件：</p><ul><li>preorder + inorder 可以唯一恢复二叉树。</li><li>postorder + inorder 可以唯一恢复二叉树。</li><li>preorder + postorder 一般不能唯一恢复，除非附加条件。</li></ul><p>postorder + inorder 建树的关键：</p><ul><li>postorder 最后一个是 root。</li><li>在 inorder 中找到 root，左边是 left subtree，右边是 right subtree。</li><li>如果倒着读 postorder，顺序是 root, right, left，所以递归时要先建 right，再建 left。</li></ul><h5 id="7-2-bst-题">7.2 BST 题<a class="heading-anchor" href="#7-2-bst-题" data-heading-id="7-2-bst-题" aria-label="Copy section link / 复制小节链接">#</a></h5><p>看到 BST 先想：</p><ul><li>inorder 一定是升序。</li><li><code>FindMin</code> 走最左链。</li><li><code>FindMax</code> 走最右链。</li><li>删除两个孩子的结点时，用右子树最小或左子树最大替换。</li><li>复杂度看高度，不是自动看 $\log N$。</li></ul><h5 id="7-3-heap-题">7.3 Heap 题<a class="heading-anchor" href="#7-3-heap-题" data-heading-id="7-3-heap-题" aria-label="Copy section link / 复制小节链接">#</a></h5><p>看到 heap 先想：</p><ul><li>数组下标从 1 开始更方便。</li><li>parent: <span class="math-inline">\(i / 2\)</span></li><li>left child: <span class="math-inline">\(2 * i\)</span></li><li>right child: <span class="math-inline">\(2 * i + 1\)</span></li><li>Insert 是 percolate up。</li><li>DeleteMin 是 percolate down。</li><li>BuildHeap 从 <span class="math-inline">\(N / 2\)</span> 到 <code>1</code> 下滤，总复杂度 $O(N)$。</li></ul><h5 id="7-4-segment-tree-题">7.4 Segment Tree 题<a class="heading-anchor" href="#7-4-segment-tree-题" data-heading-id="7-4-segment-tree-题" aria-label="Copy section link / 复制小节链接">#</a></h5><p>固定三件套：</p><pre class="code-block language-text" data-language="text"><code>Build(node, start, end)
+Query(node, start, end, L, R)
+Update(node, start, end, idx, val)</code></pre><p>Query 三种 overlap：</p><ul><li>no overlap：返回单位元，sum 是 0，min 是 INF，max 是 -INF。</li><li>total overlap：直接返回当前结点。</li><li>partial overlap：递归左右孩子后 merge。</li></ul><h4 id="8-一页速记">8. 一页速记<a class="heading-anchor" href="#8-一页速记" data-heading-id="8-一页速记" aria-label="Copy section link / 复制小节链接">#</a></h4><div class="table-scroll"><table><thead><tr><th>结构</th><th>核心性质</th><th>典型操作复杂度</th></tr></thead><tbody><tr><td>Binary tree</td><td>每结点最多两个孩子，左右不同</td><td>遍历 $O(N)$</td></tr><tr><td>Threaded binary tree</td><td>用 null links 存 predecessor/successor</td><td>方便 inorder traversal</td></tr><tr><td>BST</td><td>$Left &lt; Root &lt; Right$</td><td>$O(h)$</td></tr><tr><td>Binary heap</td><td>complete tree + heap order</td><td>Insert/DeleteMin $O(\log N)$，BuildHeap $O(N)$</td></tr><tr><td>Segment tree</td><td>每结点代表一个区间</td><td>Build $O(N)$，Query/Update $O(\log N)$</td></tr></tbody></table></div></div>
+              </div>
+              <div class="post-jump-nav" aria-label="文章跳转">
+                <button type="button" id="post-jump-top">回到顶部</button>
+              </div>
+              <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
+                
+                <a href="../../post/2026-04-29-%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E8%AE%A1%E6%95%B0%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/"><span>Older / 更早</span><strong>离散数学计数原理笔记</strong></a>
+              </nav>
+              <section class="post-comments" id="post-comments" aria-label="Comments / 评论区" hidden></section>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" aria-label="Site information / 站点信息">
+        <p>© 2025-2026 qqqzj@Crane</p>
+        <p>qqqzj 的个人笔记、生活记录与学习档案。</p>
+        <p><a href="../../rss.xml">RSS 订阅</a></p>
+      </footer>
+    </div>
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <script src="../../comments-config.js"></script>
+    <script src="../../comments.js"></script>
+    <script>
+      window.CraneComments?.render(document.querySelector("#post-comments"), {
+        slug: "2026-04-29-datastructure-tree",
+        title: "DataStructure_Tree",
+        commentTerm: "post:2026-04-29-datastructure-tree",
+      });
+
+      const readingProgress = document.querySelector("#reading-progress");
+      function updateReadingProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max <= 0 ? 1 : Math.min(1, Math.max(0, window.scrollY / max));
+        readingProgress.style.transform = `scaleX(${progress})`;
+      }
+      window.addEventListener("scroll", updateReadingProgress, { passive: true });
+      window.addEventListener("resize", updateReadingProgress);
+      updateReadingProgress();
+
+      document.querySelector("#post-jump-top")?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-comments")?.addEventListener("click", () => {
+        window.CraneComments?.focus(document.querySelector("#post-comments"));
+      });
+
+      const toc = document.querySelector(".post-toc");
+      const tocLinks = toc ? [...toc.querySelectorAll("a[data-heading-id]")] : [];
+      const tocSections = tocLinks
+        .map((link) => findHeadingById(document, link.dataset.headingId))
+        .filter(Boolean);
+      let tocClickLockUntil = 0;
+
+      toc?.addEventListener("click", (event) => {
+        const link = event.target.closest("a[data-heading-id]");
+        if (link) {
+          const heading = findHeadingById(document, link.dataset.headingId);
+          if (!heading) return;
+          event.preventDefault();
+          scrollToHeading(heading);
+          activateTocLink(heading.id);
+          tocClickLockUntil = Date.now() + 900;
+          if (heading.id) history.pushState(null, "", `#${heading.id}`);
+          toc.classList.remove("is-open");
+          return;
+        }
+        toc.classList.toggle("is-open");
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!toc || toc.contains(event.target)) return;
+        toc.classList.remove("is-open");
+      });
+
+      function activateTocLink(id) {
+        tocLinks.forEach((link) => {
+          const active = link.dataset.headingId === id;
+          link.classList.toggle("is-active", active);
+          if (active) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function findHeadingById(root, id) {
+        if (!root || !id) return null;
+        const escapedId = window.CSS?.escape ? window.CSS.escape(id) : id.replaceAll('"', '\"');
+        return root.querySelector(`#${escapedId}`);
+      }
+
+      function scrollToHeading(heading) {
+        const topbarHeight = document.querySelector(".topbar")?.getBoundingClientRect().height || 0;
+        const offset = topbarHeight + 8;
+        const top = heading.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
+
+      if (tocSections.length) {
+        activateTocLink(tocSections[0].id);
+
+        if ("IntersectionObserver" in window) {
+          const visibleSections = new Map();
+          const observer = new IntersectionObserver((entries) => {
+            if (Date.now() < tocClickLockUntil) return;
+
+            entries.forEach((entry) => {
+              visibleSections.set(entry.target.id, entry.isIntersecting);
+            });
+
+            const current = tocSections.find((section) => visibleSections.get(section.id))
+              || [...tocSections].reverse().find((section) => section.getBoundingClientRect().top <= 140)
+              || tocSections[0];
+
+            activateTocLink(current.id);
+          }, {
+            rootMargin: "-18% 0px -68% 0px",
+            threshold: [0, 1],
+          });
+
+          tocSections.forEach((section) => observer.observe(section));
+        }
+      }
+    </script>
+  </body>
+</html>

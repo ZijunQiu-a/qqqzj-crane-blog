@@ -6,7 +6,14 @@
     <link>https://qqqzj.cn/</link>
     <description>qqqzj 的个人笔记、生活记录与学习档案。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 29 Apr 2026 11:48:53 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 29 Apr 2026 13:10:12 GMT</lastBuildDate>
+    <item>
+      <title>DataStructure_Tree</title>
+      <link>https://qqqzj.cn/post/2026-04-29-datastructure-tree/</link>
+      <guid>https://qqqzj.cn/post/2026-04-29-datastructure-tree/</guid>
+      <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
+      <description>树专题复习笔记 0. 总览 树专题在这门课里大致分成四块： 1. 普通树与二叉树：术语、表示法、遍历、表达式树、线索二叉树。 2. 二叉搜索树 BST：ADT、查找、插入、删除、平均情况分析。 3. 优先队列与二叉堆：堆的结构性质、堆序性质...</description>
+    </item>
     <item>
       <title>离散数学计数原理笔记</title>
       <link>https://qqqzj.cn/post/2026-04-29-%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E8%AE%A1%E6%95%B0%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/</link>
@@ -139,13 +146,6 @@
       <guid>https://qqqzj.cn/post/2026-04-25-physics-i-midterm-review-outline/</guid>
       <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
       <description>General Physics I Midterm Review Outline / 普物 I 期中复习提纲 Based on / 依据：slides 课件、homework 作业、midterm 历年期中卷。 Focus / 重点：mec...</description>
-    </item>
-    <item>
-      <title>网站阶段更新：从内容归档到阅读体验</title>
-      <link>https://qqqzj.cn/post/2026-04-25-site-update-roundup/</link>
-      <guid>https://qqqzj.cn/post/2026-04-25-site-update-roundup/</guid>
-      <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
-      <description>这两天 qqqzj@Crane 做了一轮比较密集的维护，已经不只是“能放文章”的第一版了。现在它更像一个可以长期写、长期查、长期扩展的个人学习档案。 这次主要更新有几块。 内容和发布方式 网站现在采用 private 源码仓库和 publi...</description>
     </item>
   </channel>
 </rss>

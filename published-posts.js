@@ -310,6 +310,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "计数原理专题笔记 / Counting Principles Notes 主线说明 / Main line: 本笔记按离散数学教材常见顺序整理计数原理：有限集合基数规则、基本计数法、排列组合、二项式与多项式、容斥、鸽巢、星棒法、多重集合、错...",
       "readingMinutes": 19,
       "createdAt": "2026-04-29T00:00:00.000Z"
+    },
+    {
+      "id": "notes/programming/2026-04-29-datastructure-tree.md",
+      "slug": "2026-04-29-datastructure-tree",
+      "dataPath": "post-data/2026-04-29-datastructure-tree.json",
+      "source": "post",
+      "kind": "notes",
+      "title": "DataStructure_Tree",
+      "publishedIndex": 27,
+      "stage": "Notes 笔记",
+      "tag": "programming",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "树专题复习笔记 0. 总览 树专题在这门课里大致分成四块： 1. 普通树与二叉树：术语、表示法、遍历、表达式树、线索二叉树。 2. 二叉搜索树 BST：ADT、查找、插入、删除、平均情况分析。 3. 优先队列与二叉堆：堆的结构性质、堆序性质...",
+      "readingMinutes": 10,
+      "createdAt": "2026-04-29T00:00:00.000Z"
     }
   ],
   "videos": [
