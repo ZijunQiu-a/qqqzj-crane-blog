@@ -1,0 +1,1130 @@
+{
+  "html": "<blockquote>按《线性代数应该这样学》第四版中文版目录编排。  <br />本笔记是学习整理版：每节按“定义与对象 → 定理与证明 → 例题”组织，证明尽量保留核心逻辑，便于复习时快速还原完整证明。</blockquote><div class=\"entry-file\"><a class=\"download-button\" href=\"https://github.com/qqqzj-crane/qqqzj-crane-blog-assets/releases/download/assets-linear-algebra/linear-algebra-ii-note.pdf\" target=\"_blank\" rel=\"noreferrer\"><span>下载完整 PDF 笔记</span><small>linear-algebra-ii-note.pdf</small></a></div><hr /><h4 id=\"第-1-章-向量空间\">第 1 章 向量空间<a class=\"heading-anchor\" href=\"#第-1-章-向量空间\" data-heading-id=\"第-1-章-向量空间\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"1a-mathbb-r-n-和-mathbb-c-n\">1A  $\\mathbb R^n$ 和 $\\mathbb C^n$<a class=\"heading-anchor\" href=\"#1a-mathbb-r-n-和-mathbb-c-n\" data-heading-id=\"1a-mathbb-r-n-和-mathbb-c-n\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象\" data-heading-id=\"定义与对象\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>复数。</strong>  <br />复数写为 $a+bi$，其中 $a,b\\in\\mathbb R$，并规定 $i^2=-1$。复数集合记为</p><div class=\"math-display\">$$\n\\mathbb C=\\{a+bi:a,b\\in\\mathbb R\\}.\n$$</div><p><strong>复数运算。</strong>  <br />若 $\\alpha=a+bi,\\ \\beta=c+di$，则</p><div class=\"math-display\">$$\n\\alpha+\\beta=(a+c)+(b+d)i,\n$$</div><div class=\"math-display\">$$\n\\alpha\\beta=(ac-bd)+(ad+bc)i.\n$$</div><p><strong>标量域记号 $F$。</strong>  <br />全文中 $F$ 表示 $\\mathbb R$ 或 $\\mathbb C$。$F$ 中元素称为标量。</p><p><strong>组与长度。</strong>  <br />长度为 $n$ 的组是有序对象</p><div class=\"math-display\">$$\n(x_1,\\dots,x_n).\n$$</div><p>组与集合不同：组关心顺序与重复。</p><p><strong>$F^n$ 与坐标。</strong></p><div class=\"math-display\">$$\nF^n=\\{(x_1,\\dots,x_n):x_j\\in F\\}.\n$$</div><p>$x_j$ 称为第 $j$ 个坐标。</p><p><strong>$F^n$ 中的加法、零向量、加法逆元、标量乘法。</strong></p><div class=\"math-display\">$$\n(x_1,\\dots,x_n)+(y_1,\\dots,y_n)=(x_1+y_1,\\dots,x_n+y_n),\n$$</div><div class=\"math-display\">$$\n0=(0,\\dots,0),\\qquad\n-(x_1,\\dots,x_n)=(-x_1,\\dots,-x_n),\n$$</div><div class=\"math-display\">$$\n\\lambda(x_1,\\dots,x_n)=(\\lambda x_1,\\dots,\\lambda x_n).\n$$</div><p>这些定义把平面、三维空间中的“箭头加法”和“伸缩”抽象成坐标运算；当维数很高时，几何图像失效，但代数规则仍然有效。</p><h5 id=\"常用性质\">常用性质<a class=\"heading-anchor\" href=\"#常用性质\" data-heading-id=\"常用性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"复数与-f-n-的运算性质\">复数与 $F^n$ 的运算性质<a class=\"heading-anchor\" href=\"#复数与-f-n-的运算性质\" data-heading-id=\"复数与-f-n-的运算性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>复数运算性质。</strong><br />对任意 $\\alpha,\\beta,\\gamma\\in\\mathbb C$：</p><div class=\"math-display\">$$\n\\alpha+\\beta=\\beta+\\alpha,\\qquad \\alpha\\beta=\\beta\\alpha;\n$$</div><div class=\"math-display\">$$\n(\\alpha+\\beta)+\\gamma=\\alpha+(\\beta+\\gamma),\\qquad\n(\\alpha\\beta)\\gamma=\\alpha(\\beta\\gamma);\n$$</div><div class=\"math-display\">$$\n\\alpha+0=\\alpha,\\qquad \\alpha\\cdot1=\\alpha;\n$$</div><p>每个 $\\alpha$ 有唯一加法逆元 $-\\alpha$；每个非零 $\\alpha$ 有唯一乘法逆元 $\\alpha^{-1}$；</p><div class=\"math-display\">$$\n\\gamma(\\alpha+\\beta)=\\gamma\\alpha+\\gamma\\beta.\n$$</div><p>证明抓手：全部把复数写成 $a+bi$ 后化为实数运算性质。</p><p><strong>$F^n$ 的坐标运算性质。</strong><br />对 $x,y,z\\in F^n$ 与 $a,b\\in F$：</p><div class=\"math-display\">$$\nx+y=y+x,\\qquad (x+y)+z=x+(y+z),\n$$</div><div class=\"math-display\">$$\nx+0=x,\\qquad x+(-x)=0,\n$$</div><div class=\"math-display\">$$\n(ab)x=a(bx),\\qquad 1x=x,\n$$</div><div class=\"math-display\">$$\na(x+y)=ax+ay,\\qquad (a+b)x=ax+bx.\n$$</div><p>证明抓手：逐坐标验证，每个坐标都回到 $F$ 中的运算性质。</p><h5 id=\"定理与证明\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明\" data-heading-id=\"定理与证明\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>1.3 复数的算术性质。</strong>  <br />复数加法和乘法满足交换律、结合律、单位元、加法逆元、非零乘法逆元和分配律。</p><p>证明：把 $\\alpha=a+bi$、$\\beta=c+di$、$\\gamma=e+fi$ 展开，逐项使用实数运算性质。例如</p><div class=\"math-display\">$$\n(a+bi)(c+di)=(ac-bd)+(ad+bc)i\n$$</div><p>与</p><div class=\"math-display\">$$\n(c+di)(a+bi)=(ca-db)+(cb+da)i\n$$</div><p>相等，故乘法交换。其余性质同理。</p><p><strong>1.14 $F^n$ 中加法可交换。</strong>  <br />若 $x,y\\in F^n$，则 $x+y=y+x$。</p><p>证明：设 $x=(x_1,\\dots,x_n)$，$y=(y_1,\\dots,y_n)$。按坐标加法，</p><div class=\"math-display\">$$\nx+y=(x_1+y_1,\\dots,x_n+y_n)=(y_1+x_1,\\dots,y_n+x_n)=y+x.\n$$</div><h5 id=\"例题\">例题<a class=\"heading-anchor\" href=\"#例题\" data-heading-id=\"例题\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例 1：计算复数乘法。</strong></p><div class=\"math-display\">$$\n(2+3i)(4+5i)=8+10i+12i+15i^2=-7+22i.\n$$</div><p><strong>例 2：判断是否存在 $\\lambda\\in\\mathbb C$ 使</strong></p><div class=\"math-display\">$$\n\\lambda(1,i)=(i,-1).\n$$</div><p>由第一坐标得 $\\lambda=i$；第二坐标为 $i\\cdot i=-1$，成立。因此存在，且 $\\lambda=i$。</p><h4 id=\"1b-向量空间的定义\">1B 向量空间的定义<a class=\"heading-anchor\" href=\"#1b-向量空间的定义\" data-heading-id=\"1b-向量空间的定义\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-2\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-2\" data-heading-id=\"定义与对象-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>加法与标量乘法。</strong>  <br />集合 $V$ 上的加法把 $u,v\\in V$ 送到 $u+v\\in V$；标量乘法把 $\\lambda\\in F$ 与 $v\\in V$ 送到 $\\lambda v\\in V$。</p><p><strong>向量空间。</strong>  <br />$V$ 是 $F$ 上的向量空间，指 $V$ 带有加法和标量乘法，满足：</p><ul><li>加法交换律：$u+v=v+u$；</li><li>加法结合律：$(u+v)+w=u+(v+w)$；</li><li>存在加法恒等元 $0$；</li><li>每个 $v$ 存在加法逆元；</li><li>标量乘法结合律：$(ab)v=a(bv)$；</li><li>乘法恒等元：$1v=v$；</li><li>分配律：$a(u+v)=au+av$，$(a+b)v=av+bv$。</li></ul><p><strong>向量、点、实向量空间、复向量空间。</strong>  <br />向量空间的元素称为向量或点。$\\mathbb R$ 上的向量空间称为实向量空间；$\\mathbb C$ 上的向量空间称为复向量空间。</p><p><strong>函数空间 $F^S$。</strong>  <br />若 $S$ 是集合，则</p><div class=\"math-display\">$$\nF^S=\\{f:S\\to F\\}.\n$$</div><p>加法和标量乘法逐点定义：</p><div class=\"math-display\">$$\n(f+g)(x)=f(x)+g(x),\\qquad\n(\\lambda f)(x)=\\lambda f(x).\n$$</div><p>因此函数也可以作为向量。</p><p><strong>多项式空间的雏形。</strong>  <br />所有 $F$ 系数多项式构成向量空间；后续有限维子空间 $\\mathcal P_m(F)$ 是次数不超过 $m$ 的多项式全体。</p><h5 id=\"常用性质-2\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-2\" data-heading-id=\"常用性质-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"向量空间中的派生性质\">向量空间中的派生性质<a class=\"heading-anchor\" href=\"#向量空间中的派生性质\" data-heading-id=\"向量空间中的派生性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>向量空间公理推出：</p><div class=\"math-display\">$$\n0\\text{ 唯一},\\qquad -v\\text{ 唯一},\n$$</div><div class=\"math-display\">$$\n0v=0,\\qquad a0=0,\\qquad (-1)v=-v.\n$$</div><p>常用消去律：若 $u+w=v+w$，则 $u=v$。证明是在等式两边加上 $-w$。</p><h5 id=\"定理与证明-2\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-2\" data-heading-id=\"定理与证明-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>1.26 加法恒等元唯一。</strong>  <br />若 $0$ 和 $0&#039;$ 都是零元，则</p><div class=\"math-display\">$$\n0=0+0&#039;=0&#039;.\n$$</div><p><strong>1.27 加法逆元唯一。</strong>  <br />若 $w,w&#039;$ 都满足 $v+w=0$ 与 $v+w&#039;=0$，则</p><div class=\"math-display\">$$\nw=w+0=w+(v+w&#039;)=(w+v)+w&#039;=0+w&#039;=w&#039;.\n$$</div><p><strong>1.30 向量与数 $0$ 相乘。</strong>  <br />对任意 $v\\in V$，</p><div class=\"math-display\">$$\n0v=0.\n$$</div><p>证明：</p><div class=\"math-display\">$$\n0v=(0+0)v=0v+0v.\n$$</div><p>两边加上 $0v$ 的加法逆元，得 $0=0v$。</p><p><strong>1.31 数与零向量相乘。</strong>  <br />对任意 $a\\in F$，</p><div class=\"math-display\">$$\na0=0.\n$$</div><p>证明：</p><div class=\"math-display\">$$\na0=a(0+0)=a0+a0.\n$$</div><p>消去一项 $a0$ 即得。</p><p><strong>1.32 向量与数 $-1$ 相乘。</strong></p><div class=\"math-display\">$$\n(-1)v=-v.\n$$</div><p>证明：</p><div class=\"math-display\">$$\nv+(-1)v=1v+(-1)v=(1-1)v=0v=0.\n$$</div><p>所以 $(-1)v$ 是 $v$ 的加法逆元。</p><h5 id=\"例题-2\">例题<a class=\"heading-anchor\" href=\"#例题-2\" data-heading-id=\"例题-2\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：$C[0,1]$ 是向量空间。</strong>  <br />所有 $[0,1]$ 上连续实值函数在逐点加法与数乘下构成实向量空间。关键是连续函数之和仍连续，连续函数的标量倍仍连续。</p><h4 id=\"1c-子空间\">1C 子空间<a class=\"heading-anchor\" href=\"#1c-子空间\" data-heading-id=\"1c-子空间\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-3\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-3\" data-heading-id=\"定义与对象-3\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>子空间。</strong>  <br />若 $U\\subseteq V$ 且 $U$ 在继承的加法和标量乘法下本身是向量空间，则 $U$ 是 $V$ 的子空间。</p><p><strong>子空间的和。</strong>  <br />若 $U_1,\\dots,U_m$ 是 $V$ 的子空间，则</p><div class=\"math-display\">$$\nU_1+\\cdots+U_m\n=\\{u_1+\\cdots+u_m:u_j\\in U_j\\}.\n$$</div><p><strong>直和。</strong>  <br />若 $U_1+\\cdots+U_m$ 中每个向量都能唯一写成 $u_1+\\cdots+u_m$，则称这个和为直和，记为</p><div class=\"math-display\">$$\nU_1\\oplus\\cdots\\oplus U_m.\n$$</div><h5 id=\"常用性质-3\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-3\" data-heading-id=\"常用性质-3\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"子空间与直和性质\">子空间与直和性质<a class=\"heading-anchor\" href=\"#子空间与直和性质\" data-heading-id=\"子空间与直和性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>子空间快速判别。</strong><br />非空子集 $U$ 是子空间，当且仅当它对任意线性组合封闭：</p><div class=\"math-display\">$$\nu,w\\in U,\\ a,b\\in F\\Rightarrow au+bw\\in U.\n$$</div><p><strong>交与和。</strong><br />任意一族子空间的交仍是子空间；有限个子空间的和是包含它们的最小子空间。证明分别用“共同满足封闭性”和“所有子空间必须包含所有线性组合”。</p><p><strong>两个子空间直和。</strong></p><div class=\"math-display\">$$\nU+W=U\\oplus W\n\\Longleftrightarrow\nU\\cap W=\\{0\\}.\n$$</div><p>多子空间情形则用零向量表示唯一判别。</p><h5 id=\"定理与证明-3\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-3\" data-heading-id=\"定理与证明-3\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>1.34 子空间判别法。</strong>  <br />非空子集 $U\\subseteq V$ 是子空间，当且仅当对任意 $u,w\\in U$ 与 $a,b\\in F$，</p><div class=\"math-display\">$$\nau+bw\\in U.\n$$</div><p>证明：若 $U$ 是子空间，则线性组合封闭。反过来，取 $a=b=1$ 得加法封闭，取 $b=0$ 得数乘封闭；再由非空取 $u\\in U$，有 $0u=0\\in U$。</p><p><strong>1.40 子空间之和是包含它们的最小子空间。</strong>  <br />$U_1+\\cdots+U_m$ 是子空间，且它是包含所有 $U_j$ 的最小子空间。</p><p>证明：线性组合封闭性来自各 $U_j$ 的封闭性。任一包含所有 $U_j$ 的子空间必须包含所有 $u_1+\\cdots+u_m$。</p><p><strong>1.45 直和判别法。</strong>  <br />$U_1+\\cdots+U_m$ 是直和，当且仅当零向量只有一种表示：</p><div class=\"math-display\">$$\n0=u_1+\\cdots+u_m,\\quad u_j\\in U_j\n\\Rightarrow u_1=\\cdots=u_m=0.\n$$</div><p>证明：唯一表示显然推出零表示唯一。反过来，若 $u_1+\\cdots+u_m=v_1+\\cdots+v_m$，相减得</p><div class=\"math-display\">$$\n0=(u_1-v_1)+\\cdots+(u_m-v_m),\n$$</div><p>零表示唯一推出每项相等。</p><p><strong>1.46 两个子空间的直和。</strong></p><div class=\"math-display\">$$\nU+W\\text{ 是直和}\\Longleftrightarrow U\\cap W=\\{0\\}.\n$$</div><p>证明：若 $u+w=0$，则 $u=-w\\in U\\cap W$。交只有零时 $u=w=0$。反向取 $x\\in U\\cap W$，则 $0=x+(-x)$ 是零的一种表示，直和性推出 $x=0$。</p><h5 id=\"例题-3\">例题<a class=\"heading-anchor\" href=\"#例题-3\" data-heading-id=\"例题-3\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：齐次线性方程定义子空间。</strong></p><div class=\"math-display\">$$\nU=\\{(x,y,z)\\in F^3:x+y+z=0\\}\n$$</div><p>是子空间，因为若 $u,w$ 都满足坐标和为 $0$，则 $au+bw$ 的坐标和也是 $0$。  <br />相反，</p><div class=\"math-display\">$$\n\\{(x,y,z):x+y+z=1\\}\n$$</div><p>不是子空间，因为不含零向量。</p><h4 id=\"第-2-章-有限维向量空间\">第 2 章 有限维向量空间<a class=\"heading-anchor\" href=\"#第-2-章-有限维向量空间\" data-heading-id=\"第-2-章-有限维向量空间\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"2a-张成空间和线性无关性\">2A 张成空间和线性无关性<a class=\"heading-anchor\" href=\"#2a-张成空间和线性无关性\" data-heading-id=\"2a-张成空间和线性无关性\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-4\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-4\" data-heading-id=\"定义与对象-4\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>向量组。</strong>  <br />向量组是按顺序排列的一列向量 $v_1,\\dots,v_m$，允许重复。</p><p><strong>线性组合。</strong></p><div class=\"math-display\">$$\na_1v_1+\\cdots+a_mv_m\n$$</div><p>称为 $v_1,\\dots,v_m$ 的线性组合。</p><p><strong>张成空间。</strong></p><div class=\"math-display\">$$\n\\operatorname{span}(v_1,\\dots,v_m)\n=\\{a_1v_1+\\cdots+a_mv_m:a_j\\in F\\}.\n$$</div><p><strong>张成。</strong>  <br />若 $\\operatorname{span}(v_1,\\dots,v_m)=V$，称该向量组张成 $V$。</p><p><strong>有限维与无限维。</strong>  <br />若 $V$ 可由有限个向量张成，则 $V$ 有限维；否则无限维。</p><p><strong>多项式空间。</strong>  <br />$\\mathcal P(F)$ 为所有 $F$ 系数多项式；$\\mathcal P_m(F)$ 为次数不超过 $m$ 的多项式与零多项式。</p><p><strong>线性无关与线性相关。</strong>  <br />$v_1,\\dots,v_m$ 线性无关，指</p><div class=\"math-display\">$$\na_1v_1+\\cdots+a_mv_m=0\n\\Rightarrow a_1=\\cdots=a_m=0.\n$$</div><p>否则线性相关。</p><h5 id=\"常用性质-4\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-4\" data-heading-id=\"常用性质-4\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"张成与线性无关的常用性质\">张成与线性无关的常用性质<a class=\"heading-anchor\" href=\"#张成与线性无关的常用性质\" data-heading-id=\"张成与线性无关的常用性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>张成空间性质。</strong></p><div class=\"math-display\">$$\n\\operatorname{span}()=\\{0\\}.\n$$</div><p>若 $v_j\\in\\operatorname{span}(u_1,\\dots,u_m)$ 对所有 $j$ 成立，则</p><div class=\"math-display\">$$\n\\operatorname{span}(v_1,\\dots,v_n)\\subseteq\\operatorname{span}(u_1,\\dots,u_m).\n$$</div><p>若两个向量组可以相互表示，则张成空间相同。</p><p><strong>线性无关/相关速查。</strong><br />空组线性无关；单向量组 $v$ 线性无关当且仅当 $v\\ne0$；含零向量的向量组必线性相关；若某个向量是前面向量的线性组合，则整个组线性相关。</p><p><strong>有限维判断。</strong><br />$F^n$ 有限维，$\\mathcal P_m(F)$ 有限维；$\\mathcal P(F)$ 无限维。证明 $\\mathcal P(F)$ 无限维时，用 $1,z,\\dots,z^m$ 可构造任意长线性无关组。</p><h5 id=\"定理与证明-4\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-4\" data-heading-id=\"定理与证明-4\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>2.6 张成空间是最小子空间。</strong>  <br />$\\operatorname{span}(v_1,\\dots,v_m)$ 是包含这些向量的最小子空间。</p><p>证明：线性组合的线性组合仍是线性组合，所以它是子空间。任何包含所有 $v_j$ 的子空间都必须包含所有线性组合。</p><p><strong>2.19 线性相关性引理。</strong>  <br />若 $v_1,\\dots,v_m$ 线性相关，则存在 $k$ 使</p><div class=\"math-display\">$$\nv_k\\in\\operatorname{span}(v_1,\\dots,v_{k-1}),\n$$</div><p>并且删去这个 $v_k$ 后张成空间不变。</p><p>证明：取非平凡关系 $\\sum a_jv_j=0$。令 $k$ 为最大且 $a_k\\ne0$ 的下标，则</p><div class=\"math-display\">$$\nv_k=-a_k^{-1}(a_1v_1+\\cdots+a_{k-1}v_{k-1}).\n$$</div><p>所以所有含 $v_k$ 的线性组合都可改写为不含 $v_k$ 的线性组合。</p><p><strong>2.22 线性无关组长度不超过张成组长度。</strong>  <br />若 $u_1,\\dots,u_m$ 线性无关，$w_1,\\dots,w_n$ 张成 $V$，则 $m\\le n$。</p><p>证明：把 $u_j$ 逐个加入 $w$ 组。每加入一个 $u_j$，线性相关性引理允许删去一个原来的 $w$ 而保持张成。若 $m&gt;n$，最终会得到由 $u_1,\\dots,u_m$ 中某些向量组成的张成组，迫使它们线性相关，矛盾。</p><p><strong>2.25 有限维空间的子空间有限维。</strong>  <br />若 $V$ 有限维且 $U\\subseteq V$，则 $U$ 有限维。</p><p>证明：在 $U$ 中不断选取线性无关向量。长度不能超过 $V$ 的张成组长度，所以过程有限终止；终止时所得组张成 $U$。</p><h5 id=\"例题-4\">例题<a class=\"heading-anchor\" href=\"#例题-4\" data-heading-id=\"例题-4\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：求齐次方程 $x+y+z=0$ 的张成表示。</strong>  <br />令 $y=s,z=t$，则</p><div class=\"math-display\">$$\n(x,y,z)=s(-1,1,0)+t(-1,0,1).\n$$</div><p>因此解空间由 $(-1,1,0)$ 和 $(-1,0,1)$ 张成。</p><h4 id=\"2b-基\">2B 基<a class=\"heading-anchor\" href=\"#2b-基\" data-heading-id=\"2b-基\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-5\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-5\" data-heading-id=\"定义与对象-5\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>基。</strong>  <br />向量组 $v_1,\\dots,v_n$ 若线性无关且张成 $V$，则称为 $V$ 的一组基。</p><p><strong>坐标。</strong>  <br />若 $v_1,\\dots,v_n$ 是基，则每个 $v\\in V$ 唯一写成</p><div class=\"math-display\">$$\nv=a_1v_1+\\cdots+a_nv_n.\n$$</div><p>这些 $a_j$ 就是 $v$ 在该基下的坐标。</p><h5 id=\"常用性质-5\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-5\" data-heading-id=\"常用性质-5\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"基的性质\">基的性质<a class=\"heading-anchor\" href=\"#基的性质\" data-heading-id=\"基的性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>基同时承担两个功能：张成保证“存在坐标”，线性无关保证“坐标唯一”。  <br />若从张成组删去一个可由其他向量表示的向量，张成空间不变；若向线性无关组加入一个不在其张成空间中的向量，新组仍线性无关。</p><h5 id=\"定理与证明-5\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-5\" data-heading-id=\"定理与证明-5\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>2.28 基的判定准则。</strong>  <br />$v_1,\\dots,v_n$ 是 $V$ 的基，当且仅当每个 $v\\in V$ 都能唯一写成 $\\sum a_jv_j$。</p><p>证明：基给出存在性和唯一性；唯一性反过来推出张成，且零向量只有全零表示，推出线性无关。</p><p><strong>2.30 每个张成组都包含一个基。</strong>  <br />证明：若张成组线性相关，按线性相关性引理删去多余向量且不改变张成空间；反复直到线性无关。</p><p><strong>2.31 有限维向量空间的基。</strong>  <br />每个有限维向量空间都有基。</p><p>证明：有限维给出有限张成组；由 2.30 从中取出基。</p><p><strong>2.32 每个线性无关组都可扩充成基。</strong>  <br />证明：把一个有限张成组接在线性无关组后面，得到张成组；再删去多余向量，但不删去原线性无关组。</p><p><strong>2.33 每个子空间都有补空间。</strong>  <br />若 $U\\subseteq V$ 且 $V$ 有限维，则存在 $W$ 使</p><div class=\"math-display\">$$\nV=U\\oplus W.\n$$</div><p>证明：取 $U$ 的基，扩充为 $V$ 的基；新增基向量张成的空间就是 $W$。</p><h5 id=\"例题-5\">例题<a class=\"heading-anchor\" href=\"#例题-5\" data-heading-id=\"例题-5\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：$\\mathcal P_2(F)$ 的标准基。</strong></p><div class=\"math-display\">$$\n1,\\ z,\\ z^2\n$$</div><p>线性无关并张成所有二次及以下多项式，因此是 $\\mathcal P_2(F)$ 的基。</p><h4 id=\"2c-维数\">2C 维数<a class=\"heading-anchor\" href=\"#2c-维数\" data-heading-id=\"2c-维数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-6\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-6\" data-heading-id=\"定义与对象-6\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>维数。</strong>  <br />有限维向量空间 $V$ 的任一基长度称为 $\\dim V$。零空间 $\\{0\\}$ 的基为空组，因此维数为 $0$。</p><h5 id=\"常用性质-6\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-6\" data-heading-id=\"常用性质-6\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"维数性质\">维数性质<a class=\"heading-anchor\" href=\"#维数性质\" data-heading-id=\"维数性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>常用维数：</p><div class=\"math-display\">$$\n\\dim F^n=n,\\qquad \\dim \\mathcal P_m(F)=m+1,\\qquad \\dim F^{m,n}=mn.\n$$</div><p>长度判别：</p><ul><li>在 $n$ 维空间中，超过 $n$ 个向量必线性相关；</li><li>在 $n$ 维空间中，少于 $n$ 个向量不能张成全空间；</li><li>长度为 $n$ 的线性无关组自动是基；</li><li>长度为 $n$ 的张成组自动是基。</li></ul><p>子空间维数公式：</p><div class=\"math-display\">$$\n\\dim(U\\oplus W)=\\dim U+\\dim W,\n$$</div><div class=\"math-display\">$$\n\\dim(U+W)=\\dim U+\\dim W-\\dim(U\\cap W).\n$$</div><h5 id=\"定理与证明-6\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-6\" data-heading-id=\"定理与证明-6\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>2.34 基的长度不依赖于基的选取。</strong>  <br />证明：若 $B_1,B_2$ 都是基，则 $B_1$ 线性无关、$B_2$ 张成，故 $|B_1|\\le |B_2|$；反向同理。</p><p><strong>2.37 子空间的维数。</strong>  <br />若 $U\\subseteq V$，则</p><div class=\"math-display\">$$\n\\dim U\\le \\dim V.\n$$</div><p>若维数相等，则 $U=V$。</p><p>证明：$U$ 的基在 $V$ 中线性无关，所以长度不超过 $V$ 的基长度。若相等，则这组基也是 $V$ 的基。</p><p><strong>2.38 长度恰当的线性无关组是基。</strong>  <br />若 $\\dim V=n$，且 $v_1,\\dots,v_n$ 线性无关，则它们是基。</p><p>证明：可扩充为基，但基长度已是 $n$，所以无需扩充。</p><p><strong>2.39 同维子空间等于整体。</strong>  <br />若 $U\\subseteq V$ 且 $\\dim U=\\dim V&lt;\\infty$，则 $U=V$。</p><p>证明：由 2.37 的等号情形。</p><p><strong>2.42 长度恰当的张成组是基。</strong>  <br />若 $\\dim V=n$，且 $v_1,\\dots,v_n$ 张成 $V$，则它们是基。</p><p>证明：张成组可删成基；若原组相关，则可删掉至少一个，得到长度小于 $n$ 的基，矛盾。</p><p><strong>2.43 子空间和的维数公式。</strong></p><div class=\"math-display\">$$\n\\dim(U+W)=\\dim U+\\dim W-\\dim(U\\cap W).\n$$</div><p>证明：取 $U\\cap W$ 的基，分别扩充成 $U$ 和 $W$ 的基。把交的基和两边新增向量合并，可验证为 $U+W$ 的基；计数得公式。</p><h5 id=\"例题-6\">例题<a class=\"heading-anchor\" href=\"#例题-6\" data-heading-id=\"例题-6\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：两个平面在三维空间中的交。</strong>  <br />若 $U,W$ 是 $\\mathbb R^3$ 中两个不同二维子空间，则</p><div class=\"math-display\">$$\n\\dim(U+W)\\le3.\n$$</div><p>由维数公式，</p><div class=\"math-display\">$$\n\\dim(U\\cap W)=2+2-\\dim(U+W)\\ge1.\n$$</div><p>所以两个过原点的平面至少交于一条直线。</p><h4 id=\"第-3-章-线性映射\">第 3 章 线性映射<a class=\"heading-anchor\" href=\"#第-3-章-线性映射\" data-heading-id=\"第-3-章-线性映射\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"3a-线性映射的向量空间\">3A 线性映射的向量空间<a class=\"heading-anchor\" href=\"#3a-线性映射的向量空间\" data-heading-id=\"3a-线性映射的向量空间\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-7\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-7\" data-heading-id=\"定义与对象-7\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>线性映射。</strong>  <br />$T:V\\to W$ 线性，指</p><div class=\"math-display\">$$\nT(u+v)=Tu+Tv,\\qquad T(\\lambda v)=\\lambda Tv.\n$$</div><p>等价地，</p><div class=\"math-display\">$$\nT(au+bv)=aTu+bTv.\n$$</div><p><strong>线性映射空间。</strong>  <br />所有从 $V$ 到 $W$ 的线性映射构成集合 $\\mathcal L(V,W)$。若 $V=W$，记为 $\\mathcal L(V)$，其中元素称为算子。</p><p><strong>线性映射的和、标量倍、乘积。</strong></p><div class=\"math-display\">$$\n(S+T)v=Sv+Tv,\\qquad\n(\\lambda T)v=\\lambda Tv,\n$$</div><p>若 $T:U\\to V$，$S:V\\to W$，则乘积 $ST$ 指复合：</p><div class=\"math-display\">$$\n(ST)u=S(Tu).\n$$</div><h5 id=\"常用性质-7\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-7\" data-heading-id=\"常用性质-7\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"线性映射运算性质\">线性映射运算性质<a class=\"heading-anchor\" href=\"#线性映射运算性质\" data-heading-id=\"线性映射运算性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>对可复合的线性映射：</p><div class=\"math-display\">$$\nR(ST)=(RS)T,\n$$</div><div class=\"math-display\">$$\nS(T_1+T_2)=ST_1+ST_2,\\qquad (S_1+S_2)T=S_1T+S_2T,\n$$</div><div class=\"math-display\">$$\n(\\lambda S)T=S(\\lambda T)=\\lambda(ST).\n$$</div><p>恒等映射满足 $TI=IT=T$。一般 $ST\\ne TS$。</p><h5 id=\"定理与证明-7\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-7\" data-heading-id=\"定理与证明-7\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>3.4 线性映射引理。</strong>  <br />给定 $V$ 的基 $v_1,\\dots,v_n$ 和任意 $w_1,\\dots,w_n\\in W$，存在唯一 $T\\in\\mathcal L(V,W)$ 使 $Tv_j=w_j$。</p><p>证明：对 $v=\\sum a_jv_j$ 定义 $Tv=\\sum a_jw_j$。基表示唯一保证定义良好；线性性直接验证；唯一性来自线性映射由基向量上的取值决定。</p><p><strong>3.6 $\\mathcal L(V,W)$ 是向量空间。</strong>  <br />证明：线性映射的和与标量倍仍线性，向量空间公理逐点继承自 $W$。</p><p><strong>3.8 线性映射乘积的代数性质。</strong>  <br />复合满足结合律，并对加法分配；一般不交换。</p><p>证明：结合律来自函数复合；分配律来自线性性。不可交换可用微分 $D$ 与乘以 $x$ 的算子举例：$D(xp)=p+xDp$，而 $xDp$ 没有 $p$ 项。</p><p><strong>3.10 线性映射将 $0$ 映射为 $0$。</strong></p><div class=\"math-display\">$$\nT0=T(0+0)=T0+T0.\n$$</div><p>消去一项得 $T0=0$。</p><h5 id=\"例题-7\">例题<a class=\"heading-anchor\" href=\"#例题-7\" data-heading-id=\"例题-7\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：微分映射。</strong>  <br />$D:\\mathcal P_3(\\mathbb R)\\to\\mathcal P_2(\\mathbb R)$，$Dp=p&#039;$ 是线性映射，因为导数满足加法和数乘规则。</p><h4 id=\"3b-零空间和值域\">3B 零空间和值域<a class=\"heading-anchor\" href=\"#3b-零空间和值域\" data-heading-id=\"3b-零空间和值域\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-8\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-8\" data-heading-id=\"定义与对象-8\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>零空间。</strong></p><div class=\"math-display\">$$\n\\operatorname{null}T=\\{v\\in V:Tv=0\\}.\n$$</div><p><strong>单射。</strong>  <br />$T$ 单射，指 $Tu=Tv\\Rightarrow u=v$。</p><p><strong>值域。</strong></p><div class=\"math-display\">$$\n\\operatorname{range}T=\\{Tv:v\\in V\\}.\n$$</div><p><strong>满射。</strong>  <br />$T$ 满射，指 $\\operatorname{range}T=W$。</p><h5 id=\"常用性质-8\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-8\" data-heading-id=\"常用性质-8\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"零空间-值域-方程组性质\">零空间、值域、方程组性质<a class=\"heading-anchor\" href=\"#零空间-值域-方程组性质\" data-heading-id=\"零空间-值域-方程组性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\nT\\text{ 单射}\\Longleftrightarrow \\operatorname{null}T=\\{0\\},\n$$</div><div class=\"math-display\">$$\nT\\text{ 满射}\\Longleftrightarrow \\operatorname{range}T=W.\n$$</div><p>若 $T:V\\to W$ 且 $V$ 有限维：</p><div class=\"math-display\">$$\n\\dim\\operatorname{null}T+\\dim\\operatorname{range}T=\\dim V.\n$$</div><p>矩阵语言中，若 $A$ 有 $n$ 列，则</p><div class=\"math-display\">$$\n\\dim\\operatorname{null}A+\\operatorname{rank}A=n.\n$$</div><p>齐次方程 $Ax=0$ 的自由度就是 $\\dim\\operatorname{null}A$。</p><h5 id=\"定理与证明-8\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-8\" data-heading-id=\"定理与证明-8\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>3.13 零空间是子空间。</strong>  <br />若 $u,w\\in\\operatorname{null}T$，则</p><div class=\"math-display\">$$\nT(au+bw)=aTu+bTw=0.\n$$</div><p><strong>3.15 单射等价于零空间为 $\\{0\\}$。</strong>  <br />若 $T$ 单射，$Tv=0=T0$ 推出 $v=0$。反过来，若 $Tu=Tv$，则 $T(u-v)=0$，由零空间为 $\\{0\\}$ 得 $u=v$。</p><p><strong>3.18 值域是子空间。</strong>  <br />若 $y_1=Tu,\\ y_2=Tv$，则</p><div class=\"math-display\">$$\nay_1+by_2=T(au+bv)\\in\\operatorname{range}T.\n$$</div><p><strong>3.21 线性映射基本定理。</strong>  <br />若 $V$ 有限维，$T\\in\\mathcal L(V,W)$，则</p><div class=\"math-display\">$$\n\\dim V=\\dim\\operatorname{null}T+\\dim\\operatorname{range}T.\n$$</div><p>证明：取 $\\operatorname{null}T$ 的基 $u_1,\\dots,u_m$，扩充为 $V$ 的基</p><div class=\"math-display\">$$\nu_1,\\dots,u_m,v_1,\\dots,v_k.\n$$</div><p>证明 $Tv_1,\\dots,Tv_k$ 是 $\\operatorname{range}T$ 的基。张成性来自任意向量可按扩充基表示；线性无关性来自若 $\\sum a_jTv_j=0$，则 $\\sum a_jv_j\\in\\operatorname{null}T$，再用扩充基无关性。</p><p><strong>3.22 映到更低维空间上的线性映射不是单射。</strong>  <br />若 $\\dim V&gt;\\dim W$，则 $T:V\\to W$ 不单射。</p><p>证明：若单射，则 $\\dim\\operatorname{null}T=0$，基本定理给出 $\\dim\\operatorname{range}T=\\dim V&gt;\\dim W$，矛盾。</p><p><strong>3.24 映到更高维空间上的线性映射不是满射。</strong>  <br />若 $\\dim V&lt;\\dim W$，则 $T:V\\to W$ 不满射。</p><p>证明：$\\dim\\operatorname{range}T\\le\\dim V&lt;\\dim W$。</p><p><strong>3.26 齐次线性方程组。</strong>  <br />未知数个数多于方程个数时，齐次方程必有非零解。</p><p>证明：把方程写成 $T:F^n\\to F^m$。若 $n&gt;m$，则 $T$ 不单射，故零空间有非零向量。</p><p><strong>3.28 方程个数多于未知数个数时，不是所有非齐次方程都有解。</strong>  <br />证明：若 $m&gt;n$，$T:F^n\\to F^m$ 不满射，所以存在 $b\\notin\\operatorname{range}T$。</p><h5 id=\"例题-8\">例题<a class=\"heading-anchor\" href=\"#例题-8\" data-heading-id=\"例题-8\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：求零空间与值域。</strong>  <br />$T:\\mathbb R^3\\to\\mathbb R^2$，</p><div class=\"math-display\">$$\nT(x,y,z)=(x+y,y+z).\n$$</div><p>零空间满足 $x+y=0,\\ y+z=0$，故</p><div class=\"math-display\">$$\n\\operatorname{null}T=\\operatorname{span}((-1,1,-1)).\n$$</div><p>由基本定理，值域维数为 $3-1=2$，所以 $\\operatorname{range}T=\\mathbb R^2$。</p><h4 id=\"3c-矩阵\">3C 矩阵<a class=\"heading-anchor\" href=\"#3c-矩阵\" data-heading-id=\"3c-矩阵\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-9\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-9\" data-heading-id=\"定义与对象-9\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>矩阵。</strong>  <br />$m\\times n$ 矩阵是按 $m$ 行 $n$ 列排列的标量数组，元素记为 $A_{j,k}$。</p><p><strong>线性映射的矩阵。</strong>  <br />给定 $V$ 的基 $v_1,\\dots,v_n$ 和 $W$ 的基 $w_1,\\dots,w_m$，$M(T)$ 的第 $k$ 列是 $Tv_k$ 在 $W$ 的基下的坐标。</p><p><strong>矩阵加法、标量乘法、矩阵乘法。</strong>  <br />加法与标量乘法逐元素定义；矩阵乘法由线性映射复合推动：</p><div class=\"math-display\">$$\n(AC)_{j,k}=\\sum_r A_{j,r}C_{r,k}.\n$$</div><p><strong>列秩、行秩、秩。</strong>  <br />列秩是列向量张成空间的维数；行秩类似。二者相等，公共值称为矩阵的秩。</p><h5 id=\"常用性质-9\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-9\" data-heading-id=\"常用性质-9\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"矩阵运算性质\">矩阵运算性质<a class=\"heading-anchor\" href=\"#矩阵运算性质\" data-heading-id=\"矩阵运算性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>矩阵加法和数乘逐元素进行，满足向量空间公理。矩阵乘法满足：</p><div class=\"math-display\">$$\nA(BC)=(AB)C,\n$$</div><div class=\"math-display\">$$\nA(B+C)=AB+AC,\\qquad (A+B)C=AC+BC,\n$$</div><p>但一般 $AB\\ne BA$。</p><p>转置性质：</p><div class=\"math-display\">$$\n(A+B)^t=A^t+B^t,\\qquad (\\lambda A)^t=\\lambda A^t,\n$$</div><div class=\"math-display\">$$\n(AB)^t=B^tA^t.\n$$</div><p>秩性质：</p><div class=\"math-display\">$$\n\\operatorname{columnrank}A=\\operatorname{rowrank}A=\\operatorname{rank}A.\n$$</div><p>列秩是线性映射值域维数；行秩可通过对偶映射或转置理解。</p><h5 id=\"定理与证明-9\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-9\" data-heading-id=\"定理与证明-9\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>3.35、3.38 线性映射加法和标量倍的矩阵。</strong></p><div class=\"math-display\">$$\nM(S+T)=M(S)+M(T),\\qquad M(\\lambda T)=\\lambda M(T).\n$$</div><p>证明：逐列比较基向量的像。</p><p><strong>3.40 矩阵空间维数。</strong></p><div class=\"math-display\">$$\n\\dim F^{m,n}=mn.\n$$</div><p>证明：矩阵单位 $E_{j,k}$ 构成一组基，共 $mn$ 个。</p><p><strong>3.43 线性映射之积的矩阵。</strong></p><div class=\"math-display\">$$\nM(ST)=M(S)M(T).\n$$</div><p>证明：对每个基向量 $v_k$，先用 $M(T)$ 得到 $Tv_k$ 的坐标，再用 $M(S)$ 得到 $S(Tv_k)$ 的坐标。</p><p><strong>3.46 矩阵之积的元素等于行乘以列。</strong>  <br />直接由乘法定义：</p><div class=\"math-display\">$$\n(AC)_{j,k}=\\sum_r A_{j,r}C_{r,k}.\n$$</div><p><strong>3.48 矩阵之积的列。</strong>  <br />$AC$ 的第 $k$ 列等于 $A$ 乘以 $C$ 的第 $k$ 列。证明：逐元素展开即可。</p><p><strong>3.51 矩阵乘法可看作列或行的线性组合。</strong>  <br />$A x$ 是 $A$ 的列按 $x$ 的坐标线性组合。证明：展开 $Ax$ 的第 $j$ 个元素。</p><p><strong>3.56 行列分解。</strong>  <br />矩阵可写成若干“列向量 $\\times$ 行向量”的和。</p><p>证明：按列分解：</p><div class=\"math-display\">$$\nA=\\sum_{k=1}^n A_{\\cdot,k}e_k^t.\n$$</div><p><strong>3.57 列秩等于行秩。</strong>  <br />证明：可由对偶映射矩阵为转置推出；列秩是 $\\dim\\operatorname{range}T$，行秩是 $\\dim\\operatorname{range}T&#039;$，二者相等。</p><h5 id=\"例题-9\">例题<a class=\"heading-anchor\" href=\"#例题-9\" data-heading-id=\"例题-9\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：微分映射矩阵。</strong>  <br />取 $\\mathcal P_3$ 基 $1,x,x^2,x^3$，$\\mathcal P_2$ 基 $1,x,x^2$。$D(1)=0,D(x)=1,D(x^2)=2x,D(x^3)=3x^2$，所以</p><div class=\"math-display\">$$\nM(D)=\n\\begin{pmatrix}\n0&amp;1&amp;0&amp;0\\\\\n0&amp;0&amp;2&amp;0\\\\\n0&amp;0&amp;0&amp;3\n\\end{pmatrix}.\n$$</div><h4 id=\"3d-可逆性和同构\">3D 可逆性和同构<a class=\"heading-anchor\" href=\"#3d-可逆性和同构\" data-heading-id=\"3d-可逆性和同构\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-10\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-10\" data-heading-id=\"定义与对象-10\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>可逆线性映射。</strong>  <br />$T\\in\\mathcal L(V,W)$ 可逆，指存在 $S\\in\\mathcal L(W,V)$ 使</p><div class=\"math-display\">$$\nST=I_V,\\qquad TS=I_W.\n$$</div><p>$S$ 称为 $T$ 的逆，记为 $T^{-1}$。</p><p><strong>同构。</strong>  <br />若存在可逆线性映射 $V\\to W$，则称 $V$ 与 $W$ 同构。</p><p><strong>向量的矩阵。</strong>  <br />给定基后，$M(v)$ 是 $v$ 在该基下的坐标列向量。</p><p><strong>换基矩阵。</strong>  <br />同一个向量或算子在不同基下有不同坐标，换基矩阵负责坐标转换。</p><h5 id=\"常用性质-10\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-10\" data-heading-id=\"常用性质-10\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"可逆与换基性质\">可逆与换基性质<a class=\"heading-anchor\" href=\"#可逆与换基性质\" data-heading-id=\"可逆与换基性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $S,T$ 可逆，则</p><div class=\"math-display\">$$\n(ST)^{-1}=T^{-1}S^{-1}.\n$$</div><p>同维有限维空间中：</p><div class=\"math-display\">$$\nT\\text{ 单射}\\Longleftrightarrow T\\text{ 满射}\\Longleftrightarrow T\\text{ 可逆}.\n$$</div><p>换基时同一算子的矩阵相似：</p><div class=\"math-display\">$$\nB=P^{-1}AP.\n$$</div><p>因此相似矩阵表示同一个算子在不同基下的样子。</p><h5 id=\"定理与证明-10\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-10\" data-heading-id=\"定理与证明-10\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>3.60 逆唯一。</strong>  <br />若 $S,R$ 都是 $T$ 的逆，则</p><div class=\"math-display\">$$\nS=SI=S(TR)=(ST)R=R.\n$$</div><p><strong>3.63 可逆等价于单射且满射。</strong>  <br />可逆显然推出单射、满射。反过来，若 $T$ 既单又满，则每个 $w\\in W$ 有唯一原像，定义 $T^{-1}w$ 为该原像，并验证线性性。</p><p><strong>3.65 同维有限维空间中单射与满射等价。</strong>  <br />若 $\\dim V=\\dim W&lt;\\infty$，则 $T$ 单射当且仅当满射。</p><p>证明：由基本定理，$\\dim\\operatorname{range}T=\\dim V-\\dim\\operatorname{null}T$。零空间为零等价于值域维数为 $\\dim W$。</p><p><strong>3.68 同维情形下左逆与右逆等价。</strong>  <br />若 $ST=I$，则 $T$ 单射；同维推出 $T$ 可逆，故 $S=T^{-1}$，于是 $TS=I$。反向同理。</p><p><strong>3.70 维数刻画同构。</strong>  <br />有限维空间 $V,W$ 同构，当且仅当</p><div class=\"math-display\">$$\n\\dim V=\\dim W.\n$$</div><p>证明：同构把基送到基，故维数相同。反过来，取两组等长基，把第一组逐个送到第二组，线性映射引理给出同构。</p><p><strong>3.71 $\\mathcal L(V,W)$ 与矩阵空间同构。</strong>  <br />固定基后，$T\\mapsto M(T)$ 是 $\\mathcal L(V,W)$ 到 $F^{m,n}$ 的同构。</p><p><strong>3.72 线性映射空间维数。</strong></p><div class=\"math-display\">$$\n\\dim\\mathcal L(V,W)=(\\dim V)(\\dim W).\n$$</div><p><strong>3.76 线性映射的作用像矩阵乘法。</strong></p><div class=\"math-display\">$$\nM(Tv)=M(T)M(v).\n$$</div><p>证明：将 $v=\\sum a_kv_k$ 代入，右侧正是 $Tv=\\sum a_kTv_k$ 的坐标。</p><p><strong>3.78 值域维数等于矩阵列秩。</strong>  <br />矩阵列向量是 $Tv_k$ 的坐标，它们张成的坐标空间维数就是 $\\dim\\operatorname{range}T$。</p><p><strong>3.84 换基公式。</strong>  <br />若同一算子在旧基下矩阵为 $A$，新基到旧基的换基矩阵为 $P$，则新基下矩阵为</p><div class=\"math-display\">$$\nP^{-1}AP.\n$$</div><p><strong>3.86 逆的矩阵等于矩阵的逆。</strong>  <br />由 $TT^{-1}=I$ 得</p><div class=\"math-display\">$$\nM(T)M(T^{-1})=I.\n$$</div><h5 id=\"例题-10\">例题<a class=\"heading-anchor\" href=\"#例题-10\" data-heading-id=\"例题-10\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：二维旋转是同构。</strong>  <br />旋转 $\\theta$ 角的矩阵</p><div class=\"math-display\">$$\n\\begin{pmatrix}\n\\cos\\theta&amp;-\\sin\\theta\\\\\n\\sin\\theta&amp;\\cos\\theta\n\\end{pmatrix}\n$$</div><p>列向量线性无关，故线性映射单射；同维推出可逆。</p><h4 id=\"3e-向量空间的积和商\">3E 向量空间的积和商<a class=\"heading-anchor\" href=\"#3e-向量空间的积和商\" data-heading-id=\"3e-向量空间的积和商\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-11\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-11\" data-heading-id=\"定义与对象-11\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>向量空间的积。</strong></p><div class=\"math-display\">$$\nV_1\\times\\cdots\\times V_m\n$$</div><p>由有序组 $(v_1,\\dots,v_m)$ 构成，运算逐坐标定义。</p><p><strong>平移。</strong>  <br />若 $U$ 是 $V$ 的子空间，$v+U=\\{v+u:u\\in U\\}$ 称为 $U$ 的平移。</p><p><strong>商空间。</strong></p><div class=\"math-display\">$$\nV/U=\\{v+U:v\\in V\\}.\n$$</div><p><strong>商映射。</strong></p><div class=\"math-display\">$$\n\\pi:V\\to V/U,\\qquad \\pi(v)=v+U.\n$$</div><h5 id=\"常用性质-11\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-11\" data-heading-id=\"常用性质-11\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"商空间性质\">商空间性质<a class=\"heading-anchor\" href=\"#商空间性质\" data-heading-id=\"商空间性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>平移相等判别：</p><div class=\"math-display\">$$\nv+U=w+U\\Longleftrightarrow v-w\\in U.\n$$</div><p>商映射 $\\pi:V\\to V/U$ 满足</p><div class=\"math-display\">$$\n\\operatorname{null}\\pi=U,\\qquad \\operatorname{range}\\pi=V/U.\n$$</div><p>因此</p><div class=\"math-display\">$$\n\\dim(V/U)=\\dim V-\\dim U.\n$$</div><h5 id=\"定理与证明-11\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-11\" data-heading-id=\"定理与证明-11\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>3.89 积空间是向量空间。</strong>  <br />证明：逐坐标验证向量空间公理。</p><p><strong>3.92 积空间维数。</strong></p><div class=\"math-display\">$$\n\\dim(V_1\\times\\cdots\\times V_m)=\\dim V_1+\\cdots+\\dim V_m.\n$$</div><p>证明：把各因子空间的基嵌入对应坐标，合成积空间的基。</p><p><strong>3.93 积与直和。</strong>  <br />若 $V=U_1\\oplus\\cdots\\oplus U_m$，则 $U_1\\times\\cdots\\times U_m$ 与 $V$ 同构。</p><p>证明：映射 $(u_1,\\dots,u_m)\\mapsto u_1+\\cdots+u_m$ 线性，直和保证单射和满射。</p><p><strong>3.94 直和的维数判别。</strong>  <br />有限维时，$U_1+\\cdots+U_m$ 是直和，当且仅当</p><div class=\"math-display\">$$\n\\dim(U_1+\\cdots+U_m)=\\sum_j\\dim U_j.\n$$</div><p><strong>3.101 子空间的两个平移要么相等要么不相交。</strong>  <br />若 $(v+U)\\cap(w+U)\\ne\\varnothing$，则 $v-w\\in U$，从而 $v+U=w+U$。</p><p><strong>3.103 商空间是向量空间。</strong>  <br />定义</p><div class=\"math-display\">$$\n(v+U)+(w+U)=(v+w)+U,\\qquad\na(v+U)=av+U.\n$$</div><p>良定义来自代表元相差 $U$ 中元素时，运算结果仍在同一平移中。</p><p><strong>3.105 商空间维数。</strong></p><div class=\"math-display\">$$\n\\dim(V/U)=\\dim V-\\dim U.\n$$</div><p>证明：商映射 $\\pi$ 的零空间是 $U$，值域是 $V/U$，用线性映射基本定理。</p><p><strong>3.107 诱导映射。</strong>  <br />若 $T\\in\\mathcal L(V,W)$，则</p><div class=\"math-display\">$$\n\\widetilde T:V/\\operatorname{null}T\\to W,\\qquad\n\\widetilde T(v+\\operatorname{null}T)=Tv\n$$</div><p>良定义、单射，且值域为 $\\operatorname{range}T$。</p><p>证明：若两个代表元相差零空间元素，它们在 $T$ 下像相同。零空间只有零平移，故单射。</p><h5 id=\"例题-11\">例题<a class=\"heading-anchor\" href=\"#例题-11\" data-heading-id=\"例题-11\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：$\\mathbb R^2/U$ 的几何意义。</strong>  <br />若 $U$ 是一条过原点直线，则 $\\mathbb R^2/U$ 的元素是与 $U$ 平行的所有直线；商空间把沿 $U$ 的方向压缩为零方向。</p><h4 id=\"3f-对偶\">3F 对偶<a class=\"heading-anchor\" href=\"#3f-对偶\" data-heading-id=\"3f-对偶\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-12\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-12\" data-heading-id=\"定义与对象-12\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>线性泛函。</strong>  <br />从 $V$ 到 $F$ 的线性映射称为线性泛函。</p><p><strong>对偶空间。</strong></p><div class=\"math-display\">$$\nV&#039;=\\mathcal L(V,F).\n$$</div><p><strong>对偶基。</strong>  <br />若 $v_1,\\dots,v_n$ 是 $V$ 的基，则对偶基 $\\varphi_1,\\dots,\\varphi_n$ 满足</p><div class=\"math-display\">$$\n\\varphi_j(v_k)=\\delta_{jk}.\n$$</div><p><strong>对偶映射。</strong>  <br />若 $T\\in\\mathcal L(V,W)$，定义</p><div class=\"math-display\">$$\nT&#039;:W&#039;\\to V&#039;,\\qquad T&#039;(\\varphi)=\\varphi\\circ T.\n$$</div><p><strong>零化子。</strong>  <br />若 $U\\subseteq V$，</p><div class=\"math-display\">$$\nU^0=\\{\\varphi\\in V&#039;:\\varphi(u)=0\\ \\forall u\\in U\\}.\n$$</div><h5 id=\"常用性质-12\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-12\" data-heading-id=\"常用性质-12\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"对偶性质\">对偶性质<a class=\"heading-anchor\" href=\"#对偶性质\" data-heading-id=\"对偶性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>零化子：</p><div class=\"math-display\">$$\nV^0=\\{0\\},\\qquad \\{0\\}^0=V&#039;,\n$$</div><div class=\"math-display\">$$\n\\dim U^0=\\dim V-\\dim U.\n$$</div><p>对偶映射：</p><div class=\"math-display\">$$\n\\operatorname{null}T&#039;=(\\operatorname{range}T)^0,\\qquad\n\\operatorname{range}T&#039;=(\\operatorname{null}T)^0.\n$$</div><p>等价关系：</p><div class=\"math-display\">$$\nT\\text{ 满射}\\Longleftrightarrow T&#039;\\text{ 单射},\n$$</div><div class=\"math-display\">$$\nT\\text{ 单射}\\Longleftrightarrow T&#039;\\text{ 满射}.\n$$</div><h5 id=\"定理与证明-12\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-12\" data-heading-id=\"定理与证明-12\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>3.111 对偶空间维数。</strong></p><div class=\"math-display\">$$\n\\dim V&#039;=\\dim V.\n$$</div><p>证明：线性泛函由其在 $V$ 的基上的取值唯一决定。</p><p><strong>3.114 对偶基给出线性组合系数。</strong>  <br />若 $v=\\sum a_jv_j$，则</p><div class=\"math-display\">$$\na_j=\\varphi_j(v).\n$$</div><p><strong>3.116 对偶基是对偶空间的基。</strong>  <br />任意 $\\varphi\\in V&#039;$ 可写成</p><div class=\"math-display\">$$\n\\varphi=\\sum_j\\varphi(v_j)\\varphi_j.\n$$</div><p><strong>3.120 对偶映射的代数性质。</strong>  <br />$T&#039;$ 线性，并且</p><div class=\"math-display\">$$\n(ST)&#039;=T&#039;S&#039;.\n$$</div><p>证明：由函数复合结合律。</p><p><strong>3.124 零化子是子空间。</strong>  <br />若两个泛函都在 $U$ 上为零，则其线性组合也在 $U$ 上为零。</p><p><strong>3.125 零化子维数。</strong></p><div class=\"math-display\">$$\n\\dim U^0=\\dim V-\\dim U.\n$$</div><p>证明：把 $U$ 的基扩充为 $V$ 的基，对偶基中对应补充基向量的部分张成 $U^0$。</p><p><strong>3.128 对偶映射的零空间。</strong></p><div class=\"math-display\">$$\n\\operatorname{null}T&#039;=(\\operatorname{range}T)^0.\n$$</div><p><strong>3.129 $T$ 满射等价于 $T&#039;$ 单射。</strong>  <br />由 3.128 和零化子的维数公式得到。</p><p><strong>3.130 对偶映射的值域。</strong></p><div class=\"math-display\">$$\n\\operatorname{range}T&#039;=(\\operatorname{null}T)^0.\n$$</div><p>证明：先证包含，再比较维数。</p><p><strong>3.131 $T$ 单射等价于 $T&#039;$ 满射。</strong>  <br />由 3.130 与 $\\operatorname{null}T=\\{0\\}$ 的等价关系得到。</p><p><strong>3.132 对偶映射矩阵是原矩阵的转置。</strong>  <br />在对偶基下，</p><div class=\"math-display\">$$\nM(T&#039;)=M(T)^t.\n$$</div><p><strong>3.133 列秩等于行秩。</strong>  <br />列秩为 $\\dim\\operatorname{range}T$，行秩为 $\\dim\\operatorname{range}T&#039;$，二者相等。</p><h5 id=\"例题-12\">例题<a class=\"heading-anchor\" href=\"#例题-12\" data-heading-id=\"例题-12\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：标准坐标泛函。</strong>  <br />在 $F^n$ 中，$\\varphi_j(x_1,\\dots,x_n)=x_j$。它们是标准基的对偶基。</p><h4 id=\"第-4-章-多项式\">第 4 章 多项式<a class=\"heading-anchor\" href=\"#第-4-章-多项式\" data-heading-id=\"第-4-章-多项式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"本章目录式笔记\">本章目录式笔记<a class=\"heading-anchor\" href=\"#本章目录式笔记\" data-heading-id=\"本章目录式笔记\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-13\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-13\" data-heading-id=\"定义与对象-13\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>实部、虚部、共轭、绝对值。</strong>  <br />若 $z=a+bi$，则</p><div class=\"math-display\">$$\n\\operatorname{Re}z=a,\\quad \\operatorname{Im}z=b,\\quad \\overline z=a-bi,\\quad |z|=\\sqrt{a^2+b^2}.\n$$</div><p><strong>多项式与零点。</strong>  <br />多项式写作</p><div class=\"math-display\">$$\np(z)=a_0+a_1z+\\cdots+a_mz^m.\n$$</div><p>若 $p(\\lambda)=0$，则 $\\lambda$ 是 $p$ 的零点。</p><p><strong>次数。</strong>  <br />最高非零系数对应的指数称为次数，记为 $\\deg p$。零多项式次数不定义。</p><p><strong>首一多项式。</strong>  <br />最高次项系数为 $1$ 的多项式称为首一多项式。</p><h5 id=\"常用性质-13\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-13\" data-heading-id=\"常用性质-13\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"复数共轭与绝对值性质\">复数共轭与绝对值性质<a class=\"heading-anchor\" href=\"#复数共轭与绝对值性质\" data-heading-id=\"复数共轭与绝对值性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>对 $z,w\\in\\mathbb C$：</p><div class=\"math-display\">$$\n\\overline{z+w}=\\overline z+\\overline w,\\qquad\n\\overline{zw}=\\overline z\\,\\overline w,\n$$</div><div class=\"math-display\">$$\nz\\overline z=|z|^2,\\qquad |zw|=|z||w|,\n$$</div><div class=\"math-display\">$$\n|z+w|\\le |z|+|w|.\n$$</div><p>这些性质常用于证明复多项式根的共轭成对出现。</p><h5 id=\"多项式性质\">多项式性质<a class=\"heading-anchor\" href=\"#多项式性质\" data-heading-id=\"多项式性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $p,q$ 非零，则</p><div class=\"math-display\">$$\n\\deg(pq)=\\deg p+\\deg q,\n$$</div><p>并且</p><div class=\"math-display\">$$\n\\deg(p+q)\\le \\max(\\deg p,\\deg q).\n$$</div><p>若非零多项式有超过其次数的零点，则它只能是零多项式。  <br />若 $p(\\lambda)=0$，则 $z-\\lambda$ 是 $p$ 的因子；重根意味着 $(z-\\lambda)^k$ 整除 $p$。</p><h5 id=\"实多项式分解性质\">实多项式分解性质<a class=\"heading-anchor\" href=\"#实多项式分解性质\" data-heading-id=\"实多项式分解性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>实系数多项式的非实根必须成共轭对，因此实数域上的不可约因子只可能是一次因子或无实根二次因子。</p><h5 id=\"定理与证明-13\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-13\" data-heading-id=\"定理与证明-13\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>4.4 复数的性质。</strong>  <br />共轭与绝对值满足</p><div class=\"math-display\">$$\n\\overline{z+w}=\\overline z+\\overline w,\\qquad\n\\overline{zw}=\\overline z\\,\\overline w,\\qquad\n|zw|=|z||w|.\n$$</div><p>证明：写 $z=a+bi$、$w=c+di$ 展开。</p><p><strong>4.6 多项式的每个零点都对应一个一次因式。</strong>  <br />$p(\\lambda)=0$ 当且仅当 $z-\\lambda$ 整除 $p$。</p><p>证明：用带余除法写 $p=(z-\\lambda)q+r$，其中 $r$ 常数。代入 $\\lambda$ 得 $r=p(\\lambda)$。</p><p><strong>4.8 次数为 $m$ 表明最多有 $m$ 个零点。</strong>  <br />证明：对次数归纳。每找到一个零点，就由 4.6 分出一个一次因式。</p><p><strong>4.9 多项式带余除法。</strong>  <br />若 $p,s\\in\\mathcal P(F)$ 且 $s\\ne0$，则存在唯一 $q,r$ 使</p><div class=\"math-display\">$$\np=sq+r,\\qquad \\deg r&lt;\\deg s.\n$$</div><p>证明：存在性用最高次项消去法；唯一性用次数比较。</p><p><strong>4.12 代数基本定理，版本一。</strong>  <br />每个非常数复系数多项式至少有一个复零点。</p><p>证明要点：利用 $|p(z)|$ 在大圆外趋大，故在某闭圆盘内取最小值；若最小值非零，可沿合适方向微扰使模更小，矛盾。</p><p><strong>4.13 代数基本定理，版本二。</strong>  <br />若 $p$ 是 $m$ 次复系数多项式，则</p><div class=\"math-display\">$$\np(z)=c(z-\\lambda_1)\\cdots(z-\\lambda_m).\n$$</div><p>证明：反复使用版本一和一次因式定理。</p><p><strong>4.14 实系数多项式的非实零点成对出现。</strong>  <br />若 $p$ 实系数且 $p(\\lambda)=0$，则</p><div class=\"math-display\">$$\np(\\overline\\lambda)=0.\n$$</div><p>证明：实系数给出 $p(\\overline z)=\\overline{p(z)}$。</p><p><strong>4.15 二次多项式的分解。</strong>  <br />实二次多项式若无实根，则在 $\\mathbb R$ 上不可分解为一次因式；在 $\\mathbb C$ 上可分解为两个一次因式。</p><p><strong>4.16 多项式在 $\\mathbb R$ 上的分解。</strong>  <br />每个实系数多项式可分解为实一次因式和不可约实二次因式的乘积。</p><p>证明：先在 $\\mathbb C$ 上完全分解；非实根 $\\lambda,\\overline\\lambda$ 配对形成实二次因子</p><div class=\"math-display\">$$\n(z-\\lambda)(z-\\overline\\lambda).\n$$</div><h5 id=\"例题-13\">例题<a class=\"heading-anchor\" href=\"#例题-13\" data-heading-id=\"例题-13\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：实数域上分解 $x^4+1$。</strong></p><div class=\"math-display\">$$\nx^4+1=(x^2+\\sqrt2x+1)(x^2-\\sqrt2x+1).\n$$</div><p>两个二次因子判别式都小于 $0$，在 $\\mathbb R$ 上不可约。</p><h4 id=\"第-5-章-特征值和特征向量\">第 5 章 特征值和特征向量<a class=\"heading-anchor\" href=\"#第-5-章-特征值和特征向量\" data-heading-id=\"第-5-章-特征值和特征向量\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"5a-不变子空间\">5A 不变子空间<a class=\"heading-anchor\" href=\"#5a-不变子空间\" data-heading-id=\"5a-不变子空间\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-14\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-14\" data-heading-id=\"定义与对象-14\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>算子。</strong>  <br />$V$ 到自身的线性映射称为算子。</p><p><strong>不变子空间。</strong>  <br />若 $U\\subseteq V$ 且</p><div class=\"math-display\">$$\nu\\in U\\Rightarrow Tu\\in U,\n$$</div><p>则 $U$ 是 $T$ 的不变子空间。</p><p><strong>特征值。</strong>  <br />若 $T-\\lambda I$ 不单射，则 $\\lambda$ 是 $T$ 的特征值。</p><p><strong>特征向量。</strong>  <br />若 $v\\ne0$ 且</p><div class=\"math-display\">$$\nTv=\\lambda v,\n$$</div><p>则 $v$ 是对应 $\\lambda$ 的特征向量。</p><p><strong>多项式作用于算子。</strong>  <br />若 $p(z)=a_0+a_1z+\\cdots+a_mz^m$，定义</p><div class=\"math-display\">$$\np(T)=a_0I+a_1T+\\cdots+a_mT^m.\n$$</div><h5 id=\"常用性质-14\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-14\" data-heading-id=\"常用性质-14\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"不变子空间与特征值性质\">不变子空间与特征值性质<a class=\"heading-anchor\" href=\"#不变子空间与特征值性质\" data-heading-id=\"不变子空间与特征值性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>一维子空间 $\\operatorname{span}(v)$ 对 $T$ 不变，当且仅当 $v$ 是 $T$ 的特征向量。  <br />若 $\\lambda$ 是特征值，则 $T-\\lambda I$ 不可逆。  <br />不同特征值对应的特征向量线性无关，因此 $n$ 维空间中最多有 $n$ 个不同特征值。</p><p>多项式作用性质：</p><div class=\"math-display\">$$\np(T)q(T)=(pq)(T),\\qquad p(T)T=Tp(T).\n$$</div><p>因此 $\\operatorname{null}p(T)$ 与 $\\operatorname{range}p(T)$ 都是 $T$ 的不变子空间。</p><h5 id=\"定理与证明-14\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-14\" data-heading-id=\"定理与证明-14\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>5.7 成为特征值的等价条件。</strong>  <br />$\\lambda$ 是特征值，当且仅当存在非零 $v$ 使 $Tv=\\lambda v$。</p><p>证明：$T-\\lambda I$ 不单射等价于其零空间有非零向量。</p><p><strong>5.11 线性无关的特征向量。</strong>  <br />对应互异特征值的特征向量线性无关。</p><p>证明：对向量个数归纳。若 $\\sum a_jv_j=0$，对式子作用 $T-\\lambda_m I$，最后一项消失，剩余项仍对应互异特征值；归纳推出前面系数为零，再推出 $a_m=0$。</p><p><strong>5.12 特征值个数不多于维数。</strong>  <br />每个特征值取一个特征向量，由 5.11 得线性无关组，长度不超过 $\\dim V$。</p><p><strong>5.17 乘积性质。</strong></p><div class=\"math-display\">$$\np(T)q(T)=(pq)(T).\n$$</div><p>证明：先对单项式验证 $T^jT^k=T^{j+k}$，再线性展开。</p><p><strong>5.18 $p(T)$ 的零空间和值域在 $T$ 下不变。</strong>  <br />因为 $p(T)$ 与 $T$ 可交换。若 $p(T)v=0$，则 $p(T)Tv=Tp(T)v=0$；若 $w=p(T)v$，则 $Tw=p(T)Tv$。</p><p><strong>5.19 复向量空间上特征值存在。</strong>  <br />若 $V$ 是非零有限维复向量空间，则每个 $T\\in\\mathcal L(V)$ 有特征值。</p><p>证明：取非零 $v$。向量组 $v,Tv,\\dots,T^nv$ 线性相关，得到非零多项式 $p$ 使 $p(T)v=0$。在 $\\mathbb C$ 上分解 $p$ 为一次因式，若每个 $T-\\lambda I$ 都单射，则乘积也单射，矛盾。</p><h5 id=\"例题-14\">例题<a class=\"heading-anchor\" href=\"#例题-14\" data-heading-id=\"例题-14\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：一维不变子空间与特征向量。</strong>  <br />$\\operatorname{span}(v)$ 是 $T$ 的不变子空间，当且仅当 $v$ 是某个特征值的特征向量。因为不变性意味着 $Tv\\in\\operatorname{span}(v)$。</p><h4 id=\"5b-最小多项式\">5B 最小多项式<a class=\"heading-anchor\" href=\"#5b-最小多项式\" data-heading-id=\"5b-最小多项式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-15\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-15\" data-heading-id=\"定义与对象-15\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>首一多项式。</strong>  <br />最高次项系数为 $1$ 的多项式。</p><p><strong>最小多项式。</strong>  <br />$T$ 的最小多项式是次数最低的首一多项式 $m_T$，满足</p><div class=\"math-display\">$$\nm_T(T)=0.\n$$</div><h5 id=\"常用性质-15\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-15\" data-heading-id=\"常用性质-15\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"最小多项式性质\">最小多项式性质<a class=\"heading-anchor\" href=\"#最小多项式性质\" data-heading-id=\"最小多项式性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>最小多项式 $m_T$ 是所有零化多项式的“最小生成元”：</p><div class=\"math-display\">$$\nq(T)=0\\Longleftrightarrow m_T\\mid q.\n$$</div><p>特征值完全由最小多项式的零点给出：</p><div class=\"math-display\">$$\n\\lambda\\in\\sigma(T)\\Longleftrightarrow m_T(\\lambda)=0.\n$$</div><p>可逆性：</p><div class=\"math-display\">$$\nT\\text{ 不可逆}\\Longleftrightarrow 0\\text{ 是 }T\\text{ 的特征值}\n\\Longleftrightarrow m_T(0)=0.\n$$</div><h5 id=\"定理与证明-15\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-15\" data-heading-id=\"定理与证明-15\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>5.22 最小多项式的存在性、唯一性和次数。</strong>  <br />有限维空间上每个算子有唯一最小多项式，且次数不超过 $(\\dim V)^2$。</p><p>证明：$\\mathcal L(V)$ 维数有限，所以 $I,T,T^2,\\dots,T^{n^2}$ 线性相关，存在非零 $p$ 使 $p(T)=0$。取次数最低并首一化。唯一性：两个最低首一多项式相减会给出更低次数零化多项式。</p><p><strong>5.27 特征值即最小多项式零点。</strong></p><div class=\"math-display\">$$\n\\lambda\\text{ 是 }T\\text{ 的特征值}\n\\Longleftrightarrow\nm_T(\\lambda)=0.\n$$</div><p>证明：若 $Tv=\\lambda v$，则 $m_T(T)v=m_T(\\lambda)v=0$，故 $m_T(\\lambda)=0$。反向若 $m_T(\\lambda)=0$，写 $m_T=(z-\\lambda)q$。若 $T-\\lambda I$ 可逆，则 $q(T)=0$，矛盾于最小性。</p><p><strong>5.29 零化多项式判别。</strong></p><div class=\"math-display\">$$\nq(T)=0\\Longleftrightarrow m_T\\mid q.\n$$</div><p>证明：用带余除法 $q=pm_T+r$，代入 $T$ 得 $r(T)=0$；由最小性 $r=0$。</p><p><strong>5.31 受限算子的最小多项式。</strong>  <br />若 $U$ 对 $T$ 不变，则 $T|_U$ 的最小多项式整除 $m_T$。证明：$m_T(T)=0$ 限制到 $U$ 后仍为零。</p><p><strong>5.32 不可逆与最小多项式常数项。</strong>  <br />$T$ 不可逆，当且仅当 $m_T$ 常数项为 $0$。</p><p>证明：常数项为 $0$ 等价于 $0$ 是 $m_T$ 的零点，由 5.27 等价于 $0$ 是特征值，即 $T$ 不单射。</p><p><strong>5.33 偶数维零空间。</strong>  <br />若实空间上 $T^2+bT+cI=0$ 且 $b^2&lt;4c$，则空间维数为偶数。证明核心：任意非零 $v$ 生成二维不变空间 $\\operatorname{span}(v,Tv)$，再归纳分解。</p><p><strong>5.34 奇数维实向量空间上的算子总有特征值。</strong>  <br />证明：最小多项式在 $\\mathbb R$ 上分解为一次和二次不可约因子。若没有实特征值，则只有二次因子，次数为偶数；这与奇数维结构矛盾。</p><h5 id=\"例题-15\">例题<a class=\"heading-anchor\" href=\"#例题-15\" data-heading-id=\"例题-15\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：若 $T^2=I$，则最小多项式整除 $z^2-1=(z-1)(z+1)$。</strong>  <br />若 $T\\ne I$ 且 $T\\ne -I$，则 $m_T(z)=z^2-1$，特征值只能是 $\\pm1$。</p><h4 id=\"5c-上三角矩阵\">5C 上三角矩阵<a class=\"heading-anchor\" href=\"#5c-上三角矩阵\" data-heading-id=\"5c-上三角矩阵\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-16\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-16\" data-heading-id=\"定义与对象-16\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>算子的矩阵。</strong>  <br />算子 $T$ 在同一组基下的矩阵记为 $M(T)$。</p><p><strong>矩阵对角线。</strong>  <br />$A_{1,1},A_{2,2},\\dots,A_{n,n}$ 称为矩阵对角线。</p><p><strong>上三角矩阵。</strong>  <br />若 $j&gt;k$ 时 $A_{j,k}=0$，则 $A$ 是上三角矩阵。</p><h5 id=\"常用性质-16\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-16\" data-heading-id=\"常用性质-16\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"上三角性质\">上三角性质<a class=\"heading-anchor\" href=\"#上三角性质\" data-heading-id=\"上三角性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>上三角矩阵的对角线控制特征值、行列式、迹以及最小多项式的可能因子。  <br />若 $T$ 关于某基为上三角，对角线为 $\\lambda_1,\\dots,\\lambda_n$，则</p><div class=\"math-display\">$$\n(T-\\lambda_1I)\\cdots(T-\\lambda_nI)=0.\n$$</div><h5 id=\"定理与证明-16\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-16\" data-heading-id=\"定理与证明-16\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>5.39 上三角矩阵的条件。</strong>  <br />$T$ 关于基 $v_1,\\dots,v_n$ 有上三角矩阵，当且仅当</p><div class=\"math-display\">$$\nT v_k\\in\\operatorname{span}(v_1,\\dots,v_k)\n$$</div><p>对每个 $k$ 成立。</p><p><strong>5.40 具有上三角矩阵的算子满足的等式。</strong>  <br />若 $T$ 有上三角矩阵，对角线为 $\\lambda_1,\\dots,\\lambda_n$，则</p><div class=\"math-display\">$$\n(T-\\lambda_1I)\\cdots(T-\\lambda_nI)=0.\n$$</div><p>证明：逐步作用会把嵌套子空间维数向下压，最后为零。</p><p><strong>5.41 由上三角矩阵确定特征值。</strong>  <br />上三角矩阵的特征值正是其对角线元素。</p><p>证明：$T-\\lambda I$ 的矩阵仍上三角，对角线为 $\\lambda_j-\\lambda$。当某项为零时不可逆；若全非零，可回代求逆。</p><p><strong>5.44 存在上三角矩阵的充要条件。</strong>  <br />$T$ 有上三角矩阵，当且仅当 $m_T$ 可分解为一次因式。</p><p>证明：有上三角矩阵时由 5.40 得最小多项式整除一次因式乘积。反向用一次因式得到特征值，再在商空间上归纳。</p><p><strong>5.47 复空间上每个算子都有上三角矩阵。</strong>  <br />证明：复空间上最小多项式分解为一次因式，用 5.44。</p><h5 id=\"例题-16\">例题<a class=\"heading-anchor\" href=\"#例题-16\" data-heading-id=\"例题-16\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：上三角矩阵</strong></p><div class=\"math-display\">$$\n\\begin{pmatrix}\n2&amp;1&amp;3\\\\\n0&amp;2&amp;4\\\\\n0&amp;0&amp;5\n\\end{pmatrix}\n$$</div><p>的特征值是 $2,2,5$。</p><h4 id=\"5d-可对角化算子\">5D 可对角化算子<a class=\"heading-anchor\" href=\"#5d-可对角化算子\" data-heading-id=\"5d-可对角化算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-17\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-17\" data-heading-id=\"定义与对象-17\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>对角矩阵。</strong>  <br />非对角线元素全为 $0$ 的矩阵。</p><p><strong>可对角化。</strong>  <br />若存在一组基使 $T$ 的矩阵为对角矩阵，则 $T$ 可对角化。</p><p><strong>特征空间。</strong></p><div class=\"math-display\">$$\nE(\\lambda,T)=\\operatorname{null}(T-\\lambda I).\n$$</div><p><strong>格什戈林圆盘。</strong>  <br />矩阵 $A$ 的第 $j$ 个格什戈林圆盘为</p><div class=\"math-display\">$$\n\\{z\\in\\mathbb C:|z-A_{j,j}|\\le\\sum_{k\\ne j}|A_{j,k}|\\}.\n$$</div><h5 id=\"常用性质-17\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-17\" data-heading-id=\"常用性质-17\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"对角化性质\">对角化性质<a class=\"heading-anchor\" href=\"#对角化性质\" data-heading-id=\"对角化性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>可对角化的等价条件：</p><div class=\"math-display\">$$\nT\\text{ 可对角化}\n\\Longleftrightarrow\nV\\text{ 有特征向量基}\n$$</div><div class=\"math-display\">$$\n\\Longleftrightarrow\nV=\\bigoplus_{\\lambda}E(\\lambda,T)\n\\Longleftrightarrow\nm_T\\text{ 分解为互异一次因式}.\n$$</div><p>若 $T$ 有 $\\dim V$ 个互异特征值，则必可对角化；反向不一定成立。</p><h5 id=\"定理与证明-17\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-17\" data-heading-id=\"定理与证明-17\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>5.54 特征空间之和是直和。</strong>  <br />不同特征值的特征空间之和为直和。证明来自不同特征值特征向量线性无关。</p><p><strong>5.55 可对角化的等价条件。</strong>  <br />$T$ 可对角化，当且仅当 $V$ 有一组由 $T$ 的特征向量构成的基；也等价于</p><div class=\"math-display\">$$\nV=E(\\lambda_1,T)\\oplus\\cdots\\oplus E(\\lambda_m,T).\n$$</div><p>证明：对角矩阵的基向量都是特征向量；反过来，特征向量基下矩阵就是对角矩阵。</p><p><strong>5.58 特征值足够多意味着可对角化。</strong>  <br />若 $n$ 维空间中 $T$ 有 $n$ 个不同特征值，则 $T$ 可对角化。证明：取对应特征向量得到 $n$ 个线性无关向量。</p><p><strong>5.62 可对角化的充要条件。</strong>  <br />$T$ 可对角化，当且仅当最小多项式分解为互异的一次因式。</p><p>证明：若可对角化，则对角线上每个不同特征值只需一次因子即可零化。反向若最小多项式无重根且分解一次因式，可用核空间直和分解得到特征空间直和为全空间。</p><p><strong>5.65 可对角化算子限制于不变子空间。</strong>  <br />若 $T$ 可对角化且 $U$ 对 $T$ 不变，则 $T|_U$ 可对角化。</p><p>证明：$T|_U$ 的最小多项式整除 $T$ 的最小多项式，故也分解为互异一次因式。</p><p><strong>5.67 格什戈林圆盘定理。</strong>  <br />矩阵的每个特征值都落在至少一个格什戈林圆盘中。</p><p>证明：若 $Av=\\lambda v$，取 $|v_j|$ 最大的坐标。第 $j$ 行给出</p><div class=\"math-display\">$$\n(\\lambda-A_{j,j})v_j=\\sum_{k\\ne j}A_{j,k}v_k.\n$$</div><p>取绝对值并用 $|v_k|\\le |v_j|$。</p><h5 id=\"例题-17\">例题<a class=\"heading-anchor\" href=\"#例题-17\" data-heading-id=\"例题-17\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：判断可对角化。</strong></p><div class=\"math-display\">$$\nA=\\begin{pmatrix}2&amp;1\\\\0&amp;3\\end{pmatrix}\n$$</div><p>有两个不同特征值 $2,3$，因此可对角化。</p><h4 id=\"5e-可交换算子\">5E 可交换算子<a class=\"heading-anchor\" href=\"#5e-可交换算子\" data-heading-id=\"5e-可交换算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-18\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-18\" data-heading-id=\"定义与对象-18\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>可交换。</strong>  <br />算子 $S,T$ 可交换，指</p><div class=\"math-display\">$$\nST=TS.\n$$</div><p><strong>同时对角化、同时上三角化。</strong>  <br />若存在同一组基使一族算子的矩阵全为对角矩阵，称可同时对角化；若全为上三角矩阵，称可同时上三角化。</p><h5 id=\"常用性质-18\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-18\" data-heading-id=\"常用性质-18\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"可交换性质\">可交换性质<a class=\"heading-anchor\" href=\"#可交换性质\" data-heading-id=\"可交换性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $ST=TS$，则 $S$ 保持 $T$ 的每个特征空间。  <br />一族可对角化算子可同时对角化，当且仅当它们两两可交换。  <br />复空间上一族两两可交换算子一定可同时上三角化。</p><h5 id=\"定理与证明-18\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-18\" data-heading-id=\"定理与证明-18\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>5.74 可交换算子对应可交换矩阵。</strong>  <br />固定同一组基，</p><div class=\"math-display\">$$\nST=TS\\Longleftrightarrow M(S)M(T)=M(T)M(S).\n$$</div><p><strong>5.75 特征空间在可交换算子下不变。</strong>  <br />若 $ST=TS$，则 $E(\\lambda,T)$ 对 $S$ 不变。</p><p>证明：若 $Tv=\\lambda v$，则</p><div class=\"math-display\">$$\nT(Sv)=S(Tv)=\\lambda Sv.\n$$</div><p><strong>5.76 可同时对角化等价于可交换性。</strong>  <br />一族可对角化算子可同时对角化，当且仅当它们两两可交换。</p><p>证明：同一对角基下显然两两可交换。反向用一个算子的特征空间直和分解，其余算子保持每个特征空间不变，再在各特征空间内归纳。</p><p><strong>5.78 可交换算子的公共特征向量。</strong>  <br />复空间上一族两两可交换算子存在公共特征向量。</p><p>证明：先取一个算子的特征空间，其余算子保持它不变；在这个非零复空间内继续取特征向量。</p><p><strong>5.80 可交换算子可同时上三角化。</strong>  <br />复空间上一族两两可交换算子可同时上三角化。</p><p>证明：取公共特征向量作为第一基向量，再在商空间上归纳。</p><p><strong>5.81 可交换算子的和与积的特征值。</strong>  <br />同时上三角化后，和的对角线是对角线之和，积的对角线是对角线之积，因此可从公共三角形式读出特征值。</p><h5 id=\"例题-18\">例题<a class=\"heading-anchor\" href=\"#例题-18\" data-heading-id=\"例题-18\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：两个对角矩阵必可交换。</strong>  <br />若 $D_1,D_2$ 都是对角矩阵，则 $D_1D_2$ 和 $D_2D_1$ 的第 $j$ 个对角元都是对应对角元乘积。</p><h4 id=\"第-6-章-内积空间\">第 6 章 内积空间<a class=\"heading-anchor\" href=\"#第-6-章-内积空间\" data-heading-id=\"第-6-章-内积空间\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"6a-内积和范数\">6A 内积和范数<a class=\"heading-anchor\" href=\"#6a-内积和范数\" data-heading-id=\"6a-内积和范数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-19\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-19\" data-heading-id=\"定义与对象-19\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>点积。</strong>  <br />在 $F^n$ 中，标准内积是</p><div class=\"math-display\">$$\n\\langle x,y\\rangle=x_1\\overline{y_1}+\\cdots+x_n\\overline{y_n}.\n$$</div><p><strong>内积。</strong>  <br />内积是函数 $\\langle\\cdot,\\cdot\\rangle:V\\times V\\to F$，满足正定性、第一变量线性和共轭对称性：</p><div class=\"math-display\">$$\n\\langle v,v\\rangle\\ge0,\\quad \\langle v,v\\rangle=0\\Leftrightarrow v=0,\n$$</div><div class=\"math-display\">$$\n\\langle au+bv,w\\rangle=a\\langle u,w\\rangle+b\\langle v,w\\rangle,\n$$</div><div class=\"math-display\">$$\n\\langle v,w\\rangle=\\overline{\\langle w,v\\rangle}.\n$$</div><p><strong>内积空间。</strong>  <br />带有内积的向量空间。</p><p><strong>范数。</strong></p><div class=\"math-display\">$$\n\\|v\\|=\\sqrt{\\langle v,v\\rangle}.\n$$</div><p><strong>正交。</strong>  <br />$u\\perp v$ 指 $\\langle u,v\\rangle=0$。</p><h5 id=\"常用性质-19\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-19\" data-heading-id=\"常用性质-19\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"内积-范数-正交性质\">内积、范数、正交性质<a class=\"heading-anchor\" href=\"#内积-范数-正交性质\" data-heading-id=\"内积-范数-正交性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>内积的第二变量满足共轭线性：</p><div class=\"math-display\">$$\n\\langle u,av+bw\\rangle=\\overline a\\langle u,v\\rangle+\\overline b\\langle u,w\\rangle\n$$</div><p>（在本书采用第一变量线性的约定下）。  <br />范数性质：</p><div class=\"math-display\">$$\n\\|v\\|\\ge0,\\quad \\|v\\|=0\\Longleftrightarrow v=0,\\quad \\|av\\|=|a|\\|v\\|.\n$$</div><p>重要不等式：</p><div class=\"math-display\">$$\n|\\langle u,v\\rangle|\\le \\|u\\|\\|v\\|,\\qquad\n\\|u+v\\|\\le \\|u\\|+\\|v\\|.\n$$</div><p>平行四边形等式：</p><div class=\"math-display\">$$\n\\|u+v\\|^2+\\|u-v\\|^2=2\\|u\\|^2+2\\|v\\|^2.\n$$</div><h5 id=\"定理与证明-19\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-19\" data-heading-id=\"定理与证明-19\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>6.6 内积基本性质。</strong>  <br />第二变量共轭线性、$\\langle 0,v\\rangle=0$ 等性质由定义推出。</p><p><strong>6.9 范数基本性质。</strong></p><div class=\"math-display\">$$\n\\|v\\|=0\\Leftrightarrow v=0,\\qquad\n\\|\\lambda v\\|=|\\lambda|\\|v\\|.\n$$</div><p><strong>6.11 正交性和零向量。</strong>  <br />$0$ 与每个向量正交；若 $v\\perp v$，则 $v=0$。</p><p><strong>6.12 毕达哥拉斯定理。</strong>  <br />若 $u\\perp v$，则</p><div class=\"math-display\">$$\n\\|u+v\\|^2=\\|u\\|^2+\\|v\\|^2.\n$$</div><p>证明：展开 $\\langle u+v,u+v\\rangle$，交叉项为零。</p><p><strong>6.13 一种正交分解。</strong>  <br />若 $u\\ne0$，则</p><div class=\"math-display\">$$\nv=\\frac{\\langle v,u\\rangle}{\\|u\\|^2}u+\n\\left(v-\\frac{\\langle v,u\\rangle}{\\|u\\|^2}u\\right),\n$$</div><p>第二项与 $u$ 正交。</p><p><strong>6.14 柯西-施瓦茨不等式。</strong></p><div class=\"math-display\">$$\n|\\langle u,v\\rangle|\\le\\|u\\|\\|v\\|.\n$$</div><p>证明：若 $v\\ne0$，对</p><div class=\"math-display\">$$\nu-\\frac{\\langle u,v\\rangle}{\\|v\\|^2}v\n$$</div><p>取范数平方并利用非负性。</p><p><strong>6.17 三角不等式。</strong></p><div class=\"math-display\">$$\n\\|u+v\\|\\le\\|u\\|+\\|v\\|.\n$$</div><p>证明：展开 $\\|u+v\\|^2$，用柯西-施瓦茨控制交叉项。</p><p><strong>6.21 平行四边形等式。</strong></p><div class=\"math-display\">$$\n\\|u+v\\|^2+\\|u-v\\|^2=2\\|u\\|^2+2\\|v\\|^2.\n$$</div><p>证明：分别展开，两项交叉项相消。</p><h5 id=\"例题-19\">例题<a class=\"heading-anchor\" href=\"#例题-19\" data-heading-id=\"例题-19\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：函数空间内积。</strong>  <br />在 $C[0,1]$ 上定义</p><div class=\"math-display\">$$\n\\langle f,g\\rangle=\\int_0^1 f(x)g(x)\\,dx\n$$</div><p>是实内积。正定性来自连续非负函数积分为零只可能恒为零。</p><h4 id=\"6b-规范正交基\">6B 规范正交基<a class=\"heading-anchor\" href=\"#6b-规范正交基\" data-heading-id=\"6b-规范正交基\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-20\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-20\" data-heading-id=\"定义与对象-20\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>规范正交组。</strong>  <br />$e_1,\\dots,e_m$ 满足</p><div class=\"math-display\">$$\n\\langle e_j,e_k\\rangle=\n\\begin{cases}\n1,&amp;j=k,\\\\\n0,&amp;j\\ne k,\n\\end{cases}\n$$</div><p>则称为规范正交组。</p><p><strong>规范正交基。</strong>  <br />既是规范正交组又是基。</p><p><strong>线性泛函与对偶空间。</strong>  <br />内积空间上的线性泛函仍是 $V\\to F$ 的线性映射，所有线性泛函构成 $V&#039;$。</p><h5 id=\"常用性质-20\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-20\" data-heading-id=\"常用性质-20\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"规范正交性质\">规范正交性质<a class=\"heading-anchor\" href=\"#规范正交性质\" data-heading-id=\"规范正交性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>规范正交组自动线性无关。若 $e_1,\\dots,e_m$ 规范正交，则</p><div class=\"math-display\">$$\n\\left\\|\\sum a_je_j\\right\\|^2=\\sum |a_j|^2.\n$$</div><p>贝塞尔不等式：</p><div class=\"math-display\">$$\n\\sum_{j=1}^m|\\langle v,e_j\\rangle|^2\\le \\|v\\|^2.\n$$</div><p>若 $e_1,\\dots,e_n$ 是规范正交基，则</p><div class=\"math-display\">$$\nv=\\sum_{j=1}^n\\langle v,e_j\\rangle e_j,\\qquad\n\\|v\\|^2=\\sum_{j=1}^n|\\langle v,e_j\\rangle|^2.\n$$</div><h5 id=\"定理与证明-20\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-20\" data-heading-id=\"定理与证明-20\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>6.24 规范正交组线性组合的范数。</strong></p><div class=\"math-display\">$$\n\\left\\|\\sum a_je_j\\right\\|^2=\\sum |a_j|^2.\n$$</div><p>证明：展开内积，非对角项为零。</p><p><strong>6.25 规范正交组线性无关。</strong>  <br />若 $\\sum a_je_j=0$，由 6.24 得 $\\sum |a_j|^2=0$，故所有 $a_j=0$。</p><p><strong>6.26 贝塞尔不等式。</strong>  <br />若 $e_1,\\dots,e_m$ 规范正交，则</p><div class=\"math-display\">$$\n\\sum_{j=1}^m|\\langle v,e_j\\rangle|^2\\le\\|v\\|^2.\n$$</div><p>证明：把 $v$ 分成投影部分和正交余项，再用毕达哥拉斯定理。</p><p><strong>6.28 长度恰好的规范正交组是规范正交基。</strong>  <br />$n$ 维空间中长度为 $n$ 的规范正交组线性无关，故为基。</p><p><strong>6.30 规范正交基展开。</strong>  <br />若 $e_1,\\dots,e_n$ 是规范正交基，则</p><div class=\"math-display\">$$\nv=\\sum_{j=1}^n\\langle v,e_j\\rangle e_j.\n$$</div><p><strong>6.32 格拉姆-施密特过程。</strong>  <br />任意线性无关组可转化为张成空间相同的规范正交组。</p><p>证明：令 $e_1=v_1/\\|v_1\\|$。递推定义</p><div class=\"math-display\">$$\nw_k=v_k-\\sum_{j&lt;k}\\langle v_k,e_j\\rangle e_j,\\qquad\ne_k=w_k/\\|w_k\\|.\n$$</div><p>$w_k$ 与前面 $e_j$ 正交，且不为零。</p><p><strong>6.35 规范正交基存在。</strong>  <br />有限维内积空间先取普通基，再用 Gram-Schmidt。</p><p><strong>6.36 规范正交组可扩充为规范正交基。</strong>  <br />先扩充成普通基，再对新增部分做 Gram-Schmidt。</p><p><strong>6.37 关于某个规范正交基有上三角矩阵。</strong>  <br />复内积空间上任意算子可在某规范正交基下表示为上三角矩阵。</p><p><strong>6.38 舒尔定理。</strong>  <br />复内积空间上任意算子可由幺正换基变为上三角矩阵。证明用特征向量和归纳。</p><p><strong>6.42 里斯表示定理。</strong>  <br />有限维内积空间上每个线性泛函 $\\varphi$ 都唯一表示为</p><div class=\"math-display\">$$\n\\varphi(v)=\\langle v,u\\rangle\n$$</div><p>的形式。</p><p>证明：取规范正交基 $e_j$，令</p><div class=\"math-display\">$$\nu=\\sum_j\\overline{\\varphi(e_j)}e_j\n$$</div><p>并展开验证。唯一性由 $\\langle v,u-u&#039;\\rangle=0$ 对所有 $v$ 成立推出。</p><h5 id=\"例题-20\">例题<a class=\"heading-anchor\" href=\"#例题-20\" data-heading-id=\"例题-20\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：正交化 $(1,1,0),(1,0,1)$。</strong></p><div class=\"math-display\">$$\ne_1=\\frac1{\\sqrt2}(1,1,0),\n$$</div><div class=\"math-display\">$$\nw_2=(1,0,1)-\\left\\langle(1,0,1),e_1\\right\\rangle e_1\n=\\left(\\frac12,-\\frac12,1\\right),\n$$</div><p>故</p><div class=\"math-display\">$$\ne_2=\\frac1{\\sqrt6}(1,-1,2).\n$$</div><h4 id=\"6c-正交补和最小化问题\">6C 正交补和最小化问题<a class=\"heading-anchor\" href=\"#6c-正交补和最小化问题\" data-heading-id=\"6c-正交补和最小化问题\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-21\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-21\" data-heading-id=\"定义与对象-21\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>正交补。</strong></p><div class=\"math-display\">$$\nU^\\perp=\\{v\\in V:\\langle v,u\\rangle=0\\ \\forall u\\in U\\}.\n$$</div><p><strong>正交投影。</strong>  <br />若 $V=U\\oplus U^\\perp$，则 $P_Uv$ 是 $v$ 在 $U$ 中的分量。</p><p><strong>伪逆。</strong>  <br />对 $T\\in\\mathcal L(V,W)$，伪逆 $T^\\dagger$ 通过把 $\\operatorname{range}T$ 中的向量沿同构</p><div class=\"math-display\">$$\nT|_{(\\operatorname{null}T)^\\perp}\n$$</div><p>拉回，并在 $(\\operatorname{range}T)^\\perp$ 上取零来定义。</p><h5 id=\"常用性质-21\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-21\" data-heading-id=\"常用性质-21\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"正交补-投影-伪逆性质\">正交补、投影、伪逆性质<a class=\"heading-anchor\" href=\"#正交补-投影-伪逆性质\" data-heading-id=\"正交补-投影-伪逆性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>正交补：</p><div class=\"math-display\">$$\nU^\\perp\\text{ 是子空间},\\qquad U\\cap U^\\perp=\\{0\\},\n$$</div><div class=\"math-display\">$$\nV=U\\oplus U^\\perp,\\qquad\n\\dim U^\\perp=\\dim V-\\dim U,\\qquad\n(U^\\perp)^\\perp=U.\n$$</div><p>正交投影：</p><div class=\"math-display\">$$\nP_U^2=P_U,\\quad \\operatorname{range}P_U=U,\\quad \\operatorname{null}P_U=U^\\perp.\n$$</div><p>最小化性质：$P_Uv$ 是 $U$ 中距离 $v$ 最近的向量。  <br />伪逆性质：</p><div class=\"math-display\">$$\nTT^\\dagger=P_{\\operatorname{range}T},\\qquad\nT^\\dagger T=P_{(\\operatorname{null}T)^\\perp}.\n$$</div><h5 id=\"定理与证明-21\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-21\" data-heading-id=\"定理与证明-21\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>6.48 正交补性质。</strong>  <br />$U^\\perp$ 是子空间；$U\\cap U^\\perp=\\{0\\}$；若 $U\\subseteq W$，则 $W^\\perp\\subseteq U^\\perp$。</p><p><strong>6.49 子空间及其正交补的直和。</strong>  <br />若 $U$ 是有限维内积空间 $V$ 的子空间，则</p><div class=\"math-display\">$$\nV=U\\oplus U^\\perp.\n$$</div><p>证明：取 $U$ 的规范正交基，扩充为 $V$ 的规范正交基。</p><p><strong>6.51 正交补维数。</strong></p><div class=\"math-display\">$$\n\\dim U^\\perp=\\dim V-\\dim U.\n$$</div><p><strong>6.52 双重正交补。</strong>  <br />有限维时</p><div class=\"math-display\">$$\n(U^\\perp)^\\perp=U.\n$$</div><p>证明：包含关系显然，维数相同。</p><p><strong>6.54 $U^\\perp=\\{0\\}$ 等价于 $U=V$。</strong>  <br />由维数公式直接推出。</p><p><strong>6.57 正交投影性质。</strong></p><div class=\"math-display\">$$\nP_U^2=P_U,\\quad \\operatorname{range}P_U=U,\\quad\n\\operatorname{null}P_U=U^\\perp.\n$$</div><p>证明：写 $v=u+w$，其中 $u\\in U,w\\in U^\\perp$，则 $P_Uv=u$。</p><p><strong>6.58 里斯表示定理再讨论。</strong>  <br />$u\\mapsto\\langle\\cdot,u\\rangle$ 给出 $V$ 与 $V&#039;$ 的自然对应；注意复空间中它对标量可能是共轭线性的，取决于内积线性变量约定。</p><p><strong>6.61 到子空间的最短距离。</strong>  <br />$P_Uv$ 是 $U$ 中离 $v$ 最近的向量。</p><p>证明：任意 $x\\in U$，</p><div class=\"math-display\">$$\nv-x=(v-P_Uv)+(P_Uv-x),\n$$</div><p>两项正交，故</p><div class=\"math-display\">$$\n\\|v-x\\|^2=\\|v-P_Uv\\|^2+\\|P_Uv-x\\|^2.\n$$</div><p><strong>6.67 限制线性映射得到同构。</strong></p><div class=\"math-display\">$$\nT|_{(\\operatorname{null}T)^\\perp}:(\\operatorname{null}T)^\\perp\\to\\operatorname{range}T\n$$</div><p>既单又满。</p><p><strong>6.69 伪逆代数性质。</strong></p><div class=\"math-display\">$$\nTT^\\dagger=P_{\\operatorname{range}T},\\qquad\nT^\\dagger T=P_{(\\operatorname{null}T)^\\perp}.\n$$</div><p><strong>6.70 伪逆给出最佳近似解或最优解。</strong>  <br />最小二乘问题中，$T^\\dagger w$ 给出与零空间正交的最佳解。</p><h5 id=\"例题-21\">例题<a class=\"heading-anchor\" href=\"#例题-21\" data-heading-id=\"例题-21\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：投影到直线。</strong>  <br />若 $U=\\operatorname{span}(u)$ 且 $u\\ne0$，则</p><div class=\"math-display\">$$\nP_Uv=\\frac{\\langle v,u\\rangle}{\\|u\\|^2}u.\n$$</div><h4 id=\"第-7-章-内积空间上的算子\">第 7 章 内积空间上的算子<a class=\"heading-anchor\" href=\"#第-7-章-内积空间上的算子\" data-heading-id=\"第-7-章-内积空间上的算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"7a-自伴算子和正规算子\">7A 自伴算子和正规算子<a class=\"heading-anchor\" href=\"#7a-自伴算子和正规算子\" data-heading-id=\"7a-自伴算子和正规算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-22\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-22\" data-heading-id=\"定义与对象-22\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>伴随。</strong>  <br />$T^*\\in\\mathcal L(W,V)$ 满足</p><div class=\"math-display\">$$\n\\langle Tv,w\\rangle=\\langle v,T^*w\\rangle.\n$$</div><p><strong>共轭转置。</strong>  <br />矩阵 $A^*$ 是先转置再共轭。</p><p><strong>自伴。</strong>  <br />$T=T^*$。</p><p><strong>正规。</strong></p><div class=\"math-display\">$$\nT^*T=TT^*.\n$$</div><h5 id=\"常用性质-22\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-22\" data-heading-id=\"常用性质-22\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"伴随-自伴-正规性质\">伴随、自伴、正规性质<a class=\"heading-anchor\" href=\"#伴随-自伴-正规性质\" data-heading-id=\"伴随-自伴-正规性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>伴随运算：</p><div class=\"math-display\">$$\n(S+T)^*=S^*+T^*,\\quad\n(\\lambda T)^*=\\overline\\lambda T^*,\\quad\n(ST)^*=T^*S^*,\\quad\n(T^*)^*=T.\n$$</div><p>零空间和值域：</p><div class=\"math-display\">$$\n\\operatorname{null}T^*=(\\operatorname{range}T)^\\perp,\\qquad\n\\operatorname{range}T^*=(\\operatorname{null}T)^\\perp.\n$$</div><p>自伴算子特征值为实数。  <br />正规算子满足</p><div class=\"math-display\">$$\nT^*T=TT^*\n\\Longleftrightarrow\n\\|Tv\\|=\\|T^*v\\|\\ \\forall v.\n$$</div><p>若 $T$ 正规且 $Tv=\\lambda v$，则</p><div class=\"math-display\">$$\nT^*v=\\overline\\lambda v.\n$$</div><p>正规算子的不同特征值对应的特征向量正交。</p><h5 id=\"定理与证明-22\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-22\" data-heading-id=\"定理与证明-22\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>7.4 伴随是线性映射。</strong>  <br />证明：由伴随定义和表示向量唯一性验证加法、数乘。</p><p><strong>7.5 伴随性质。</strong></p><div class=\"math-display\">$$\n(S+T)^*=S^*+T^*,\\quad\n(\\lambda T)^*=\\overline\\lambda T^*,\\quad\n(ST)^*=T^*S^*.\n$$</div><p><strong>7.6 伴随的零空间和值域。</strong></p><div class=\"math-display\">$$\n\\operatorname{null}T^*=(\\operatorname{range}T)^\\perp,\\qquad\n\\operatorname{range}T^*=(\\operatorname{null}T)^\\perp.\n$$</div><p><strong>7.9 伴随矩阵是共轭转置。</strong>  <br />在规范正交基下，</p><div class=\"math-display\">$$\nM(T^*)=M(T)^*.\n$$</div><p><strong>7.12 自伴算子的特征值为实数。</strong>  <br />若 $Tv=\\lambda v$，则</p><div class=\"math-display\">$$\n\\lambda\\|v\\|^2=\\langle Tv,v\\rangle=\\langle v,Tv\\rangle=\\overline\\lambda\\|v\\|^2.\n$$</div><p><strong>7.13 复空间中二次型恒零推出算子为零。</strong>  <br />若 $\\langle Tv,v\\rangle=0$ 对所有 $v$ 成立，则 $T=0$。证明用极化恒等式恢复 $\\langle Tu,v\\rangle$。</p><p><strong>7.14 复空间中二次型实值等价于自伴。</strong>  <br />令 $A=T-T^*$，用 7.13 证明 $A=0$。</p><p><strong>7.16 自伴且二次型恒零等价于零算子。</strong>  <br />实情形用对称双线性极化公式；复情形用 7.13。</p><p><strong>7.20 正规判别。</strong></p><div class=\"math-display\">$$\nT\\text{ 正规}\\Longleftrightarrow \\|Tv\\|=\\|T^*v\\|\\quad \\forall v.\n$$</div><p>证明：比较 $\\|Tv\\|^2$ 与 $\\|T^<em>v\\|^2$，得到二次型 $\\langle(T^</em>T-TT^*)v,v\\rangle$。</p><p><strong>7.21 正规算子的零空间、值域和特征向量。</strong>  <br />若 $T$ 正规，则 $\\operatorname{null}T=\\operatorname{null}T^<em>$；若 $Tv=\\lambda v$，则 $T^</em>v=\\overline\\lambda v$。</p><p><strong>7.22 正规算子不同特征值对应特征向量正交。</strong>  <br />证明：利用 $T^*v=\\overline\\lambda v$，把 $\\langle Tu,v\\rangle$ 用两种方式计算。</p><p><strong>7.23 正规等价于实部与虚部可交换。</strong>  <br />写</p><div class=\"math-display\">$$\nT=A+iB,\\quad A=\\frac{T+T^*}{2},\\quad B=\\frac{T-T^*}{2i}.\n$$</div><p>展开 $T^<em>T=TT^</em>$ 等价于 $AB=BA$。</p><h5 id=\"例题-22\">例题<a class=\"heading-anchor\" href=\"#例题-22\" data-heading-id=\"例题-22\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：实对称矩阵给出自伴算子。</strong>  <br />在标准内积下，实矩阵 $A$ 自伴当且仅当 $A^t=A$。</p><h4 id=\"7b-谱定理\">7B 谱定理<a class=\"heading-anchor\" href=\"#7b-谱定理\" data-heading-id=\"7b-谱定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-23\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-23\" data-heading-id=\"定义与对象-23\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>谱定理的对象。</strong>  <br />谱定理研究什么时候可以找到由特征向量组成的规范正交基。它是“可对角化”加上“正交性”的强化版本。</p><h5 id=\"常用性质-23\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-23\" data-heading-id=\"常用性质-23\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"谱定理性质\">谱定理性质<a class=\"heading-anchor\" href=\"#谱定理性质\" data-heading-id=\"谱定理性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>实内积空间：</p><div class=\"math-display\">$$\nT\\text{ 有规范正交特征向量基}\n\\Longleftrightarrow\nT=T^*.\n$$</div><p>复内积空间：</p><div class=\"math-display\">$$\nT\\text{ 有规范正交特征向量基}\n\\Longleftrightarrow\nT\\text{ 正规}.\n$$</div><p>自伴算子的最小多项式分解为互异一次因式。</p><h5 id=\"定理与证明-23\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-23\" data-heading-id=\"定理与证明-23\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>7.26 可逆二次表达式。</strong>  <br />若 $T$ 自伴且 $b^2&lt;4c$，则</p><div class=\"math-display\">$$\nT^2+bT+cI\n$$</div><p>可逆。</p><p>证明：若不可逆，则存在特征值 $\\lambda$ 使 $\\lambda^2+b\\lambda+c=0$，但判别式小于零无实根，矛盾。</p><p><strong>7.27 自伴算子的最小多项式。</strong>  <br />自伴算子的最小多项式分解为互异的一次因式。</p><p>证明：自伴算子特征值实；用 7.26 排除不可约二次因子，再排除重因子。</p><p><strong>7.29 实谱定理。</strong>  <br />实内积空间上，$T$ 有规范正交特征向量基，当且仅当 $T$ 自伴。</p><p>证明：若有规范正交特征向量基，则矩阵为实对角矩阵，自伴。反向由自伴性取特征向量，其正交补不变，再归纳。</p><p><strong>7.31 复谱定理。</strong>  <br />复内积空间上，$T$ 有规范正交特征向量基，当且仅当 $T$ 正规。</p><p>证明：有规范正交特征向量基时矩阵为对角矩阵，故正规。反向取特征向量，正规性保证其正交补不变，再归纳。</p><h5 id=\"例题-23\">例题<a class=\"heading-anchor\" href=\"#例题-23\" data-heading-id=\"例题-23\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：正规但不自伴。</strong>  <br />复空间上的</p><div class=\"math-display\">$$\n\\begin{pmatrix}i&amp;0\\\\0&amp;2\\end{pmatrix}\n$$</div><p>是正规矩阵，但不是自伴，因为特征值 $i$ 非实。</p><h4 id=\"7c-正算子\">7C 正算子<a class=\"heading-anchor\" href=\"#7c-正算子\" data-heading-id=\"7c-正算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-24\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-24\" data-heading-id=\"定义与对象-24\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>正算子。</strong>  <br />$T$ 正，指 $T$ 自伴且</p><div class=\"math-display\">$$\n\\langle Tv,v\\rangle\\ge0\n$$</div><p>对所有 $v$ 成立。</p><p><strong>平方根。</strong>  <br />$S$ 是 $T$ 的平方根，指 $S^2=T$。</p><p><strong>正平方根。</strong>  <br />若 $S$ 正且 $S^2=T$，称 $S$ 为 $T$ 的正平方根，记为 $\\sqrt T$。</p><h5 id=\"常用性质-24\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-24\" data-heading-id=\"常用性质-24\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"正算子性质\">正算子性质<a class=\"heading-anchor\" href=\"#正算子性质\" data-heading-id=\"正算子性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>正算子等价刻画：</p><div class=\"math-display\">$$\nT\\ge0\n\\Longleftrightarrow\nT=T^*\\text{ 且所有特征值非负}\n\\Longleftrightarrow\nT=R^*R\\text{ 对某个 }R.\n$$</div><p>每个正算子有唯一正平方根 $\\sqrt T$。若 $T\\ge0$ 且 $\\langle Tv,v\\rangle=0$，则 $Tv=0$。</p><h5 id=\"定理与证明-24\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-24\" data-heading-id=\"定理与证明-24\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>7.38 正算子刻画。</strong>  <br />$T$ 正，当且仅当 $T$ 自伴且所有特征值非负；也等价于存在 $R$ 使 $T=R^*R$。</p><p>证明：用谱定理把 $T$ 对角化。二次型</p><div class=\"math-display\">$$\n\\langle Tv,v\\rangle=\\sum\\lambda_j|a_j|^2\n$$</div><p>非负当且仅当所有 $\\lambda_j\\ge0$。</p><p><strong>7.39 每个正算子有唯一正平方根。</strong>  <br />证明：谱分解下把每个非负特征值 $\\lambda_j$ 换成 $\\sqrt{\\lambda_j}$。唯一性来自正平方根在每个谱方向上只能取非负平方根。</p><p><strong>7.43 若 $T$ 正且 $\\langle Tv,v\\rangle=0$，则 $Tv=0$。</strong>  <br />令 $S=\\sqrt T$，则</p><div class=\"math-display\">$$\n0=\\langle Tv,v\\rangle=\\|Sv\\|^2,\n$$</div><p>故 $Sv=0$，从而 $Tv=0$。</p><h5 id=\"例题-24\">例题<a class=\"heading-anchor\" href=\"#例题-24\" data-heading-id=\"例题-24\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：正矩阵。</strong>  <br />对角矩阵 $\\operatorname{diag}(4,9)$ 的正平方根是 $\\operatorname{diag}(2,3)$。</p><h4 id=\"7d-等距映射-幺正算子和矩阵分解\">7D 等距映射、幺正算子和矩阵分解<a class=\"heading-anchor\" href=\"#7d-等距映射-幺正算子和矩阵分解\" data-heading-id=\"7d-等距映射-幺正算子和矩阵分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-25\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-25\" data-heading-id=\"定义与对象-25\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>等距映射。</strong>  <br />$T$ 等距，指</p><div class=\"math-display\">$$\n\\|Tv\\|=\\|v\\|\\quad \\forall v.\n$$</div><p><strong>幺正算子。</strong>  <br />同一内积空间上的可逆等距算子。实情形常称正交算子。</p><p><strong>幺正矩阵。</strong>  <br />矩阵 $A$ 满足</p><div class=\"math-display\">$$\nA^*A=I.\n$$</div><p><strong>正定矩阵。</strong>  <br />自伴矩阵 $A$ 满足 $x^*Ax&gt;0$ 对所有非零 $x$ 成立。</p><h5 id=\"常用性质-25\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-25\" data-heading-id=\"常用性质-25\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"等距-幺正-分解性质\">等距、幺正、分解性质<a class=\"heading-anchor\" href=\"#等距-幺正-分解性质\" data-heading-id=\"等距-幺正-分解性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>等距等价条件：</p><div class=\"math-display\">$$\n\\|Tv\\|=\\|v\\|\\ \\forall v\n\\Longleftrightarrow\n\\langle Tu,Tv\\rangle=\\langle u,v\\rangle\n\\Longleftrightarrow\nT^*T=I.\n$$</div><p>幺正算子：</p><div class=\"math-display\">$$\nT^{-1}=T^*,\\qquad T^*T=TT^*=I.\n$$</div><p>幺正算子特征值绝对值为 $1$。  <br />QR 分解来自 Gram-Schmidt；Cholesky 分解适用于正定矩阵。</p><h5 id=\"定理与证明-25\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-25\" data-heading-id=\"定理与证明-25\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>7.49 等距映射的特性。</strong>  <br />等距、保持内积、把规范正交组送到规范正交组、满足 $T^*T=I$ 等价。</p><p>证明：保持范数用极化恒等式推出保持内积；$T^*T=I$ 等价于 $\\langle Tv,Tw\\rangle=\\langle v,w\\rangle$。</p><p><strong>7.53 幺正算子的特性。</strong>  <br />幺正等价于</p><div class=\"math-display\">$$\nT^*T=TT^*=I,\\qquad T^{-1}=T^*.\n$$</div><p><strong>7.54 幺正算子的特征值绝对值为 $1$。</strong>  <br />若 $Tv=\\lambda v$，则</p><div class=\"math-display\">$$\n\\|v\\|=\\|Tv\\|=|\\lambda|\\|v\\|.\n$$</div><p><strong>7.55 复内积空间上幺正算子的描述。</strong>  <br />复幺正算子可由规范正交基对角化，且所有特征值绝对值为 $1$。</p><p><strong>7.57 幺正矩阵特性。</strong>  <br />矩阵幺正等价于列规范正交，也等价于行规范正交。</p><p><strong>7.58 QR 分解。</strong>  <br />列线性无关矩阵 $A$ 可分解为</p><div class=\"math-display\">$$\nA=QR,\n$$</div><p>其中 $Q$ 列规范正交，$R$ 上三角且对角线正。</p><p>证明：对 $A$ 的列向量做 Gram-Schmidt。</p><p><strong>7.61 可逆正算子。</strong>  <br />正算子可逆，当且仅当</p><div class=\"math-display\">$$\n\\langle Tv,v\\rangle&gt;0\\quad(v\\ne0).\n$$</div><p>证明：谱定理下等价于所有特征值严格为正。</p><p><strong>7.63 科列斯基分解。</strong>  <br />正定矩阵 $A$ 可写成</p><div class=\"math-display\">$$\nA=R^*R,\n$$</div><p>其中 $R$ 上三角且对角线正。</p><h5 id=\"例题-25\">例题<a class=\"heading-anchor\" href=\"#例题-25\" data-heading-id=\"例题-25\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：二维旋转矩阵是幺正矩阵。</strong>  <br />旋转矩阵列向量互相正交且长度为 $1$，所以 $A^tA=I$。</p><h4 id=\"7e-奇异值分解\">7E 奇异值分解<a class=\"heading-anchor\" href=\"#7e-奇异值分解\" data-heading-id=\"7e-奇异值分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-26\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-26\" data-heading-id=\"定义与对象-26\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>奇异值。</strong>  <br />$T$ 的奇异值是正算子 $T^*T$ 的特征值的非负平方根。</p><p><strong>对角矩阵。</strong>  <br />此处允许矩形对角矩阵，即只有主对角线位置可能非零。</p><h5 id=\"常用性质-26\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-26\" data-heading-id=\"常用性质-26\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"奇异值性质\">奇异值性质<a class=\"heading-anchor\" href=\"#奇异值性质\" data-heading-id=\"奇异值性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>奇异值是 $T^*T$ 的特征值平方根。  <br />正奇异值个数等于 $\\dim\\operatorname{range}T$。  <br />SVD：</p><div class=\"math-display\">$$\nTe_j=s_jf_j,\\qquad A=U\\Sigma V^*.\n$$</div><p>伪逆在 SVD 下把非零奇异值 $s_j$ 替换为 $s_j^{-1}$，把零奇异值方向送为零。</p><h5 id=\"定理与证明-26\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-26\" data-heading-id=\"定理与证明-26\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>*<em>7.64 $T^</em>T$ 的性质。*<em>  <br />$T^</em>T$ 是正算子，且</p><div class=\"math-display\">$$\n\\operatorname{null}(T^*T)=\\operatorname{null}T.\n$$</div><p>证明：</p><div class=\"math-display\">$$\n\\langle T^*Tv,v\\rangle=\\|Tv\\|^2.\n$$</div><p><strong>7.68 正奇异值的作用。</strong>  <br />正奇异值个数等于 $\\dim\\operatorname{range}T$。</p><p>证明：在 $T^*T$ 的规范正交特征向量基下，零奇异值对应 $\\operatorname{null}T$，非零奇异值对应值域方向。</p><p><strong>7.69 所有奇异值为 $1$ 等价于等距。</strong>  <br />若所有奇异值为 $1$，则 $\\|Tv\\|=\\|v\\|$；反向由 $T^*T=I$ 得所有特征值为 $1$。</p><p><strong>7.70 奇异值分解。</strong>  <br />存在 $V$ 的规范正交基 $e_j$ 与 $W$ 的规范正交组/基 $f_j$，使</p><div class=\"math-display\">$$\nTe_j=s_jf_j,\\qquad s_j\\ge0.\n$$</div><p>证明：对 $T^<em>T$ 用谱定理。若 $T^</em>Te_j=s_j^2e_j$ 且 $s_j&gt;0$，定义 $f_j=Te_j/s_j$，可验证 $f_j$ 规范正交。</p><p><strong>7.75 伴随和伪逆的奇异值分解。</strong>  <br />若 $Te_j=s_jf_j$，则</p><div class=\"math-display\">$$\nT^*f_j=s_je_j,\\qquad\nT^\\dagger f_j=\n\\begin{cases}\ns_j^{-1}e_j,&amp;s_j&gt;0,\\\\\n0,&amp;s_j=0.\n\\end{cases}\n$$</div><p><strong>7.80 SVD 的矩阵版本。</strong>  <br />任意矩阵可写成</p><div class=\"math-display\">$$\nA=U\\Sigma V^*,\n$$</div><p>其中 $U,V$ 幺正，$\\Sigma$ 为非负对角形矩阵。</p><h5 id=\"例题-26\">例题<a class=\"heading-anchor\" href=\"#例题-26\" data-heading-id=\"例题-26\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：对角矩阵的奇异值。</strong></p><div class=\"math-display\">$$\nA=\\begin{pmatrix}3&amp;0\\\\0&amp;-2\\end{pmatrix}.\n$$</div><p>$A^*A=\\operatorname{diag}(9,4)$，奇异值为 $3,2$。</p><h4 id=\"7f-奇异值分解的推论\">7F 奇异值分解的推论<a class=\"heading-anchor\" href=\"#7f-奇异值分解的推论\" data-heading-id=\"7f-奇异值分解的推论\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-27\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-27\" data-heading-id=\"定义与对象-27\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>线性映射范数。</strong></p><div class=\"math-display\">$$\n\\|T\\|=\\sup_{\\|v\\|=1}\\|Tv\\|.\n$$</div><p><strong>球、椭球、平行体、长方体、体积。</strong>  <br />单位球在可逆线性映射下变成椭球；平行体由若干边向量张成；体积通过长方体和线性变换的缩放定义。</p><h5 id=\"常用性质-27\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-27\" data-heading-id=\"常用性质-27\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"范数与体积性质\">范数与体积性质<a class=\"heading-anchor\" href=\"#范数与体积性质\" data-heading-id=\"范数与体积性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>算子范数：</p><div class=\"math-display\">$$\n\\|T\\|=\\max_{\\|v\\|=1}\\|Tv\\|=\\text{最大奇异值}.\n$$</div><p>并且</p><div class=\"math-display\">$$\n\\|S+T\\|\\le\\|S\\|+\\|T\\|,\\qquad\n\\|ST\\|\\le\\|S\\|\\|T\\|,\\qquad\n\\|T^*\\|=\\|T\\|.\n$$</div><p>可逆算子把球变成椭球，把某些长方体变成长方体，体积缩放倍数是奇异值乘积。</p><h5 id=\"定理与证明-27\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-27\" data-heading-id=\"定理与证明-27\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>7.82 $\\|Tv\\|$ 的上界。</strong>  <br />若最大奇异值为 $s_1$，则</p><div class=\"math-display\">$$\n\\|Tv\\|\\le s_1\\|v\\|.\n$$</div><p><strong>7.87 线性映射范数性质。</strong>  <br />范数满足非负性、齐次性、三角不等式和</p><div class=\"math-display\">$$\n\\|ST\\|\\le\\|S\\|\\,\\|T\\|.\n$$</div><p><strong>7.88 $\\|T\\|$ 的多种表达式。</strong></p><div class=\"math-display\">$$\n\\|T\\|=\\text{最大奇异值}.\n$$</div><p>证明：在奇异向量基下展开 $v$。</p><p><strong>7.91 伴随范数。</strong></p><div class=\"math-display\">$$\n\\|T^*\\|=\\|T\\|.\n$$</div><p>证明：$T$ 与 $T^*$ 有相同非零奇异值。</p><p><strong>7.92 最佳低秩逼近。</strong>  <br />若 $s_1\\ge\\cdots\\ge s_n$ 是奇异值，则用值域维数至多为 $k$ 的线性映射逼近 $T$ 的最小误差为 $s_{k+1}$。截断 SVD 达到最优。</p><p><strong>7.93 极分解。</strong></p><div class=\"math-display\">$$\nT=S\\sqrt{T^*T}\n$$</div><p>其中 $S$ 是合适的等距/部分等距映射。</p><p><strong>7.99 可逆算子化球为椭球。</strong>  <br />证明：SVD 中幺正因子保持球，对角奇异值缩放球为椭球。</p><p><strong>7.101 可逆算子化椭球为椭球。</strong>  <br />椭球是某可逆算子作用于球，复合可逆算子仍可逆。</p><p><strong>7.104 可逆算子化平行体为平行体。</strong>  <br />线性映射把边向量送到边向量，线性组合系数范围不变。</p><p><strong>7.107 每个可逆算子将某些长方体化为长方体。</strong>  <br />取 SVD 的右奇异向量作为原长方体边，左奇异向量作为像长方体边。</p><p><strong>7.111 体积变化倍数是奇异值乘积。</strong>  <br />可逆 $T$ 把体积乘以</p><div class=\"math-display\">$$\ns_1\\cdots s_n.\n$$</div><h5 id=\"例题-27\">例题<a class=\"heading-anchor\" href=\"#例题-27\" data-heading-id=\"例题-27\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：二维缩放的体积倍数。</strong>  <br />$T(x,y)=(3x,2y)$ 的奇异值是 $3,2$，面积放大 $6$ 倍。</p><h4 id=\"第-8-章-复向量空间上的算子\">第 8 章 复向量空间上的算子<a class=\"heading-anchor\" href=\"#第-8-章-复向量空间上的算子\" data-heading-id=\"第-8-章-复向量空间上的算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"8a-广义特征向量和幂零算子\">8A 广义特征向量和幂零算子<a class=\"heading-anchor\" href=\"#8a-广义特征向量和幂零算子\" data-heading-id=\"8a-广义特征向量和幂零算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-28\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-28\" data-heading-id=\"定义与对象-28\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>广义特征向量。</strong>  <br />若 $v\\ne0$ 且</p><div class=\"math-display\">$$\n(T-\\lambda I)^k v=0\n$$</div><p>对某个正整数 $k$ 成立，则 $v$ 是对应 $\\lambda$ 的广义特征向量。</p><p><strong>幂零算子。</strong>  <br />若 $N^k=0$ 对某个正整数 $k$ 成立，则 $N$ 幂零。</p><h5 id=\"常用性质-28\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-28\" data-heading-id=\"常用性质-28\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"广义特征向量与幂零性质\">广义特征向量与幂零性质<a class=\"heading-anchor\" href=\"#广义特征向量与幂零性质\" data-heading-id=\"广义特征向量与幂零性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>零空间链：</p><div class=\"math-display\">$$\n\\operatorname{null}T\\subseteq\\operatorname{null}T^2\\subseteq\\cdots\n$$</div><p>一旦某一步相等，之后永远相等。$n$ 维空间中第 $n$ 步必停止增长。  <br />对任意 $T\\in\\mathcal L(V)$：</p><div class=\"math-display\">$$\nV=\\operatorname{null}T^n\\oplus\\operatorname{range}T^n.\n$$</div><p>幂零算子 $N$ 在 $n$ 维空间上满足 $N^n=0$，其唯一可能特征值为 $0$。</p><h5 id=\"定理与证明-28\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-28\" data-heading-id=\"定理与证明-28\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>8.1 递增的零空间序列。</strong></p><div class=\"math-display\">$$\n\\operatorname{null}T^k\\subseteq\\operatorname{null}T^{k+1}.\n$$</div><p><strong>8.2 零空间序列中的等式。</strong>  <br />若 $\\operatorname{null}T^k=\\operatorname{null}T^{k+1}$，则之后全部相等。</p><p>证明：若 $T^{k+2}v=0$，则 $Tv\\in\\operatorname{null}T^{k+1}=\\operatorname{null}T^k$，所以 $v\\in\\operatorname{null}T^{k+1}$。</p><p><strong>8.3 零空间停止增长。</strong>  <br />若 $\\dim V=n$，则</p><div class=\"math-display\">$$\n\\operatorname{null}T^n=\\operatorname{null}T^{n+1}=\\cdots.\n$$</div><p><strong>8.4 零空间和值域的直和。</strong></p><div class=\"math-display\">$$\nV=\\operatorname{null}T^n\\oplus\\operatorname{range}T^n.\n$$</div><p>证明：维数由基本定理给出；交为零由零空间停止增长推出。</p><p><strong>8.9 由广义特征向量构成的基。</strong>  <br />复有限维空间中存在由广义特征向量构成的基。</p><p>证明要点：反复对 $T-\\lambda I$ 使用 8.4，把空间分解为广义特征部分与剩余部分。</p><p><strong>8.11 广义特征向量对应唯一特征值。</strong>  <br />证明：若同一非零向量对应 $\\lambda\\ne\\mu$，则 $(z-\\lambda)^m$ 与 $(z-\\mu)^k$ 互素；用 Bezout 恒等式代入 $T$ 得 $v=0$，矛盾。</p><p><strong>8.12 线性无关的广义特征向量。</strong>  <br />不同特征值对应的广义特征向量线性无关。证明用互素多项式消去法。</p><p><strong>8.16 $n$ 维空间上幂零算子的 $n$ 次幂为 $0$。</strong>  <br />由零空间停止增长：若最终零空间为 $V$，则第 $n$ 步已经达到 $V$。</p><p><strong>8.17 幂零算子的特征值。</strong>  <br />幂零算子的唯一可能特征值是 $0$。若 $Nv=\\lambda v$，则 $N^kv=\\lambda^kv=0$。</p><p><strong>8.18 幂零算子的最小多项式和上三角矩阵。</strong>  <br />幂零算子的最小多项式形如 $z^m$，并可在某基下表示为严格上三角矩阵。</p><h5 id=\"例题-28\">例题<a class=\"heading-anchor\" href=\"#例题-28\" data-heading-id=\"例题-28\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：</strong></p><div class=\"math-display\">$$\nN=\\begin{pmatrix}0&amp;1\\\\0&amp;0\\end{pmatrix}\n$$</div><p>满足 $N^2=0$，所以幂零；其唯一特征值为 $0$。</p><h4 id=\"8b-广义特征空间分解\">8B 广义特征空间分解<a class=\"heading-anchor\" href=\"#8b-广义特征空间分解\" data-heading-id=\"8b-广义特征空间分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-29\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-29\" data-heading-id=\"定义与对象-29\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>广义特征空间。</strong>  <br />若 $\\dim V=n$，</p><div class=\"math-display\">$$\nG(\\lambda,T)=\\operatorname{null}(T-\\lambda I)^n.\n$$</div><p><strong>重数。</strong>  <br />特征值 $\\lambda$ 的重数定义为</p><div class=\"math-display\">$$\n\\dim G(\\lambda,T).\n$$</div><p><strong>特征多项式。</strong>  <br />若不同特征值为 $\\lambda_1,\\dots,\\lambda_m$，重数为 $d_j$，定义</p><div class=\"math-display\">$$\np_T(z)=\\prod_{j=1}^m(z-\\lambda_j)^{d_j}.\n$$</div><p><strong>分块对角矩阵。</strong>  <br />对角线上由若干方块矩阵组成，其余块为零的矩阵。</p><h5 id=\"常用性质-29\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-29\" data-heading-id=\"常用性质-29\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"广义特征空间性质\">广义特征空间性质<a class=\"heading-anchor\" href=\"#广义特征空间性质\" data-heading-id=\"广义特征空间性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>广义特征空间：</p><div class=\"math-display\">$$\nG(\\lambda,T)=\\operatorname{null}(T-\\lambda I)^n.\n$$</div><p>复有限维空间上：</p><div class=\"math-display\">$$\nV=\\bigoplus_{\\lambda}G(\\lambda,T).\n$$</div><p>特征值重数为 $\\dim G(\\lambda,T)$，所有重数之和为 $\\dim V$。  <br />特征多项式由这些重数定义，且满足 Cayley-Hamilton：</p><div class=\"math-display\">$$\np_T(T)=0.\n$$</div><h5 id=\"定理与证明-29\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-29\" data-heading-id=\"定理与证明-29\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>8.20 广义特征空间的描述。</strong>  <br />$G(\\lambda,T)$ 正是所有对应 $\\lambda$ 的广义特征向量加零向量。证明用 8.3。</p><p><strong>8.22 广义特征空间分解。</strong>  <br />若 $V$ 是复有限维空间，则</p><div class=\"math-display\">$$\nV=G(\\lambda_1,T)\\oplus\\cdots\\oplus G(\\lambda_m,T).\n$$</div><p>证明：广义特征向量基按特征值分组；直和性来自 8.12。</p><p><strong>8.25 重数之和等于维数。</strong></p><div class=\"math-display\">$$\n\\sum_j\\dim G(\\lambda_j,T)=\\dim V.\n$$</div><p><strong>8.28 特征多项式的次数和零点。</strong>  <br />$p_T$ 次数为 $\\dim V$，零点正是 $T$ 的特征值。</p><p><strong>8.29 Cayley-Hamilton 定理。</strong></p><div class=\"math-display\">$$\np_T(T)=0.\n$$</div><p>证明：在每个 $G(\\lambda_j,T)$ 上，$(T-\\lambda_j I)^{d_j}=0$；直和分解覆盖全空间。</p><p><strong>8.30 特征多项式是最小多项式的倍数。</strong>  <br />由 8.29 和最小多项式整除所有零化多项式。</p><p><strong>8.31 特征值重数等于其在上三角矩阵对角线上出现次数。</strong>  <br />在适配广义特征空间的基下，矩阵分块上三角，每块对角线全为对应特征值。</p><p><strong>8.37 由上三角块构成的分块对角矩阵。</strong>  <br />取各广义特征空间的基并合并，可得按特征值分块的上三角块矩阵。</p><h5 id=\"例题-29\">例题<a class=\"heading-anchor\" href=\"#例题-29\" data-heading-id=\"例题-29\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：若 $T$ 有两个特征值 $\\lambda,\\mu$，且 $\\dim G(\\lambda,T)=2,\\dim G(\\mu,T)=1$，则三维空间分解为</strong></p><div class=\"math-display\">$$\nV=G(\\lambda,T)\\oplus G(\\mu,T).\n$$</div><h4 id=\"8c-广义特征空间分解的推论\">8C 广义特征空间分解的推论<a class=\"heading-anchor\" href=\"#8c-广义特征空间分解的推论\" data-heading-id=\"8c-广义特征空间分解的推论\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-30\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-30\" data-heading-id=\"定义与对象-30\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>若当基。</strong>  <br />对幂零算子 $N$，由链</p><div class=\"math-display\">$$\nv,Nv,\\dots,N^{k-1}v\n$$</div><p>组成的基称为若当基的一部分。</p><p><strong>若当型。</strong>  <br />矩阵由若当块组成：</p><div class=\"math-display\">$$\nJ(\\lambda)=\n\\begin{pmatrix}\n\\lambda&amp;1&amp;&amp;0\\\\\n&amp;\\lambda&amp;\\ddots&amp;\\\\\n&amp;&amp;\\ddots&amp;1\\\\\n0&amp;&amp;&amp;\\lambda\n\\end{pmatrix}.\n$$</div><h5 id=\"常用性质-30\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-30\" data-heading-id=\"常用性质-30\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"若当型性质\">若当型性质<a class=\"heading-anchor\" href=\"#若当型性质\" data-heading-id=\"若当型性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>在 $G(\\lambda,T)$ 上，</p><div class=\"math-display\">$$\nT=\\lambda I+N\n$$</div><p>其中 $N$ 幂零。幂零算子有若当基，因此复有限维空间上任意算子都有若当型。  <br />可逆复算子有平方根，因为每个广义特征空间上可分别对 $\\lambda(I+N)$ 开平方。</p><h5 id=\"定理与证明-30\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-30\" data-heading-id=\"定理与证明-30\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>8.39 恒等算子加幂零算子有平方根。</strong>  <br />若 $N$ 幂零，则 $I+N$ 有平方根。</p><p>证明：把二项式级数 $(1+x)^{1/2}$ 代入 $N$；因 $N^m=0$，级数有限截断。</p><p><strong>8.41 复空间上可逆算子有平方根。</strong>  <br />在每个广义特征空间上写</p><div class=\"math-display\">$$\nT=\\lambda(I+N),\n$$</div><p>其中 $\\lambda\\ne0$，$N$ 幂零。取 $\\sqrt\\lambda$ 与 $I+N$ 的平方根后拼合。</p><p><strong>8.45 每个幂零算子都有若当基。</strong>  <br />证明思路：研究</p><div class=\"math-display\">$$\n\\operatorname{null}N\\subseteq\\operatorname{null}N^2\\subseteq\\cdots\n$$</div><p>的增长，选择链顶向量，再沿 $N$ 生成链。</p><p><strong>8.46 若当型。</strong>  <br />复有限维空间上每个算子都有若当型。</p><p>证明：先用广义特征空间分解；在每个 $G(\\lambda,T)$ 上，$T=\\lambda I+N$，其中 $N$ 幂零，再对 $N$ 取若当基。</p><h5 id=\"例题-30\">例题<a class=\"heading-anchor\" href=\"#例题-30\" data-heading-id=\"例题-30\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：</strong></p><div class=\"math-display\">$$\n\\begin{pmatrix}\n2&amp;1\\\\\n0&amp;2\n\\end{pmatrix}\n$$</div><p>是一个大小为 $2$ 的若当块。它不可对角化，因为特征空间维数为 $1$。</p><h4 id=\"8d-联系矩阵与算子的桥梁-迹\">8D 联系矩阵与算子的桥梁：迹<a class=\"heading-anchor\" href=\"#8d-联系矩阵与算子的桥梁-迹\" data-heading-id=\"8d-联系矩阵与算子的桥梁-迹\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-31\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-31\" data-heading-id=\"定义与对象-31\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>矩阵的迹。</strong></p><div class=\"math-display\">$$\n\\operatorname{tr}A=A_{1,1}+\\cdots+A_{n,n}.\n$$</div><p><strong>算子的迹。</strong>  <br />算子的迹定义为它在任意基下矩阵的迹；定理保证该定义与基无关。</p><h5 id=\"常用性质-31\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-31\" data-heading-id=\"常用性质-31\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"迹性质\">迹性质<a class=\"heading-anchor\" href=\"#迹性质\" data-heading-id=\"迹性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\n\\operatorname{tr}(AB)=\\operatorname{tr}(BA),\n$$</div><p>所以相似矩阵迹相同。复空间上</p><div class=\"math-display\">$$\n\\operatorname{tr}T=\\text{特征值按重数之和}.\n$$</div><p>迹是线性的。交换子 $ST-TS$ 的迹为 $0$，因此恒等算子不能写成交换子。</p><h5 id=\"定理与证明-31\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-31\" data-heading-id=\"定理与证明-31\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>8.49 $\\operatorname{tr}(AB)=\\operatorname{tr}(BA)$。</strong>  <br />证明：</p><div class=\"math-display\">$$\n\\operatorname{tr}(AB)=\\sum_j\\sum_k A_{j,k}B_{k,j}\n=\\sum_k\\sum_j B_{k,j}A_{j,k}\n=\\operatorname{tr}(BA).\n$$</div><p><strong>8.50 算子的矩阵迹不依赖基。</strong>  <br />换基后矩阵为 $P^{-1}AP$，而</p><div class=\"math-display\">$$\n\\operatorname{tr}(P^{-1}AP)=\\operatorname{tr}(APP^{-1})=\\operatorname{tr}A.\n$$</div><p><strong>8.52 复空间上迹等于特征值之和。</strong>  <br />取上三角矩阵表示，迹是对角线之和，而对角线正是特征值按重数排列。</p><p><strong>8.54 迹与特征多项式。</strong>  <br />特征多项式中 $z^{n-1}$ 的系数为 $-\\operatorname{tr}T$。</p><p><strong>8.55 内积空间上的迹。</strong>  <br />若 $e_1,\\dots,e_n$ 是规范正交基，则</p><div class=\"math-display\">$$\n\\operatorname{tr}T=\\sum_j\\langle Te_j,e_j\\rangle.\n$$</div><p><strong>8.56 迹是线性的。</strong></p><div class=\"math-display\">$$\n\\operatorname{tr}(S+T)=\\operatorname{tr}S+\\operatorname{tr}T,\\qquad\n\\operatorname{tr}(aT)=a\\operatorname{tr}T.\n$$</div><p><strong>8.57 恒等算子不是交换子。</strong>  <br />不存在 $S,T$ 使</p><div class=\"math-display\">$$\nI=ST-TS.\n$$</div><p>证明：两边取迹，左边为 $\\dim V$，右边为 $0$。</p><h5 id=\"例题-31\">例题<a class=\"heading-anchor\" href=\"#例题-31\" data-heading-id=\"例题-31\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：迹快速排除。</strong>  <br />若某矩阵迹不为 $0$，则它不可能写成 $AB-BA$。</p><h4 id=\"第-9-章-多重线性代数和行列式\">第 9 章 多重线性代数和行列式<a class=\"heading-anchor\" href=\"#第-9-章-多重线性代数和行列式\" data-heading-id=\"第-9-章-多重线性代数和行列式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"9a-双线性型和二次型\">9A 双线性型和二次型<a class=\"heading-anchor\" href=\"#9a-双线性型和二次型\" data-heading-id=\"9a-双线性型和二次型\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-32\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-32\" data-heading-id=\"定义与对象-32\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>双线性型。</strong>  <br />$\\beta:V\\times V\\to F$ 对两个变量分别线性。</p><p><strong>双线性型矩阵。</strong>  <br />给定基 $v_1,\\dots,v_n$，</p><div class=\"math-display\">$$\nM(\\beta)_{j,k}=\\beta(v_k,v_j)\n$$</div><p>或按教材约定记录各基向量对上的取值。</p><p><strong>对称双线性型。</strong></p><div class=\"math-display\">$$\n\\beta(u,v)=\\beta(v,u).\n$$</div><p><strong>交错双线性型。</strong></p><div class=\"math-display\">$$\n\\beta(v,v)=0\\quad \\forall v.\n$$</div><p><strong>二次型。</strong>  <br />与对称双线性型 $\\beta$ 关联的函数</p><div class=\"math-display\">$$\nq(v)=\\beta(v,v).\n$$</div><h5 id=\"常用性质-32\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-32\" data-heading-id=\"常用性质-32\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"双线性型与二次型性质\">双线性型与二次型性质<a class=\"heading-anchor\" href=\"#双线性型与二次型性质\" data-heading-id=\"双线性型与二次型性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>双线性型由基向量对上的取值完全决定，维数为 $(\\dim V)^2$。  <br />任意双线性型可唯一分解为对称部分和交错部分：</p><div class=\"math-display\">$$\n\\beta=\\frac{\\beta+\\beta^t}{2}+\\frac{\\beta-\\beta^t}{2}.\n$$</div><p>对称双线性型和二次型可在规范正交基下对角化。</p><h5 id=\"定理与证明-32\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-32\" data-heading-id=\"定理与证明-32\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>9.5 双线性型空间维数。</strong>  <br />若 $\\dim V=n$，则双线性型空间维数为 $n^2$。证明：双线性型由 $n^2$ 个基向量对上的取值唯一决定。</p><p><strong>9.6 双线性型与算子的复合。</strong>  <br />$(u,v)\\mapsto \\beta(Tu,Tv)$ 仍是双线性型。证明：线性性逐变量传递。</p><p><strong>9.7 换基公式。</strong>  <br />双线性型矩阵在换基下发生合同变换，形如</p><div class=\"math-display\">$$\nP^tAP.\n$$</div><p><strong>9.12 对称双线性型可对角化。</strong>  <br />在有限维实内积空间中，对称双线性型可在某规范正交基下对角化。</p><p>证明：由 $\\beta(u,v)=\\langle Tu,v\\rangle$ 定义自伴算子 $T$，再用实谱定理。</p><p><strong>9.13 用规范正交基将对称双线性型对角化。</strong>  <br />这是 9.12 的规范正交基形式。</p><p><strong>9.16 交错双线性型的刻画。</strong>  <br />交错等价于 $\\beta(v,v)=0$；在 $F=\\mathbb R,\\mathbb C$ 中也等价于</p><div class=\"math-display\">$$\n\\beta(u,v)=-\\beta(v,u).\n$$</div><p>证明：展开 $\\beta(u+v,u+v)=0$。</p><p><strong>9.17 双线性型分解。</strong></p><div class=\"math-display\">$$\nV^{(2)}=V_{\\mathrm{sym}}^{(2)}\\oplus V_{\\mathrm{alt}}^{(2)}.\n$$</div><p>证明：</p><div class=\"math-display\">$$\n\\beta=\\frac{\\beta+\\beta^t}{2}+\\frac{\\beta-\\beta^t}{2}.\n$$</div><p><strong>9.20 $F^n$ 上的二次型。</strong>  <br />二次型可写成 $q(x)=x^tAx$，其中 $A$ 可取对称矩阵。</p><p><strong>9.21 二次型的刻画。</strong>  <br />二次型可由极化公式恢复对应的对称双线性型。</p><p><strong>9.23 二次型对角化。</strong>  <br />实二次型可在某规范正交基下写为平方项线性组合。</p><h5 id=\"例题-32\">例题<a class=\"heading-anchor\" href=\"#例题-32\" data-heading-id=\"例题-32\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：二次型 $q(x,y)=3x^2+4xy+3y^2$。</strong>  <br />对应对称矩阵</p><div class=\"math-display\">$$\n\\begin{pmatrix}3&amp;2\\\\2&amp;3\\end{pmatrix}.\n$$</div><h4 id=\"9b-交错多重线性型\">9B 交错多重线性型<a class=\"heading-anchor\" href=\"#9b-交错多重线性型\" data-heading-id=\"9b-交错多重线性型\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-33\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-33\" data-heading-id=\"定义与对象-33\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>$m$ 重线性型。</strong>  <br />$\\alpha:V^m\\to F$ 对每个变量分别线性。</p><p><strong>交错型。</strong>  <br />若输入向量线性相关则值为 $0$；等价地，两个输入相同则值为 $0$。</p><p><strong>排列与排列符号。</strong>  <br />排列 $\\sigma$ 的符号 $\\operatorname{sign}\\sigma$ 记录其由多少次交换得到的奇偶性。</p><h5 id=\"常用性质-33\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-33\" data-heading-id=\"常用性质-33\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"交错多重线性型性质\">交错多重线性型性质<a class=\"heading-anchor\" href=\"#交错多重线性型性质\" data-heading-id=\"交错多重线性型性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>交错型输入线性相关时为零；交换两个输入，值变号；按排列重排输入时乘以排列符号。  <br />若 $\\dim V=n$，交错 $n$ 重线性型空间维数为 $1$。非零交错 $n$ 重线性型检测线性无关性。</p><h5 id=\"定理与证明-33\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-33\" data-heading-id=\"定理与证明-33\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>9.28 交错多重线性型和线性相关性。</strong>  <br />若输入向量线性相关，则交错型值为 $0$。</p><p>证明：把某个向量写成前面向量线性组合，按多重线性展开，每项都有重复方向。</p><p><strong>9.29 若 $m&gt;\\dim V$，不存在非零交错 $m$ 重线性型。</strong>  <br />因为任意 $m$ 个向量线性相关。</p><p><strong>9.30 交换输入向量使交错型变号。</strong>  <br />证明：展开 $\\alpha(\\dots,u+v,\\dots,u+v,\\dots)=0$。</p><p><strong>9.34 交换排列中两项改变符号。</strong>  <br />证明：一次交换改变逆序数奇偶性。</p><p><strong>9.35 排列和交错多重线性型。</strong></p><div class=\"math-display\">$$\n\\alpha(v_{\\sigma(1)},\\dots,v_{\\sigma(m)})\n=\\operatorname{sign}(\\sigma)\\alpha(v_1,\\dots,v_m).\n$$</div><p><strong>9.36 交错 $n$ 重线性型公式。</strong>  <br />若 $v_k=\\sum_j a_{j,k}e_j$，则</p><div class=\"math-display\">$$\n\\alpha(v_1,\\dots,v_n)=\n\\sum_{\\sigma\\in S_n}\\operatorname{sign}(\\sigma)\na_{\\sigma(1),1}\\cdots a_{\\sigma(n),n}\\alpha(e_1,\\dots,e_n).\n$$</div><p><strong>9.37 交错 $n$ 重线性型空间一维。</strong>  <br />公式 9.36 表明它完全由 $\\alpha(e_1,\\dots,e_n)$ 决定。</p><p><strong>9.39 交错 $n$ 重线性型与线性无关性。</strong>  <br />非零交错 $n$ 重线性型在 $v_1,\\dots,v_n$ 上非零，当且仅当这些向量线性无关。</p><h5 id=\"例题-33\">例题<a class=\"heading-anchor\" href=\"#例题-33\" data-heading-id=\"例题-33\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：二维交错型。</strong></p><div class=\"math-display\">$$\n\\alpha((a,b),(c,d))=ad-bc\n$$</div><p>是 $\\mathbb R^2$ 上的交错双线性型。</p><h4 id=\"9c-行列式\">9C 行列式<a class=\"heading-anchor\" href=\"#9c-行列式\" data-heading-id=\"9c-行列式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-34\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-34\" data-heading-id=\"定义与对象-34\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>算子行列式。</strong>  <br />行列式是算子对交错最高重线性型的缩放因子。</p><p><strong>矩阵行列式。</strong>  <br />矩阵行列式是其列向量代入标准交错型得到的数。</p><p><strong>特征多项式。</strong>  <br />在一般域上可定义为</p><div class=\"math-display\">$$\n\\det(zI-T).\n$$</div><h5 id=\"常用性质-34\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-34\" data-heading-id=\"常用性质-34\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"行列式性质\">行列式性质<a class=\"heading-anchor\" href=\"#行列式性质\" data-heading-id=\"行列式性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>行列式作为列向量函数是交错 $n$ 重线性型。计算性质：</p><div class=\"math-display\">$$\n\\det(AB)=\\det A\\det B,\\qquad\n\\det A^t=\\det A,\n$$</div><div class=\"math-display\">$$\nA\\text{ 可逆}\\Longleftrightarrow \\det A\\ne0,\n$$</div><div class=\"math-display\">$$\n\\det(S^{-1}AS)=\\det A.\n$$</div><p>列操作性质：</p><ul><li>交换两列，行列式变号；</li><li>某列乘以 $\\lambda$，行列式乘以 $\\lambda$；</li><li>某列加另一列的倍数，行列式不变；</li><li>两列相同，行列式为 $0$。</li></ul><p>谱性质：</p><div class=\"math-display\">$$\n\\det T=\\text{特征值按重数之积}\\quad(F=\\mathbb C),\n$$</div><div class=\"math-display\">$$\n|\\det T|=\\text{奇异值之积}.\n$$</div><p>特征多项式：</p><div class=\"math-display\">$$\np_T(z)=\\det(zI-T),\n$$</div><p>且</p><div class=\"math-display\">$$\np_T(T)=0.\n$$</div><h5 id=\"定理与证明-34\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-34\" data-heading-id=\"定理与证明-34\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>9.45 行列式是交错多重线性型。</strong>  <br />作为列向量函数，$\\det$ 对每列线性，并且两列相同时为零。</p><p><strong>9.46 矩阵行列式公式。</strong></p><div class=\"math-display\">$$\n\\det A=\\sum_{\\sigma\\in S_n}\\operatorname{sign}(\\sigma)\nA_{\\sigma(1),1}\\cdots A_{\\sigma(n),n}.\n$$</div><p><strong>9.48 上三角矩阵行列式。</strong>  <br />上三角矩阵行列式等于对角线乘积。证明：排列公式中只有恒等排列可能非零。</p><p><strong>9.49 行列式可乘。</strong></p><div class=\"math-display\">$$\n\\det(ST)=\\det S\\det T.\n$$</div><p>证明：$v_1,\\dots,v_n\\mapsto \\det(Tv_1,\\dots,Tv_n)$ 是交错 $n$ 重线性型，因此是 $\\det(v_1,\\dots,v_n)$ 的常数倍；常数为 $\\det T$。</p><p><strong>9.50 可逆等价于行列式非零。</strong>  <br />可逆等价于像基线性无关；由 9.39 等价于行列式非零。</p><p><strong>9.51 特征值和行列式。</strong></p><div class=\"math-display\">$$\n\\lambda\\text{ 是特征值}\\Longleftrightarrow \\det(\\lambda I-T)=0.\n$$</div><p><strong>9.52 行列式是相似不变量。</strong></p><div class=\"math-display\">$$\n\\det(S^{-1}TS)=\\det T.\n$$</div><p><strong>9.53 算子行列式等于矩阵行列式。</strong>  <br />选基后，算子对体积型的缩放因子由矩阵列向量行列式给出。</p><p><strong>9.55 复空间上行列式等于特征值乘积。</strong>  <br />取上三角矩阵表示，行列式是对角线乘积。</p><p><strong>9.56 转置、对偶、伴随的行列式。</strong></p><div class=\"math-display\">$$\n\\det A^t=\\det A,\\qquad\n\\det T&#039;=\\det T,\\qquad\n\\det T^*=\\overline{\\det T}.\n$$</div><p><strong>9.57 计算行列式的若干结论。</strong>  <br />交换两列变号；一列乘标量，行列式同乘该标量；一列加另一列倍数，行列式不变；两列相同则行列式为零。</p><p><strong>9.58 幺正算子行列式绝对值为 $1$。</strong>  <br />幺正算子特征值绝对值为 $1$，行列式为特征值乘积。</p><p><strong>9.59 正算子行列式非负。</strong>  <br />正算子特征值非负，行列式为其乘积。</p><p><strong>9.60 行列式绝对值等于奇异值乘积。</strong>  <br />由 SVD：幺正因子不改绝对值，对角奇异值因子贡献乘积。</p><p><strong>9.61 体积变化倍数。</strong>  <br />可逆 $T$ 将体积乘以 $|\\det T|$。</p><p><strong>9.62 复空间上特征多项式等于 $\\det(zI-T)$。</strong>  <br />上三角化后直接比较对角线乘积。</p><p><strong>9.64 Cayley-Hamilton 定理。</strong></p><div class=\"math-display\">$$\np_T(T)=0.\n$$</div><p>复情形由第 8 章得到；实情形可复化或用多项式恒等性推出。</p><p><strong>9.65 特征多项式、迹和行列式。</strong>  <br />若 $\\dim V=n$，则</p><div class=\"math-display\">$$\np_T(z)=z^n-(\\operatorname{tr}T)z^{n-1}+\\cdots+(-1)^n\\det T.\n$$</div><p><strong>9.66 阿达马不等式。</strong>  <br />若列向量为 $v_1,\\dots,v_n$，则</p><div class=\"math-display\">$$\n|\\det(v_1,\\dots,v_n)|\\le\\|v_1\\|\\cdots\\|v_n\\|.\n$$</div><p>证明：对列向量做 Gram-Schmidt，行列式绝对值变成正交分量长度乘积。</p><p><strong>9.67 范德蒙行列式。</strong></p><div class=\"math-display\">$$\n\\det(\\lambda_k^{j-1})_{j,k=1}^n\n=\\prod_{1\\le j&lt;k\\le n}(\\lambda_k-\\lambda_j).\n$$</div><h5 id=\"例题-34\">例题<a class=\"heading-anchor\" href=\"#例题-34\" data-heading-id=\"例题-34\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：三阶范德蒙。</strong></p><div class=\"math-display\">$$\n\\begin{vmatrix}\n1&amp;1&amp;1\\\\\na&amp;b&amp;c\\\\\na^2&amp;b^2&amp;c^2\n\\end{vmatrix}\n=(b-a)(c-a)(c-b).\n$$</div><h4 id=\"9d-张量积\">9D 张量积<a class=\"heading-anchor\" href=\"#9d-张量积\" data-heading-id=\"9d-张量积\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"定义与对象-35\">定义与对象<a class=\"heading-anchor\" href=\"#定义与对象-35\" data-heading-id=\"定义与对象-35\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>双线性泛函空间。</strong>  <br />$B(V,W)$ 表示 $V\\times W$ 上所有双线性泛函。</p><p><strong>张量积。</strong>  <br />$V\\otimes W$ 是将双线性问题线性化的向量空间，基本元素写作 $v\\otimes w$。</p><p><strong>双线性映射。</strong>  <br />$B:V\\times W\\to U$ 对两个变量分别线性。</p><p><strong>多重张量积。</strong>  <br />类似定义</p><div class=\"math-display\">$$\nV_1\\otimes\\cdots\\otimes V_m.\n$$</div><h5 id=\"常用性质-35\">常用性质<a class=\"heading-anchor\" href=\"#常用性质-35\" data-heading-id=\"常用性质-35\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"张量积性质\">张量积性质<a class=\"heading-anchor\" href=\"#张量积性质\" data-heading-id=\"张量积性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>张量积把双线性/多重线性问题转化为线性问题：</p><div class=\"math-display\">$$\nB(v,w)=\\widetilde B(v\\otimes w).\n$$</div><p>若 $v_j$ 是 $V$ 的基，$w_k$ 是 $W$ 的基，则 $v_j\\otimes w_k$ 是 $V\\otimes W$ 的基。  <br />维数公式：</p><div class=\"math-display\">$$\n\\dim(V\\otimes W)=\\dim V\\cdot\\dim W,\n$$</div><div class=\"math-display\">$$\n\\dim(V_1\\otimes\\cdots\\otimes V_m)=\\prod_j\\dim V_j.\n$$</div><p>内积空间张量积满足</p><div class=\"math-display\">$$\n\\langle v\\otimes w,v&#039;\\otimes w&#039;\\rangle\n=\\langle v,v&#039;\\rangle\\langle w,w&#039;\\rangle.\n$$</div><h5 id=\"定理与证明-35\">定理与证明<a class=\"heading-anchor\" href=\"#定理与证明-35\" data-heading-id=\"定理与证明-35\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>9.70 双线性泛函空间维数。</strong>  <br />若 $\\dim V=m,\\dim W=n$，则 $\\dim B(V,W)=mn$。证明：双线性泛函由基向量对上的 $mn$ 个取值决定。</p><p><strong>9.72 张量积维数。</strong></p><div class=\"math-display\">$$\n\\dim(V\\otimes W)=(\\dim V)(\\dim W).\n$$</div><p><strong>9.73 张量积的双线性。</strong></p><div class=\"math-display\">$$\n(av_1+bv_2)\\otimes w=a(v_1\\otimes w)+b(v_2\\otimes w),\n$$</div><p>另一个变量同理。</p><p><strong>9.74 张量积的基。</strong>  <br />若 $v_j$ 是 $V$ 的基，$w_k$ 是 $W$ 的基，则</p><div class=\"math-display\">$$\nv_j\\otimes w_k\n$$</div><p>构成 $V\\otimes W$ 的基。</p><p><strong>9.79 化双线性映射为线性映射。</strong>  <br />任意双线性映射 $B:V\\times W\\to U$ 唯一对应线性映射 $\\widetilde B:V\\otimes W\\to U$，满足</p><div class=\"math-display\">$$\n\\widetilde B(v\\otimes w)=B(v,w).\n$$</div><p><strong>9.80 张量积上的内积。</strong>  <br />若 $V,W$ 是内积空间，定义</p><div class=\"math-display\">$$\n\\langle v\\otimes w,\\ v&#039;\\otimes w&#039;\\rangle\n=\\langle v,v&#039;\\rangle\\langle w,w&#039;\\rangle\n$$</div><p>并线性延拓。</p><p><strong>9.83 张量积的规范正交基。</strong>  <br />若 $e_j$ 和 $f_k$ 分别是规范正交基，则 $e_j\\otimes f_k$ 是 $V\\otimes W$ 的规范正交基。</p><p><strong>9.87 多重线性泛函空间维数。</strong>  <br />维数等于各输入空间维数的乘积。</p><p><strong>9.89 多重张量积维数。</strong></p><div class=\"math-display\">$$\n\\dim(V_1\\otimes\\cdots\\otimes V_m)=\\prod_j\\dim V_j.\n$$</div><p><strong>9.90 多重张量积的基。</strong>  <br />各空间基向量的张量积构成多重张量积的基。</p><p><strong>9.92 化多重线性映射为线性映射。</strong>  <br />任意多重线性映射唯一对应张量积空间上的线性映射。</p><h5 id=\"例题-35\">例题<a class=\"heading-anchor\" href=\"#例题-35\" data-heading-id=\"例题-35\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>例：$F^2\\otimes F^3$ 的维数。</strong></p><div class=\"math-display\">$$\n\\dim(F^2\\otimes F^3)=2\\cdot3=6.\n$$</div><p>若 $e_1,e_2$ 是 $F^2$ 标准基，$f_1,f_2,f_3$ 是 $F^3$ 标准基，则 $e_i\\otimes f_j$ 共六个，构成一组基。</p><h4 id=\"总复习\">总复习<a class=\"heading-anchor\" href=\"#总复习\" data-heading-id=\"总复习\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"主线图\">主线图<a class=\"heading-anchor\" href=\"#主线图\" data-heading-id=\"主线图\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><pre class=\"code-block language-mermaid\" data-language=\"mermaid\"><code>flowchart TD\n    A[&quot;向量空间&quot;] --&gt; B[&quot;张成、线性无关、基、维数&quot;]\n    B --&gt; C[&quot;线性映射&quot;]\n    C --&gt; D[&quot;零空间和值域&quot;]\n    D --&gt; E[&quot;线性映射基本定理&quot;]\n    C --&gt; F[&quot;矩阵表示与换基&quot;]\n    C --&gt; G[&quot;特征值与不变子空间&quot;]\n    G --&gt; H[&quot;最小多项式、上三角化、对角化&quot;]\n    A --&gt; I[&quot;内积空间&quot;]\n    I --&gt; J[&quot;正交分解、投影、伪逆&quot;]\n    J --&gt; K[&quot;伴随、自伴、正规&quot;]\n    K --&gt; L[&quot;谱定理&quot;]\n    L --&gt; M[&quot;正算子、等距映射、SVD&quot;]\n    G --&gt; N[&quot;广义特征空间与若当型&quot;]\n    N --&gt; O[&quot;迹与 Cayley-Hamilton&quot;]\n    M --&gt; P[&quot;体积与行列式&quot;]\n    P --&gt; Q[&quot;多重线性与张量积&quot;]</code></pre><h4 id=\"证明模板\">证明模板<a class=\"heading-anchor\" href=\"#证明模板\" data-heading-id=\"证明模板\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li><strong>子空间</strong>：证明非空且对任意线性组合封闭。</li><li><strong>线性无关</strong>：设线性组合为零，推出每个系数为零。</li><li><strong>张成</strong>：取任意目标向量，把它写成给定向量组的线性组合。</li><li><strong>基</strong>：线性无关 + 张成；或用长度等于维数的快捷判别。</li><li><strong>线性映射唯一性</strong>：基向量上的取值决定整个映射。</li><li><strong>维数公式</strong>：优先想到线性映射基本定理或构造基。</li><li><strong>正交结论</strong>：展开内积，使用伴随定义、谱定理或正交分解。</li><li><strong>对角化问题</strong>：看特征空间维数之和，或看最小多项式是否无重根。</li><li><strong>SVD 问题</strong>：先研究 $T^*T$。</li><li><strong>行列式性质</strong>：回到“交错多重线性”和“体积缩放”。</li></ol><h4 id=\"高频公式\">高频公式<a class=\"heading-anchor\" href=\"#高频公式\" data-heading-id=\"高频公式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"math-display\">$$\n\\dim V=\\dim\\operatorname{null}T+\\dim\\operatorname{range}T.\n$$</div><div class=\"math-display\">$$\n\\dim(U+W)=\\dim U+\\dim W-\\dim(U\\cap W).\n$$</div><div class=\"math-display\">$$\nM(ST)=M(S)M(T),\\qquad M(Tv)=M(T)M(v).\n$$</div><div class=\"math-display\">$$\nB=P^{-1}AP.\n$$</div><div class=\"math-display\">$$\n|\\langle u,v\\rangle|\\le\\|u\\|\\|v\\|.\n$$</div><div class=\"math-display\">$$\nV=U\\oplus U^\\perp.\n$$</div><div class=\"math-display\">$$\nT\\text{ 复正规}\\Longleftrightarrow T\\text{ 可由规范正交基对角化}.\n$$</div><div class=\"math-display\">$$\nA=U\\Sigma V^*.\n$$</div><div class=\"math-display\">$$\np_T(T)=0.\n$$</div><div class=\"math-display\">$$\n\\operatorname{tr}(AB)=\\operatorname{tr}(BA).\n$$</div><div class=\"math-display\">$$\n\\det(AB)=\\det A\\det B.\n$$</div><div class=\"math-display\">$$\n|\\det T|=\\prod_j s_j.\n$$</div>",
+  "headings": [
+    {
+      "id": "第-1-章-向量空间",
+      "title": "第 1 章 向量空间",
+      "level": 3
+    },
+    {
+      "id": "1a-mathbb-r-n-和-mathbb-c-n",
+      "title": "1A $\\mathbb R^n$ 和 $\\mathbb C^n$",
+      "level": 4
+    },
+    {
+      "id": "定义与对象",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "复数与-f-n-的运算性质",
+      "title": "复数与 $F^n$ 的运算性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "1b-向量空间的定义",
+      "title": "1B 向量空间的定义",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-2",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-2",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "向量空间中的派生性质",
+      "title": "向量空间中的派生性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-2",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-2",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "1c-子空间",
+      "title": "1C 子空间",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-3",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-3",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "子空间与直和性质",
+      "title": "子空间与直和性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-3",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-3",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "第-2-章-有限维向量空间",
+      "title": "第 2 章 有限维向量空间",
+      "level": 3
+    },
+    {
+      "id": "2a-张成空间和线性无关性",
+      "title": "2A 张成空间和线性无关性",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-4",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-4",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "张成与线性无关的常用性质",
+      "title": "张成与线性无关的常用性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-4",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-4",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "2b-基",
+      "title": "2B 基",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-5",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-5",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "基的性质",
+      "title": "基的性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-5",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-5",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "2c-维数",
+      "title": "2C 维数",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-6",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-6",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "维数性质",
+      "title": "维数性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-6",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-6",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "第-3-章-线性映射",
+      "title": "第 3 章 线性映射",
+      "level": 3
+    },
+    {
+      "id": "3a-线性映射的向量空间",
+      "title": "3A 线性映射的向量空间",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-7",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-7",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "线性映射运算性质",
+      "title": "线性映射运算性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-7",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-7",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "3b-零空间和值域",
+      "title": "3B 零空间和值域",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-8",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-8",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "零空间-值域-方程组性质",
+      "title": "零空间、值域、方程组性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-8",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-8",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "3c-矩阵",
+      "title": "3C 矩阵",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-9",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-9",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "矩阵运算性质",
+      "title": "矩阵运算性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-9",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-9",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "3d-可逆性和同构",
+      "title": "3D 可逆性和同构",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-10",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-10",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "可逆与换基性质",
+      "title": "可逆与换基性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-10",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-10",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "3e-向量空间的积和商",
+      "title": "3E 向量空间的积和商",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-11",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-11",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "商空间性质",
+      "title": "商空间性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-11",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-11",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "3f-对偶",
+      "title": "3F 对偶",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-12",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-12",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "对偶性质",
+      "title": "对偶性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-12",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-12",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "第-4-章-多项式",
+      "title": "第 4 章 多项式",
+      "level": 3
+    },
+    {
+      "id": "本章目录式笔记",
+      "title": "本章目录式笔记",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-13",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-13",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "复数共轭与绝对值性质",
+      "title": "复数共轭与绝对值性质",
+      "level": 6
+    },
+    {
+      "id": "多项式性质",
+      "title": "多项式性质",
+      "level": 6
+    },
+    {
+      "id": "实多项式分解性质",
+      "title": "实多项式分解性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-13",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-13",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "第-5-章-特征值和特征向量",
+      "title": "第 5 章 特征值和特征向量",
+      "level": 3
+    },
+    {
+      "id": "5a-不变子空间",
+      "title": "5A 不变子空间",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-14",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-14",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "不变子空间与特征值性质",
+      "title": "不变子空间与特征值性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-14",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-14",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "5b-最小多项式",
+      "title": "5B 最小多项式",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-15",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-15",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "最小多项式性质",
+      "title": "最小多项式性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-15",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-15",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "5c-上三角矩阵",
+      "title": "5C 上三角矩阵",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-16",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-16",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "上三角性质",
+      "title": "上三角性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-16",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-16",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "5d-可对角化算子",
+      "title": "5D 可对角化算子",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-17",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-17",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "对角化性质",
+      "title": "对角化性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-17",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-17",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "5e-可交换算子",
+      "title": "5E 可交换算子",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-18",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-18",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "可交换性质",
+      "title": "可交换性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-18",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-18",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "第-6-章-内积空间",
+      "title": "第 6 章 内积空间",
+      "level": 3
+    },
+    {
+      "id": "6a-内积和范数",
+      "title": "6A 内积和范数",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-19",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-19",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "内积-范数-正交性质",
+      "title": "内积、范数、正交性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-19",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-19",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "6b-规范正交基",
+      "title": "6B 规范正交基",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-20",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-20",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "规范正交性质",
+      "title": "规范正交性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-20",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-20",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "6c-正交补和最小化问题",
+      "title": "6C 正交补和最小化问题",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-21",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-21",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "正交补-投影-伪逆性质",
+      "title": "正交补、投影、伪逆性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-21",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-21",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "第-7-章-内积空间上的算子",
+      "title": "第 7 章 内积空间上的算子",
+      "level": 3
+    },
+    {
+      "id": "7a-自伴算子和正规算子",
+      "title": "7A 自伴算子和正规算子",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-22",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-22",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "伴随-自伴-正规性质",
+      "title": "伴随、自伴、正规性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-22",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-22",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "7b-谱定理",
+      "title": "7B 谱定理",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-23",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-23",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "谱定理性质",
+      "title": "谱定理性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-23",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-23",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "7c-正算子",
+      "title": "7C 正算子",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-24",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-24",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "正算子性质",
+      "title": "正算子性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-24",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-24",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "7d-等距映射-幺正算子和矩阵分解",
+      "title": "7D 等距映射、幺正算子和矩阵分解",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-25",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-25",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "等距-幺正-分解性质",
+      "title": "等距、幺正、分解性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-25",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-25",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "7e-奇异值分解",
+      "title": "7E 奇异值分解",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-26",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-26",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "奇异值性质",
+      "title": "奇异值性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-26",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-26",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "7f-奇异值分解的推论",
+      "title": "7F 奇异值分解的推论",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-27",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-27",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "范数与体积性质",
+      "title": "范数与体积性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-27",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-27",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "第-8-章-复向量空间上的算子",
+      "title": "第 8 章 复向量空间上的算子",
+      "level": 3
+    },
+    {
+      "id": "8a-广义特征向量和幂零算子",
+      "title": "8A 广义特征向量和幂零算子",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-28",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-28",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "广义特征向量与幂零性质",
+      "title": "广义特征向量与幂零性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-28",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-28",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "8b-广义特征空间分解",
+      "title": "8B 广义特征空间分解",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-29",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-29",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "广义特征空间性质",
+      "title": "广义特征空间性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-29",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-29",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "8c-广义特征空间分解的推论",
+      "title": "8C 广义特征空间分解的推论",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-30",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-30",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "若当型性质",
+      "title": "若当型性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-30",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-30",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "8d-联系矩阵与算子的桥梁-迹",
+      "title": "8D 联系矩阵与算子的桥梁：迹",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-31",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-31",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "迹性质",
+      "title": "迹性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-31",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-31",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "第-9-章-多重线性代数和行列式",
+      "title": "第 9 章 多重线性代数和行列式",
+      "level": 3
+    },
+    {
+      "id": "9a-双线性型和二次型",
+      "title": "9A 双线性型和二次型",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-32",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-32",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "双线性型与二次型性质",
+      "title": "双线性型与二次型性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-32",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-32",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "9b-交错多重线性型",
+      "title": "9B 交错多重线性型",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-33",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-33",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "交错多重线性型性质",
+      "title": "交错多重线性型性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-33",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-33",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "9c-行列式",
+      "title": "9C 行列式",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-34",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-34",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "行列式性质",
+      "title": "行列式性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-34",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-34",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "9d-张量积",
+      "title": "9D 张量积",
+      "level": 4
+    },
+    {
+      "id": "定义与对象-35",
+      "title": "定义与对象",
+      "level": 5
+    },
+    {
+      "id": "常用性质-35",
+      "title": "常用性质",
+      "level": 5
+    },
+    {
+      "id": "张量积性质",
+      "title": "张量积性质",
+      "level": 6
+    },
+    {
+      "id": "定理与证明-35",
+      "title": "定理与证明",
+      "level": 5
+    },
+    {
+      "id": "例题-35",
+      "title": "例题",
+      "level": 5
+    },
+    {
+      "id": "总复习",
+      "title": "总复习",
+      "level": 3
+    },
+    {
+      "id": "主线图",
+      "title": "主线图",
+      "level": 4
+    },
+    {
+      "id": "证明模板",
+      "title": "证明模板",
+      "level": 4
+    },
+    {
+      "id": "高频公式",
+      "title": "高频公式",
+      "level": 4
+    }
+  ]
+}

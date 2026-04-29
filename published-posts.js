@@ -242,6 +242,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "离散数学课堂笔记/ Discrete Mathematics Notes 参考资料 / Main references: MIT 6.042J / 6.1200J Mathematics for Computer Science, Rose...",
       "readingMinutes": 68,
       "createdAt": "2026-04-28T00:00:00.000Z"
+    },
+    {
+      "id": "notes/线代/2026-04-29-linear-algebra-ii-notes.md",
+      "slug": "2026-04-29-linear-algebra-ii-notes",
+      "dataPath": "post-data/2026-04-29-linear-algebra-ii-notes.json",
+      "source": "post",
+      "kind": "notes",
+      "title": "Linear algebra II notes",
+      "publishedIndex": 23,
+      "stage": "Notes 笔记",
+      "tag": "线代",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "按《线性代数应该这样学》第四版中文版目录编排。 本笔记是学习整理版：每节按“定义与对象 → 定理与证明 → 例题”组织，证明尽量保留核心逻辑，便于复习时快速还原完整证明。 下载完整 PDF 笔记 --- 第 1 章 向量空间 1A $\\ma...",
+      "readingMinutes": 42,
+      "createdAt": "2026-04-29T00:00:00.000Z"
     }
   ],
   "videos": [

@@ -6,7 +6,14 @@
     <link>https://qqqzj.cn/</link>
     <description>qqqzj 的个人笔记、生活记录与学习档案。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 28 Apr 2026 15:12:08 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 29 Apr 2026 03:26:01 GMT</lastBuildDate>
+    <item>
+      <title>Linear algebra II notes</title>
+      <link>https://qqqzj.cn/post/2026-04-29-linear-algebra-ii-notes/</link>
+      <guid>https://qqqzj.cn/post/2026-04-29-linear-algebra-ii-notes/</guid>
+      <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
+      <description>按《线性代数应该这样学》第四版中文版目录编排。 本笔记是学习整理版：每节按“定义与对象 → 定理与证明 → 例题”组织，证明尽量保留核心逻辑，便于复习时快速还原完整证明。 下载完整 PDF 笔记 --- 第 1 章 向量空间 1A $\ma...</description>
+    </item>
     <item>
       <title>我迷失在了黑夜里</title>
       <link>https://qqqzj.cn/post/2026-04-28-%E6%88%91%E8%BF%B7%E5%A4%B1%E5%9C%A8%E4%BA%86%E9%BB%91%E5%A4%9C%E9%87%8C/</link>
@@ -139,13 +146,6 @@
       <guid>https://qqqzj.cn/post/2026-04-24-mathematical-analysis-i-review-outline/</guid>
       <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
       <description>来源：数分I复习.pdf。 参考校订：数学分析 上.pdf、《数学分析》辅导.pdf。 本文件按复习页内容整理为考前提纲，公式已按标准表述校正。 1. 实数完备性与确界 确界原理 非空有上界数集必有上确界；非空有下界数集必有下确界。 等价完...</description>
-    </item>
-    <item>
-      <title>数学分析 I</title>
-      <link>https://qqqzj.cn/post/2026-04-24-mathematical-analysis-i/</link>
-      <guid>https://qqqzj.cn/post/2026-04-24-mathematical-analysis-i/</guid>
-      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
-      <description>实数、确界与函数 实数集的基本性质 实数集 $\mathbb R$ 的常用性质： 1. 有序性：任意 $a,b\in\mathbb R$ 可比较大小。 2. 传递性：若 $ab$，$bc$，则 $ac$。 3. 阿基米德性：若 $a0$，$...</description>
     </item>
   </channel>
 </rss>
