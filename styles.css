@@ -2280,6 +2280,49 @@ h3 {
   overflow-wrap: anywhere;
 }
 
+.post-comments {
+  display: grid;
+  gap: 16px;
+  border-top: 1px solid rgba(16, 35, 46, 0.1);
+  padding-top: 18px;
+}
+
+.post-comments[hidden] {
+  display: none;
+}
+
+.comments-heading {
+  display: grid;
+  gap: 4px;
+}
+
+.comments-heading h2 {
+  font-size: 22px;
+}
+
+.comments-placeholder {
+  display: grid;
+  gap: 7px;
+  border: 1px dashed rgba(20, 123, 145, 0.26);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(248, 251, 251, 0.7);
+  color: var(--muted);
+}
+
+.comments-placeholder strong {
+  color: var(--ink);
+}
+
+.comments-placeholder p {
+  margin: 0;
+}
+
+.giscus,
+.giscus-frame {
+  width: 100%;
+}
+
 /* 没有内容时显示的占位状态。 */
 .empty-state {
   display: grid;
@@ -3067,6 +3110,7 @@ html.theme-enter-pneuma::after {
 :root[data-theme-state="ousia"] .back-link,
 :root[data-theme-state="ousia"] .contact-copy,
 :root[data-theme-state="ousia"] .post-neighbor-nav a,
+:root[data-theme-state="ousia"] .comments-placeholder,
 :root[data-theme-state="ousia"] .empty-state {
   border-color: rgba(129, 218, 242, 0.18);
   background:

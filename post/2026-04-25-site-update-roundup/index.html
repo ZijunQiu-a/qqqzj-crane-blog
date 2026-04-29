@@ -183,6 +183,7 @@
                 <a href="../../post/2026-04-25-physics-i-midterm-review-outline/"><span>Newer / 更新</span><strong>普物 I 期中复习提纲（重点速览版）</strong></a>
                 <a href="../../post/2026-04-25-homepage-reading-polish/"><span>Older / 更早</span><strong>首页和阅读体验继续打磨</strong></a>
               </nav>
+              <section class="post-comments" id="post-comments" aria-label="Comments / 评论区" hidden></section>
             </article>
           </div>
         </section>
@@ -195,7 +196,15 @@
       </footer>
     </div>
     <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <script src="../../comments-config.js"></script>
+    <script src="../../comments.js"></script>
     <script>
+      window.CraneComments?.render(document.querySelector("#post-comments"), {
+        slug: "2026-04-25-site-update-roundup",
+        title: "网站阶段更新：从内容归档到阅读体验",
+        commentTerm: "post:2026-04-25-site-update-roundup",
+      });
+
       const readingProgress = document.querySelector("#reading-progress");
       function updateReadingProgress() {
         const max = document.documentElement.scrollHeight - window.innerHeight;
