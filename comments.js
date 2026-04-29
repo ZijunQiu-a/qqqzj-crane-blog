@@ -121,7 +121,8 @@
       await request(settings, "/api/comment-auth/logout", { method: "POST" });
       await load(container, settings, term);
     } catch (error) {
-      setStatus(container, error.message || "退出失败。", "error");
+      setStatus(container, "正在跳转退出...", "success");
+      window.location.href = logoutUrl(settings);
     } finally {
       setBusy(container, false);
     }
@@ -304,6 +305,12 @@
   function loginUrl(settings) {
     const url = new URL("/api/auth/start", settings.apiBase);
     url.searchParams.set("mode", "comment");
+    url.searchParams.set("return_to", window.location.href);
+    return url.toString();
+  }
+
+  function logoutUrl(settings) {
+    const url = new URL("/api/comment-auth/logout", settings.apiBase);
     url.searchParams.set("return_to", window.location.href);
     return url.toString();
   }
