@@ -1842,13 +1842,14 @@ h3 {
 .post-detail-kicker {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 12px;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .post-detail-kicker .eyebrow {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-width: 0;
   margin: 0;
 }

@@ -1,4 +1,4 @@
-const CACHE_NAME = "crane-site-shell-v13";
+const CACHE_NAME = "crane-site-shell-v14";
 const APP_SHELL = [
   "/",
   "/index.html",
