@@ -2396,6 +2396,10 @@ h3 {
   background: rgba(248, 251, 251, 0.72);
 }
 
+.comment-login {
+  container-type: inline-size;
+}
+
 .comment-login p,
 .comment-empty {
   margin: 0;
@@ -2421,6 +2425,7 @@ h3 {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.55;
+  max-width: 62ch;
 }
 
 .comment-email-code-form {
@@ -3475,6 +3480,27 @@ html.theme-enter-pneuma::after {
 
 :root[data-theme-state="ousia"] .comment-reply-context {
   border-left-color: rgba(129, 218, 242, 0.28);
+}
+
+@container (max-width: 760px) {
+  .comment-login-grid,
+  .comment-email-form,
+  .comment-email-code-form {
+    grid-template-columns: 1fr;
+  }
+
+  .comment-login-actions,
+  .comment-github-login,
+  .comment-login .comment-button {
+    width: 100%;
+  }
+
+  .comment-login-actions .comment-button,
+  .comment-github-login .comment-button,
+  .comment-email-form .comment-button {
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 :root[data-theme-state="ousia"] .topbar-search .search-panel {
