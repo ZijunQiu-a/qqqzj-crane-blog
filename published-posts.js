@@ -252,7 +252,7 @@ window.PUBLISHED_POSTS = {
       "title": "Linear algebra II notes",
       "publishedIndex": 23,
       "stage": "Notes 笔记",
-      "tag": "线代",
+      "tag": "数学",
       "author": "qqqzj-crane",
       "url": "",
       "previewImage": null,
