@@ -276,6 +276,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "按《线性代数应该这样学》第四版中文版目录编排。 本笔记是学习整理版：每节按“定义与对象 → 定理与证明 → 例题”组织，证明尽量保留核心逻辑，便于复习时快速还原完整证明。 下载完整 PDF 笔记 --- 第 1 章 向量空间 1A $\\ma...",
       "readingMinutes": 42,
       "createdAt": "2026-04-29T00:00:00.000Z"
+    },
+    {
+      "id": "notes/math/2026-04-29-线性代数ii-第七章笔记.md",
+      "slug": "2026-04-29-线性代数ii-第七章笔记",
+      "dataPath": "post-data/2026-04-29-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0ii-%E7%AC%AC%E4%B8%83%E7%AB%A0%E7%AC%94%E8%AE%B0.json",
+      "source": "post",
+      "kind": "notes",
+      "title": "线性代数II 第七章笔记",
+      "publishedIndex": 25,
+      "stage": "Notes 笔记",
+      "tag": "数学",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "第 7 章 内积空间上的算子 本章默认 $V,W,U$ 都是有限维内积空间，标量域 $F$ 为 $\\mathbb R$ 或 $\\mathbb C$。内积按本书约定对第一个变量线性、对第二个变量共轭线性： $$ \\langle \\lambda...",
+      "readingMinutes": 27,
+      "createdAt": "2026-04-29T00:00:00.000Z"
     }
   ],
   "videos": [

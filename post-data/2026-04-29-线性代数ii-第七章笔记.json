@@ -1,0 +1,480 @@
+{
+  "html": "<h4 id=\"第-7-章-内积空间上的算子\">第 7 章 内积空间上的算子<a class=\"heading-anchor\" href=\"#第-7-章-内积空间上的算子\" data-heading-id=\"第-7-章-内积空间上的算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>本章默认 $V,W,U$ 都是有限维内积空间，标量域 $F$ 为 $\\mathbb R$ 或 $\\mathbb C$。内积按本书约定对第一个变量线性、对第二个变量共轭线性：</p><div class=\"math-display\">$$\n\\langle \\lambda u+v,w\\rangle=\\lambda\\langle u,w\\rangle+\\langle v,w\\rangle,\\qquad\n\\langle u,\\lambda v+w\\rangle=\\overline\\lambda\\langle u,v\\rangle+\\langle u,w\\rangle.\n$$</div><p>第 7 章的主线是：</p><ol><li>用伴随 $T^*$ 把内积空间中的线性映射“移到内积另一侧”。</li><li>用自伴、正规、正、幺正等条件刻画一批可以被规范正交基很好描述的算子。</li><li>用谱定理和奇异值分解把算子的几何作用分解为正交方向上的伸缩与旋转。</li><li>用奇异值解释范数、最佳低秩逼近、极分解、椭球、平行体和体积变化。</li></ol><hr /><h4 id=\"7a-自伴算子和正规算子\">7A 自伴算子和正规算子<a class=\"heading-anchor\" href=\"#7a-自伴算子和正规算子\" data-heading-id=\"7a-自伴算子和正规算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"7-1-定义-伴随-t\">7.1 定义：伴随 $T^*$<a class=\"heading-anchor\" href=\"#7-1-定义-伴随-t\" data-heading-id=\"7-1-定义-伴随-t\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$。$T$ 的伴随是函数</p><div class=\"math-display\">$$\nT^*:W\\to V\n$$</div><p>使得对任意 $v\\in V$ 和 $w\\in W$，</p><div class=\"math-display\">$$\n\\langle Tv,w\\rangle=\\langle v,T^*w\\rangle.\n$$</div><p>这个定义有意义，是因为固定 $w\\in W$ 后，</p><div class=\"math-display\">$$\nv\\mapsto \\langle Tv,w\\rangle\n$$</div><p>是 $V$ 上的线性泛函。由里斯表示定理，存在唯一向量 $T^*w\\in V$ 使得上式成立。也就是说，伴随不是随便定义出来的，而是由内积的表示性质唯一决定的。</p><p><strong>常用理解。</strong>  <br />伴随的作用是把 $T$ 从内积的左边“搬到”右边：</p><div class=\"math-display\">$$\n\\langle Tv,w\\rangle=\\langle v,T^*w\\rangle.\n$$</div><p>如果 $V=W$ 且 $T=T^*$，那么 $T$ 在内积意义下左右对称，这就是后面的自伴算子。</p><h5 id=\"7-2-例-从-mathbb-r-3-到-mathbb-r-2-的伴随\">7.2 例：从 $\\mathbb R^3$ 到 $\\mathbb R^2$ 的伴随<a class=\"heading-anchor\" href=\"#7-2-例-从-mathbb-r-3-到-mathbb-r-2-的伴随\" data-heading-id=\"7-2-例-从-mathbb-r-3-到-mathbb-r-2-的伴随\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>定义</p><div class=\"math-display\">$$\nT(x_1,x_2,x_3)=(x_2+3x_3,2x_1).\n$$</div><p>对 $(y_1,y_2)\\in\\mathbb R^2$，</p><div class=\"math-display\">$$\n\\begin{aligned}\n\\langle T(x_1,x_2,x_3),(y_1,y_2)\\rangle\n&amp;=(x_2+3x_3)y_1+2x_1y_2\\\\\n&amp;=\\langle (x_1,x_2,x_3),(2y_2,y_1,3y_1)\\rangle.\n\\end{aligned}\n$$</div><p>因此</p><div class=\"math-display\">$$\nT^*(y_1,y_2)=(2y_2,y_1,3y_1).\n$$</div><p>计算伴随的方法是：先写 $\\langle Tv,w\\rangle$，再把表达式整理成 $\\langle v,\\text{某个关于 }w\\text{ 的向量}\\rangle$，后面的向量就是 $T^*w$。</p><h5 id=\"7-3-例-秩至多为-1-的映射的伴随\">7.3 例：秩至多为 $1$ 的映射的伴随<a class=\"heading-anchor\" href=\"#7-3-例-秩至多为-1-的映射的伴随\" data-heading-id=\"7-3-例-秩至多为-1-的映射的伴随\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>取定 $u\\in V$ 和 $x\\in W$，定义</p><div class=\"math-display\">$$\nTv=\\langle v,u\\rangle x.\n$$</div><p>则对任意 $v\\in V,w\\in W$，</p><div class=\"math-display\">$$\n\\langle Tv,w\\rangle=\\langle v,u\\rangle\\langle x,w\\rangle\n=\\langle v,\\langle w,x\\rangle u\\rangle.\n$$</div><p>所以</p><div class=\"math-display\">$$\nT^*w=\\langle w,x\\rangle u.\n$$</div><p>这说明形如 $v\\mapsto \\langle v,u\\rangle x$ 的“外积型”映射，伴随就是交换 $u,x$ 的角色：</p><div class=\"math-display\">$$\nv\\mapsto \\langle v,u\\rangle x\n\\quad\\Longleftrightarrow\\quad\nw\\mapsto \\langle w,x\\rangle u.\n$$</div><h5 id=\"7-4-定理-线性映射的伴随是线性映射\">7.4 定理：线性映射的伴随是线性映射<a class=\"heading-anchor\" href=\"#7-4-定理-线性映射的伴随是线性映射\" data-heading-id=\"7-4-定理-线性映射的伴随是线性映射\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $T\\in\\mathcal L(V,W)$，则</p><div class=\"math-display\">$$\nT^*\\in\\mathcal L(W,V).\n$$</div><p><strong>证明。</strong>  <br />任取 $w_1,w_2\\in W$。对所有 $v\\in V$，</p><div class=\"math-display\">$$\n\\begin{aligned}\n\\langle v,T^*(w_1+w_2)\\rangle\n&amp;=\\langle Tv,w_1+w_2\\rangle\\\\\n&amp;=\\langle Tv,w_1\\rangle+\\langle Tv,w_2\\rangle\\\\\n&amp;=\\langle v,T^*w_1\\rangle+\\langle v,T^*w_2\\rangle\\\\\n&amp;=\\langle v,T^*w_1+T^*w_2\\rangle.\n\\end{aligned}\n$$</div><p>由于内积非退化，得到</p><div class=\"math-display\">$$\nT^*(w_1+w_2)=T^*w_1+T^*w_2.\n$$</div><p>再任取 $\\lambda\\in F$。对所有 $v\\in V$，</p><div class=\"math-display\">$$\n\\begin{aligned}\n\\langle v,T^*(\\lambda w)\\rangle\n&amp;=\\langle Tv,\\lambda w\\rangle\\\\\n&amp;=\\overline{\\lambda}\\langle Tv,w\\rangle\\\\\n&amp;=\\overline{\\lambda}\\langle v,T^*w\\rangle\\\\\n&amp;=\\langle v,\\lambda T^*w\\rangle.\n\\end{aligned}\n$$</div><p>故 $T^<em>(\\lambda w)=\\lambda T^</em>w$。所以 $T^*$ 是线性映射。$\\square$</p><h5 id=\"7-5-定理-伴随的性质\">7.5 定理：伴随的性质<a class=\"heading-anchor\" href=\"#7-5-定理-伴随的性质\" data-heading-id=\"7-5-定理-伴随的性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$。伴随满足：</p><div class=\"math-display\">$$\n(S+T)^*=S^*+T^*,\\qquad S\\in\\mathcal L(V,W).\n$$</div><div class=\"math-display\">$$\n(\\lambda T)^*=\\overline{\\lambda}\\,T^*,\\qquad \\lambda\\in F.\n$$</div><div class=\"math-display\">$$\n(T^*)^*=T.\n$$</div><p>若 $S\\in\\mathcal L(W,U)$，则</p><div class=\"math-display\">$$\n(ST)^*=T^*S^*.\n$$</div><p>恒等算子的伴随仍是恒等算子：</p><div class=\"math-display\">$$\nI^*=I.\n$$</div><p>若 $T$ 可逆，则 $T^*$ 可逆，且</p><div class=\"math-display\">$$\n(T^*)^{-1}=(T^{-1})^*.\n$$</div><p><strong>证明。</strong></p><p>加法：对任意 $v\\in V,w\\in W$，</p><div class=\"math-display\">$$\n\\langle (S+T)v,w\\rangle\n=\\langle Sv,w\\rangle+\\langle Tv,w\\rangle\n=\\langle v,S^*w+T^*w\\rangle.\n$$</div><p>由伴随唯一性得 $(S+T)^<em>=S^</em>+T^*$。</p><p>数乘：对任意 $v,w$，</p><div class=\"math-display\">$$\n\\langle (\\lambda T)v,w\\rangle\n=\\lambda\\langle Tv,w\\rangle\n=\\lambda\\langle v,T^*w\\rangle\n=\\langle v,\\overline\\lambda T^*w\\rangle.\n$$</div><p>故 $(\\lambda T)^<em>=\\overline\\lambda T^</em>$。</p><p>二次伴随：由伴随定义，</p><div class=\"math-display\">$$\n\\langle T^*w,v\\rangle=\\overline{\\langle v,T^*w\\rangle}\n=\\overline{\\langle Tv,w\\rangle}\n=\\langle w,Tv\\rangle.\n$$</div><p>所以 $(T^<em>)^</em>v=Tv$，即 $(T^<em>)^</em>=T$。</p><p>乘积：对任意 $v\\in V,u\\in U$，</p><div class=\"math-display\">$$\n\\langle STv,u\\rangle=\\langle Tv,S^*u\\rangle\n=\\langle v,T^*S^*u\\rangle,\n$$</div><p>因此 $(ST)^<em>=T^</em>S^*$。</p><p>恒等算子：$\\langle Iv,w\\rangle=\\langle v,w\\rangle=\\langle v,Iw\\rangle$，故 $I^*=I$。</p><p>可逆情形：由 $T^{-1}T=I$ 取伴随得</p><div class=\"math-display\">$$\nT^*(T^{-1})^*=I.\n$$</div><p>由 $TT^{-1}=I$ 取伴随得</p><div class=\"math-display\">$$\n(T^{-1})^*T^*=I.\n$$</div><p>所以 $(T^{-1})^<em>$ 是 $T^</em>$ 的逆。$\\square$</p><p><strong>性质提醒。</strong>  <br />在复内积空间中，$T\\mapsto T^*$ 是共轭线性的：</p><div class=\"math-display\">$$\n(\\lambda T)^*=\\overline\\lambda T^*.\n$$</div><p>这点很容易在计算中漏掉。</p><h5 id=\"7-6-定理-t-的零空间和值域\">7.6 定理：$T^*$ 的零空间和值域<a class=\"heading-anchor\" href=\"#7-6-定理-t-的零空间和值域\" data-heading-id=\"7-6-定理-t-的零空间和值域\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$。则</p><div class=\"math-display\">$$\n\\operatorname{null}T^*=(\\operatorname{range}T)^\\perp,\n$$</div><div class=\"math-display\">$$\n\\operatorname{range}T^*=(\\operatorname{null}T)^\\perp,\n$$</div><div class=\"math-display\">$$\n\\operatorname{null}T=(\\operatorname{range}T^*)^\\perp,\n$$</div><div class=\"math-display\">$$\n\\operatorname{range}T=(\\operatorname{null}T^*)^\\perp.\n$$</div><p><strong>证明。</strong>  <br />先证明第一式。对 $w\\in W$，</p><div class=\"math-display\">$$\n\\begin{aligned}\nw\\in\\operatorname{null}T^*\n&amp;\\Longleftrightarrow T^*w=0\\\\\n&amp;\\Longleftrightarrow \\langle v,T^*w\\rangle=0\\quad \\forall v\\in V\\\\\n&amp;\\Longleftrightarrow \\langle Tv,w\\rangle=0\\quad \\forall v\\in V\\\\\n&amp;\\Longleftrightarrow w\\perp \\operatorname{range}T.\n\\end{aligned}\n$$</div><p>故 $\\operatorname{null}T^*=(\\operatorname{range}T)^\\perp$。</p><p>对第一式两边取正交补并用有限维结论 $(M^\\perp)^\\perp=M$，得</p><div class=\"math-display\">$$\n\\operatorname{range}T=(\\operatorname{null}T^*)^\\perp.\n$$</div><p>把第一式中的 $T$ 换成 $T^<em>$，再用 $(T^</em>)^*=T$，得</p><div class=\"math-display\">$$\n\\operatorname{null}T=(\\operatorname{range}T^*)^\\perp.\n$$</div><p>再取正交补，得到</p><div class=\"math-display\">$$\n\\operatorname{range}T^*=(\\operatorname{null}T)^\\perp.\n$$</div><p>四式全部成立。$\\square$</p><p><strong>重要用法。</strong>  <br />$\\operatorname{range}T^*=(\\operatorname{null}T)^\\perp$ 常用来把“正交于零空间”改写成“属于伴随的值域”。后面伪逆、SVD、最小二乘都会反复用到这种转换。</p><h5 id=\"7-7-定义-共轭转置\">7.7 定义：共轭转置<a class=\"heading-anchor\" href=\"#7-7-定义-共轭转置\" data-heading-id=\"7-7-定义-共轭转置\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $A$ 是 $m\\times n$ 矩阵，则 $A^*$ 是 $n\\times m$ 矩阵，定义为</p><div class=\"math-display\">$$\n(A^*)_{j,k}=\\overline{A_{k,j}}.\n$$</div><p>也就是先转置，再对每个元素取复共轭。若矩阵元素全为实数，则 $A^*$ 就是通常的转置 $A^t$。</p><h5 id=\"7-8-例-共轭转置\">7.8 例：共轭转置<a class=\"heading-anchor\" href=\"#7-8-例-共轭转置\" data-heading-id=\"7-8-例-共轭转置\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若</p><div class=\"math-display\">$$\nA=\\begin{pmatrix}\n2&amp;3+4i&amp;7\\\\\n6&amp;5&amp;8i\n\\end{pmatrix},\n$$</div><p>则</p><div class=\"math-display\">$$\nA^*=\n\\begin{pmatrix}\n2&amp;6\\\\\n3-4i&amp;5\\\\\n7&amp;-8i\n\\end{pmatrix}.\n$$</div><h5 id=\"7-9-定理-伴随的矩阵是矩阵的共轭转置\">7.9 定理：伴随的矩阵是矩阵的共轭转置<a class=\"heading-anchor\" href=\"#7-9-定理-伴随的矩阵是矩阵的共轭转置\" data-heading-id=\"7-9-定理-伴随的矩阵是矩阵的共轭转置\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$。若 $e_1,\\dots,e_n$ 是 $V$ 的规范正交基，$f_1,\\dots,f_m$ 是 $W$ 的规范正交基，则</p><div class=\"math-display\">$$\n\\mathcal M(T^*)=\\mathcal M(T)^*,\n$$</div><p>其中左边的矩阵是关于基 $f_1,\\dots,f_m$ 到 $e_1,\\dots,e_n$ 的矩阵。</p><p><strong>证明。</strong>  <br />$\\mathcal M(T)$ 的第 $j$ 行第 $k$ 列元素是</p><div class=\"math-display\">$$\n\\langle Te_k,f_j\\rangle.\n$$</div><p>$\\mathcal M(T^*)$ 的第 $j$ 行第 $k$ 列元素是</p><div class=\"math-display\">$$\n\\langle T^*f_k,e_j\\rangle.\n$$</div><p>由伴随定义，</p><div class=\"math-display\">$$\n\\langle T^*f_k,e_j\\rangle\n=\\overline{\\langle e_j,T^*f_k\\rangle}\n=\\overline{\\langle Te_j,f_k\\rangle}.\n$$</div><p>这正是 $\\mathcal M(T)$ 的第 $k$ 行第 $j$ 列元素的复共轭。因此</p><div class=\"math-display\">$$\n\\mathcal M(T^*)=\\mathcal M(T)^*.\n$$</div><p>$\\square$</p><p><strong>注意。</strong>  <br />这个结论要求使用规范正交基。若基不是规范正交基，伴随的矩阵通常不等于原矩阵的共轭转置。</p><h5 id=\"7-10-定义-自伴算子\">7.10 定义：自伴算子<a class=\"heading-anchor\" href=\"#7-10-定义-自伴算子\" data-heading-id=\"7-10-定义-自伴算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>算子 $T\\in\\mathcal L(V)$ 称为自伴的，如果</p><div class=\"math-display\">$$\nT=T^*.\n$$</div><p>等价地，</p><div class=\"math-display\">$$\n\\langle Tv,w\\rangle=\\langle v,Tw\\rangle\\qquad \\forall v,w\\in V.\n$$</div><p>在规范正交基下，$T$ 自伴当且仅当 $\\mathcal M(T)$ 等于自己的共轭转置。实内积空间中，这就是实对称矩阵；复内积空间中，这就是 Hermitian 矩阵。</p><h5 id=\"7-11-例-由矩阵判断自伴\">7.11 例：由矩阵判断自伴<a class=\"heading-anchor\" href=\"#7-11-例-由矩阵判断自伴\" data-heading-id=\"7-11-例-由矩阵判断自伴\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(F^2)$ 关于标准基的矩阵是</p><div class=\"math-display\">$$\n\\begin{pmatrix}\n2&amp;c\\\\\n3&amp;7\n\\end{pmatrix}.\n$$</div><p>其伴随关于标准基的矩阵是</p><div class=\"math-display\">$$\n\\begin{pmatrix}\n2&amp;3\\\\\n\\overline c&amp;7\n\\end{pmatrix}.\n$$</div><p>因此 $T$ 自伴当且仅当 $c=3$。</p><h5 id=\"7-12-定理-自伴算子的特征值为实数\">7.12 定理：自伴算子的特征值为实数<a class=\"heading-anchor\" href=\"#7-12-定理-自伴算子的特征值为实数\" data-heading-id=\"7-12-定理-自伴算子的特征值为实数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>自伴算子的每个特征值都是实数。</p><p><strong>证明。</strong>  <br />设 $Tv=\\lambda v$，其中 $v\\ne 0$。因为 $T=T^*$，</p><div class=\"math-display\">$$\n\\lambda\\|v\\|^2\n=\\langle \\lambda v,v\\rangle\n=\\langle Tv,v\\rangle\n=\\langle v,Tv\\rangle\n=\\langle v,\\lambda v\\rangle\n=\\overline\\lambda\\|v\\|^2.\n$$</div><p>由于 $\\|v\\|^2&gt;0$，得 $\\lambda=\\overline\\lambda$，所以 $\\lambda\\in\\mathbb R$。$\\square$</p><h5 id=\"7-13-定理-复空间中二次型恒零推出算子为零\">7.13 定理：复空间中二次型恒零推出算子为零<a class=\"heading-anchor\" href=\"#7-13-定理-复空间中二次型恒零推出算子为零\" data-heading-id=\"7-13-定理-复空间中二次型恒零推出算子为零\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $F=\\mathbb C$，$T\\in\\mathcal L(V)$。则</p><div class=\"math-display\">$$\n\\langle Tv,v\\rangle=0\\quad \\forall v\\in V\n\\Longleftrightarrow\nT=0.\n$$</div><p><strong>证明。</strong>  <br />$T=0$ 时结论显然。反过来，假设 $\\langle Tv,v\\rangle=0$ 对所有 $v$ 成立。</p><p>对任意 $u,w\\in V$，复极化恒等式给出</p><div class=\"math-display\">$$\n\\begin{aligned}\n\\langle Tu,w\\rangle\n&amp;=\\frac{\\langle T(u+w),u+w\\rangle-\\langle T(u-w),u-w\\rangle}{4}\\\\\n&amp;\\quad+\\frac{\\langle T(u+iw),u+iw\\rangle-\\langle T(u-iw),u-iw\\rangle}{4}i.\n\\end{aligned}\n$$</div><p>右侧每一项都形如 $\\langle Tx,x\\rangle$，故全为 $0$。于是</p><div class=\"math-display\">$$\n\\langle Tu,w\\rangle=0\\qquad \\forall u,w\\in V.\n$$</div><p>取 $w=Tu$，得 $\\|Tu\\|^2=0$，所以 $Tu=0$。任意 $u$ 都成立，故 $T=0$。$\\square$</p><p><strong>性质提醒。</strong>  <br />这个结论在实内积空间中不成立。例如 $\\mathbb R^2$ 上旋转 $90^\\circ$ 的算子满足 $\\langle Tv,v\\rangle=0$，但 $T\\ne 0$。</p><h5 id=\"7-14-定理-复空间中二次型实值等价于自伴\">7.14 定理：复空间中二次型实值等价于自伴<a class=\"heading-anchor\" href=\"#7-14-定理-复空间中二次型实值等价于自伴\" data-heading-id=\"7-14-定理-复空间中二次型实值等价于自伴\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $F=\\mathbb C$，$T\\in\\mathcal L(V)$。则</p><div class=\"math-display\">$$\nT\\text{ 自伴}\n\\Longleftrightarrow\n\\langle Tv,v\\rangle\\in\\mathbb R\\quad \\forall v\\in V.\n$$</div><p><strong>证明。</strong>  <br />若 $T$ 自伴，则</p><div class=\"math-display\">$$\n\\overline{\\langle Tv,v\\rangle}\n=\\langle v,Tv\\rangle\n=\\langle T^*v,v\\rangle\n=\\langle Tv,v\\rangle,\n$$</div><p>所以 $\\langle Tv,v\\rangle$ 为实数。</p><p>反过来，假设 $\\langle Tv,v\\rangle$ 总为实数。对每个 $v$，</p><div class=\"math-display\">$$\n\\langle (T-T^*)v,v\\rangle\n=\\langle Tv,v\\rangle-\\langle T^*v,v\\rangle\n=\\langle Tv,v\\rangle-\\overline{\\langle Tv,v\\rangle}\n=0.\n$$</div><p>由 7.13 得 $T-T^*=0$，故 $T$ 自伴。$\\square$</p><h5 id=\"7-16-定理-自伴算子的二次型恒零等价于零算子\">7.16 定理：自伴算子的二次型恒零等价于零算子<a class=\"heading-anchor\" href=\"#7-16-定理-自伴算子的二次型恒零等价于零算子\" data-heading-id=\"7-16-定理-自伴算子的二次型恒零等价于零算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V)$ 是自伴算子。则</p><div class=\"math-display\">$$\n\\langle Tv,v\\rangle=0\\quad \\forall v\\in V\n\\Longleftrightarrow\nT=0.\n$$</div><p><strong>证明。</strong>  <br />复情形由 7.13 直接得到。现在设 $F=\\mathbb R$。若 $\\langle Tv,v\\rangle=0$ 对所有 $v$ 成立，则对任意 $u,w\\in V$，实极化恒等式给出</p><div class=\"math-display\">$$\n\\langle Tu,w\\rangle\n=\\frac{\\langle T(u+w),u+w\\rangle-\\langle T(u-w),u-w\\rangle}{4}.\n$$</div><p>这里用到了 $T$ 自伴，从而 $\\langle Tw,u\\rangle=\\langle Tu,w\\rangle$。右侧为 $0$，故 $\\langle Tu,w\\rangle=0$。取 $w=Tu$，得 $Tu=0$，故 $T=0$。反向显然。$\\square$</p><h5 id=\"7-18-定义-正规算子\">7.18 定义：正规算子<a class=\"heading-anchor\" href=\"#7-18-定义-正规算子\" data-heading-id=\"7-18-定义-正规算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>算子 $T\\in\\mathcal L(V)$ 称为正规的，如果</p><div class=\"math-display\">$$\nTT^*=T^*T.\n$$</div><p>每个自伴算子都是正规的，因为 $T=T^<em>$ 时 $TT^</em>=T^2=T^*T$。正规性比自伴性弱，但仍足够强，可以保证复内积空间上有规范正交特征向量基。</p><h5 id=\"7-19-例-正规但不自伴\">7.19 例：正规但不自伴<a class=\"heading-anchor\" href=\"#7-19-例-正规但不自伴\" data-heading-id=\"7-19-例-正规但不自伴\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(F^2)$ 关于标准基的矩阵为</p><div class=\"math-display\">$$\nA=\\begin{pmatrix}\n2&amp;-3\\\\\n3&amp;2\n\\end{pmatrix}.\n$$</div><p>则 $A^*\\ne A$，所以 $T$ 不自伴。但</p><div class=\"math-display\">$$\nAA^*=\n\\begin{pmatrix}\n13&amp;0\\\\\n0&amp;13\n\\end{pmatrix}\n=A^*A,\n$$</div><p>所以 $T$ 是正规的。</p><h5 id=\"7-20-定理-正规性的范数判别\">7.20 定理：正规性的范数判别<a class=\"heading-anchor\" href=\"#7-20-定理-正规性的范数判别\" data-heading-id=\"7-20-定理-正规性的范数判别\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V)$。则</p><div class=\"math-display\">$$\nT\\text{ 正规}\n\\Longleftrightarrow\n\\|Tv\\|=\\|T^*v\\|\\quad \\forall v\\in V.\n$$</div><p><strong>证明。</strong>  <br />令</p><div class=\"math-display\">$$\nA=T^*T-TT^*.\n$$</div><p>则 $A$ 自伴。并且</p><div class=\"math-display\">$$\n\\langle Av,v\\rangle\n=\\langle T^*Tv,v\\rangle-\\langle TT^*v,v\\rangle\n=\\|Tv\\|^2-\\|T^*v\\|^2.\n$$</div><p>若 $T$ 正规，则 $A=0$，故两范数相等。</p><p>反过来，若 $\\|Tv\\|=\\|T^<em>v\\|$ 对所有 $v$ 成立，则 $\\langle Av,v\\rangle=0$ 对所有 $v$ 成立。由 7.16，$A=0$，即 $T^</em>T=TT^*$，所以 $T$ 正规。$\\square$</p><h5 id=\"7-21-定理-正规算子的值域-零空间和特征向量\">7.21 定理：正规算子的值域、零空间和特征向量<a class=\"heading-anchor\" href=\"#7-21-定理-正规算子的值域-零空间和特征向量\" data-heading-id=\"7-21-定理-正规算子的值域-零空间和特征向量\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V)$ 正规。则：</p><div class=\"math-display\">$$\n\\operatorname{null}T=\\operatorname{null}T^*.\n$$</div><div class=\"math-display\">$$\n\\operatorname{range}T=\\operatorname{range}T^*.\n$$</div><div class=\"math-display\">$$\nV=\\operatorname{null}T\\oplus\\operatorname{range}T.\n$$</div><p>对任意 $\\lambda\\in F$，$T-\\lambda I$ 也是正规算子。</p><p>对任意 $v\\in V$ 和 $\\lambda\\in F$，</p><div class=\"math-display\">$$\nTv=\\lambda v\n\\Longleftrightarrow\nT^*v=\\overline\\lambda v.\n$$</div><p><strong>证明。</strong></p><p>由 7.20，</p><div class=\"math-display\">$$\nv\\in\\operatorname{null}T\n\\Longleftrightarrow\n\\|Tv\\|=0\n\\Longleftrightarrow\n\\|T^*v\\|=0\n\\Longleftrightarrow\nv\\in\\operatorname{null}T^*.\n$$</div><p>所以 $\\operatorname{null}T=\\operatorname{null}T^*$。</p><p>再用 7.6，</p><div class=\"math-display\">$$\n\\operatorname{range}T=(\\operatorname{null}T^*)^\\perp\n=(\\operatorname{null}T)^\\perp\n=\\operatorname{range}T^*.\n$$</div><p>由正交分解，</p><div class=\"math-display\">$$\nV=\\operatorname{null}T\\oplus(\\operatorname{null}T)^\\perp\n=\\operatorname{null}T\\oplus\\operatorname{range}T.\n$$</div><p>若 $\\lambda\\in F$，则</p><div class=\"math-display\">$$\n(T-\\lambda I)^*=T^*-\\overline\\lambda I.\n$$</div><p>直接展开可得</p><div class=\"math-display\">$$\n(T-\\lambda I)(T-\\lambda I)^*\n=(T-\\lambda I)^*(T-\\lambda I),\n$$</div><p>因为 $TT^<em>=T^</em>T$，且标量倍的恒等算子与所有算子可交换。因此 $T-\\lambda I$ 正规。</p><p>最后，对正规算子 $T-\\lambda I$ 使用第一部分的零空间结论：</p><div class=\"math-display\">$$\n\\operatorname{null}(T-\\lambda I)\n=\\operatorname{null}\\bigl((T-\\lambda I)^*\\bigr)\n=\\operatorname{null}(T^*-\\overline\\lambda I).\n$$</div><p>这正是</p><div class=\"math-display\">$$\nTv=\\lambda v\n\\Longleftrightarrow\nT^*v=\\overline\\lambda v.\n$$</div><p>$\\square$</p><h5 id=\"7-22-定理-正规算子的不同特征值对应特征向量正交\">7.22 定理：正规算子的不同特征值对应特征向量正交<a class=\"heading-anchor\" href=\"#7-22-定理-正规算子的不同特征值对应特征向量正交\" data-heading-id=\"7-22-定理-正规算子的不同特征值对应特征向量正交\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V)$ 正规。若 $Tu=\\alpha u$，$Tv=\\beta v$，且 $\\alpha\\ne\\beta$，则</p><div class=\"math-display\">$$\n\\langle u,v\\rangle=0.\n$$</div><p><strong>证明。</strong>  <br />由 7.21，</p><div class=\"math-display\">$$\nT^*v=\\overline\\beta v.\n$$</div><p>因此</p><div class=\"math-display\">$$\n\\alpha\\langle u,v\\rangle\n=\\langle \\alpha u,v\\rangle\n=\\langle Tu,v\\rangle\n=\\langle u,T^*v\\rangle\n=\\langle u,\\overline\\beta v\\rangle\n=\\beta\\langle u,v\\rangle.\n$$</div><p>所以</p><div class=\"math-display\">$$\n(\\alpha-\\beta)\\langle u,v\\rangle=0.\n$$</div><p>由于 $\\alpha\\ne\\beta$，得 $\\langle u,v\\rangle=0$。$\\square$</p><h5 id=\"7-23-定理-复正规算子等价于实部与虚部可交换\">7.23 定理：复正规算子等价于实部与虚部可交换<a class=\"heading-anchor\" href=\"#7-23-定理-复正规算子等价于实部与虚部可交换\" data-heading-id=\"7-23-定理-复正规算子等价于实部与虚部可交换\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $F=\\mathbb C$，$T\\in\\mathcal L(V)$。则 $T$ 正规当且仅当存在自伴算子 $A,B\\in\\mathcal L(V)$，满足</p><div class=\"math-display\">$$\nAB=BA,\\qquad T=A+iB.\n$$</div><p>其中 $A$ 与 $B$ 分别是 $T$ 的“实部”和“虚部”：</p><div class=\"math-display\">$$\nA=\\frac{T+T^*}{2},\\qquad B=\\frac{T-T^*}{2i}.\n$$</div><p><strong>证明。</strong>  <br />先设 $T$ 正规，定义上面的 $A,B$。容易验证 $A^<em>=A$、$B^</em>=B$，且 $T=A+iB$。计算得</p><div class=\"math-display\">$$\nAB-BA=\\frac{T^*T-TT^*}{2i}.\n$$</div><p>正规性给出右侧为 $0$，故 $AB=BA$。</p><p>反过来，若 $T=A+iB$，其中 $A,B$ 自伴且 $AB=BA$，则</p><div class=\"math-display\">$$\nT^*=A-iB.\n$$</div><p>于是</p><div class=\"math-display\">$$\nTT^*=(A+iB)(A-iB)=A^2+B^2+i(BA-AB),\n$$</div><div class=\"math-display\">$$\nT^*T=(A-iB)(A+iB)=A^2+B^2+i(AB-BA).\n$$</div><p>因为 $AB=BA$，两式相等，所以 $T$ 正规。$\\square$</p><hr /><h4 id=\"7b-谱定理\">7B 谱定理<a class=\"heading-anchor\" href=\"#7b-谱定理\" data-heading-id=\"7b-谱定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>谱定理回答的是：什么时候可以找到由特征向量组成的规范正交基？它比普通“可对角化”更强，因为它要求对角化基不仅由特征向量组成，而且是规范正交基。</p><h5 id=\"7-26-定理-可逆二次表达式\">7.26 定理：可逆二次表达式<a class=\"heading-anchor\" href=\"#7-26-定理-可逆二次表达式\" data-heading-id=\"7-26-定理-可逆二次表达式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V)$ 自伴，$b,c\\in\\mathbb R$，且</p><div class=\"math-display\">$$\nb^2&lt;4c.\n$$</div><p>则</p><div class=\"math-display\">$$\nT^2+bT+cI\n$$</div><p>可逆。</p><p><strong>证明。</strong>  <br />任取非零 $v\\in V$。因为 $T$ 自伴，</p><div class=\"math-display\">$$\n\\langle T^2v,v\\rangle=\\langle Tv,Tv\\rangle=\\|Tv\\|^2.\n$$</div><p>于是</p><div class=\"math-display\">$$\n\\begin{aligned}\n\\langle (T^2+bT+cI)v,v\\rangle\n&amp;=\\|Tv\\|^2+b\\langle Tv,v\\rangle+c\\|v\\|^2\\\\\n&amp;\\ge \\|Tv\\|^2-|b|\\,\\|Tv\\|\\,\\|v\\|+c\\|v\\|^2\\\\\n&amp;=\\left(\\|Tv\\|-\\frac{|b|}{2}\\|v\\|\\right)^2\n\\,+\\left(c-\\frac{b^2}{4}\\right)\\|v\\|^2\\\\\n&amp;&gt;0.\n\\end{aligned}\n$$</div><p>所以 $(T^2+bT+cI)v\\ne 0$ 对所有非零 $v$ 成立，即该算子单射。有限维空间上单射等价于可逆。$\\square$</p><p><strong>性质嵌入。</strong>  <br />这条定理是“无实根二次多项式作用在自伴算子上不会产生零”的算子版本。它后面用于排除实自伴算子最小多项式中的不可约二次因子。</p><h5 id=\"7-27-定理-自伴算子的最小多项式在实数上分裂\">7.27 定理：自伴算子的最小多项式在实数上分裂<a class=\"heading-anchor\" href=\"#7-27-定理-自伴算子的最小多项式在实数上分裂\" data-heading-id=\"7-27-定理-自伴算子的最小多项式在实数上分裂\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V)$ 自伴。则 $T$ 的最小多项式可写成</p><div class=\"math-display\">$$\n(z-\\lambda_1)\\cdots(z-\\lambda_m),\n$$</div><p>其中 $\\lambda_1,\\dots,\\lambda_m\\in\\mathbb R$。</p><p><strong>证明。</strong></p><p>若 $F=\\mathbb C$，最小多项式的零点正是 $T$ 的特征值，而自伴算子的特征值全为实数。因此最小多项式只含实一次因子。</p><p>若 $F=\\mathbb R$，实多项式可分解为一次因子与不可约二次因子之积：</p><div class=\"math-display\">$$\np(z)=(z-\\lambda_1)\\cdots(z-\\lambda_m)\n(z^2+b_1z+c_1)\\cdots(z^2+b_Nz+c_N),\n$$</div><p>其中每个不可约二次因子满足 $b_k^2&lt;4c_k$。若 $N&gt;0$，则由 7.26，</p><div class=\"math-display\">$$\nT^2+b_NT+c_NI\n$$</div><p>可逆。由于 $p(T)=0$，右乘该可逆算子的逆，可得到一个次数更低的多项式 $q$ 满足 $q(T)=0$，这与 $p$ 是最小多项式矛盾。因此 $N=0$，最小多项式只能由实一次因子构成。$\\square$</p><p><strong>补充性质。</strong>  <br />谱定理证明后可进一步看出，自伴算子的最小多项式没有重根：在规范正交特征向量基下，$T$ 是实对角矩阵，最小多项式只需包含每个不同特征值一次。</p><h5 id=\"7-29-定理-实谱定理\">7.29 定理：实谱定理<a class=\"heading-anchor\" href=\"#7-29-定理-实谱定理\" data-heading-id=\"7-29-定理-实谱定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $F=\\mathbb R$，$T\\in\\mathcal L(V)$。下列命题等价：</p><ol><li>$T$ 自伴。</li><li>$T$ 关于 $V$ 的某个规范正交基有对角矩阵。</li><li>$V$ 有由 $T$ 的特征向量构成的规范正交基。</li></ol><p><strong>证明。</strong></p><p>先证 $1\\Rightarrow 2$。由 7.27，$T$ 的最小多项式在 $\\mathbb R$ 上分裂，因此存在规范正交基使得 $T$ 的矩阵为上三角矩阵。又因为 $T$ 自伴，在规范正交基下其矩阵等于自己的转置。一个既上三角又等于自身转置的矩阵只能是对角矩阵。因此 $T$ 关于某个规范正交基有对角矩阵。</p><p>再证 $2\\Rightarrow 1$。若 $T$ 关于某规范正交基的矩阵为实对角矩阵，则该矩阵等于自己的转置。由 7.9，$T^<em>$ 在同一基下的矩阵也等于这个矩阵，故 $T=T^</em>$。</p><p>$2$ 与 $3$ 等价：关于某个基的矩阵为对角矩阵，当且仅当该基中的每个向量都是 $T$ 的特征向量。若这个基还规范正交，就得到 $3$。$\\square$</p><h5 id=\"7-30-例-实自伴矩阵的规范正交特征向量基\">7.30 例：实自伴矩阵的规范正交特征向量基<a class=\"heading-anchor\" href=\"#7-30-例-实自伴矩阵的规范正交特征向量基\" data-heading-id=\"7-30-例-实自伴矩阵的规范正交特征向量基\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>考虑 $\\mathbb R^3$ 上矩阵</p><div class=\"math-display\">$$\nA=\n\\begin{pmatrix}\n14&amp;-13&amp;8\\\\\n-13&amp;14&amp;8\\\\\n8&amp;8&amp;-7\n\\end{pmatrix}.\n$$</div><p>$A=A^t$，故对应算子自伴。可以验证</p><div class=\"math-display\">$$\n\\frac{(1,-1,0)}{\\sqrt2},\\qquad\n\\frac{(1,1,1)}{\\sqrt3},\\qquad\n\\frac{(1,1,-2)}{\\sqrt6}\n$$</div><p>构成规范正交特征向量基，关于此基的矩阵为</p><div class=\"math-display\">$$\n\\begin{pmatrix}\n27&amp;0&amp;0\\\\\n0&amp;9&amp;0\\\\\n0&amp;0&amp;-15\n\\end{pmatrix}.\n$$</div><h5 id=\"7-31-定理-复谱定理\">7.31 定理：复谱定理<a class=\"heading-anchor\" href=\"#7-31-定理-复谱定理\" data-heading-id=\"7-31-定理-复谱定理\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $F=\\mathbb C$，$T\\in\\mathcal L(V)$。下列命题等价：</p><ol><li>$T$ 正规。</li><li>$T$ 关于 $V$ 的某个规范正交基有对角矩阵。</li><li>$V$ 有由 $T$ 的特征向量构成的规范正交基。</li></ol><p><strong>证明。</strong></p><p>先证 $1\\Rightarrow 2$。由舒尔定理，存在 $V$ 的规范正交基 $e_1,\\dots,e_n$，使得 $T$ 的矩阵为上三角矩阵：</p><div class=\"math-display\">$$\n\\begin{pmatrix}\na_{1,1}&amp;a_{1,2}&amp;\\cdots&amp;a_{1,n}\\\\\n0&amp;a_{2,2}&amp;\\cdots&amp;a_{2,n}\\\\\n\\vdots&amp;\\vdots&amp;\\ddots&amp;\\vdots\\\\\n0&amp;0&amp;\\cdots&amp;a_{n,n}\n\\end{pmatrix}.\n$$</div><p>因为 $T$ 正规，7.20 给出</p><div class=\"math-display\">$$\n\\|Te_k\\|=\\|T^*e_k\\|\n$$</div><p>对每个 $k$ 成立。</p><p>看 $e_1$。上三角矩阵给出</p><div class=\"math-display\">$$\n\\|Te_1\\|^2=|a_{1,1}|^2,\n$$</div><p>而 $T^*$ 的矩阵是共轭转置，所以</p><div class=\"math-display\">$$\n\\|T^*e_1\\|^2=|a_{1,1}|^2+|a_{1,2}|^2+\\cdots+|a_{1,n}|^2.\n$$</div><p>两者相等，故</p><div class=\"math-display\">$$\na_{1,2}=\\cdots=a_{1,n}=0.\n$$</div><p>再看 $e_2$，同理得到</p><div class=\"math-display\">$$\na_{2,3}=\\cdots=a_{2,n}=0.\n$$</div><p>继续下去，所有非对角元素都为 $0$。因此矩阵实际上是对角矩阵。</p><p>再证 $2\\Rightarrow 1$。若 $T$ 在某规范正交基下有对角矩阵，则 $T^<em>$ 在同一基下的矩阵为该对角矩阵的共轭转置，仍是对角矩阵。任意两个对角矩阵可交换，所以 $TT^</em>=T^*T$，即 $T$ 正规。</p><p>$2$ 与 $3$ 的等价与实谱定理中相同。$\\square$</p><h5 id=\"7-33-例-复正规算子的规范正交特征向量基\">7.33 例：复正规算子的规范正交特征向量基<a class=\"heading-anchor\" href=\"#7-33-例-复正规算子的规范正交特征向量基\" data-heading-id=\"7-33-例-复正规算子的规范正交特征向量基\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(\\mathbb C^2)$，</p><div class=\"math-display\">$$\nT(w,z)=(2w-3z,3w+2z).\n$$</div><p>其标准矩阵为</p><div class=\"math-display\">$$\n\\begin{pmatrix}\n2&amp;-3\\\\\n3&amp;2\n\\end{pmatrix}.\n$$</div><p>这是 7.19 中的正规但不自伴算子。两个规范化特征向量可取</p><div class=\"math-display\">$$\n\\frac{(i,1)}{\\sqrt2},\\qquad \\frac{(-i,1)}{\\sqrt2},\n$$</div><p>对应特征值分别为</p><div class=\"math-display\">$$\n2+3i,\\qquad 2-3i.\n$$</div><p>因此 $T$ 可由规范正交特征向量基对角化。</p><hr /><h4 id=\"7c-正算子\">7C 正算子<a class=\"heading-anchor\" href=\"#7c-正算子\" data-heading-id=\"7c-正算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"7-34-定义-正算子\">7.34 定义：正算子<a class=\"heading-anchor\" href=\"#7-34-定义-正算子\" data-heading-id=\"7-34-定义-正算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>算子 $T\\in\\mathcal L(V)$ 称为正的，如果：</p><ol><li>$T$ 自伴；</li><li>对所有 $v\\in V$，</li></ol><div class=\"math-display\">$$\n\\langle Tv,v\\rangle\\ge 0.\n$$</div><p>若 $V$ 是复内积空间，第二个条件已经迫使 $\\langle Tv,v\\rangle$ 为实且非负；由 7.14，自伴性可由这个二次型条件推出。但在实空间中，自伴条件必须单独写出。</p><h5 id=\"7-35-例-正算子\">7.35 例：正算子<a class=\"heading-anchor\" href=\"#7-35-例-正算子\" data-heading-id=\"7-35-例-正算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ol><li>在 $F^2$ 上，矩阵</li></ol><div class=\"math-display\">$$\n\\begin{pmatrix}\n2&amp;-1\\\\\n-1&amp;1\n\\end{pmatrix}\n$$</div><p>对应的算子是正的，因为</p><div class=\"math-display\">$$\n\\left\\langle\n\\begin{pmatrix}\n2&amp;-1\\\\\n-1&amp;1\n\\end{pmatrix}\n\\binom{w}{z},\n\\binom{w}{z}\n\\right\\rangle\n=|w-z|^2+|w|^2\\ge 0.\n$$</div><ol><li>若 $U$ 是 $V$ 的子空间，则正交投影 $P_U$ 是正算子，因为 $P_U=P_U^*$ 且</li></ol><div class=\"math-display\">$$\n\\langle P_Uv,v\\rangle=\\langle P_Uv,P_Uv\\rangle=\\|P_Uv\\|^2\\ge 0.\n$$</div><ol><li>若 $T$ 自伴，$b,c\\in\\mathbb R$ 且 $b^2&lt;4c$，则由 7.26 的证明可知</li></ol><div class=\"math-display\">$$\nT^2+bT+cI\n$$</div><p>是正算子，而且事实上是可逆正算子。</p><h5 id=\"7-36-定义-平方根\">7.36 定义：平方根<a class=\"heading-anchor\" href=\"#7-36-定义-平方根\" data-heading-id=\"7-36-定义-平方根\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>算子 $R$ 称为算子 $T$ 的平方根，如果</p><div class=\"math-display\">$$\nR^2=T.\n$$</div><p>如果 $R$ 还是正算子，就称 $R$ 为 $T$ 的正平方根。</p><h5 id=\"7-37-例-平方根\">7.37 例：平方根<a class=\"heading-anchor\" href=\"#7-37-例-平方根\" data-heading-id=\"7-37-例-平方根\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>在 $F^3$ 上定义</p><div class=\"math-display\">$$\nT(z_1,z_2,z_3)=(z_3,0,0),\n$$</div><p>以及</p><div class=\"math-display\">$$\nR(z_1,z_2,z_3)=(z_2,z_3,0).\n$$</div><p>则</p><div class=\"math-display\">$$\nR^2(z_1,z_2,z_3)=R(z_2,z_3,0)=(z_3,0,0)=T(z_1,z_2,z_3).\n$$</div><p>所以 $R$ 是 $T$ 的一个平方根。</p><h5 id=\"7-38-定理-正算子的等价刻画\">7.38 定理：正算子的等价刻画<a class=\"heading-anchor\" href=\"#7-38-定理-正算子的等价刻画\" data-heading-id=\"7-38-定理-正算子的等价刻画\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>对 $T\\in\\mathcal L(V)$，下列命题等价：</p><ol><li>$T$ 是正算子。</li><li>$T$ 自伴且所有特征值非负。</li><li>关于 $V$ 的某个规范正交基，$T$ 的矩阵是对角矩阵，且对角线元素全非负。</li><li>$T$ 有正平方根。</li><li>$T$ 有自伴平方根。</li><li>存在 $R\\in\\mathcal L(V)$ 使得</li></ol><div class=\"math-display\">$$\nT=R^*R.\n$$</div><p><strong>证明。</strong></p><p>$1\\Rightarrow 2$：若 $Tv=\\lambda v$，$v\\ne0$，则</p><div class=\"math-display\">$$\n0\\le \\langle Tv,v\\rangle=\\lambda\\|v\\|^2.\n$$</div><p>又 $T$ 自伴，所以 $\\lambda$ 为实数，因此 $\\lambda\\ge0$。</p><p>$2\\Rightarrow 3$：由谱定理，$T$ 有规范正交特征向量基。关于该基，$T$ 的矩阵为对角矩阵，对角线就是特征值，故全非负。</p><p>$3\\Rightarrow 4$：若关于规范正交基 $e_1,\\dots,e_n$，</p><div class=\"math-display\">$$\nTe_k=\\lambda_ke_k,\\qquad \\lambda_k\\ge0,\n$$</div><p>定义</p><div class=\"math-display\">$$\nRe_k=\\sqrt{\\lambda_k}\\,e_k.\n$$</div><p>则 $R$ 自伴、特征值非负，所以 $R$ 是正算子；且</p><div class=\"math-display\">$$\nR^2e_k=\\lambda_ke_k=Te_k,\n$$</div><p>故 $R^2=T$。</p><p>$4\\Rightarrow 5$：正算子必自伴，因此正平方根当然是自伴平方根。</p><p>$5\\Rightarrow 6$：若 $R=R^*$ 且 $R^2=T$，则</p><div class=\"math-display\">$$\nT=R^2=R^*R.\n$$</div><p>$6\\Rightarrow 1$：若 $T=R^*R$，则</p><div class=\"math-display\">$$\nT^*=(R^*R)^*=R^*R=T.\n$$</div><p>且</p><div class=\"math-display\">$$\n\\langle Tv,v\\rangle=\\langle R^*Rv,v\\rangle=\\langle Rv,Rv\\rangle=\\|Rv\\|^2\\ge0.\n$$</div><p>故 $T$ 是正算子。$\\square$</p><p><strong>常用性质。</strong>  <br />判断 $T$ 正，常用三种方式：</p><div class=\"math-display\">$$\nT\\ge0\n\\Longleftrightarrow\nT=T^*,\\ \\langle Tv,v\\rangle\\ge0\n\\Longleftrightarrow\nT=T^*,\\ \\sigma(T)\\subset[0,\\infty)\n\\Longleftrightarrow\nT=R^*R.\n$$</div><h5 id=\"7-39-定理-每个正算子有唯一正平方根\">7.39 定理：每个正算子有唯一正平方根<a class=\"heading-anchor\" href=\"#7-39-定理-每个正算子有唯一正平方根\" data-heading-id=\"7-39-定理-每个正算子有唯一正平方根\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>每个正算子 $T$ 都存在唯一正平方根。</p><p><strong>证明。</strong></p><p>存在性已经在 7.38 的证明中给出：取 $T$ 的规范正交特征向量基 $e_1,\\dots,e_n$，设</p><div class=\"math-display\">$$\nTe_k=\\lambda_ke_k,\\qquad \\lambda_k\\ge0.\n$$</div><p>定义</p><div class=\"math-display\">$$\n\\sqrt T\\,e_k=\\sqrt{\\lambda_k}\\,e_k.\n$$</div><p>这个算子正，且平方等于 $T$。</p><p>下面证唯一性。设 $R$ 是 $T$ 的任意正平方根。若 $v$ 是 $T$ 对应特征值 $\\lambda$ 的特征向量，则 $R^2v=\\lambda v$。由于 $R$ 正，存在 $R$ 的规范正交特征向量基 $e_j$，且 $Re_j=\\mu_je_j$，其中 $\\mu_j\\ge0$。将</p><div class=\"math-display\">$$\nv=\\sum_j a_je_j\n$$</div><p>代入 $R^2v=\\lambda v$，得</p><div class=\"math-display\">$$\n\\sum_j a_j\\mu_j^2e_j=\\sum_j a_j\\lambda e_j.\n$$</div><p>因此只要 $a_j\\ne0$，就有 $\\mu_j^2=\\lambda$，从而 $\\mu_j=\\sqrt\\lambda$。于是</p><div class=\"math-display\">$$\nRv=\\sqrt\\lambda\\,v.\n$$</div><p>所以 $R$ 在 $T$ 的每个特征向量上的作用都被唯一确定。由于 $T$ 的特征向量可组成 $V$ 的基，$R$ 唯一。$\\square$</p><h5 id=\"7-40-记号-sqrt-t\">7.40 记号：$\\sqrt T$<a class=\"heading-anchor\" href=\"#7-40-记号-sqrt-t\" data-heading-id=\"7-40-记号-sqrt-t\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $T$ 是正算子，$\\sqrt T$ 表示 $T$ 的唯一正平方根。</p><p>注意：一个正算子可能有很多平方根，但正平方根只有一个。</p><h5 id=\"7-41-例-正算子的平方根\">7.41 例：正算子的平方根<a class=\"heading-anchor\" href=\"#7-41-例-正算子的平方根\" data-heading-id=\"7-41-例-正算子的平方根\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>在 $\\mathbb R^2$ 上令</p><div class=\"math-display\">$$\nS(x,y)=(x,2y),\\qquad T(x,y)=(x+y,x+y).\n$$</div><p>标准矩阵分别为</p><div class=\"math-display\">$$\n\\mathcal M(S)=\n\\begin{pmatrix}\n1&amp;0\\\\\n0&amp;2\n\\end{pmatrix},\n\\qquad\n\\mathcal M(T)=\n\\begin{pmatrix}\n1&amp;1\\\\\n1&amp;1\n\\end{pmatrix}.\n$$</div><p>二者都是正算子。</p><p>$S$ 的正平方根显然为</p><div class=\"math-display\">$$\n\\sqrt S=\n\\begin{pmatrix}\n1&amp;0\\\\\n0&amp;\\sqrt2\n\\end{pmatrix}.\n$$</div><p>$T$ 的特征向量</p><div class=\"math-display\">$$\n\\frac{(1,1)}{\\sqrt2},\\qquad \\frac{(1,-1)}{\\sqrt2}\n$$</div><p>对应特征值 $2,0$。因此 $\\sqrt T$ 在这些方向上的特征值为 $\\sqrt2,0$，换回标准基得到</p><div class=\"math-display\">$$\n\\mathcal M(\\sqrt T)=\n\\begin{pmatrix}\n\\frac1{\\sqrt2}&amp;\\frac1{\\sqrt2}\\\\\n\\frac1{\\sqrt2}&amp;\\frac1{\\sqrt2}\n\\end{pmatrix}.\n$$</div><h5 id=\"7-43-定理-正算子二次型为零则向量被送到零\">7.43 定理：正算子二次型为零则向量被送到零<a class=\"heading-anchor\" href=\"#7-43-定理-正算子二次型为零则向量被送到零\" data-heading-id=\"7-43-定理-正算子二次型为零则向量被送到零\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $T$ 是正算子，$v\\in V$，且</p><div class=\"math-display\">$$\n\\langle Tv,v\\rangle=0,\n$$</div><p>则</p><div class=\"math-display\">$$\nTv=0.\n$$</div><p><strong>证明。</strong>  <br />因为 $T$ 正，所以 $\\sqrt T$ 存在。于是</p><div class=\"math-display\">$$\n0=\\langle Tv,v\\rangle\n=\\langle \\sqrt T\\,\\sqrt T\\,v,v\\rangle\n=\\langle \\sqrt T\\,v,\\sqrt T\\,v\\rangle\n=\\|\\sqrt T\\,v\\|^2.\n$$</div><p>故 $\\sqrt T\\,v=0$，从而</p><div class=\"math-display\">$$\nTv=\\sqrt T(\\sqrt T\\,v)=0.\n$$</div><p>$\\square$</p><p><strong>重要区别。</strong>  <br />一般自伴算子满足 $\\langle Tv,v\\rangle=0$ 未必推出 $Tv=0$；正性在这里不可缺少。</p><hr /><h4 id=\"7d-等距映射-幺正算子和矩阵分解\">7D 等距映射、幺正算子和矩阵分解<a class=\"heading-anchor\" href=\"#7d-等距映射-幺正算子和矩阵分解\" data-heading-id=\"7d-等距映射-幺正算子和矩阵分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"7-44-定义-等距映射\">7.44 定义：等距映射<a class=\"heading-anchor\" href=\"#7-44-定义-等距映射\" data-heading-id=\"7-44-定义-等距映射\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>线性映射 $S\\in\\mathcal L(V,W)$ 称为等距映射，如果</p><div class=\"math-display\">$$\n\\|Sv\\|=\\|v\\|\\qquad \\forall v\\in V.\n$$</div><p><strong>直接性质。</strong>  <br />每个等距映射都是单射：若 $Sv=0$，则 $\\|v\\|=\\|Sv\\|=0$，故 $v=0$。</p><h5 id=\"7-45-例-把规范正交基送到规范正交组的映射是等距映射\">7.45 例：把规范正交基送到规范正交组的映射是等距映射<a class=\"heading-anchor\" href=\"#7-45-例-把规范正交基送到规范正交组的映射是等距映射\" data-heading-id=\"7-45-例-把规范正交基送到规范正交组的映射是等距映射\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $e_1,\\dots,e_n$ 是 $V$ 的规范正交基，$g_1,\\dots,g_n$ 是 $W$ 中的规范正交组。令 $S$ 满足</p><div class=\"math-display\">$$\nSe_k=g_k.\n$$</div><p>若</p><div class=\"math-display\">$$\nv=\\sum_{k=1}^n \\langle v,e_k\\rangle e_k,\n$$</div><p>则</p><div class=\"math-display\">$$\nSv=\\sum_{k=1}^n \\langle v,e_k\\rangle g_k.\n$$</div><p>由帕塞瓦尔恒等式，</p><div class=\"math-display\">$$\n\\|v\\|^2=\\sum_{k=1}^n|\\langle v,e_k\\rangle|^2\n=\\|Sv\\|^2.\n$$</div><p>所以 $S$ 是等距映射。</p><h5 id=\"7-49-定理-等距映射的等价刻画\">7.49 定理：等距映射的等价刻画<a class=\"heading-anchor\" href=\"#7-49-定理-等距映射的等价刻画\" data-heading-id=\"7-49-定理-等距映射的等价刻画\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $S\\in\\mathcal L(V,W)$。令 $e_1,\\dots,e_n$ 是 $V$ 的规范正交基，$f_1,\\dots,f_m$ 是 $W$ 的规范正交基。下列命题等价：</p><ol><li>$S$ 是等距映射。</li><li>$S^*S=I$。</li><li>对所有 $u,v\\in V$，</li></ol><div class=\"math-display\">$$\n\\langle Su,Sv\\rangle=\\langle u,v\\rangle.\n$$</div><ol><li>$Se_1,\\dots,Se_n$ 是 $W$ 中的规范正交组。</li><li>$\\mathcal M(S)$ 的列在 $F^m$ 中形成规范正交组。</li></ol><p><strong>证明。</strong></p><p>$1\\Rightarrow 2$：若 $S$ 等距，则</p><div class=\"math-display\">$$\n\\langle (I-S^*S)v,v\\rangle\n=\\|v\\|^2-\\|Sv\\|^2=0.\n$$</div><p>$I-S^<em>S$ 自伴，由 7.16 得 $I-S^</em>S=0$，即 $S^*S=I$。</p><p>$2\\Rightarrow 3$：</p><div class=\"math-display\">$$\n\\langle Su,Sv\\rangle=\\langle S^*Su,v\\rangle=\\langle u,v\\rangle.\n$$</div><p>$3\\Rightarrow 4$：取 $u=e_j,v=e_k$，得</p><div class=\"math-display\">$$\n\\langle Se_j,Se_k\\rangle=\\langle e_j,e_k\\rangle.\n$$</div><p>所以 $Se_1,\\dots,Se_n$ 是规范正交组。</p><p>$4\\Rightarrow 5$：$\\mathcal M(S)$ 的第 $k$ 列就是 $Se_k$ 在规范正交基 $f_1,\\dots,f_m$ 下的坐标。向量组 $Se_1,\\dots,Se_n$ 规范正交，等价于这些坐标列在 $F^m$ 中规范正交。</p><p>$5\\Rightarrow 1$：若矩阵列规范正交，则 $Se_1,\\dots,Se_n$ 规范正交；由 7.45，$S$ 是等距映射。$\\square$</p><h5 id=\"7-51-定义-幺正算子\">7.51 定义：幺正算子<a class=\"heading-anchor\" href=\"#7-51-定义-幺正算子\" data-heading-id=\"7-51-定义-幺正算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>算子 $S\\in\\mathcal L(V)$ 称为幺正算子，如果 $S$ 是可逆等距映射。</p><p>有限维中，算子 $S:V\\to V$ 若是等距映射，则自动单射，从而可逆。因此在本章有限维背景下，“幺正算子”和“$V$ 到自身的等距映射”等价。</p><p>实内积空间中的幺正算子常称为正交算子。</p><h5 id=\"7-52-例-平面旋转是幺正算子\">7.52 例：平面旋转是幺正算子<a class=\"heading-anchor\" href=\"#7-52-例-平面旋转是幺正算子\" data-heading-id=\"7-52-例-平面旋转是幺正算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>矩阵</p><div class=\"math-display\">$$\n\\begin{pmatrix}\n\\cos\\theta&amp;-\\sin\\theta\\\\\n\\sin\\theta&amp;\\cos\\theta\n\\end{pmatrix}\n$$</div><p>的列构成规范正交组，因此对应算子是幺正算子。在 $\\mathbb R^2$ 中它就是绕原点旋转 $\\theta$。</p><h5 id=\"7-53-定理-幺正算子的等价刻画\">7.53 定理：幺正算子的等价刻画<a class=\"heading-anchor\" href=\"#7-53-定理-幺正算子的等价刻画\" data-heading-id=\"7-53-定理-幺正算子的等价刻画\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $S\\in\\mathcal L(V)$，$e_1,\\dots,e_n$ 是 $V$ 的规范正交基。下列命题等价：</p><ol><li>$S$ 是幺正算子。</li><li>$S^<em>S=SS^</em>=I$。</li><li>$S$ 可逆且 $S^{-1}=S^*$。</li><li>$Se_1,\\dots,Se_n$ 是 $V$ 的规范正交基。</li><li>$\\mathcal M(S)$ 的行在 $F^n$ 中形成规范正交基。</li><li>$S^*$ 是幺正算子。</li></ol><p><strong>证明。</strong></p><p>$1\\Rightarrow 2$：幺正算子是等距映射，由 7.49 得 $S^<em>S=I$。又 $S$ 可逆，右乘 $S^{-1}$ 得 $S^</em>=S^{-1}$，故 $SS^*=I$。</p><p>$2\\Rightarrow 3$：$S^<em>S=SS^</em>=I$ 正是 $S^<em>$ 是 $S$ 的双侧逆，因此 $S^{-1}=S^</em>$。</p><p>$3\\Rightarrow 4$：由 $S^{-1}=S^<em>$ 得 $S^</em>S=I$，由 7.49，$Se_1,\\dots,Se_n$ 是规范正交组；长度为 $\\dim V$，所以是规范正交基。</p><p>$4\\Rightarrow 1$：若 $S$ 把一个规范正交基送到规范正交基，则由 7.49 保持范数，故是等距；有限维中又可逆，所以幺正。</p><p>$1\\Leftrightarrow 6$：由 $S^<em>S=SS^</em>=I$ 可知 $S^<em>$ 也满足 $(S^</em>)^<em>S^</em>=SS^<em>=I$ 与 $S^</em>(S^<em>)^</em>=S^<em>S=I$，故 $S^</em>$ 幺正。反向同理。</p><p>$4\\Leftrightarrow 5$：$\\mathcal M(S^<em>)=\\mathcal M(S)^</em>$，$S^<em>$ 的列规范正交等价于 $S$ 的行规范正交。结合 $S^</em>$ 幺正与 7.49 即得。$\\square$</p><h5 id=\"7-54-定理-幺正算子的特征值绝对值为-1\">7.54 定理：幺正算子的特征值绝对值为 $1$<a class=\"heading-anchor\" href=\"#7-54-定理-幺正算子的特征值绝对值为-1\" data-heading-id=\"7-54-定理-幺正算子的特征值绝对值为-1\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $S$ 幺正，$\\lambda$ 是 $S$ 的特征值，则</p><div class=\"math-display\">$$\n|\\lambda|=1.\n$$</div><p><strong>证明。</strong>  <br />设 $Sv=\\lambda v$，$v\\ne0$。因为 $S$ 等距，</p><div class=\"math-display\">$$\n\\|v\\|=\\|Sv\\|=\\|\\lambda v\\|=|\\lambda|\\|v\\|.\n$$</div><p>所以 $|\\lambda|=1$。$\\square$</p><h5 id=\"7-55-定理-复内积空间上幺正算子的描述\">7.55 定理：复内积空间上幺正算子的描述<a class=\"heading-anchor\" href=\"#7-55-定理-复内积空间上幺正算子的描述\" data-heading-id=\"7-55-定理-复内积空间上幺正算子的描述\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $F=\\mathbb C$，$S\\in\\mathcal L(V)$。下列命题等价：</p><ol><li>$S$ 是幺正算子。</li><li>存在 $V$ 的规范正交基由 $S$ 的特征向量组成，且所有对应特征值绝对值都为 $1$。</li></ol><p><strong>证明。</strong></p><p>$1\\Rightarrow 2$：若 $S$ 幺正，则 $S^<em>S=SS^</em>=I$，所以 $S$ 正规。由复谱定理，$S$ 有规范正交特征向量基。由 7.54，所有特征值绝对值为 $1$。</p><p>$2\\Rightarrow 1$：设 $Se_k=\\lambda_ke_k$，其中 $e_1,\\dots,e_n$ 是规范正交基且 $|\\lambda_k|=1$。则</p><div class=\"math-display\">$$\n\\langle Se_j,Se_k\\rangle\n=\\langle \\lambda_je_j,\\lambda_ke_k\\rangle\n=\\lambda_j\\overline{\\lambda_k}\\langle e_j,e_k\\rangle.\n$$</div><p>当 $j\\ne k$ 时为 $0$，当 $j=k$ 时为 $1$。所以 $Se_1,\\dots,Se_n$ 是规范正交基，由 7.53 得 $S$ 幺正。$\\square$</p><h5 id=\"7-56-定义-幺正矩阵\">7.56 定义：幺正矩阵<a class=\"heading-anchor\" href=\"#7-56-定义-幺正矩阵\" data-heading-id=\"7-56-定义-幺正矩阵\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>$n\\times n$ 矩阵 $Q$ 称为幺正矩阵，如果它的列形成 $F^n$ 中的规范正交组。</p><p>等价地，它的列形成 $F^n$ 的规范正交基。若 $F=\\mathbb R$，幺正矩阵通常称为正交矩阵。</p><h5 id=\"7-57-定理-幺正矩阵的特性\">7.57 定理：幺正矩阵的特性<a class=\"heading-anchor\" href=\"#7-57-定理-幺正矩阵的特性\" data-heading-id=\"7-57-定理-幺正矩阵的特性\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>对 $n\\times n$ 矩阵 $Q$，下列命题等价：</p><ol><li>$Q$ 是幺正矩阵。</li><li>$Q$ 的列形成 $F^n$ 中的规范正交组。</li><li>对任意 $v\\in F^n$，</li></ol><div class=\"math-display\">$$\n\\|Qv\\|=\\|v\\|.\n$$</div><p>4.</p><div class=\"math-display\">$$\nQ^*Q=QQ^*=I.\n$$</div><p><strong>证明。</strong>  <br />$1$ 与 $2$ 是定义。</p><p>列规范正交等价于列之间的 Gram 矩阵为 $I$，也就是</p><div class=\"math-display\">$$\nQ^*Q=I.\n$$</div><p>方阵满足 $Q^<em>Q=I$ 时 $Q$ 可逆，且逆为 $Q^</em>$，于是 $QQ^*=I$。所以 $2\\Rightarrow4$。</p><p>若 $4$ 成立，则</p><div class=\"math-display\">$$\n\\|Qv\\|^2=\\langle Qv,Qv\\rangle=\\langle Q^*Qv,v\\rangle=\\langle v,v\\rangle=\\|v\\|^2,\n$$</div><p>故 $3$ 成立。</p><p>若 $3$ 成立，则 $Q$ 对应的线性算子是等距映射，由 7.49，$Q^*Q=I$，故其列规范正交。$\\square$</p><h5 id=\"7-58-定理-qr-分解\">7.58 定理：QR 分解<a class=\"heading-anchor\" href=\"#7-58-定理-qr-分解\" data-heading-id=\"7-58-定理-qr-分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $A$ 是列线性无关的方阵。则存在唯一一对矩阵 $Q,R$，使得</p><div class=\"math-display\">$$\nA=QR,\n$$</div><p>其中 $Q$ 幺正，$R$ 上三角且对角线元素全为正数。</p><p><strong>证明。</strong></p><p>设 $v_1,\\dots,v_n$ 是 $A$ 的列向量。由于它们线性无关，对它们做 Gram-Schmidt，得到规范正交基 $e_1,\\dots,e_n$，并且</p><div class=\"math-display\">$$\n\\operatorname{span}(v_1,\\dots,v_k)=\\operatorname{span}(e_1,\\dots,e_k).\n$$</div><p>令 $Q$ 为以 $e_1,\\dots,e_n$ 为列的矩阵，则 $Q$ 幺正。定义</p><div class=\"math-display\">$$\nR_{j,k}=\\langle v_k,e_j\\rangle.\n$$</div><p>若 $j&gt;k$，则 $e_j\\perp \\operatorname{span}(e_1,\\dots,e_k)=\\operatorname{span}(v_1,\\dots,v_k)$，特别地 $e_j\\perp v_k$，故 $R_{j,k}=0$。所以 $R$ 上三角。</p><p>又由规范正交展开，</p><div class=\"math-display\">$$\nv_k=\\sum_{j=1}^k \\langle v_k,e_j\\rangle e_j,\n$$</div><p>这正说明 $QR$ 的第 $k$ 列等于 $A$ 的第 $k$ 列。因此 $A=QR$。</p><p>Gram-Schmidt 的构造保证 $\\langle v_k,e_k\\rangle&gt;0$，所以 $R$ 的对角线元素为正。</p><p>唯一性：若还有 $A=\\widetilde Q\\widetilde R$，其中 $\\widetilde Q$ 幺正、$\\widetilde R$ 上三角且对角线正。设 $\\widetilde Q$ 的列为 $q_1,\\dots,q_n$。由上三角性，第 $k$ 列 $v_k$ 属于 $\\operatorname{span}(q_1,\\dots,q_k)$，且其在 $q_k$ 方向上的系数为正。Gram-Schmidt 在“对角系数为正”的约定下唯一，因此 $q_k=e_k$ 对所有 $k$ 成立。故 $\\widetilde Q=Q$，进而 $\\widetilde R=R$。$\\square$</p><p><strong>性质与用法。</strong>  <br />若 $Ax=b$，且 $A=QR$，则</p><div class=\"math-display\">$$\nQRx=b.\n$$</div><p>左乘 $Q^*$ 得</p><div class=\"math-display\">$$\nRx=Q^*b.\n$$</div><p>$R$ 是上三角矩阵，所以可以用回代法快速求解。</p><h5 id=\"7-60-例-3-times3-矩阵的-qr-分解\">7.60 例：$3\\times3$ 矩阵的 QR 分解<a class=\"heading-anchor\" href=\"#7-60-例-3-times3-矩阵的-qr-分解\" data-heading-id=\"7-60-例-3-times3-矩阵的-qr-分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设</p><div class=\"math-display\">$$\nA=\n\\begin{pmatrix}\n1&amp;2&amp;1\\\\\n0&amp;1&amp;-4\\\\\n0&amp;3&amp;2\n\\end{pmatrix}.\n$$</div><p>对列向量</p><div class=\"math-display\">$$\nv_1=(1,0,0),\\quad v_2=(2,1,3),\\quad v_3=(1,-4,2)\n$$</div><p>做 Gram-Schmidt，可得</p><div class=\"math-display\">$$\ne_1=(1,0,0),\\quad\ne_2=\\left(0,\\frac1{\\sqrt{10}},\\frac3{\\sqrt{10}}\\right),\\quad\ne_3=\\left(0,-\\frac3{\\sqrt{10}},\\frac1{\\sqrt{10}}\\right).\n$$</div><p>因此</p><div class=\"math-display\">$$\nQ=\n\\begin{pmatrix}\n1&amp;0&amp;0\\\\\n0&amp;\\frac1{\\sqrt{10}}&amp;-\\frac3{\\sqrt{10}}\\\\\n0&amp;\\frac3{\\sqrt{10}}&amp;\\frac1{\\sqrt{10}}\n\\end{pmatrix}.\n$$</div><p>令 $R_{j,k}=\\langle v_k,e_j\\rangle$，得</p><div class=\"math-display\">$$\nR=\n\\begin{pmatrix}\n1&amp;2&amp;1\\\\\n0&amp;\\sqrt{10}&amp;\\frac{\\sqrt{10}}5\\\\\n0&amp;0&amp;\\frac{7\\sqrt{10}}5\n\\end{pmatrix}.\n$$</div><p>于是 $A=QR$。</p><h5 id=\"7-61-定理-可逆正算子\">7.61 定理：可逆正算子<a class=\"heading-anchor\" href=\"#7-61-定理-可逆正算子\" data-heading-id=\"7-61-定理-可逆正算子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V)$ 自伴。则 $T$ 是可逆正算子，当且仅当</p><div class=\"math-display\">$$\n\\langle Tv,v\\rangle&gt;0\\qquad \\forall v\\ne0.\n$$</div><p><strong>证明。</strong></p><p>若 $T$ 可逆且正。取 $v\\ne0$，则 $Tv\\ne0$。若 $\\langle Tv,v\\rangle=0$，由 7.43 得 $Tv=0$，矛盾。所以 $\\langle Tv,v\\rangle&gt;0$。</p><p>反过来，若 $\\langle Tv,v\\rangle&gt;0$ 对所有非零 $v$ 成立，则首先有 $\\langle Tv,v\\rangle\\ge0$，且 $T$ 自伴，所以 $T$ 正。又若 $Tv=0$ 且 $v\\ne0$，则 $\\langle Tv,v\\rangle=0$，矛盾。因此 $T$ 单射，有限维中单射等价于可逆。$\\square$</p><h5 id=\"7-62-定义-正定矩阵\">7.62 定义：正定矩阵<a class=\"heading-anchor\" href=\"#7-62-定义-正定矩阵\" data-heading-id=\"7-62-定义-正定矩阵\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>矩阵 $B\\in F^{n,n}$ 称为正定的，如果</p><div class=\"math-display\">$$\nB^*=B\n$$</div><p>且对所有非零 $x\\in F^n$，</p><div class=\"math-display\">$$\n\\langle Bx,x\\rangle&gt;0.\n$$</div><p>这就是可逆正算子的矩阵版本。</p><h5 id=\"7-63-定理-科列斯基分解\">7.63 定理：科列斯基分解<a class=\"heading-anchor\" href=\"#7-63-定理-科列斯基分解\" data-heading-id=\"7-63-定理-科列斯基分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $B$ 是正定矩阵，则存在唯一一个对角线元素全为正数的上三角矩阵 $R$，使得</p><div class=\"math-display\">$$\nB=R^*R.\n$$</div><p><strong>证明。</strong></p><p>由正定性与 7.38，存在可逆矩阵 $A$ 使</p><div class=\"math-display\">$$\nB=A^*A.\n$$</div><p>对 $A$ 做 QR 分解：</p><div class=\"math-display\">$$\nA=QR,\n$$</div><p>其中 $Q$ 幺正，$R$ 上三角且对角线正。于是</p><div class=\"math-display\">$$\nB=A^*A=(QR)^*(QR)=R^*Q^*QR=R^*R.\n$$</div><p>唯一性：若</p><div class=\"math-display\">$$\nB=S^*S\n$$</div><p>也是这样的分解，$S$ 上三角且对角线正。因为 $B$ 可逆，$S$ 可逆。由 $A^<em>A=S^</em>S$ 可推出</p><div class=\"math-display\">$$\n(AS^{-1})^*(AS^{-1})=I.\n$$</div><p>故 $AS^{-1}$ 幺正。于是</p><div class=\"math-display\">$$\nA=(AS^{-1})S\n$$</div><p>是 $A$ 的 QR 分解。QR 分解唯一，所以 $S=R$。$\\square$</p><hr /><h4 id=\"7e-奇异值分解\">7E 奇异值分解<a class=\"heading-anchor\" href=\"#7e-奇异值分解\" data-heading-id=\"7e-奇异值分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"7-64-定理-t-t-的性质\">7.64 定理：$T^*T$ 的性质<a class=\"heading-anchor\" href=\"#7-64-定理-t-t-的性质\" data-heading-id=\"7-64-定理-t-t-的性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$。则：</p><p>1. $T^*T$ 是 $V$ 上的正算子。<br />2.</p><div class=\"math-display\">$$\n\\operatorname{null}(T^*T)=\\operatorname{null}T.\n$$</div><p>3.</p><div class=\"math-display\">$$\n\\operatorname{range}(T^*T)=\\operatorname{range}T^*.\n$$</div><p>4.</p><div class=\"math-display\">$$\n\\dim\\operatorname{range}T\n=\\dim\\operatorname{range}T^*\n=\\dim\\operatorname{range}(T^*T).\n$$</div><p><strong>证明。</strong></p><p>首先，</p><div class=\"math-display\">$$\n(T^*T)^*=T^*(T^*)^*=T^*T,\n$$</div><p>所以 $T^*T$ 自伴。并且</p><div class=\"math-display\">$$\n\\langle T^*Tv,v\\rangle=\\langle Tv,Tv\\rangle=\\|Tv\\|^2\\ge0,\n$$</div><p>所以 $T^*T$ 正。</p><p>其次，</p><div class=\"math-display\">$$\nv\\in\\operatorname{null}(T^*T)\n\\Longrightarrow\n0=\\langle T^*Tv,v\\rangle=\\|Tv\\|^2\n\\Longrightarrow\nTv=0.\n$$</div><p>反向显然：$Tv=0$ 则 $T^*Tv=0$。故零空间相等。</p><p>再由 7.6 和上一部分，</p><div class=\"math-display\">$$\n\\operatorname{range}(T^*T)\n=\\operatorname{null}(T^*T)^\\perp\n=\\operatorname{null}T^\\perp\n=\\operatorname{range}T^*.\n$$</div><p>最后，</p><div class=\"math-display\">$$\n\\dim\\operatorname{range}T\n=\\dim(\\operatorname{null}T^*)^\\perp\n=\\dim W-\\dim\\operatorname{null}T^*\n=\\dim\\operatorname{range}T^*.\n$$</div><p>又由第三部分，$\\dim\\operatorname{range}T^<em>=\\dim\\operatorname{range}(T^</em>T)$。$\\square$</p><h5 id=\"7-65-定义-奇异值\">7.65 定义：奇异值<a class=\"heading-anchor\" href=\"#7-65-定义-奇异值\" data-heading-id=\"7-65-定义-奇异值\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$。$T$ 的奇异值是 $T^<em>T$ 的特征值的非负平方根，按降序排列；每个奇异值的重复次数等于 $T^</em>T$ 对应特征空间的维数。</p><p>也就是说，若 $T^*T$ 的特征值为</p><div class=\"math-display\">$$\n\\lambda_1\\ge\\lambda_2\\ge\\cdots\\ge\\lambda_n\\ge0,\n$$</div><p>则 $T$ 的奇异值为</p><div class=\"math-display\">$$\ns_j=\\sqrt{\\lambda_j}.\n$$</div><h5 id=\"7-66-例-f-4-上算子的奇异值\">7.66 例：$F^4$ 上算子的奇异值<a class=\"heading-anchor\" href=\"#7-66-例-f-4-上算子的奇异值\" data-heading-id=\"7-66-例-f-4-上算子的奇异值\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>定义</p><div class=\"math-display\">$$\nT(z_1,z_2,z_3,z_4)=(0,3z_1,2z_2,-3z_4).\n$$</div><p>可算得</p><div class=\"math-display\">$$\nT^*T(z_1,z_2,z_3,z_4)=(9z_1,4z_2,0,9z_4).\n$$</div><p>因此 $T^*T$ 的特征值为 $9,9,4,0$，奇异值为</p><div class=\"math-display\">$$\n3,3,2,0.\n$$</div><p>这个例子说明：奇异值不等同于特征值的绝对值。$T$ 的特征值可能没有直接显示所有伸缩信息，而奇异值总是描述 $T$ 对长度的主方向伸缩。</p><h5 id=\"7-67-例-从-f-4-到-f-3-的线性映射的奇异值\">7.67 例：从 $F^4$ 到 $F^3$ 的线性映射的奇异值<a class=\"heading-anchor\" href=\"#7-67-例-从-f-4-到-f-3-的线性映射的奇异值\" data-heading-id=\"7-67-例-从-f-4-到-f-3-的线性映射的奇异值\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(F^4,F^3)$ 关于标准基的矩阵为</p><div class=\"math-display\">$$\n\\begin{pmatrix}\n0&amp;0&amp;0&amp;-5\\\\\n0&amp;0&amp;0&amp;0\\\\\n1&amp;1&amp;0&amp;0\n\\end{pmatrix}.\n$$</div><p>则</p><div class=\"math-display\">$$\nT^*T=\n\\begin{pmatrix}\n1&amp;1&amp;0&amp;0\\\\\n1&amp;1&amp;0&amp;0\\\\\n0&amp;0&amp;0&amp;0\\\\\n0&amp;0&amp;0&amp;25\n\\end{pmatrix}.\n$$</div><p>其特征值为 $25,2,0,0$，所以 $T$ 的奇异值为</p><div class=\"math-display\">$$\n5,\\sqrt2,0,0.\n$$</div><h5 id=\"7-68-定理-正奇异值的作用\">7.68 定理：正奇异值的作用<a class=\"heading-anchor\" href=\"#7-68-定理-正奇异值的作用\" data-heading-id=\"7-68-定理-正奇异值的作用\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$。则：</p><ol><li>$T$ 单射，当且仅当 $0$ 不是 $T$ 的奇异值。</li><li>$T$ 的正奇异值个数等于 $\\dim\\operatorname{range}T$。</li><li>$T$ 满射，当且仅当 $T$ 的正奇异值个数等于 $\\dim W$。</li></ol><p><strong>证明。</strong></p><p>$T$ 单射当且仅当 $\\operatorname{null}T=\\{0\\}$。由 7.64，</p><div class=\"math-display\">$$\n\\operatorname{null}T=\\operatorname{null}(T^*T).\n$$</div><p>这等价于 $0$ 不是 $T^*T$ 的特征值，也等价于 $0$ 不是 $T$ 的奇异值。</p><p>由谱定理，$T^<em>T$ 的正特征值个数等于 $\\dim\\operatorname{range}(T^</em>T)$。由 7.64，</p><div class=\"math-display\">$$\n\\dim\\operatorname{range}(T^*T)=\\dim\\operatorname{range}T.\n$$</div><p>故正奇异值个数等于 $\\dim\\operatorname{range}T$。</p><p>$T$ 满射当且仅当 $\\dim\\operatorname{range}T=\\dim W$，结合第二部分即可。$\\square$</p><p><strong>性质对比。</strong></p><div class=\"table-scroll\"><table><thead><tr><th>项目</th><th>特征值</th><th>奇异值</th></tr></thead><tbody><tr><td>背景</td><td>线性算子 $V\\to V$</td><td>线性映射 $V\\to W$</td></tr><tr><td>是否需要内积</td><td>不需要</td><td>需要</td></tr><tr><td>数值范围</td><td>实数或复数</td><td>非负实数</td></tr><tr><td>个数</td><td>实空间中可能没有</td><td>总是等于 $\\dim V$，计重数</td></tr><tr><td>零的意义</td><td>算子不可逆</td><td>映射非单射</td></tr><tr><td>顺序</td><td>通常无标准顺序</td><td>默认降序</td></tr></tbody></table></div><h5 id=\"7-69-定理-所有奇异值为-1-等价于等距映射\">7.69 定理：所有奇异值为 $1$ 等价于等距映射<a class=\"heading-anchor\" href=\"#7-69-定理-所有奇异值为-1-等价于等距映射\" data-heading-id=\"7-69-定理-所有奇异值为-1-等价于等距映射\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $S\\in\\mathcal L(V,W)$。则</p><div class=\"math-display\">$$\nS\\text{ 是等距映射}\n\\Longleftrightarrow\nS\\text{ 的所有奇异值都等于 }1.\n$$</div><p><strong>证明。</strong>  <br />由 7.49，</p><div class=\"math-display\">$$\nS\\text{ 等距}\n\\Longleftrightarrow\nS^*S=I.\n$$</div><p>而 $S^<em>S=I$ 当且仅当 $S^</em>S$ 的所有特征值都为 $1$。奇异值是这些特征值的非负平方根，所以等价于所有奇异值都为 $1$。$\\square$</p><h5 id=\"7-70-定理-奇异值分解\">7.70 定理：奇异值分解<a class=\"heading-anchor\" href=\"#7-70-定理-奇异值分解\" data-heading-id=\"7-70-定理-奇异值分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$，$T$ 的正奇异值为</p><div class=\"math-display\">$$\ns_1,\\dots,s_m.\n$$</div><p>则存在 $V$ 中的规范正交组 $e_1,\\dots,e_m$ 和 $W$ 中的规范正交组 $f_1,\\dots,f_m$，使得对任意 $v\\in V$，</p><div class=\"math-display\">$$\nTv=s_1\\langle v,e_1\\rangle f_1+\\cdots+s_m\\langle v,e_m\\rangle f_m.\n$$</div><p><strong>证明。</strong></p><p>设 $s_1,\\dots,s_n$ 是 $T$ 的全部奇异值，其中 $n=\\dim V$。因为 $T^*T$ 是正算子，谱定理给出 $V$ 的规范正交基 $e_1,\\dots,e_n$，满足</p><div class=\"math-display\">$$\nT^*Te_k=s_k^2e_k.\n$$</div><p>对 $k=1,\\dots,m$，定义</p><div class=\"math-display\">$$\nf_k=\\frac{Te_k}{s_k}.\n$$</div><p>若 $j,k\\le m$，则</p><div class=\"math-display\">$$\n\\begin{aligned}\n\\langle f_j,f_k\\rangle\n&amp;=\\frac1{s_js_k}\\langle Te_j,Te_k\\rangle\\\\\n&amp;=\\frac1{s_js_k}\\langle e_j,T^*Te_k\\rangle\\\\\n&amp;=\\frac{s_k^2}{s_js_k}\\langle e_j,e_k\\rangle.\n\\end{aligned}\n$$</div><p>当 $j=k$ 时为 $1$，当 $j\\ne k$ 时为 $0$。所以 $f_1,\\dots,f_m$ 是规范正交组。</p><p>若 $k&gt;m$，则 $s_k=0$，从 $T^*Te_k=0$ 以及 7.64 得 $Te_k=0$。因此任意</p><div class=\"math-display\">$$\nv=\\sum_{k=1}^n \\langle v,e_k\\rangle e_k\n$$</div><p>满足</p><div class=\"math-display\">$$\n\\begin{aligned}\nTv\n&amp;=\\sum_{k=1}^n \\langle v,e_k\\rangle Te_k\\\\\n&amp;=\\sum_{k=1}^m \\langle v,e_k\\rangle s_kf_k.\n\\end{aligned}\n$$</div><p>这就是所需分解。$\\square$</p><h5 id=\"7-74-定义-对角矩阵\">7.74 定义：对角矩阵<a class=\"heading-anchor\" href=\"#7-74-定义-对角矩阵\" data-heading-id=\"7-74-定义-对角矩阵\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>$M\\times N$ 矩阵 $A$ 称为对角矩阵，如果除了</p><div class=\"math-display\">$$\nA_{k,k}\\qquad (k=1,\\dots,\\min\\{M,N\\})\n$$</div><p>可能非零外，其余元素全为 $0$。</p><p>这个定义允许“矩形对角矩阵”。因此从 $V$ 到 $W$ 的线性映射也可以在恰当的规范正交基下写成对角形式。</p><h5 id=\"7-75-定理-伴随和伪逆的奇异值分解\">7.75 定理：伴随和伪逆的奇异值分解<a class=\"heading-anchor\" href=\"#7-75-定理-伴随和伪逆的奇异值分解\" data-heading-id=\"7-75-定理-伴随和伪逆的奇异值分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$ 的正奇异值为 $s_1,\\dots,s_m$，且</p><div class=\"math-display\">$$\nTv=s_1\\langle v,e_1\\rangle f_1+\\cdots+s_m\\langle v,e_m\\rangle f_m.\n$$</div><p>则对任意 $w\\in W$，</p><div class=\"math-display\">$$\nT^*w=s_1\\langle w,f_1\\rangle e_1+\\cdots+s_m\\langle w,f_m\\rangle e_m,\n$$</div><p>且伪逆满足</p><div class=\"math-display\">$$\nT^\\dagger w=\n\\frac{\\langle w,f_1\\rangle}{s_1}e_1+\\cdots+\n\\frac{\\langle w,f_m\\rangle}{s_m}e_m.\n$$</div><p><strong>证明。</strong></p><p>对任意 $v\\in V,w\\in W$，</p><div class=\"math-display\">$$\n\\begin{aligned}\n\\langle Tv,w\\rangle\n&amp;=\\left\\langle \\sum_{k=1}^m s_k\\langle v,e_k\\rangle f_k,w\\right\\rangle\\\\\n&amp;=\\sum_{k=1}^m s_k\\langle v,e_k\\rangle\\langle f_k,w\\rangle\\\\\n&amp;=\\left\\langle v,\\sum_{k=1}^m s_k\\langle w,f_k\\rangle e_k\\right\\rangle.\n\\end{aligned}\n$$</div><p>由伴随定义，得到 $T^*$ 的公式。</p><p>再令</p><div class=\"math-display\">$$\nu=\\sum_{k=1}^m \\frac{\\langle w,f_k\\rangle}{s_k}e_k.\n$$</div><p>则</p><div class=\"math-display\">$$\nTu=\\sum_{k=1}^m \\langle w,f_k\\rangle f_k=P_{\\operatorname{range}T}w.\n$$</div><p>并且 $u\\in(\\operatorname{null}T)^\\perp$。按伪逆定义，这个 $u$ 正是 $T^\\dagger w$。$\\square$</p><h5 id=\"7-79-例-求奇异值分解\">7.79 例：求奇异值分解<a class=\"heading-anchor\" href=\"#7-79-例-求奇异值分解\" data-heading-id=\"7-79-例-求奇异值分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>定义 $T\\in\\mathcal L(F^4,F^3)$：</p><div class=\"math-display\">$$\nT(x_1,x_2,x_3,x_4)=(-5x_4,0,x_1+x_2).\n$$</div><p>由 7.67，其正奇异值为</p><div class=\"math-display\">$$\n5,\\sqrt2.\n$$</div><p>可取</p><div class=\"math-display\">$$\ne_1=(0,0,0,1),\\qquad\ne_2=\\left(\\frac1{\\sqrt2},\\frac1{\\sqrt2},0,0\\right).\n$$</div><p>于是</p><div class=\"math-display\">$$\nf_1=\\frac{Te_1}{5}=(-1,0,0),\n\\qquad\nf_2=\\frac{Te_2}{\\sqrt2}=(0,0,1).\n$$</div><p>故</p><div class=\"math-display\">$$\nTv=5\\langle v,e_1\\rangle f_1+\\sqrt2\\langle v,e_2\\rangle f_2.\n$$</div><h5 id=\"7-80-定理-svd-的矩阵版本\">7.80 定理：SVD 的矩阵版本<a class=\"heading-anchor\" href=\"#7-80-定理-svd-的矩阵版本\" data-heading-id=\"7-80-定理-svd-的矩阵版本\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $A$ 是 $p\\times n$ 矩阵，秩为 $m\\ge1$。则存在：</p><ol><li>列规范正交的 $p\\times m$ 矩阵 $B$；</li><li>对角线为正数的 $m\\times m$ 对角矩阵 $D$；</li><li>列规范正交的 $n\\times m$ 矩阵 $C$；</li></ol><p>使得</p><div class=\"math-display\">$$\nA=BDC^*.\n$$</div><p><strong>证明。</strong></p><p>令 $T:F^n\\to F^p$ 是以 $A$ 为标准矩阵的线性映射。对 $T$ 做奇异值分解：</p><div class=\"math-display\">$$\nTv=s_1\\langle v,e_1\\rangle f_1+\\cdots+s_m\\langle v,e_m\\rangle f_m.\n$$</div><p>令 $B$ 的列为 $f_1,\\dots,f_m$，$D=\\operatorname{diag}(s_1,\\dots,s_m)$，$C$ 的列为 $e_1,\\dots,e_m$。</p><p>对 $F^m$ 的标准基向量 $u_k$，</p><div class=\"math-display\">$$\nACu_k=Ae_k=Te_k=s_kf_k=BDu_k.\n$$</div><p>所以</p><div class=\"math-display\">$$\nAC=BD.\n$$</div><p>右乘 $C^*$ 得</p><div class=\"math-display\">$$\nACC^*=BDC^*.\n$$</div><p>$CC^*$ 是到 $\\operatorname{span}(e_1,\\dots,e_m)$ 的正交投影，而 $T$ 在该子空间的正交补上为零。因此</p><div class=\"math-display\">$$\nACC^*=A.\n$$</div><p>于是</p><div class=\"math-display\">$$\nA=BDC^*.\n$$</div><p>$\\square$</p><hr /><h4 id=\"7f-奇异值分解的推论\">7F 奇异值分解的推论<a class=\"heading-anchor\" href=\"#7f-奇异值分解的推论\" data-heading-id=\"7f-奇异值分解的推论\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"7-82-定理-tv-的上界\">7.82 定理：$\\|Tv\\|$ 的上界<a class=\"heading-anchor\" href=\"#7-82-定理-tv-的上界\" data-heading-id=\"7-82-定理-tv-的上界\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$，$s_1$ 是 $T$ 的最大奇异值。则</p><div class=\"math-display\">$$\n\\|Tv\\|\\le s_1\\|v\\|\\qquad \\forall v\\in V.\n$$</div><p><strong>证明。</strong></p><p>设 $T$ 的正奇异值为 $s_1,\\dots,s_m$，并取奇异值分解</p><div class=\"math-display\">$$\nTv=s_1\\langle v,e_1\\rangle f_1+\\cdots+s_m\\langle v,e_m\\rangle f_m.\n$$</div><p>由于 $f_1,\\dots,f_m$ 规范正交，</p><div class=\"math-display\">$$\n\\|Tv\\|^2\n=\\sum_{k=1}^m s_k^2|\\langle v,e_k\\rangle|^2\n\\le s_1^2\\sum_{k=1}^m|\\langle v,e_k\\rangle|^2.\n$$</div><p>由贝塞尔不等式，</p><div class=\"math-display\">$$\n\\sum_{k=1}^m|\\langle v,e_k\\rangle|^2\\le\\|v\\|^2.\n$$</div><p>所以</p><div class=\"math-display\">$$\n\\|Tv\\|^2\\le s_1^2\\|v\\|^2,\n$$</div><p>取平方根得结论。$\\square$</p><p>若取 $v=e_1$，则 $\\|Te_1\\|=s_1$。所以最大奇异值不仅是上界，而且能被单位向量达到。</p><h5 id=\"7-86-定义-线性映射的范数\">7.86 定义：线性映射的范数<a class=\"heading-anchor\" href=\"#7-86-定义-线性映射的范数\" data-heading-id=\"7-86-定义-线性映射的范数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$。定义</p><div class=\"math-display\">$$\n\\|T\\|=\\max\\{\\|Tv\\|:v\\in V,\\ \\|v\\|\\le1\\}.\n$$</div><p>由 7.82 及取 $v=e_1$ 可知，这个最大值存在，并且等于 $T$ 的最大奇异值。</p><h5 id=\"7-87-定理-线性映射范数的基本性质\">7.87 定理：线性映射范数的基本性质<a class=\"heading-anchor\" href=\"#7-87-定理-线性映射范数的基本性质\" data-heading-id=\"7-87-定理-线性映射范数的基本性质\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$。则：</p><ol><li>$\\|T\\|\\ge0$。</li><li>$\\|T\\|=0$ 当且仅当 $T=0$。</li><li>$\\|\\lambda T\\|=|\\lambda|\\,\\|T\\|$。</li><li>对 $S\\in\\mathcal L(V,W)$，</li></ol><div class=\"math-display\">$$\n\\|S+T\\|\\le\\|S\\|+\\|T\\|.\n$$</div><p><strong>证明。</strong></p><p>非负性由向量范数非负立即得到。</p><p>若 $\\|T\\|=0$，则 $T$ 在所有 $\\|v\\|\\le1$ 的向量上为 $0$。对任意非零 $u$，$\\|u/\\|u\\|\\|=1$，故</p><div class=\"math-display\">$$\nTu=\\|u\\|T\\left(\\frac{u}{\\|u\\|}\\right)=0.\n$$</div><p>因此 $T=0$。反向显然。</p><p>数乘：</p><div class=\"math-display\">$$\n\\|\\lambda T\\|\n=\\max_{\\|v\\|\\le1}\\|\\lambda Tv\\|\n=|\\lambda|\\max_{\\|v\\|\\le1}\\|Tv\\|\n=|\\lambda|\\|T\\|.\n$$</div><p>三角不等式：取 $\\|v\\|\\le1$ 使</p><div class=\"math-display\">$$\n\\|S+T\\|=\\|(S+T)v\\|.\n$$</div><p>则</p><div class=\"math-display\">$$\n\\|S+T\\|\n\\le\\|Sv\\|+\\|Tv\\|\n\\le\\|S\\|+\\|T\\|.\n$$</div><p>$\\square$</p><p><strong>补充常用性质：乘积估计。</strong>  <br />若 $T\\in\\mathcal L(V,W)$，$R\\in\\mathcal L(W,U)$，则</p><div class=\"math-display\">$$\n\\|RT\\|\\le\\|R\\|\\,\\|T\\|.\n$$</div><p>证明：对任意 $\\|v\\|\\le1$，</p><div class=\"math-display\">$$\n\\|RTv\\|\\le\\|R\\|\\|Tv\\|\\le\\|R\\|\\|T\\|\\|v\\|\\le\\|R\\|\\|T\\|.\n$$</div><p>取最大值得结论。</p><h5 id=\"7-88-定理-t-的多种表达式\">7.88 定理：$\\|T\\|$ 的多种表达式<a class=\"heading-anchor\" href=\"#7-88-定理-t-的多种表达式\" data-heading-id=\"7-88-定理-t-的多种表达式\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$。则：</p><p>1. $\\|T\\|$ 等于 $T$ 的最大奇异值。<br />2.</p><div class=\"math-display\">$$\n\\|T\\|=\\max\\{\\|Tv\\|:\\|v\\|=1\\}.\n$$</div><ol><li>$\\|T\\|$ 是满足</li></ol><div class=\"math-display\">$$\n\\|Tv\\|\\le c\\|v\\|\\quad \\forall v\\in V\n$$</div><p>的最小非负数 $c$。</p><p><strong>证明。</strong></p><p>第一部分由 7.82 后的讨论得到。</p><p>第二部分：若 $0&lt;\\|v\\|\\le1$，令 $u=v/\\|v\\|$，则 $\\|u\\|=1$ 且</p><div class=\"math-display\">$$\n\\|Tu\\|=\\frac{\\|Tv\\|}{\\|v\\|}\\ge\\|Tv\\|.\n$$</div><p>所以在闭单位球上取最大值时，只看单位球面即可。</p><p>第三部分：由定义，对 $v\\ne0$，</p><div class=\"math-display\">$$\n\\left\\|T\\left(\\frac v{\\|v\\|}\\right)\\right\\|\\le\\|T\\|,\n$$</div><p>故</p><div class=\"math-display\">$$\n\\|Tv\\|\\le\\|T\\|\\|v\\|.\n$$</div><p>若 $c$ 也满足 $\\|Tv\\|\\le c\\|v\\|$，则对所有 $\\|v\\|\\le1$ 有 $\\|Tv\\|\\le c$，取最大值得 $\\|T\\|\\le c$。所以 $\\|T\\|$ 是最小的这样的 $c$。$\\square$</p><h5 id=\"7-90-例-范数\">7.90 例：范数<a class=\"heading-anchor\" href=\"#7-90-例-范数\" data-heading-id=\"7-90-例-范数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><ol><li>恒等算子 $I$ 满足</li></ol><div class=\"math-display\">$$\n\\|I\\|=1.\n$$</div><ol><li>若 $T\\in\\mathcal L(F^n)$ 的标准矩阵元素全为 $1$，则</li></ol><div class=\"math-display\">$$\n\\|T\\|=n.\n$$</div><p>因为 $T$ 在 $(1,\\dots,1)/\\sqrt n$ 方向上伸缩 $n$ 倍，在其正交补上为 $0$。</p><ol><li>若 $T$ 有规范正交特征向量基，对应特征值为 $\\lambda_1,\\dots,\\lambda_n$，则</li></ol><div class=\"math-display\">$$\n\\|T\\|=\\max_k|\\lambda_k|.\n$$</div><h5 id=\"7-91-定理-伴随的范数\">7.91 定理：伴随的范数<a class=\"heading-anchor\" href=\"#7-91-定理-伴随的范数\" data-heading-id=\"7-91-定理-伴随的范数\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$。则</p><div class=\"math-display\">$$\n\\|T^*\\|=\\|T\\|.\n$$</div><p><strong>证明。</strong>  <br />任取 $w\\in W$，</p><div class=\"math-display\">$$\n\\begin{aligned}\n\\|T^*w\\|^2\n&amp;=\\langle T^*w,T^*w\\rangle\\\\\n&amp;=\\langle TT^*w,w\\rangle\\\\\n&amp;\\le \\|TT^*w\\|\\,\\|w\\|\\\\\n&amp;\\le \\|T\\|\\|T^*w\\|\\|w\\|.\n\\end{aligned}\n$$</div><p>若 $T^<em>w\\ne0$，两边除以 $\\|T^</em>w\\|$，得</p><div class=\"math-display\">$$\n\\|T^*w\\|\\le\\|T\\|\\|w\\|.\n$$</div><p>若 $T^*w=0$ 也显然成立。由 7.88 的最小常数刻画，</p><div class=\"math-display\">$$\n\\|T^*\\|\\le\\|T\\|.\n$$</div><p>把 $T$ 换成 $T^<em>$，并用 $(T^</em>)^*=T$，得到</p><div class=\"math-display\">$$\n\\|T\\|\\le\\|T^*\\|.\n$$</div><p>所以两者相等。$\\square$</p><h5 id=\"7-92-定理-值域维数至多为-k-的最佳逼近\">7.92 定理：值域维数至多为 $k$ 的最佳逼近<a class=\"heading-anchor\" href=\"#7-92-定理-值域维数至多为-k-的最佳逼近\" data-heading-id=\"7-92-定理-值域维数至多为-k-的最佳逼近\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V,W)$，正奇异值为</p><div class=\"math-display\">$$\ns_1\\ge\\cdots\\ge s_m.\n$$</div><p>若 $1\\le k&lt;m$，则</p><div class=\"math-display\">$$\n\\min\\{\\|T-S\\|:S\\in\\mathcal L(V,W),\\ \\dim\\operatorname{range}S\\le k\\}=s_{k+1}.\n$$</div><p>若</p><div class=\"math-display\">$$\nTv=s_1\\langle v,e_1\\rangle f_1+\\cdots+s_m\\langle v,e_m\\rangle f_m,\n$$</div><p>定义截断映射</p><div class=\"math-display\">$$\nT_kv=s_1\\langle v,e_1\\rangle f_1+\\cdots+s_k\\langle v,e_k\\rangle f_k,\n$$</div><p>则</p><div class=\"math-display\">$$\n\\dim\\operatorname{range}T_k=k,\\qquad \\|T-T_k\\|=s_{k+1}.\n$$</div><p><strong>证明。</strong></p><p>先证明 $T_k$ 达到误差 $s_{k+1}$。对任意 $v$，</p><div class=\"math-display\">$$\n(T-T_k)v=s_{k+1}\\langle v,e_{k+1}\\rangle f_{k+1}\n\\,+\\cdots+s_m\\langle v,e_m\\rangle f_m.\n$$</div><p>因此</p><div class=\"math-display\">$$\n\\|(T-T_k)v\\|^2\n\\le s_{k+1}^2\\sum_{j=k+1}^m|\\langle v,e_j\\rangle|^2\n\\le s_{k+1}^2\\|v\\|^2.\n$$</div><p>故 $\\|T-T_k\\|\\le s_{k+1}$。又</p><div class=\"math-display\">$$\n(T-T_k)e_{k+1}=s_{k+1}f_{k+1},\n$$</div><p>所以 $\\|T-T_k\\|=s_{k+1}$。</p><p>下面证明任何值域维数至多为 $k$ 的 $S$ 都不可能更好。因为</p><div class=\"math-display\">$$\nSe_1,\\dots,Se_{k+1}\n$$</div><p>是 $k+1$ 个落在 $\\operatorname{range}S$ 中的向量，而该值域维数至多为 $k$，所以它们线性相关。取不全为零的 $a_1,\\dots,a_{k+1}$ 使</p><div class=\"math-display\">$$\n\\sum_{j=1}^{k+1}a_jSe_j=0.\n$$</div><p>令</p><div class=\"math-display\">$$\nu=\\sum_{j=1}^{k+1}a_je_j\\ne0.\n$$</div><p>则 $Su=0$，所以</p><div class=\"math-display\">$$\n(T-S)u=Tu.\n$$</div><p>并且</p><div class=\"math-display\">$$\n\\|Tu\\|^2\n=s_1^2|a_1|^2+\\cdots+s_{k+1}^2|a_{k+1}|^2\n\\ge s_{k+1}^2\\|u\\|^2.\n$$</div><p>于是</p><div class=\"math-display\">$$\n\\|T-S\\|\\ge \\frac{\\|(T-S)u\\|}{\\|u\\|}\n=\\frac{\\|Tu\\|}{\\|u\\|}\n\\ge s_{k+1}.\n$$</div><p>所以最小误差正是 $s_{k+1}$，由 $T_k$ 达到。$\\square$</p><p><strong>应用理解。</strong>  <br />这就是截断 SVD 的数学依据：保留最大的 $k$ 个奇异值方向，得到所有秩不超过 $k$ 的近似中误差最小的那个。</p><h5 id=\"7-93-定理-极分解\">7.93 定理：极分解<a class=\"heading-anchor\" href=\"#7-93-定理-极分解\" data-heading-id=\"7-93-定理-极分解\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V)$。则存在幺正算子 $S\\in\\mathcal L(V)$，使得</p><div class=\"math-display\">$$\nT=S\\sqrt{T^*T}.\n$$</div><p><strong>证明。</strong></p><p>取 $T$ 的奇异值分解</p><div class=\"math-display\">$$\nTv=s_1\\langle v,e_1\\rangle f_1+\\cdots+s_m\\langle v,e_m\\rangle f_m.\n$$</div><p>把 $e_1,\\dots,e_m$ 与 $f_1,\\dots,f_m$ 分别扩充为 $V$ 的规范正交基</p><div class=\"math-display\">$$\ne_1,\\dots,e_n,\\qquad f_1,\\dots,f_n.\n$$</div><p>定义</p><div class=\"math-display\">$$\nSv=\\langle v,e_1\\rangle f_1+\\cdots+\\langle v,e_n\\rangle f_n.\n$$</div><p>由帕塞瓦尔恒等式，</p><div class=\"math-display\">$$\n\\|Sv\\|^2=\\sum_{j=1}^n|\\langle v,e_j\\rangle|^2=\\|v\\|^2.\n$$</div><p>所以 $S$ 是幺正算子。</p><p>由 SVD 可得</p><div class=\"math-display\">$$\nT^*Tv=s_1^2\\langle v,e_1\\rangle e_1+\\cdots+s_m^2\\langle v,e_m\\rangle e_m.\n$$</div><p>因此</p><div class=\"math-display\">$$\n\\sqrt{T^*T}\\,v\n=s_1\\langle v,e_1\\rangle e_1+\\cdots+s_m\\langle v,e_m\\rangle e_m.\n$$</div><p>于是</p><div class=\"math-display\">$$\n\\begin{aligned}\nS\\sqrt{T^*T}\\,v\n&amp;=S\\left(\\sum_{j=1}^m s_j\\langle v,e_j\\rangle e_j\\right)\\\\\n&amp;=\\sum_{j=1}^m s_j\\langle v,e_j\\rangle f_j\\\\\n&amp;=Tv.\n\\end{aligned}\n$$</div><p>故</p><div class=\"math-display\">$$\nT=S\\sqrt{T^*T}.\n$$</div><p>$\\square$</p><p><strong>理解。</strong>  <br />$\\sqrt{T^*T}$ 是正算子，负责沿正交方向伸缩；$S$ 是幺正算子，负责保持长度的“旋转/反射”部分。极分解就是把任意算子拆成“伸缩 + 保长变换”。</p><h5 id=\"7-95-定义-球\">7.95 定义：球<a class=\"heading-anchor\" href=\"#7-95-定义-球\" data-heading-id=\"7-95-定义-球\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>$V$ 中半径为 $1$、以 $0$ 为心的球记为</p><div class=\"math-display\">$$\nB=\\{v\\in V:\\|v\\|\\le1\\}.\n$$</div><h5 id=\"7-96-定义-椭球\">7.96 定义：椭球<a class=\"heading-anchor\" href=\"#7-96-定义-椭球\" data-heading-id=\"7-96-定义-椭球\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $f_1,\\dots,f_n$ 是 $V$ 的规范正交基，$s_1,\\dots,s_n$ 是正数。主轴为</p><div class=\"math-display\">$$\ns_1f_1,\\dots,s_nf_n\n$$</div><p>的椭球定义为</p><div class=\"math-display\">$$\nE(s_1f_1,\\dots,s_nf_n)\n=\\left\\{\nv\\in V:\n\\frac{|\\langle v,f_1\\rangle|^2}{s_1^2}\n\\,+\\cdots+\n\\frac{|\\langle v,f_n\\rangle|^2}{s_n^2}\n\\le1\n\\right\\}.\n$$</div><p>当 $s_1=\\cdots=s_n=1$ 时，椭球就是单位球。</p><h5 id=\"7-97-例-椭球\">7.97 例：椭球<a class=\"heading-anchor\" href=\"#7-97-例-椭球\" data-heading-id=\"7-97-例-椭球\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>在 $\\mathbb R^2$ 中，若 $f_1,f_2$ 是标准基，则</p><div class=\"math-display\">$$\nE(2f_1,f_2)\n=\\left\\{(x,y):\\frac{x^2}{4}+y^2\\le1\\right\\}.\n$$</div><p>它是在 $f_1$ 方向半轴长为 $2$、在 $f_2$ 方向半轴长为 $1$ 的椭圆。</p><p>若把 $f_1,f_2$ 换成旋转后的规范正交基，则得到旋转后的椭圆。</p><h5 id=\"7-98-记号-t-omega\">7.98 记号：$T(\\Omega)$<a class=\"heading-anchor\" href=\"#7-98-记号-t-omega\" data-heading-id=\"7-98-记号-t-omega\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $T$ 是定义在 $V$ 上的函数，$\\Omega\\subset V$，定义</p><div class=\"math-display\">$$\nT(\\Omega)=\\{Tv:v\\in\\Omega\\}.\n$$</div><p>特别地，</p><div class=\"math-display\">$$\nT(V)=\\operatorname{range}T.\n$$</div><h5 id=\"7-99-定理-可逆算子把球变成椭球\">7.99 定理：可逆算子把球变成椭球<a class=\"heading-anchor\" href=\"#7-99-定理-可逆算子把球变成椭球\" data-heading-id=\"7-99-定理-可逆算子把球变成椭球\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V)$ 可逆。则 $T$ 将 $V$ 中的球 $B$ 映成 $V$ 中的椭球。</p><p><strong>证明。</strong></p><p>取 $T$ 的奇异值分解</p><div class=\"math-display\">$$\nTv=s_1\\langle v,e_1\\rangle f_1+\\cdots+s_n\\langle v,e_n\\rangle f_n.\n$$</div><p>由于 $T$ 可逆，所有奇异值 $s_1,\\dots,s_n$ 都为正。证明</p><div class=\"math-display\">$$\nT(B)=E(s_1f_1,\\dots,s_nf_n).\n$$</div><p>若 $v\\in B$，则由 SVD，</p><div class=\"math-display\">$$\n\\frac{|\\langle Tv,f_1\\rangle|^2}{s_1^2}\n\\,+\\cdots+\n\\frac{|\\langle Tv,f_n\\rangle|^2}{s_n^2}\n=|\\langle v,e_1\\rangle|^2+\\cdots+|\\langle v,e_n\\rangle|^2\n=\\|v\\|^2\\le1.\n$$</div><p>所以 $Tv$ 落在相应椭球中。</p><p>反过来，若 $w\\in E(s_1f_1,\\dots,s_nf_n)$，令</p><div class=\"math-display\">$$\nv=\\frac{\\langle w,f_1\\rangle}{s_1}e_1+\\cdots+\\frac{\\langle w,f_n\\rangle}{s_n}e_n.\n$$</div><p>椭球条件给出 $\\|v\\|\\le1$，且由 SVD 得 $Tv=w$。所以椭球中的点都来自 $T(B)$。$\\square$</p><h5 id=\"7-101-定理-可逆算子把椭球变成椭球\">7.101 定理：可逆算子把椭球变成椭球<a class=\"heading-anchor\" href=\"#7-101-定理-可逆算子把椭球变成椭球\" data-heading-id=\"7-101-定理-可逆算子把椭球变成椭球\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $T\\in\\mathcal L(V)$ 可逆，$E$ 是 $V$ 中的椭球，则 $T(E)$ 也是椭球。</p><p><strong>证明。</strong></p><p>设</p><div class=\"math-display\">$$\nE=E(s_1f_1,\\dots,s_nf_n).\n$$</div><p>定义可逆算子 $S$：</p><div class=\"math-display\">$$\nS(a_1f_1+\\cdots+a_nf_n)=a_1s_1f_1+\\cdots+a_ns_nf_n.\n$$</div><p>则</p><div class=\"math-display\">$$\nS(B)=E.\n$$</div><p>于是</p><div class=\"math-display\">$$\nT(E)=T(S(B))=(TS)(B).\n$$</div><p>$TS$ 可逆，由 7.99，$(TS)(B)$ 是椭球。$\\square$</p><h5 id=\"7-102-定义-平行体\">7.102 定义：平行体<a class=\"heading-anchor\" href=\"#7-102-定义-平行体\" data-heading-id=\"7-102-定义-平行体\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>若 $v_1,\\dots,v_n$ 是 $V$ 的基，定义</p><div class=\"math-display\">$$\nP(v_1,\\dots,v_n)\n=\\{a_1v_1+\\cdots+a_nv_n:a_1,\\dots,a_n\\in(0,1)\\}.\n$$</div><p>形如</p><div class=\"math-display\">$$\nu+P(v_1,\\dots,v_n)\n$$</div><p>的集合称为平行体，$v_1,\\dots,v_n$ 称为它的边。</p><p>在二维中，这就是平行四边形；在三维中，是通常的平行六面体。</p><h5 id=\"7-103-例-平行体\">7.103 例：平行体<a class=\"heading-anchor\" href=\"#7-103-例-平行体\" data-heading-id=\"7-103-例-平行体\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>在 $\\mathbb R^2$ 中，</p><div class=\"math-display\">$$\n(0.3,0.5)+P((1,0),(1,1))\n$$</div><p>是一个平移后的平行四边形。它的两条边方向分别为 $(1,0)$ 和 $(1,1)$。</p><h5 id=\"7-104-定理-可逆算子把平行体变成平行体\">7.104 定理：可逆算子把平行体变成平行体<a class=\"heading-anchor\" href=\"#7-104-定理-可逆算子把平行体变成平行体\" data-heading-id=\"7-104-定理-可逆算子把平行体变成平行体\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $u\\in V$，$v_1,\\dots,v_n$ 是 $V$ 的基，$T\\in\\mathcal L(V)$ 可逆。则</p><div class=\"math-display\">$$\nT\\bigl(u+P(v_1,\\dots,v_n)\\bigr)\n=Tu+P(Tv_1,\\dots,Tv_n).\n$$</div><p><strong>证明。</strong></p><p>因为 $T$ 可逆，$Tv_1,\\dots,Tv_n$ 仍是 $V$ 的基。由线性性，</p><div class=\"math-display\">$$\nT(u+a_1v_1+\\cdots+a_nv_n)\n=Tu+a_1Tv_1+\\cdots+a_nTv_n.\n$$</div><p>当 $a_1,\\dots,a_n$ 遍历 $(0,1)$ 时，右侧正好遍历 $Tu+P(Tv_1,\\dots,Tv_n)$。$\\square$</p><h5 id=\"7-105-定义-长方体\">7.105 定义：长方体<a class=\"heading-anchor\" href=\"#7-105-定义-长方体\" data-heading-id=\"7-105-定义-长方体\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>$V$ 中的长方体是形如</p><div class=\"math-display\">$$\nu+P(r_1e_1,\\dots,r_ne_n)\n$$</div><p>的集合，其中 $u\\in V$，$r_1,\\dots,r_n&gt;0$，$e_1,\\dots,e_n$ 是 $V$ 的规范正交基。</p><p>也就是说，长方体是边两两正交的平行体。</p><h5 id=\"7-106-例-长方体\">7.106 例：长方体<a class=\"heading-anchor\" href=\"#7-106-例-长方体\" data-heading-id=\"7-106-例-长方体\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>在 $\\mathbb R^2$ 中，若</p><div class=\"math-display\">$$\ne_1=\\left(\\frac1{\\sqrt2},\\frac1{\\sqrt2}\\right),\\qquad\ne_2=\\left(-\\frac1{\\sqrt2},\\frac1{\\sqrt2}\\right),\n$$</div><p>则</p><div class=\"math-display\">$$\n(1,0)+P(\\sqrt2 e_1,\\sqrt2 e_2)\n$$</div><p>是一个旋转并平移后的正方形。</p><p>在 $\\mathbb R^3$ 中，</p><div class=\"math-display\">$$\nP(e_1,2e_2,e_3)\n$$</div><p>是边长 $1,2,1$ 的长方体。</p><h5 id=\"7-107-定理-每个可逆算子都把某些长方体变成长方体\">7.107 定理：每个可逆算子都把某些长方体变成长方体<a class=\"heading-anchor\" href=\"#7-107-定理-每个可逆算子都把某些长方体变成长方体\" data-heading-id=\"7-107-定理-每个可逆算子都把某些长方体变成长方体\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $T\\in\\mathcal L(V)$ 可逆，并取 SVD：</p><div class=\"math-display\">$$\nTv=s_1\\langle v,e_1\\rangle f_1+\\cdots+s_n\\langle v,e_n\\rangle f_n.\n$$</div><p>则对任意 $u\\in V$ 和任意正数 $r_1,\\dots,r_n$，</p><div class=\"math-display\">$$\nT\\bigl(u+P(r_1e_1,\\dots,r_ne_n)\\bigr)\n=Tu+P(r_1s_1f_1,\\dots,r_ns_nf_n).\n$$</div><p>因此，若原长方体的边沿右奇异向量 $e_1,\\dots,e_n$，则像长方体的边沿左奇异向量 $f_1,\\dots,f_n$。</p><p><strong>证明。</strong></p><p>任取 $a_1,\\dots,a_n\\in(0,1)$，</p><div class=\"math-display\">$$\n\\begin{aligned}\nT(u+a_1r_1e_1+\\cdots+a_nr_ne_n)\n&amp;=Tu+a_1r_1Te_1+\\cdots+a_nr_nTe_n\\\\\n&amp;=Tu+a_1r_1s_1f_1+\\cdots+a_nr_ns_nf_n.\n\\end{aligned}\n$$</div><p>右侧正好遍历 $Tu+P(r_1s_1f_1,\\dots,r_ns_nf_n)$。$\\square$</p><h5 id=\"7-108-定义-长方体体积\">7.108 定义：长方体体积<a class=\"heading-anchor\" href=\"#7-108-定义-长方体体积\" data-heading-id=\"7-108-定义-长方体体积\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $F=\\mathbb R$。若</p><div class=\"math-display\">$$\nC=u+P(r_1e_1,\\dots,r_ne_n)\n$$</div><p>是长方体，其中 $e_1,\\dots,e_n$ 是规范正交基，$r_1,\\dots,r_n&gt;0$，则定义</p><div class=\"math-display\">$$\n\\operatorname{volume}(C)=r_1\\cdots r_n.\n$$</div><h5 id=\"7-109-定义-体积\">7.109 定义：体积<a class=\"heading-anchor\" href=\"#7-109-定义-体积\" data-heading-id=\"7-109-定义-体积\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $F=\\mathbb R$，$\\Omega\\subset V$。$\\Omega$ 的体积记为</p><div class=\"math-display\">$$\n\\operatorname{volume}(\\Omega).\n$$</div><p>直观上，它由许多互不相交的小长方体逼近 $\\Omega$，再把这些长方体的体积求和得到。</p><p>本章只使用体积的几何直觉：线性映射如何统一改变体积。严格的体积理论属于分析学。</p><h5 id=\"7-110-例-线性映射改变体积\">7.110 例：线性映射改变体积<a class=\"heading-anchor\" href=\"#7-110-例-线性映射改变体积\" data-heading-id=\"7-110-例-线性映射改变体积\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>在 $\\mathbb R^2$ 上令</p><div class=\"math-display\">$$\nTv=2\\langle v,e_1\\rangle e_1+\\langle v,e_2\\rangle e_2,\n$$</div><p>其中 $e_1,e_2$ 是标准基。这个映射在 $e_1$ 方向放大 $2$ 倍，在 $e_2$ 方向保持不变。因此每个边沿 $e_1,e_2$ 的矩形面积都变为原来的 $2$ 倍，球也被映成面积为原来 $2$ 倍的椭球。</p><p>这里 $T$ 的奇异值是 $2,1$，乘积为 $2$。</p><h5 id=\"7-111-定理-体积变化倍数是奇异值的乘积\">7.111 定理：体积变化倍数是奇异值的乘积<a class=\"heading-anchor\" href=\"#7-111-定理-体积变化倍数是奇异值的乘积\" data-heading-id=\"7-111-定理-体积变化倍数是奇异值的乘积\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $F=\\mathbb R$，$T\\in\\mathcal L(V)$ 可逆，$\\Omega\\subset V$。则</p><div class=\"math-display\">$$\n\\operatorname{volume}(T(\\Omega))\n=\\left(\\prod_{j=1}^n s_j\\right)\\operatorname{volume}(\\Omega),\n$$</div><p>其中 $s_1,\\dots,s_n$ 是 $T$ 的奇异值。</p><p><strong>证明。</strong></p><p>取 SVD：</p><div class=\"math-display\">$$\nTv=s_1\\langle v,e_1\\rangle f_1+\\cdots+s_n\\langle v,e_n\\rangle f_n.\n$$</div><p>用边沿 $e_1,\\dots,e_n$ 的长方体逼近 $\\Omega$。一个典型长方体为</p><div class=\"math-display\">$$\nu+P(r_1e_1,\\dots,r_ne_n),\n$$</div><p>体积为</p><div class=\"math-display\">$$\nr_1\\cdots r_n.\n$$</div><p>由 7.107，它被 $T$ 映为</p><div class=\"math-display\">$$\nTu+P(r_1s_1f_1,\\dots,r_ns_nf_n),\n$$</div><p>体积为</p><div class=\"math-display\">$$\n(r_1s_1)\\cdots(r_ns_n)\n=(s_1\\cdots s_n)(r_1\\cdots r_n).\n$$</div><p>因此每个逼近长方体的体积都被乘以同一个因子 $s_1\\cdots s_n$。把逼近加总并取极限，$\\Omega$ 的体积也按同一因子变化。$\\square$</p><p><strong>后续联系。</strong>  <br />到行列式时会看到：</p><div class=\"math-display\">$$\ns_1\\cdots s_n=|\\det T|.\n$$</div><p>因此行列式绝对值就是线性算子对体积的缩放倍数。</p><h5 id=\"章末性质-复正规算子由特征值判定的常见类型\">章末性质：复正规算子由特征值判定的常见类型<a class=\"heading-anchor\" href=\"#章末性质-复正规算子由特征值判定的常见类型\" data-heading-id=\"章末性质-复正规算子由特征值判定的常见类型\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>设 $F=\\mathbb C$，$T$ 正规。由复谱定理，$T$ 可用规范正交特征向量基对角化，因此许多算子性质可直接看特征值。</p><div class=\"table-scroll\"><table><thead><tr><th>正规算子的性质</th><th>特征值必须属于</th></tr></thead><tbody><tr><td>可逆</td><td>$\\mathbb C\\setminus\\{0\\}$</td></tr><tr><td>自伴</td><td>$\\mathbb R$</td></tr><tr><td>斜算子，即 $T^*=-T$</td><td>$\\{\\lambda\\in\\mathbb C:\\operatorname{Re}\\lambda=0\\}$</td></tr><tr><td>正交投影</td><td>$\\{0,1\\}$</td></tr><tr><td>正算子</td><td>$[0,\\infty)$</td></tr><tr><td>幺正</td><td>$\\{\\lambda\\in\\mathbb C:</td></tr><tr><td>范数小于 $1$</td><td>$\\{\\lambda\\in\\mathbb C:</td></tr></tbody></table></div><p><strong>理由。</strong>  <br />在规范正交特征向量基下，$T$ 的矩阵是对角矩阵。自伴、正、幺正、投影等条件都逐项变成对角线上复数的条件。例如：</p><ul><li>$T=T^*$ 等价于每个对角元素等于自己的复共轭，即特征值全为实数。</li><li>$T\\ge0$ 等价于二次型非负，即特征值全为非负实数。</li><li>$T^*T=I$ 等价于每个 $|\\lambda|^2=1$。</li><li>正规算子的奇异值是特征值绝对值，所以 $\\|T\\|&lt;1$ 等价于所有 $|\\lambda|&lt;1$。</li></ul><hr /><h4 id=\"第-7-章总复习线索\">第 7 章总复习线索<a class=\"heading-anchor\" href=\"#第-7-章总复习线索\" data-heading-id=\"第-7-章总复习线索\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>伴随是全章入口：从 $\\langle Tv,w\\rangle=\\langle v,T^*w\\rangle$ 出发，得到零空间、值域、矩阵共轭转置、自伴和正规。</li><li>自伴算子像实数：特征值实，二次型决定算子，实谱定理成立。</li><li>正规算子像复数：复空间中正规算子可由规范正交特征向量基对角化。</li><li>正算子像非负数：等价于 $R^*R$，有唯一正平方根。</li><li>幺正算子像单位圆上的复数：保持范数，特征值绝对值为 $1$。</li><li>奇异值分解是任意线性映射的正交分解：$T$ 在一组正交方向上伸缩，再转到另一组正交方向。</li><li>最大奇异值就是算子范数；奇异值乘积就是体积缩放倍数；截断 SVD 给出最佳低秩逼近。</li></ol>",
+  "headings": [
+    {
+      "id": "第-7-章-内积空间上的算子",
+      "title": "第 7 章 内积空间上的算子",
+      "level": 3
+    },
+    {
+      "id": "7a-自伴算子和正规算子",
+      "title": "7A 自伴算子和正规算子",
+      "level": 4
+    },
+    {
+      "id": "7-1-定义-伴随-t",
+      "title": "7.1 定义：伴随 $T^$",
+      "level": 5
+    },
+    {
+      "id": "7-2-例-从-mathbb-r-3-到-mathbb-r-2-的伴随",
+      "title": "7.2 例：从 $\\mathbb R^3$ 到 $\\mathbb R^2$ 的伴随",
+      "level": 5
+    },
+    {
+      "id": "7-3-例-秩至多为-1-的映射的伴随",
+      "title": "7.3 例：秩至多为 $1$ 的映射的伴随",
+      "level": 5
+    },
+    {
+      "id": "7-4-定理-线性映射的伴随是线性映射",
+      "title": "7.4 定理：线性映射的伴随是线性映射",
+      "level": 5
+    },
+    {
+      "id": "7-5-定理-伴随的性质",
+      "title": "7.5 定理：伴随的性质",
+      "level": 5
+    },
+    {
+      "id": "7-6-定理-t-的零空间和值域",
+      "title": "7.6 定理：$T^$ 的零空间和值域",
+      "level": 5
+    },
+    {
+      "id": "7-7-定义-共轭转置",
+      "title": "7.7 定义：共轭转置",
+      "level": 5
+    },
+    {
+      "id": "7-8-例-共轭转置",
+      "title": "7.8 例：共轭转置",
+      "level": 5
+    },
+    {
+      "id": "7-9-定理-伴随的矩阵是矩阵的共轭转置",
+      "title": "7.9 定理：伴随的矩阵是矩阵的共轭转置",
+      "level": 5
+    },
+    {
+      "id": "7-10-定义-自伴算子",
+      "title": "7.10 定义：自伴算子",
+      "level": 5
+    },
+    {
+      "id": "7-11-例-由矩阵判断自伴",
+      "title": "7.11 例：由矩阵判断自伴",
+      "level": 5
+    },
+    {
+      "id": "7-12-定理-自伴算子的特征值为实数",
+      "title": "7.12 定理：自伴算子的特征值为实数",
+      "level": 5
+    },
+    {
+      "id": "7-13-定理-复空间中二次型恒零推出算子为零",
+      "title": "7.13 定理：复空间中二次型恒零推出算子为零",
+      "level": 5
+    },
+    {
+      "id": "7-14-定理-复空间中二次型实值等价于自伴",
+      "title": "7.14 定理：复空间中二次型实值等价于自伴",
+      "level": 5
+    },
+    {
+      "id": "7-16-定理-自伴算子的二次型恒零等价于零算子",
+      "title": "7.16 定理：自伴算子的二次型恒零等价于零算子",
+      "level": 5
+    },
+    {
+      "id": "7-18-定义-正规算子",
+      "title": "7.18 定义：正规算子",
+      "level": 5
+    },
+    {
+      "id": "7-19-例-正规但不自伴",
+      "title": "7.19 例：正规但不自伴",
+      "level": 5
+    },
+    {
+      "id": "7-20-定理-正规性的范数判别",
+      "title": "7.20 定理：正规性的范数判别",
+      "level": 5
+    },
+    {
+      "id": "7-21-定理-正规算子的值域-零空间和特征向量",
+      "title": "7.21 定理：正规算子的值域、零空间和特征向量",
+      "level": 5
+    },
+    {
+      "id": "7-22-定理-正规算子的不同特征值对应特征向量正交",
+      "title": "7.22 定理：正规算子的不同特征值对应特征向量正交",
+      "level": 5
+    },
+    {
+      "id": "7-23-定理-复正规算子等价于实部与虚部可交换",
+      "title": "7.23 定理：复正规算子等价于实部与虚部可交换",
+      "level": 5
+    },
+    {
+      "id": "7b-谱定理",
+      "title": "7B 谱定理",
+      "level": 4
+    },
+    {
+      "id": "7-26-定理-可逆二次表达式",
+      "title": "7.26 定理：可逆二次表达式",
+      "level": 5
+    },
+    {
+      "id": "7-27-定理-自伴算子的最小多项式在实数上分裂",
+      "title": "7.27 定理：自伴算子的最小多项式在实数上分裂",
+      "level": 5
+    },
+    {
+      "id": "7-29-定理-实谱定理",
+      "title": "7.29 定理：实谱定理",
+      "level": 5
+    },
+    {
+      "id": "7-30-例-实自伴矩阵的规范正交特征向量基",
+      "title": "7.30 例：实自伴矩阵的规范正交特征向量基",
+      "level": 5
+    },
+    {
+      "id": "7-31-定理-复谱定理",
+      "title": "7.31 定理：复谱定理",
+      "level": 5
+    },
+    {
+      "id": "7-33-例-复正规算子的规范正交特征向量基",
+      "title": "7.33 例：复正规算子的规范正交特征向量基",
+      "level": 5
+    },
+    {
+      "id": "7c-正算子",
+      "title": "7C 正算子",
+      "level": 4
+    },
+    {
+      "id": "7-34-定义-正算子",
+      "title": "7.34 定义：正算子",
+      "level": 5
+    },
+    {
+      "id": "7-35-例-正算子",
+      "title": "7.35 例：正算子",
+      "level": 5
+    },
+    {
+      "id": "7-36-定义-平方根",
+      "title": "7.36 定义：平方根",
+      "level": 5
+    },
+    {
+      "id": "7-37-例-平方根",
+      "title": "7.37 例：平方根",
+      "level": 5
+    },
+    {
+      "id": "7-38-定理-正算子的等价刻画",
+      "title": "7.38 定理：正算子的等价刻画",
+      "level": 5
+    },
+    {
+      "id": "7-39-定理-每个正算子有唯一正平方根",
+      "title": "7.39 定理：每个正算子有唯一正平方根",
+      "level": 5
+    },
+    {
+      "id": "7-40-记号-sqrt-t",
+      "title": "7.40 记号：$\\sqrt T$",
+      "level": 5
+    },
+    {
+      "id": "7-41-例-正算子的平方根",
+      "title": "7.41 例：正算子的平方根",
+      "level": 5
+    },
+    {
+      "id": "7-43-定理-正算子二次型为零则向量被送到零",
+      "title": "7.43 定理：正算子二次型为零则向量被送到零",
+      "level": 5
+    },
+    {
+      "id": "7d-等距映射-幺正算子和矩阵分解",
+      "title": "7D 等距映射、幺正算子和矩阵分解",
+      "level": 4
+    },
+    {
+      "id": "7-44-定义-等距映射",
+      "title": "7.44 定义：等距映射",
+      "level": 5
+    },
+    {
+      "id": "7-45-例-把规范正交基送到规范正交组的映射是等距映射",
+      "title": "7.45 例：把规范正交基送到规范正交组的映射是等距映射",
+      "level": 5
+    },
+    {
+      "id": "7-49-定理-等距映射的等价刻画",
+      "title": "7.49 定理：等距映射的等价刻画",
+      "level": 5
+    },
+    {
+      "id": "7-51-定义-幺正算子",
+      "title": "7.51 定义：幺正算子",
+      "level": 5
+    },
+    {
+      "id": "7-52-例-平面旋转是幺正算子",
+      "title": "7.52 例：平面旋转是幺正算子",
+      "level": 5
+    },
+    {
+      "id": "7-53-定理-幺正算子的等价刻画",
+      "title": "7.53 定理：幺正算子的等价刻画",
+      "level": 5
+    },
+    {
+      "id": "7-54-定理-幺正算子的特征值绝对值为-1",
+      "title": "7.54 定理：幺正算子的特征值绝对值为 $1$",
+      "level": 5
+    },
+    {
+      "id": "7-55-定理-复内积空间上幺正算子的描述",
+      "title": "7.55 定理：复内积空间上幺正算子的描述",
+      "level": 5
+    },
+    {
+      "id": "7-56-定义-幺正矩阵",
+      "title": "7.56 定义：幺正矩阵",
+      "level": 5
+    },
+    {
+      "id": "7-57-定理-幺正矩阵的特性",
+      "title": "7.57 定理：幺正矩阵的特性",
+      "level": 5
+    },
+    {
+      "id": "7-58-定理-qr-分解",
+      "title": "7.58 定理：QR 分解",
+      "level": 5
+    },
+    {
+      "id": "7-60-例-3-times3-矩阵的-qr-分解",
+      "title": "7.60 例：$3\\times3$ 矩阵的 QR 分解",
+      "level": 5
+    },
+    {
+      "id": "7-61-定理-可逆正算子",
+      "title": "7.61 定理：可逆正算子",
+      "level": 5
+    },
+    {
+      "id": "7-62-定义-正定矩阵",
+      "title": "7.62 定义：正定矩阵",
+      "level": 5
+    },
+    {
+      "id": "7-63-定理-科列斯基分解",
+      "title": "7.63 定理：科列斯基分解",
+      "level": 5
+    },
+    {
+      "id": "7e-奇异值分解",
+      "title": "7E 奇异值分解",
+      "level": 4
+    },
+    {
+      "id": "7-64-定理-t-t-的性质",
+      "title": "7.64 定理：$T^T$ 的性质",
+      "level": 5
+    },
+    {
+      "id": "7-65-定义-奇异值",
+      "title": "7.65 定义：奇异值",
+      "level": 5
+    },
+    {
+      "id": "7-66-例-f-4-上算子的奇异值",
+      "title": "7.66 例：$F^4$ 上算子的奇异值",
+      "level": 5
+    },
+    {
+      "id": "7-67-例-从-f-4-到-f-3-的线性映射的奇异值",
+      "title": "7.67 例：从 $F^4$ 到 $F^3$ 的线性映射的奇异值",
+      "level": 5
+    },
+    {
+      "id": "7-68-定理-正奇异值的作用",
+      "title": "7.68 定理：正奇异值的作用",
+      "level": 5
+    },
+    {
+      "id": "7-69-定理-所有奇异值为-1-等价于等距映射",
+      "title": "7.69 定理：所有奇异值为 $1$ 等价于等距映射",
+      "level": 5
+    },
+    {
+      "id": "7-70-定理-奇异值分解",
+      "title": "7.70 定理：奇异值分解",
+      "level": 5
+    },
+    {
+      "id": "7-74-定义-对角矩阵",
+      "title": "7.74 定义：对角矩阵",
+      "level": 5
+    },
+    {
+      "id": "7-75-定理-伴随和伪逆的奇异值分解",
+      "title": "7.75 定理：伴随和伪逆的奇异值分解",
+      "level": 5
+    },
+    {
+      "id": "7-79-例-求奇异值分解",
+      "title": "7.79 例：求奇异值分解",
+      "level": 5
+    },
+    {
+      "id": "7-80-定理-svd-的矩阵版本",
+      "title": "7.80 定理：SVD 的矩阵版本",
+      "level": 5
+    },
+    {
+      "id": "7f-奇异值分解的推论",
+      "title": "7F 奇异值分解的推论",
+      "level": 4
+    },
+    {
+      "id": "7-82-定理-tv-的上界",
+      "title": "7.82 定理：$\\|Tv\\|$ 的上界",
+      "level": 5
+    },
+    {
+      "id": "7-86-定义-线性映射的范数",
+      "title": "7.86 定义：线性映射的范数",
+      "level": 5
+    },
+    {
+      "id": "7-87-定理-线性映射范数的基本性质",
+      "title": "7.87 定理：线性映射范数的基本性质",
+      "level": 5
+    },
+    {
+      "id": "7-88-定理-t-的多种表达式",
+      "title": "7.88 定理：$\\|T\\|$ 的多种表达式",
+      "level": 5
+    },
+    {
+      "id": "7-90-例-范数",
+      "title": "7.90 例：范数",
+      "level": 5
+    },
+    {
+      "id": "7-91-定理-伴随的范数",
+      "title": "7.91 定理：伴随的范数",
+      "level": 5
+    },
+    {
+      "id": "7-92-定理-值域维数至多为-k-的最佳逼近",
+      "title": "7.92 定理：值域维数至多为 $k$ 的最佳逼近",
+      "level": 5
+    },
+    {
+      "id": "7-93-定理-极分解",
+      "title": "7.93 定理：极分解",
+      "level": 5
+    },
+    {
+      "id": "7-95-定义-球",
+      "title": "7.95 定义：球",
+      "level": 5
+    },
+    {
+      "id": "7-96-定义-椭球",
+      "title": "7.96 定义：椭球",
+      "level": 5
+    },
+    {
+      "id": "7-97-例-椭球",
+      "title": "7.97 例：椭球",
+      "level": 5
+    },
+    {
+      "id": "7-98-记号-t-omega",
+      "title": "7.98 记号：$T(\\Omega)$",
+      "level": 5
+    },
+    {
+      "id": "7-99-定理-可逆算子把球变成椭球",
+      "title": "7.99 定理：可逆算子把球变成椭球",
+      "level": 5
+    },
+    {
+      "id": "7-101-定理-可逆算子把椭球变成椭球",
+      "title": "7.101 定理：可逆算子把椭球变成椭球",
+      "level": 5
+    },
+    {
+      "id": "7-102-定义-平行体",
+      "title": "7.102 定义：平行体",
+      "level": 5
+    },
+    {
+      "id": "7-103-例-平行体",
+      "title": "7.103 例：平行体",
+      "level": 5
+    },
+    {
+      "id": "7-104-定理-可逆算子把平行体变成平行体",
+      "title": "7.104 定理：可逆算子把平行体变成平行体",
+      "level": 5
+    },
+    {
+      "id": "7-105-定义-长方体",
+      "title": "7.105 定义：长方体",
+      "level": 5
+    },
+    {
+      "id": "7-106-例-长方体",
+      "title": "7.106 例：长方体",
+      "level": 5
+    },
+    {
+      "id": "7-107-定理-每个可逆算子都把某些长方体变成长方体",
+      "title": "7.107 定理：每个可逆算子都把某些长方体变成长方体",
+      "level": 5
+    },
+    {
+      "id": "7-108-定义-长方体体积",
+      "title": "7.108 定义：长方体体积",
+      "level": 5
+    },
+    {
+      "id": "7-109-定义-体积",
+      "title": "7.109 定义：体积",
+      "level": 5
+    },
+    {
+      "id": "7-110-例-线性映射改变体积",
+      "title": "7.110 例：线性映射改变体积",
+      "level": 5
+    },
+    {
+      "id": "7-111-定理-体积变化倍数是奇异值的乘积",
+      "title": "7.111 定理：体积变化倍数是奇异值的乘积",
+      "level": 5
+    },
+    {
+      "id": "章末性质-复正规算子由特征值判定的常见类型",
+      "title": "章末性质：复正规算子由特征值判定的常见类型",
+      "level": 5
+    },
+    {
+      "id": "第-7-章总复习线索",
+      "title": "第 7 章总复习线索",
+      "level": 4
+    }
+  ]
+}
