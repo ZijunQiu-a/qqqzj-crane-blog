@@ -121,6 +121,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "我决定将我的github用户名从 ZijunQiu-a改成qqqzj-crane！！！",
       "readingMinutes": 1,
       "createdAt": "2026-04-28T00:00:00.000Z"
+    },
+    {
+      "id": "news/2026-04-29-重磅上线评论功能.md",
+      "slug": "2026-04-29-重磅上线评论功能",
+      "dataPath": "post-data/2026-04-29-%E9%87%8D%E7%A3%85%E4%B8%8A%E7%BA%BF%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD.json",
+      "source": "post",
+      "kind": "growth",
+      "title": "重磅上线评论功能！！！",
+      "publishedIndex": 24,
+      "stage": "News 动态",
+      "tag": "网站",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "4 月 29 日 天气 不知道，反正我还在和代码搏斗 重磅上线评论功能！！！ 虽然这个标题看起来很像什么震惊部，但是请允许我稍微震惊一下。毕竟这个网站从一开始的一片荒地，到现在居然真的可以让别人留下痕迹了，多少还是有点恍惚。 说实话，做评论...",
+      "readingMinutes": 2,
+      "createdAt": "2026-04-29T00:00:00.000Z"
     }
   ],
   "notes": [

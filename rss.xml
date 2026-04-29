@@ -6,7 +6,14 @@
     <link>https://qqqzj.cn/</link>
     <description>qqqzj 的个人笔记、生活记录与学习档案。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 29 Apr 2026 05:59:30 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 29 Apr 2026 06:05:06 GMT</lastBuildDate>
+    <item>
+      <title>重磅上线评论功能！！！</title>
+      <link>https://qqqzj.cn/post/2026-04-29-%E9%87%8D%E7%A3%85%E4%B8%8A%E7%BA%BF%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/</link>
+      <guid>https://qqqzj.cn/post/2026-04-29-%E9%87%8D%E7%A3%85%E4%B8%8A%E7%BA%BF%E8%AF%84%E8%AE%BA%E5%8A%9F%E8%83%BD/</guid>
+      <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
+      <description>4 月 29 日 天气 不知道，反正我还在和代码搏斗 重磅上线评论功能！！！ 虽然这个标题看起来很像什么震惊部，但是请允许我稍微震惊一下。毕竟这个网站从一开始的一片荒地，到现在居然真的可以让别人留下痕迹了，多少还是有点恍惚。 说实话，做评论...</description>
+    </item>
     <item>
       <title>Linear algebra II notes</title>
       <link>https://qqqzj.cn/post/2026-04-29-linear-algebra-ii-notes/</link>
@@ -139,13 +146,6 @@
       <guid>https://qqqzj.cn/post/2026-04-24-linear-algebra-i/</guid>
       <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
       <description>线性方程组与行简化阶梯形 行简化阶梯形 行简化阶梯矩阵满足： 1. 零行在非零行下方； 2. 每个非零行首个非零元为 $1$； 3. 主元所在列其余元素全为 $0$； 4. 主元位置从上到下向右移动。 线性方程组化为简化阶梯形后： 出现 $...</description>
-    </item>
-    <item>
-      <title>数学分析 I 复习提纲</title>
-      <link>https://qqqzj.cn/post/2026-04-24-mathematical-analysis-i-review-outline/</link>
-      <guid>https://qqqzj.cn/post/2026-04-24-mathematical-analysis-i-review-outline/</guid>
-      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
-      <description>来源：数分I复习.pdf。 参考校订：数学分析 上.pdf、《数学分析》辅导.pdf。 本文件按复习页内容整理为考前提纲，公式已按标准表述校正。 1. 实数完备性与确界 确界原理 非空有上界数集必有上确界；非空有下界数集必有下确界。 等价完...</description>
     </item>
   </channel>
 </rss>
