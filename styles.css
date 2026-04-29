@@ -2416,6 +2416,13 @@ h3 {
   align-items: center;
 }
 
+.comment-login-note {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .comment-email-code-form {
   grid-template-columns: minmax(140px, 220px) auto;
 }

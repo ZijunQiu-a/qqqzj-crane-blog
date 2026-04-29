@@ -177,13 +177,14 @@
 
     setBusy(container, true);
     try {
-      await request(settings, "/api/comment-email-verify", {
+      const data = await request(settings, "/api/comment-email-verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code }),
       });
       await load(container, settings, term);
-      setStatus(container, "QQ 邮箱登录成功。", "success");
+      const login = data.user?.login || data.user?.name || "";
+      setStatus(container, login ? `QQ 邮箱登录成功，当前昵称：${login}。` : "QQ 邮箱登录成功。", "success");
     } catch (error) {
       setStatus(container, error.message || "登录失败。", "error");
     } finally {
@@ -285,6 +286,7 @@
             <input name="name" type="text" maxlength="32" autocomplete="nickname" placeholder="显示昵称" required />
             <input name="email" type="email" inputmode="email" autocomplete="email" placeholder="QQ 邮箱" required />
             <button class="comment-button comment-button-primary" type="submit">QQ 邮箱登录</button>
+            <small class="comment-login-note">QQ 邮箱首次登录会绑定昵称，之后同一邮箱会沿用第一次绑定的昵称；邮箱不会公开显示。</small>
           </form>
           <div class="comment-github-login">
             <button class="comment-button comment-button-primary" type="button" data-comment-action="login">GitHub 登录</button>
