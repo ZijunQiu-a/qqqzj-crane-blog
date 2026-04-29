@@ -2280,6 +2280,178 @@ h3 {
   overflow-wrap: anywhere;
 }
 
+.post-comments {
+  display: grid;
+  gap: 16px;
+  border-top: 1px solid rgba(16, 35, 46, 0.1);
+  padding-top: 18px;
+}
+
+.post-comments[hidden] {
+  display: none;
+}
+
+.comments-heading {
+  display: grid;
+  gap: 4px;
+}
+
+.comments-heading h2 {
+  font-size: 22px;
+}
+
+.comments-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.comment-status {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.comment-status.is-error {
+  color: var(--coral);
+}
+
+.comment-status.is-success {
+  color: var(--moss);
+}
+
+.comment-login,
+.comment-form,
+.comment-item {
+  display: grid;
+  gap: 12px;
+  border: 1px solid rgba(20, 123, 145, 0.16);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(248, 251, 251, 0.72);
+}
+
+.comment-login p,
+.comment-empty {
+  margin: 0;
+  color: var(--muted);
+}
+
+.comment-form textarea {
+  min-height: 112px;
+  resize: vertical;
+  border: 1px solid rgba(20, 123, 145, 0.16);
+  border-radius: 8px;
+  padding: 11px 12px;
+  background: rgba(255, 254, 253, 0.86);
+  color: var(--ink);
+  font: inherit;
+  line-height: 1.6;
+}
+
+.comment-form textarea:focus {
+  border-color: rgba(14, 78, 102, 0.4);
+  outline: 0;
+}
+
+.comment-user {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.comment-user img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.comment-form-actions,
+.comment-item header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.comment-form-actions small,
+.comment-item time {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.comment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.comment-button {
+  width: fit-content;
+  border: 1px solid rgba(20, 123, 145, 0.16);
+  border-radius: 999px;
+  padding: 9px 13px;
+  background: rgba(255, 254, 253, 0.82);
+  color: var(--teal-dark);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.comment-button-primary {
+  background: var(--teal);
+  color: var(--paper-strong);
+}
+
+.comment-link-button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--teal-dark);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.comment-link-button.is-danger {
+  color: var(--coral);
+}
+
+.comment-button:hover,
+.comment-button:focus-visible,
+.comment-link-button:hover,
+.comment-link-button:focus-visible {
+  outline: 0;
+  filter: brightness(0.96);
+}
+
+.comment-button:disabled,
+.comment-link-button:disabled,
+.comment-form textarea:disabled {
+  cursor: wait;
+  opacity: 0.62;
+}
+
+.comment-list {
+  display: grid;
+  gap: 12px;
+}
+
+.comment-item p {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+
 /* 没有内容时显示的占位状态。 */
 .empty-state {
   display: grid;
@@ -3067,6 +3239,9 @@ html.theme-enter-pneuma::after {
 :root[data-theme-state="ousia"] .back-link,
 :root[data-theme-state="ousia"] .contact-copy,
 :root[data-theme-state="ousia"] .post-neighbor-nav a,
+:root[data-theme-state="ousia"] .comment-login,
+:root[data-theme-state="ousia"] .comment-form,
+:root[data-theme-state="ousia"] .comment-item,
 :root[data-theme-state="ousia"] .empty-state {
   border-color: rgba(129, 218, 242, 0.18);
   background:
@@ -3103,6 +3278,8 @@ html.theme-enter-pneuma::after {
 
 :root[data-theme-state="ousia"] .entry-body code,
 :root[data-theme-state="ousia"] .download-button,
+:root[data-theme-state="ousia"] .comment-form textarea,
+:root[data-theme-state="ousia"] .comment-button,
 :root[data-theme-state="ousia"] .clear-search-button {
   border-color: rgba(129, 218, 242, 0.2);
   background: rgba(102, 213, 240, 0.09);
@@ -3112,6 +3289,15 @@ html.theme-enter-pneuma::after {
   border-color: transparent;
   background: transparent;
   color: inherit;
+}
+
+:root[data-theme-state="ousia"] .comment-form textarea {
+  color: var(--ink);
+}
+
+:root[data-theme-state="ousia"] .comment-button-primary {
+  background: var(--teal);
+  color: var(--paper);
 }
 
 :root[data-theme-state="ousia"] .topbar-search .search-panel {

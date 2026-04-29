@@ -568,6 +568,7 @@ $$</div><h4 id="附件">附件<a class="heading-anchor" href="#附件" data-head
                 <a href="../../post/2026-04-25-%E7%9C%9F%E5%A5%BD-%E5%8F%88%E6%B5%AA%E8%B4%B9%E4%BA%86%E4%B8%80%E5%A4%A9/"><span>Newer / 更新</span><strong>真好，又浪费了一天</strong></a>
                 <a href="../../post/2026-04-25-physics-i-midterm-review-outline/"><span>Older / 更早</span><strong>普物 I 期中复习提纲（重点速览版）</strong></a>
               </nav>
+              <section class="post-comments" id="post-comments" aria-label="Comments / 评论区" hidden></section>
             </article>
           </div>
         </section>
@@ -580,7 +581,15 @@ $$</div><h4 id="附件">附件<a class="heading-anchor" href="#附件" data-head
       </footer>
     </div>
     <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <script src="../../comments-config.js"></script>
+    <script src="../../comments.js"></script>
     <script>
+      window.CraneComments?.render(document.querySelector("#post-comments"), {
+        slug: "2026-04-25-physics-i-midterm-mechanics-complete-review",
+        title: "普物 I 期中复习提纲（力学全覆盖版）",
+        commentTerm: "post:2026-04-25-physics-i-midterm-mechanics-complete-review",
+      });
+
       const readingProgress = document.querySelector("#reading-progress");
       function updateReadingProgress() {
         const max = document.documentElement.scrollHeight - window.innerHeight;

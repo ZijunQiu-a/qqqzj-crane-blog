@@ -178,6 +178,7 @@
                 <a href="../../post/2026-04-24-first-news/"><span>Newer / 更新</span><strong>完成个人网站第一版</strong></a>
                 
               </nav>
+              <section class="post-comments" id="post-comments" aria-label="Comments / 评论区" hidden></section>
             </article>
           </div>
         </section>
@@ -190,7 +191,15 @@
       </footer>
     </div>
     <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <script src="../../comments-config.js"></script>
+    <script src="../../comments.js"></script>
     <script>
+      window.CraneComments?.render(document.querySelector("#post-comments"), {
+        slug: "2026-04-24-04-travel-jinan-taishan",
+        title: "清明de济南与泰山",
+        commentTerm: "post:2026-04-24-04-travel-jinan-taishan",
+      });
+
       const readingProgress = document.querySelector("#reading-progress");
       function updateReadingProgress() {
         const max = document.documentElement.scrollHeight - window.innerHeight;

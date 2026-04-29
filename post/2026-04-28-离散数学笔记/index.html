@@ -1291,6 +1291,7 @@ $$</div><p>则该局面是必败态；否则是必胜态。</p><p><strong>Proof 
                 <a href="../../post/2026-04-28-%E6%88%91%E8%BF%B7%E5%A4%B1%E5%9C%A8%E4%BA%86%E9%BB%91%E5%A4%9C%E9%87%8C/"><span>Newer / 更新</span><strong>我迷失在了黑夜里</strong></a>
                 <a href="../../post/2026-04-28-%E9%87%8D%E5%A4%A7%E5%86%B3%E7%AD%96/"><span>Older / 更早</span><strong>重大决策！</strong></a>
               </nav>
+              <section class="post-comments" id="post-comments" aria-label="Comments / 评论区" hidden></section>
             </article>
           </div>
         </section>
@@ -1303,7 +1304,15 @@ $$</div><p>则该局面是必败态；否则是必胜态。</p><p><strong>Proof 
       </footer>
     </div>
     <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <script src="../../comments-config.js"></script>
+    <script src="../../comments.js"></script>
     <script>
+      window.CraneComments?.render(document.querySelector("#post-comments"), {
+        slug: "2026-04-28-离散数学笔记",
+        title: "离散数学笔记",
+        commentTerm: "post:2026-04-28-离散数学笔记",
+      });
+
       const readingProgress = document.querySelector("#reading-progress");
       function updateReadingProgress() {
         const max = document.documentElement.scrollHeight - window.innerHeight;

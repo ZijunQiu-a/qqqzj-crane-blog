@@ -306,6 +306,7 @@ $$</div><p>收敛。</p><h4 id="附件">附件<a class="heading-anchor" href="#�
                 <a href="../../post/2026-04-24-linear-algebra-i/"><span>Newer / 更新</span><strong>线性代数 I</strong></a>
                 <a href="../../post/2026-04-24-mathematical-analysis-i/"><span>Older / 更早</span><strong>数学分析 I</strong></a>
               </nav>
+              <section class="post-comments" id="post-comments" aria-label="Comments / 评论区" hidden></section>
             </article>
           </div>
         </section>
@@ -318,7 +319,15 @@ $$</div><p>收敛。</p><h4 id="附件">附件<a class="heading-anchor" href="#�
       </footer>
     </div>
     <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <script src="../../comments-config.js"></script>
+    <script src="../../comments.js"></script>
     <script>
+      window.CraneComments?.render(document.querySelector("#post-comments"), {
+        slug: "2026-04-24-mathematical-analysis-i-review-outline",
+        title: "数学分析 I 复习提纲",
+        commentTerm: "post:2026-04-24-mathematical-analysis-i-review-outline",
+      });
+
       const readingProgress = document.querySelector("#reading-progress");
       function updateReadingProgress() {
         const max = document.documentElement.scrollHeight - window.innerHeight;
