@@ -2393,6 +2393,22 @@ h3 {
   font-weight: 900;
 }
 
+.comment-reply-context {
+  width: fit-content;
+  margin: -2px 0 0;
+  border-left: 3px solid rgba(20, 123, 145, 0.22);
+  padding-left: 9px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.5;
+}
+
+.comment-reply-context strong {
+  color: var(--teal-dark);
+  font-weight: 950;
+}
+
 .comment-actions {
   display: flex;
   flex-wrap: wrap;
@@ -3336,6 +3352,10 @@ html.theme-enter-pneuma::after {
 
 :root[data-theme-state="ousia"] .comment-replies {
   border-left-color: rgba(129, 218, 242, 0.18);
+}
+
+:root[data-theme-state="ousia"] .comment-reply-context {
+  border-left-color: rgba(129, 218, 242, 0.28);
 }
 
 :root[data-theme-state="ousia"] .topbar-search .search-panel {

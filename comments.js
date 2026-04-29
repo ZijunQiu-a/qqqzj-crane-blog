@@ -147,7 +147,7 @@
     composer.innerHTML = user ? composerMarkup(user, settings) : loginMarkup(settings);
     const thread = threadComments(comments);
     body.innerHTML = comments.length
-      ? thread.roots.map((comment) => commentMarkup(comment, user, settings, thread.children)).join("")
+      ? thread.roots.map((comment) => commentMarkup(comment, user, thread)).join("")
       : '<p class="comment-empty">还没有评论。</p>';
     setStatus(container, comments.length ? `${comments.length} 条评论` : "暂无评论", "success");
     container.dataset.commentTerm = term;
@@ -195,9 +195,13 @@
     `;
   }
 
-  function commentMarkup(comment, user, settings, children, depth = 0) {
+  function commentMarkup(comment, user, thread, depth = 0) {
     const updated = comment.updatedAt && comment.updatedAt !== comment.createdAt ? " · 已编辑" : "";
-    const replies = children.get(comment.id) || [];
+    const parent = comment.parentId ? thread.byId.get(comment.parentId) : null;
+    const replies = thread.children.get(comment.id) || [];
+    const relation = parent ? `
+      <p class="comment-reply-context">回复 <strong>@${escapeHtml(parent.author?.login || "unknown")}</strong></p>
+    ` : "";
     return `
       <article class="comment-item" data-comment-id="${escapeAttribute(comment.id)}">
         <header>
@@ -214,11 +218,12 @@
             </div>
           ` : ""}
         </header>
+        ${relation}
         <p data-comment-body>${formatBody(comment.body)}</p>
         <div class="comment-reply-slot" data-reply-slot="${escapeAttribute(comment.id)}"></div>
         ${replies.length ? `
           <div class="comment-replies">
-            ${replies.map((reply) => commentMarkup(reply, user, settings, children, depth + 1)).join("")}
+            ${replies.map((reply) => commentMarkup(reply, user, thread, depth + 1)).join("")}
           </div>
         ` : ""}
       </article>
@@ -274,7 +279,7 @@
       }
     });
 
-    return { roots, children };
+    return { roots, children, byId };
   }
 
   function setStatus(container, message, type = "") {
