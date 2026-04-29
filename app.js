@@ -769,6 +769,7 @@ async function showPostDetail(entry, token = routeRenderToken) {
   document.title = `${entry.title} · qqqzj@Crane`;
   hydrateFilePreviews(views.detailBody);
   typesetMath();
+  renderMermaid(views.detailBody);
   window.scrollTo({ top: 0, behavior: "auto" });
   updateReadingProgress();
 }
@@ -1434,7 +1435,7 @@ function markdownToHtml(markdown) {
 }
 
 function renderMarkdown(markdown) {
-  const blocks = markdownBlocks(markdown);
+  const blocks = mergeListBlocks(markdownBlocks(markdown));
   const context = {
     headings: [],
     headingIds: new Map(),
@@ -1474,25 +1475,8 @@ function renderMarkdown(markdown) {
       if (/^##\s+/.test(block)) return headingMarkdown(block.replace(/^##\s+/, ""), 4, context, 4);
       if (/^#\s+/.test(block)) return headingMarkdown(block.replace(/^#\s+/, ""), 4, context, 3);
 
-      const lines = block.split("\n").filter(Boolean);
-
-      if (lines.length > 0 && lines.every((line) => /^\s*[-*]\s+/.test(line))) {
-        const items = block
-          .split("\n")
-          .filter((line) => /^\s*[-*]\s+/.test(line))
-          .map((line) => `<li>${inlineMarkdown(line.replace(/^\s*[-*]\s+/, ""))}</li>`)
-          .join("");
-        return `<ul>${items}</ul>`;
-      }
-
-      if (lines.length > 0 && lines.every((line) => /^\s*\d+\.\s+/.test(line))) {
-        const items = block
-          .split("\n")
-          .filter((line) => /^\s*\d+\.\s+/.test(line))
-          .map((line) => `<li>${inlineMarkdown(line.replace(/^\s*\d+\.\s+/, ""))}</li>`)
-          .join("");
-        return `<ol>${items}</ol>`;
-      }
+      const list = listMarkdown(block);
+      if (list) return list;
 
       return paragraphMarkdown(block);
     })
@@ -1503,6 +1487,78 @@ function renderMarkdown(markdown) {
 
 function markdownBlocks(markdown) {
   return markdownCore.markdownBlocks(markdown);
+}
+
+function mergeListBlocks(blocks) {
+  const merged = [];
+
+  for (let index = 0; index < blocks.length; index += 1) {
+    const block = blocks[index];
+    if (!isListStartBlock(block)) {
+      merged.push(block);
+      continue;
+    }
+
+    const parts = [block];
+    let consumedIndentedMath = false;
+
+    while (index + 1 < blocks.length) {
+      const next = blocks[index + 1];
+      if (isIndentedDisplayMathBlock(next)) {
+        parts.push(next);
+        consumedIndentedMath = true;
+        index += 1;
+        continue;
+      }
+
+      if (isListStartBlock(next)) {
+        parts.push(next);
+        consumedIndentedMath = false;
+        index += 1;
+        continue;
+      }
+
+      if (consumedIndentedMath && !isStructuralBlock(next)) {
+        parts.push(next);
+        consumedIndentedMath = hasListMarker(next);
+        index += 1;
+        continue;
+      }
+
+      break;
+    }
+
+    merged.push(parts.join("\n"));
+  }
+
+  return merged;
+}
+
+function isListStartBlock(block) {
+  return /^(\s*)([-*]|\d+\.)\s+/.test(String(block || ""));
+}
+
+function hasListMarker(block) {
+  return /(^|\n)\s*(?:[-*]|\d+\.)\s+/.test(String(block || ""));
+}
+
+function isIndentedDisplayMathBlock(block) {
+  const lines = String(block || "").split("\n");
+  if (lines.length < 3 || lines[0].trim() !== "$$" || lines[lines.length - 1].trim() !== "$$") return false;
+  return lines.slice(1, -1).some((line) => /^\s+\S/.test(line));
+}
+
+function isStructuralBlock(block) {
+  const value = String(block || "");
+  return /^#{1,6}\s+/.test(value)
+    || /^```/.test(value)
+    || /^:::\s*/.test(value)
+    || /^>\s?\[!/.test(value)
+    || /^!\[[^\]]*\]\([^)]+\)$/.test(value)
+    || /^\[([^\]]+)\]\(([^)\s]+)\)$/.test(value)
+    || /^@\[([^\]]+)\]\(([^)\s]+)\)$/.test(value)
+    || /^-{3,}$/.test(value)
+    || Boolean(tableMarkdown(value));
 }
 
 function headingMarkdown(value, level, context, tocLevel = level) {
@@ -1541,12 +1597,80 @@ function paragraphMarkdown(block) {
   return `<p>${html.replaceAll("\n", "<br />")}</p>`;
 }
 
+function listMarkdown(block) {
+  const lines = block.split("\n").filter((line) => line.trim());
+  if (!lines.length) return "";
+
+  const root = { children: [] };
+  const stack = [{ indent: -1, node: root }];
+
+  for (const line of lines) {
+    const match = line.match(/^(\s*)([-*]|\d+\.)\s+(.+)$/);
+    if (match) {
+      const indent = match[1].replace(/\t/g, "    ").length;
+      const node = {
+        indent,
+        type: /^\d+\./.test(match[2]) ? "ol" : "ul",
+        lines: [match[3]],
+        children: [],
+      };
+
+      while (stack.length > 1 && indent <= stack[stack.length - 1].indent) stack.pop();
+      stack[stack.length - 1].node.children.push(node);
+      stack.push({ indent, node });
+      continue;
+    }
+
+    if (stack.length <= 1) return "";
+    stack[stack.length - 1].node.lines.push(line.trim());
+  }
+
+  const renderNodes = (nodes) => {
+    const groups = [];
+    let currentType = "";
+    let currentItems = [];
+
+    const flush = () => {
+      if (!currentType || !currentItems.length) return;
+      groups.push(`<${currentType}>${currentItems.join("")}</${currentType}>`);
+      currentType = "";
+      currentItems = [];
+    };
+
+    nodes.forEach((node) => {
+      if (currentType && node.type !== currentType) flush();
+      currentType = node.type;
+      currentItems.push(`<li>${listItemContent(node)}${renderNodes(node.children)}</li>`);
+    });
+
+    flush();
+    return groups.join("");
+  };
+
+  return renderNodes(root.children);
+}
+
+function listItemContent(node) {
+  const text = node.lines.join("\n");
+  const parts = text.split(/(^\$\$[\s\S]*?\$\$$)/gm).filter((part) => part.trim());
+
+  return parts.map((part) => {
+    if (/^\$\$[\s\S]*\$\$$/.test(part.trim())) {
+      return `<div class="math-display">${escapeHtml(part.trim())}</div>`;
+    }
+
+    return inlineMarkdown(part.trim()).replaceAll("\n", "<br />");
+  }).join("");
+}
+
 function codeFenceMarkdown(block) {
   const match = block.match(/^```([^\n`]*)\n([\s\S]*?)\n```\s*$/);
   if (!match) return "";
 
   const infoString = codeInfoString(match[1]);
   const language = normalizeCodeLanguage(infoString);
+  if (language === "mermaid") return `<pre class="mermaid">${escapeHtml(match[2])}</pre>`;
+
   const languageAttribute = language ? ` data-language="${escapeAttribute(language)}"` : "";
   const languageClass = language ? ` language-${escapeAttribute(language)}` : "";
   return `<pre class="code-block${languageClass}"${languageAttribute}><code>${highlightCode(match[2], language)}</code></pre>`;
@@ -1672,6 +1796,12 @@ function typesetMath() {
   window.MathJax.typesetPromise([document.body]).catch(() => {});
 }
 
+function renderMermaid(root = document.body) {
+  if (typeof window.renderBlogMermaid === "function") {
+    window.renderBlogMermaid(root);
+  }
+}
+
 function fileMarkdown(block) {
   const match = block.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
   if (!match) return "";
@@ -1791,20 +1921,30 @@ function embeddedVideoMarkup(embedUrl, title, originalUrl) {
 }
 
 function inlineMarkdown(value) {
-  const codeSpans = [];
-  let html = escapeHtml(value).replace(/`([^`]+)`/g, (_, code) => {
-    const token = `@@INLINE_CODE_${codeSpans.length}@@`;
-    codeSpans.push(inlineCodeMarkdown(code));
+  const protectedSpans = [];
+  const protect = (replacement) => {
+    const token = `@@INLINE_SPAN_${protectedSpans.length}@@`;
+    protectedSpans.push(replacement);
     return token;
-  });
+  };
+
+  let source = String(value || "").replace(/`([^`]+)`/g, (_, code) => (
+    protect(inlineCodeMarkdown(escapeHtml(code)))
+  ));
+
+  source = source.replace(/\\\(([\s\S]*?)\\\)|\$(?!\$)([^$\n]+?)\$(?!\$)/g, (match) => (
+    protect(escapeHtml(match))
+  ));
+
+  let html = escapeHtml(source);
 
   html = html
     .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*]+)\*/g, "<em>$1</em>");
 
-  codeSpans.forEach((replacement, index) => {
-    html = html.replace(`@@INLINE_CODE_${index}@@`, replacement);
+  protectedSpans.forEach((replacement, index) => {
+    html = html.replace(`@@INLINE_SPAN_${index}@@`, () => replacement);
   });
 
   return html;

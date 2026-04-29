@@ -60,9 +60,21 @@
         if (!window.renderMathInElement || !root) return;
         window.renderMathInElement(root, window.BLOG_MATH_OPTIONS);
       };
+      window.renderBlogMermaid = async (root = document.body) => {
+        if (!window.mermaid || !root) return;
+        const nodes = [...root.querySelectorAll(".mermaid:not([data-processed])")];
+        if (!nodes.length) return;
+        window.mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: "default" });
+        try {
+          await window.mermaid.run({ nodes });
+        } catch (error) {
+          console.warn("Mermaid render failed", error);
+        }
+      };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="window.renderBlogMath?.(document.body);"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" crossorigin="anonymous" onload="window.renderBlogMermaid?.(document.body);"></script>
     <script>
       if ("serviceWorker" in navigator) {
         let hadController = Boolean(navigator.serviceWorker.controller);
@@ -197,9 +209,9 @@ $$</div><h5 id="cauchy-准则">Cauchy 准则<a class="heading-anchor" href="#cau
 \forall \varepsilon&gt;0,\ \exists \delta&gt;0,\quad
 0&lt;|x_1-x_0|&lt;\delta,\ 0&lt;|x_2-x_0|&lt;\delta
 \Rightarrow |f(x_1)-f(x_2)|&lt;\varepsilon.
-$$</div><h5 id="无穷小-无穷大与渐近线">无穷小、无穷大与渐近线<a class="heading-anchor" href="#无穷小-无穷大与渐近线" data-heading-id="无穷小-无穷大与渐近线" aria-label="Copy section link / 复制小节链接">#</a></h5><ul><li>$f(x)\to0$ 称为无穷小；</li><li>$|f(x)|\to+\infty$ 称为无穷大；</li><li>若</li></ul><div class="math-display">$$
-  \lim_{x\to\infty}\bigl[f(x)-(kx+b)\bigr]=0,
-  $$</div><p>则 $y=kx+b$ 为斜渐近线。</p><h4 id="4-连续函数">4. 连续函数<a class="heading-anchor" href="#4-连续函数" data-heading-id="4-连续函数" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="连续定义">连续定义<a class="heading-anchor" href="#连续定义" data-heading-id="连续定义" aria-label="Copy section link / 复制小节链接">#</a></h5><p>$f$ 在 $x_0$ 连续，当且仅当</p><div class="math-display">$$
+$$</div><h5 id="无穷小-无穷大与渐近线">无穷小、无穷大与渐近线<a class="heading-anchor" href="#无穷小-无穷大与渐近线" data-heading-id="无穷小-无穷大与渐近线" aria-label="Copy section link / 复制小节链接">#</a></h5><ul><li>$f(x)\to0$ 称为无穷小；</li><li>$|f(x)|\to+\infty$ 称为无穷大；</li><li>若<div class="math-display">$$
+\lim_{x\to\infty}\bigl[f(x)-(kx+b)\bigr]=0,
+$$</div>则 $y=kx+b$ 为斜渐近线。</li></ul><h4 id="4-连续函数">4. 连续函数<a class="heading-anchor" href="#4-连续函数" data-heading-id="4-连续函数" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="连续定义">连续定义<a class="heading-anchor" href="#连续定义" data-heading-id="连续定义" aria-label="Copy section link / 复制小节链接">#</a></h5><p>$f$ 在 $x_0$ 连续，当且仅当</p><div class="math-display">$$
 \lim_{x\to x_0}f(x)=f(x_0).
 $$</div><p>等价地：</p><div class="math-display">$$
 \forall \varepsilon&gt;0,\ \exists\delta&gt;0,\quad |x-x_0|&lt;\delta
@@ -247,9 +259,9 @@ f\left(\sum_{i=1}^n\lambda_i x_i\right)
 \le \sum_{i=1}^n\lambda_i f(x_i).
 $$</div><h4 id="9-不定积分">9. 不定积分<a class="heading-anchor" href="#9-不定积分" data-heading-id="9-不定积分" aria-label="Copy section link / 复制小节链接">#</a></h4><p>若 $F&#039;(x)=f(x)$，则 $F$ 是 $f$ 的原函数，</p><div class="math-display">$$
 \int f(x)\,dx=F(x)+C.
-$$</div><p>常用方法：</p><ul><li>第一换元法；</li><li>第二换元法；</li><li>分部积分：</li></ul><div class="math-display">$$
-  \int u\,dv=uv-\int v\,du.
-  $$</div><p>常见积分：</p><div class="math-display">$$
+$$</div><p>常用方法：</p><ul><li>第一换元法；</li><li>第二换元法；</li><li>分部积分：<div class="math-display">$$
+\int u\,dv=uv-\int v\,du.
+$$</div>常见积分：</li></ul><div class="math-display">$$
 \int \frac{1}{x}\,dx=\ln|x|+C,\qquad
 \int \sec^2x\,dx=\tan x+C,
 $$</div><div class="math-display">$$

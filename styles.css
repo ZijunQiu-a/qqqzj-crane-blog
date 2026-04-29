@@ -1353,6 +1353,22 @@ h3 {
   overflow-wrap: normal;
 }
 
+.entry-body .mermaid {
+  max-width: 100%;
+  margin: 0;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--paper-strong);
+  text-align: center;
+}
+
+.entry-body .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
 .syntax-comment {
   color: var(--syntax-comment);
 }
@@ -2340,10 +2356,10 @@ h3 {
 
 .post-comments {
   display: grid;
-  gap: 16px;
+  gap: 10px;
   scroll-margin-top: 112px;
   border-top: 1px solid rgba(16, 35, 46, 0.1);
-  padding-top: 18px;
+  padding-top: 12px;
 }
 
 .post-comments::after {
@@ -2358,16 +2374,16 @@ h3 {
 
 .comments-heading {
   display: grid;
-  gap: 4px;
+  gap: 2px;
 }
 
 .comments-heading h2 {
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .comments-panel {
   display: grid;
-  gap: 14px;
+  gap: 10px;
 }
 
 .comment-status {
@@ -2389,10 +2405,10 @@ h3 {
 .comment-form,
 .comment-item {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   border: 1px solid rgba(20, 123, 145, 0.16);
   border-radius: 8px;
-  padding: 14px;
+  padding: 10px;
   background: rgba(248, 251, 251, 0.72);
 }
 
@@ -2409,22 +2425,22 @@ h3 {
 .comment-login-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 12px;
+  gap: 9px;
   align-items: start;
 }
 
 .comment-email-form {
   display: grid;
   grid-template-columns: minmax(110px, 0.8fr) minmax(180px, 1.2fr) auto;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
 .comment-login-note {
   grid-column: 1 / -1;
   color: var(--muted);
-  font-size: 12px;
-  line-height: 1.55;
+  font-size: 11.5px;
+  line-height: 1.45;
   max-width: 62ch;
 }
 
@@ -2436,7 +2452,7 @@ h3 {
 .comment-github-login {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -2448,11 +2464,11 @@ h3 {
   min-width: 0;
   border: 1px solid rgba(20, 123, 145, 0.16);
   border-radius: 8px;
-  padding: 9px 11px;
+  padding: 7px 10px;
   background: rgba(255, 254, 253, 0.86);
   color: var(--ink);
   font: inherit;
-  font-size: 13px;
+  font-size: 12.5px;
   line-height: 1.4;
 }
 
@@ -2462,15 +2478,15 @@ h3 {
 }
 
 .comment-form textarea {
-  min-height: 112px;
+  min-height: 84px;
   resize: vertical;
   border: 1px solid rgba(20, 123, 145, 0.16);
   border-radius: 8px;
-  padding: 11px 12px;
+  padding: 9px 10px;
   background: rgba(255, 254, 253, 0.86);
   color: var(--ink);
   font: inherit;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .comment-form textarea:focus {
@@ -2482,15 +2498,15 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   min-width: 0;
   color: var(--ink);
   font-weight: 900;
 }
 
 .comment-user img {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
 }
 
@@ -2500,7 +2516,7 @@ h3 {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
 }
 
 .comment-form-actions small,
@@ -2513,7 +2529,7 @@ h3 {
 .comment-reply-target {
   margin: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 900;
 }
 
@@ -2521,11 +2537,11 @@ h3 {
   width: fit-content;
   margin: -2px 0 0;
   border-left: 3px solid rgba(20, 123, 145, 0.22);
-  padding-left: 9px;
+  padding-left: 7px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 850;
-  line-height: 1.5;
+  line-height: 1.42;
 }
 
 .comment-reply-context strong {
@@ -2536,18 +2552,18 @@ h3 {
 .comment-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 7px;
 }
 
 .comment-button {
   width: fit-content;
   border: 1px solid rgba(20, 123, 145, 0.16);
   border-radius: 999px;
-  padding: 9px 13px;
+  padding: 7px 11px;
   background: rgba(255, 254, 253, 0.82);
   color: var(--teal-dark);
   font: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 900;
   cursor: pointer;
 }
@@ -2563,7 +2579,7 @@ h3 {
   background: transparent;
   color: var(--teal-dark);
   font: inherit;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 900;
   cursor: pointer;
 }
@@ -2590,30 +2606,30 @@ h3 {
 
 .comment-list {
   display: grid;
-  gap: 12px;
+  gap: 9px;
 }
 
 .comment-reply-slot {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .comment-reply-form {
-  padding: 12px;
+  padding: 9px;
   background: rgba(255, 254, 253, 0.62);
 }
 
 .comment-reply-form textarea {
-  min-height: 86px;
+  min-height: 68px;
 }
 
 .comment-replies {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   margin-top: 2px;
-  margin-left: clamp(12px, 4vw, 28px);
+  margin-left: clamp(8px, 3vw, 22px);
   border-left: 2px solid rgba(20, 123, 145, 0.14);
-  padding-left: 12px;
+  padding-left: 9px;
 }
 
 .comment-replies .comment-item {
@@ -2623,7 +2639,7 @@ h3 {
 .comment-item p {
   margin: 0;
   color: var(--ink);
-  line-height: 1.75;
+  line-height: 1.62;
   white-space: pre-wrap;
 }
 

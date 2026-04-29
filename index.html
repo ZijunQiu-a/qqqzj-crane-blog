@@ -53,9 +53,21 @@
         if (!window.renderMathInElement || !root) return;
         window.renderMathInElement(root, window.BLOG_MATH_OPTIONS);
       };
+      window.renderBlogMermaid = async (root = document.body) => {
+        if (!window.mermaid || !root) return;
+        const nodes = [...root.querySelectorAll(".mermaid:not([data-processed])")];
+        if (!nodes.length) return;
+        window.mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: "default" });
+        try {
+          await window.mermaid.run({ nodes });
+        } catch (error) {
+          console.warn("Mermaid render failed", error);
+        }
+      };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="window.renderBlogMath?.(document.body);"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" crossorigin="anonymous" onload="window.renderBlogMermaid?.(document.body);"></script>
       <link rel="canonical" href="https://qqqzj.cn/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="qqqzj@Crane" />

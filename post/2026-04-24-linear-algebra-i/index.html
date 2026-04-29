@@ -60,9 +60,21 @@
         if (!window.renderMathInElement || !root) return;
         window.renderMathInElement(root, window.BLOG_MATH_OPTIONS);
       };
+      window.renderBlogMermaid = async (root = document.body) => {
+        if (!window.mermaid || !root) return;
+        const nodes = [...root.querySelectorAll(".mermaid:not([data-processed])")];
+        if (!nodes.length) return;
+        window.mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: "default" });
+        try {
+          await window.mermaid.run({ nodes });
+        } catch (error) {
+          console.warn("Mermaid render failed", error);
+        }
+      };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="window.renderBlogMath?.(document.body);"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" crossorigin="anonymous" onload="window.renderBlogMermaid?.(document.body);"></script>
     <script>
       if ("serviceWorker" in navigator) {
         let hadController = Boolean(navigator.serviceWorker.controller);
@@ -182,9 +194,9 @@ $$</div><p>有解当且仅当</p><div class="math-display">$$
 \operatorname{rank}A=\operatorname{rank}(A|b).
 $$</div><p>若 $x_0$ 为一个特解，则全体解为</p><div class="math-display">$$
 x=x_0+x_h,\qquad x_h\in\ker A.
-$$</div><p>补充：</p><ul><li>非齐次方程组是否唯一，在有解前提下由对应齐次方程组是否只有零解决定。</li><li>若 $\ker A$ 的一组基为 $\eta_1,\dots,\eta_{n-r}$，则齐次解为</li></ul><div class="math-display">$$
-  x=c_1\eta_1+\cdots+c_{n-r}\eta_{n-r}.
-  $$</div><h5 id="本章例题">本章例题<a class="heading-anchor" href="#本章例题" data-heading-id="本章例题" aria-label="Copy section link / 复制小节链接">#</a></h5><p>例 1：讨论方程组</p><div class="math-display">$$
+$$</div><p>补充：</p><ul><li>非齐次方程组是否唯一，在有解前提下由对应齐次方程组是否只有零解决定。</li><li>若 $\ker A$ 的一组基为 $\eta_1,\dots,\eta_{n-r}$，则齐次解为<div class="math-display">$$
+x=c_1\eta_1+\cdots+c_{n-r}\eta_{n-r}.
+$$</div></li></ul><h5 id="本章例题">本章例题<a class="heading-anchor" href="#本章例题" data-heading-id="本章例题" aria-label="Copy section link / 复制小节链接">#</a></h5><p>例 1：讨论方程组</p><div class="math-display">$$
 \begin{cases}
 x+y+z=1,\\
 2x+2y+2z=2
@@ -280,11 +292,11 @@ $$</div><p>且 $U\cap W=\{0\}$，故为直和。</p><p>例 2：设 $U=\operatorn
 \dim(U+W)=2+2-1=3.
 $$</div><h4 id="内积空间">内积空间<a class="heading-anchor" href="#内积空间" data-heading-id="内积空间" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="内积定义">内积定义<a class="heading-anchor" href="#内积定义" data-heading-id="内积定义" aria-label="Copy section link / 复制小节链接">#</a></h5><p>在实线性空间 $V$ 上，内积是映射</p><div class="math-display">$$
 (\cdot,\cdot):V\times V\to\mathbb R
-$$</div><p>满足：</p><ol><li>对第一个变量线性；</li><li>对称性 $(x,y)=(y,x)$；</li><li>正定性 $(x,x)\ge0$，且 $(x,x)=0\Leftrightarrow x=0$。</li></ol><p>例子：</p><ul><li>$\mathbb R^n$ 中</li></ul><div class="math-display">$$
-  (x,y)=x^Ty.
-  $$</div><ul><li>$C[a,b]$ 中</li></ul><div class="math-display">$$
-  (f,g)=\int_a^b f(x)g(x)\,dx.
-  $$</div><h5 id="cauchy-schwarz-不等式">Cauchy-Schwarz 不等式<a class="heading-anchor" href="#cauchy-schwarz-不等式" data-heading-id="cauchy-schwarz-不等式" aria-label="Copy section link / 复制小节链接">#</a></h5><div class="math-display">$$
+$$</div><p>满足：</p><ol><li>对第一个变量线性；</li><li>对称性 $(x,y)=(y,x)$；</li><li>正定性 $(x,x)\ge0$，且 $(x,x)=0\Leftrightarrow x=0$。</li></ol><p>例子：</p><ul><li>$\mathbb R^n$ 中<div class="math-display">$$
+(x,y)=x^Ty.
+$$</div></li><li>$C[a,b]$ 中<div class="math-display">$$
+(f,g)=\int_a^b f(x)g(x)\,dx.
+$$</div></li></ul><h5 id="cauchy-schwarz-不等式">Cauchy-Schwarz 不等式<a class="heading-anchor" href="#cauchy-schwarz-不等式" data-heading-id="cauchy-schwarz-不等式" aria-label="Copy section link / 复制小节链接">#</a></h5><div class="math-display">$$
 |(x,y)|\le \|x\|\|y\|.
 $$</div><p>证明：<br />对任意 $t\in\mathbb R$，</p><div class="math-display">$$
 (x+ty,x+ty)\ge0.
@@ -453,11 +465,11 @@ $$</div><p>相似矩阵有相同特征多项式、迹、行列式和特征值。
 A\alpha_i=\lambda_i\alpha_i
 $$</div><p>构造线性关系并消去。</p><h5 id="可对角化">可对角化<a class="heading-anchor" href="#可对角化" data-heading-id="可对角化" aria-label="Copy section link / 复制小节链接">#</a></h5><p>$A$ 在数域 $F$ 上可对角化，当且仅当存在 $F$ 上可逆矩阵 $P$，使</p><div class="math-display">$$
 P^{-1}AP=D
-$$</div><p>为对角矩阵。</p><p>等价条件：</p><ol><li>$F^n$ 有一组由 $A$ 的特征向量组成的基；</li><li>$F$ 中所有不同特征值对应的特征子空间维数之和为 $n$：</li></ol><div class="math-display">$$
-   \sum_i\dim E_{\lambda_i}=n.
-   $$</div><p>若 $A$ 在 $F$ 中有 $n$ 个互异特征值，则 $A$ 在 $F$ 上可对角化。</p><p>注意：<br />几何重数不超过代数重数。</p><h5 id="实对称矩阵的正交对角化">实对称矩阵的正交对角化<a class="heading-anchor" href="#实对称矩阵的正交对角化" data-heading-id="实对称矩阵的正交对角化" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若 $A=A^T$，则：</p><ol><li>特征值均为实数；</li><li>不同特征值对应特征向量正交；</li><li>存在正交矩阵 $Q$，使</li></ol><div class="math-display">$$
-   Q^TAQ=\operatorname{diag}(\lambda_1,\dots,\lambda_n).
-   $$</div><p>证明：<br />可用 Rayleigh 商极值或复化后的谱定理证明存在实特征值，再对其正交补归纳。</p><h5 id="本章例题-9">本章例题<a class="heading-anchor" href="#本章例题-9" data-heading-id="本章例题-9" aria-label="Copy section link / 复制小节链接">#</a></h5><p>例 1：求</p><div class="math-display">$$
+$$</div><p>为对角矩阵。</p><p>等价条件：</p><ol><li>$F^n$ 有一组由 $A$ 的特征向量组成的基；</li><li>$F$ 中所有不同特征值对应的特征子空间维数之和为 $n$：<div class="math-display">$$
+\sum_i\dim E_{\lambda_i}=n.
+$$</div>若 $A$ 在 $F$ 中有 $n$ 个互异特征值，则 $A$ 在 $F$ 上可对角化。</li></ol><p>注意：<br />几何重数不超过代数重数。</p><h5 id="实对称矩阵的正交对角化">实对称矩阵的正交对角化<a class="heading-anchor" href="#实对称矩阵的正交对角化" data-heading-id="实对称矩阵的正交对角化" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若 $A=A^T$，则：</p><ol><li>特征值均为实数；</li><li>不同特征值对应特征向量正交；</li><li>存在正交矩阵 $Q$，使<div class="math-display">$$
+Q^TAQ=\operatorname{diag}(\lambda_1,\dots,\lambda_n).
+$$</div>证明：<br />可用 Rayleigh 商极值或复化后的谱定理证明存在实特征值，再对其正交补归纳。</li></ol><h5 id="本章例题-9">本章例题<a class="heading-anchor" href="#本章例题-9" data-heading-id="本章例题-9" aria-label="Copy section link / 复制小节链接">#</a></h5><p>例 1：求</p><div class="math-display">$$
 A=\begin{pmatrix}2&amp;0\\0&amp;3\end{pmatrix}
 $$</div><p>的特征值和特征向量。</p><p>解：特征值为 $2,3$。对应特征子空间分别为</p><div class="math-display">$$
 E_2=\operatorname{span}\{(1,0)^T\},\qquad
@@ -484,15 +496,15 @@ z_1^2+\cdots+z_p^2
 -z_{p+1}^2-\cdots-z_{p+q}^2.
 $$</div><h5 id="惯性定理">惯性定理<a class="heading-anchor" href="#惯性定理" data-heading-id="惯性定理" aria-label="Copy section link / 复制小节链接">#</a></h5><p>规范形中正平方项个数 $p$ 与负平方项个数 $q$ 唯一确定，分别称正惯性指数与负惯性指数。</p><p>矩阵合同不改变秩、正惯性指数、负惯性指数。</p><h5 id="正定二次型与正定矩阵">正定二次型与正定矩阵<a class="heading-anchor" href="#正定二次型与正定矩阵" data-heading-id="正定二次型与正定矩阵" aria-label="Copy section link / 复制小节链接">#</a></h5><p>实对称矩阵 $A$ 正定，若</p><div class="math-display">$$
 x^TAx&gt;0,\qquad x\ne0.
-$$</div><p>等价条件：</p><ol><li>$A$ 正定；</li><li>$A$ 的特征值全为正；</li><li>存在可逆矩阵 $P$，使</li></ol><div class="math-display">$$
-   A=P^TP;
-   $$</div><ol><li>$A$ 的所有顺序主子式均为正：</li></ol><div class="math-display">$$
-   \Delta_k&gt;0,\quad k=1,\dots,n.
-   $$</div><p>半正定：</p><div class="math-display">$$
+$$</div><p>等价条件：</p><ol><li>$A$ 正定；</li><li>$A$ 的特征值全为正；</li><li>存在可逆矩阵 $P$，使<div class="math-display">$$
+A=P^TP;
+$$</div></li><li>$A$ 的所有顺序主子式均为正：<div class="math-display">$$
+\Delta_k&gt;0,\quad k=1,\dots,n.
+$$</div>半正定：</li></ol><div class="math-display">$$
 x^TAx\ge0.
-$$</div><p>半正定等价于所有特征值非负；也等价于所有主子式非负。</p><ul><li>判断给定二次型是否正定；</li><li>用特征值判断正定；</li><li>用顺序主子式判断正定；</li><li>证明 Gram 矩阵正定：若 $\alpha_1,\dots,\alpha_n$ 线性无关，则</li></ul><div class="math-display">$$
-  G=((\alpha_i,\alpha_j))
-  $$</div><p>正定。</p><h5 id="本章例题-10">本章例题<a class="heading-anchor" href="#本章例题-10" data-heading-id="本章例题-10" aria-label="Copy section link / 复制小节链接">#</a></h5><p>例 1：化二次型</p><div class="math-display">$$
+$$</div><p>半正定等价于所有特征值非负；也等价于所有主子式非负。</p><ul><li>判断给定二次型是否正定；</li><li>用特征值判断正定；</li><li>用顺序主子式判断正定；</li><li>证明 Gram 矩阵正定：若 $\alpha_1,\dots,\alpha_n$ 线性无关，则<div class="math-display">$$
+G=((\alpha_i,\alpha_j))
+$$</div>正定。</li></ul><h5 id="本章例题-10">本章例题<a class="heading-anchor" href="#本章例题-10" data-heading-id="本章例题-10" aria-label="Copy section link / 复制小节链接">#</a></h5><p>例 1：化二次型</p><div class="math-display">$$
 Q(x,y)=x^2+2xy+2y^2
 $$</div><p>为标准形。</p><p>解：</p><div class="math-display">$$
 Q=(x+y)^2+y^2.
@@ -509,20 +521,20 @@ c^TGc=\left(\sum_i c_i\alpha_i,\sum_j c_j\alpha_j\right)
 =\left\|\sum_i c_i\alpha_i\right\|^2.
 $$</div><p>因 $\alpha_i$ 线性无关，$\sum_i c_i\alpha_i\ne0$，故 $c^TGc&gt;0$。</p><h4 id="计算题与证明题模板">计算题与证明题模板<a class="heading-anchor" href="#计算题与证明题模板" data-heading-id="计算题与证明题模板" aria-label="Copy section link / 复制小节链接">#</a></h4><p>这一部分把散落的计算流程集中起来。</p><h5 id="判断向量组线性相关">判断向量组线性相关<a class="heading-anchor" href="#判断向量组线性相关" data-heading-id="判断向量组线性相关" aria-label="Copy section link / 复制小节链接">#</a></h5><p>给定向量组</p><div class="math-display">$$
 \alpha_1,\dots,\alpha_s\in F^n.
-$$</div><p>方法：</p><ol><li>组成矩阵</li></ol><div class="math-display">$$
-   A=(\alpha_1,\dots,\alpha_s).
-   $$</div><ol><li>解齐次方程</li></ol><div class="math-display">$$
-   Ax=0.
-   $$</div><ol><li>若只有零解，则线性无关；若有非零解，则线性相关。</li></ol><p>等价地：</p><ul><li>若 $\operatorname{rank}A=s$，列向量组线性无关；</li><li>若 $\operatorname{rank}A&lt;s$，列向量组线性相关。</li></ul><p>特殊快速判断：</p><ul><li>含零向量必相关；</li><li>向量个数超过空间维数必相关；</li><li>两个非零向量相关当且仅当成比例；</li><li>正交的非零向量组必无关。</li></ul><h5 id="求极大线性无关组和秩">求极大线性无关组和秩<a class="heading-anchor" href="#求极大线性无关组和秩" data-heading-id="求极大线性无关组和秩" aria-label="Copy section link / 复制小节链接">#</a></h5><p>给定向量组 $\alpha_1,\dots,\alpha_s$：</p><ol><li>以这些向量为列组成矩阵 $A$；</li><li>对 $A$ 作初等行变换化为阶梯形；</li><li>主元列对应的原向量构成极大线性无关组；</li><li>主元个数就是秩。</li></ol><p>注意：<br />行变换会改变列向量本身，但不改变列向量之间的线性关系，所以要取“原矩阵的主元列”。</p><h5 id="求子空间的一组基">求子空间的一组基<a class="heading-anchor" href="#求子空间的一组基" data-heading-id="求子空间的一组基" aria-label="Copy section link / 复制小节链接">#</a></h5><h5 id="由生成向量给出">由生成向量给出<a class="heading-anchor" href="#由生成向量给出" data-heading-id="由生成向量给出" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若</p><div class="math-display">$$
+$$</div><p>方法：</p><ol><li>组成矩阵<div class="math-display">$$
+A=(\alpha_1,\dots,\alpha_s).
+$$</div></li><li>解齐次方程<div class="math-display">$$
+Ax=0.
+$$</div></li><li>若只有零解，则线性无关；若有非零解，则线性相关。</li></ol><p>等价地：</p><ul><li>若 $\operatorname{rank}A=s$，列向量组线性无关；</li><li>若 $\operatorname{rank}A&lt;s$，列向量组线性相关。</li></ul><p>特殊快速判断：</p><ul><li>含零向量必相关；</li><li>向量个数超过空间维数必相关；</li><li>两个非零向量相关当且仅当成比例；</li><li>正交的非零向量组必无关。</li></ul><h5 id="求极大线性无关组和秩">求极大线性无关组和秩<a class="heading-anchor" href="#求极大线性无关组和秩" data-heading-id="求极大线性无关组和秩" aria-label="Copy section link / 复制小节链接">#</a></h5><p>给定向量组 $\alpha_1,\dots,\alpha_s$：</p><ol><li>以这些向量为列组成矩阵 $A$；</li><li>对 $A$ 作初等行变换化为阶梯形；</li><li>主元列对应的原向量构成极大线性无关组；</li><li>主元个数就是秩。</li></ol><p>注意：<br />行变换会改变列向量本身，但不改变列向量之间的线性关系，所以要取“原矩阵的主元列”。</p><h5 id="求子空间的一组基">求子空间的一组基<a class="heading-anchor" href="#求子空间的一组基" data-heading-id="求子空间的一组基" aria-label="Copy section link / 复制小节链接">#</a></h5><h5 id="由生成向量给出">由生成向量给出<a class="heading-anchor" href="#由生成向量给出" data-heading-id="由生成向量给出" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若</p><div class="math-display">$$
 W=L(\alpha_1,\dots,\alpha_s),
 $$</div><p>则从 $\alpha_1,\dots,\alpha_s$ 中取极大线性无关组，即为 $W$ 的一组基。</p><h5 id="由方程给出">由方程给出<a class="heading-anchor" href="#由方程给出" data-heading-id="由方程给出" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若</p><div class="math-display">$$
 W=\{x\in F^n:Ax=0\},
-$$</div><p>则解齐次方程组，写出基础解系，即为 $W$ 的一组基。</p><p>步骤：</p><ol><li>化 $A$ 为行简化阶梯形；</li><li>找主变量和自由变量；</li><li>分别令一个自由变量为 $1$、其余为 $0$；</li><li>得到基础解系。</li></ol><h5 id="证明两个子空间相等">证明两个子空间相等<a class="heading-anchor" href="#证明两个子空间相等" data-heading-id="证明两个子空间相等" aria-label="Copy section link / 复制小节链接">#</a></h5><p>常用方法：</p><ol><li>双包含：</li></ol><div class="math-display">$$
-   U\subseteq W,\quad W\subseteq U.
-   $$</div><ol><li>有限维情形：</li></ol><div class="math-display">$$
-   U\subseteq W,\quad \dim U=\dim W
-   \Rightarrow U=W.
-   $$</div><ol><li>证明二者有同一组基。</li><li>证明二者由等价向量组生成。</li></ol><h5 id="直和判定">直和判定<a class="heading-anchor" href="#直和判定" data-heading-id="直和判定" aria-label="Copy section link / 复制小节链接">#</a></h5><p>要证明</p><div class="math-display">$$
+$$</div><p>则解齐次方程组，写出基础解系，即为 $W$ 的一组基。</p><p>步骤：</p><ol><li>化 $A$ 为行简化阶梯形；</li><li>找主变量和自由变量；</li><li>分别令一个自由变量为 $1$、其余为 $0$；</li><li>得到基础解系。</li></ol><h5 id="证明两个子空间相等">证明两个子空间相等<a class="heading-anchor" href="#证明两个子空间相等" data-heading-id="证明两个子空间相等" aria-label="Copy section link / 复制小节链接">#</a></h5><p>常用方法：</p><ol><li>双包含：<div class="math-display">$$
+U\subseteq W,\quad W\subseteq U.
+$$</div></li><li>有限维情形：<div class="math-display">$$
+U\subseteq W,\quad \dim U=\dim W
+\Rightarrow U=W.
+$$</div></li><li>证明二者有同一组基。</li><li>证明二者由等价向量组生成。</li></ol><h5 id="直和判定">直和判定<a class="heading-anchor" href="#直和判定" data-heading-id="直和判定" aria-label="Copy section link / 复制小节链接">#</a></h5><p>要证明</p><div class="math-display">$$
 V=W_1\oplus W_2,
 $$</div><p>通常证明：</p><ol><li>$V=W_1+W_2$；</li><li>$W_1\cap W_2=\{0\}$。</li></ol><p>或者证明：<br />任意 $v\in V$ 都能唯一表示为</p><div class="math-display">$$
 v=w_1+w_2,\qquad w_i\in W_i.
@@ -551,50 +563,50 @@ $$</div><p>对任意</p><div class="math-display">$$
 x=x_1\alpha_1+\cdots+x_n\alpha_n,
 $$</div><p>有</p><div class="math-display">$$
 T(x)=x_1\beta_1+\cdots+x_n\beta_n.
-$$</div><h5 id="求核与像">求核与像<a class="heading-anchor" href="#求核与像" data-heading-id="求核与像" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若线性映射矩阵为 $A$：</p><ul><li>核：</li></ul><div class="math-display">$$
-  \ker T=\{x:Ax=0\};
-  $$</div><ul><li>像：</li></ul><div class="math-display">$$
-  \operatorname{Im}T=L(A\text{ 的列向量}).
-  $$</div><p>因此：</p><div class="math-display">$$
+$$</div><h5 id="求核与像">求核与像<a class="heading-anchor" href="#求核与像" data-heading-id="求核与像" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若线性映射矩阵为 $A$：</p><ul><li>核：<div class="math-display">$$
+\ker T=\{x:Ax=0\};
+$$</div></li><li>像：<div class="math-display">$$
+\operatorname{Im}T=L(A\text{ 的列向量}).
+$$</div>因此：</li></ul><div class="math-display">$$
 \dim\ker T=n-r(A),\qquad
 \dim\operatorname{Im}T=r(A).
-$$</div><h5 id="判断单射-满射">判断单射、满射<a class="heading-anchor" href="#判断单射-满射" data-heading-id="判断单射-满射" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若 $T:F^n\to F^m$，矩阵为 $A_{m\times n}$：</p><ul><li>单射 $\Longleftrightarrow r(A)=n$；</li><li>满射 $\Longleftrightarrow r(A)=m$；</li><li>双射 $\Longleftrightarrow m=n=r(A)$。</li></ul><h5 id="求线性映射矩阵">求线性映射矩阵<a class="heading-anchor" href="#求线性映射矩阵" data-heading-id="求线性映射矩阵" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设 $V$ 的基为 $\alpha=(\alpha_1,\dots,\alpha_n)$，$W$ 的基为 $\beta=(\beta_1,\dots,\beta_m)$。</p><p>步骤：</p><ol><li>分别计算 $T(\alpha_j)$；</li><li>把 $T(\alpha_j)$ 用 $\beta$ 线性表示：</li></ol><div class="math-display">$$
-   T(\alpha_j)=a_{1j}\beta_1+\cdots+a_{mj}\beta_m;
-   $$</div><ol><li>第 $j$ 列就是</li></ol><div class="math-display">$$
-   (a_{1j},\dots,a_{mj})^T.
-   $$</div><p>坐标公式：</p><div class="math-display">$$
+$$</div><h5 id="判断单射-满射">判断单射、满射<a class="heading-anchor" href="#判断单射-满射" data-heading-id="判断单射-满射" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若 $T:F^n\to F^m$，矩阵为 $A_{m\times n}$：</p><ul><li>单射 $\Longleftrightarrow r(A)=n$；</li><li>满射 $\Longleftrightarrow r(A)=m$；</li><li>双射 $\Longleftrightarrow m=n=r(A)$。</li></ul><h5 id="求线性映射矩阵">求线性映射矩阵<a class="heading-anchor" href="#求线性映射矩阵" data-heading-id="求线性映射矩阵" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设 $V$ 的基为 $\alpha=(\alpha_1,\dots,\alpha_n)$，$W$ 的基为 $\beta=(\beta_1,\dots,\beta_m)$。</p><p>步骤：</p><ol><li>分别计算 $T(\alpha_j)$；</li><li>把 $T(\alpha_j)$ 用 $\beta$ 线性表示：<div class="math-display">$$
+T(\alpha_j)=a_{1j}\beta_1+\cdots+a_{mj}\beta_m;
+$$</div></li><li>第 $j$ 列就是<div class="math-display">$$
+(a_{1j},\dots,a_{mj})^T.
+$$</div>坐标公式：</li></ol><div class="math-display">$$
 [T(x)]_\beta=A[x]_\alpha.
-$$</div><h5 id="矩阵可逆题模板">矩阵可逆题模板<a class="heading-anchor" href="#矩阵可逆题模板" data-heading-id="矩阵可逆题模板" aria-label="Copy section link / 复制小节链接">#</a></h5><p>证明 $A$ 可逆可选：</p><ol><li>构造 $B$ 使 $AB=BA=I$；</li><li>证明 $\det A\ne0$；</li><li>证明 $r(A)=n$；</li><li>证明 $Ax=0$ 只有零解；</li><li>证明列向量组构成 $F^n$ 的一组基；</li><li>证明 $A$ 是初等矩阵乘积。</li></ol><p>求逆方法：</p><ol><li>初等行变换：</li></ol><div class="math-display">$$
-   (A\mid I)\to(I\mid A^{-1}).
-   $$</div><ol><li>伴随矩阵：</li></ol><div class="math-display">$$
-   A^{-1}=\frac1{\det A}A^*.
-   $$</div><ol><li>分块矩阵法。</li><li>利用矩阵多项式，例如若</li></ol><div class="math-display">$$
-   A^2-3A+2I=0,
-   $$</div><p>且常数项非零，则可解出 $A^{-1}$。</p><h5 id="行列式计算方法">行列式计算方法<a class="heading-anchor" href="#行列式计算方法" data-heading-id="行列式计算方法" aria-label="Copy section link / 复制小节链接">#</a></h5><p>常用方法：</p><ol><li>初等变换化三角；</li><li>按行/列展开；</li><li>提取公因子；</li><li>递推法；</li><li>加边升阶法；</li><li>利用 Vandermonde 行列式：</li></ol><div class="math-display">$$
-   \prod_{1\le i&lt;j\le n}(x_j-x_i).
-   $$</div><ol><li>分块行列式；</li><li>利用</li></ol><div class="math-display">$$
-   \det(I_m-AB)=\det(I_n-BA).
-   $$</div><p>注意初等变换对行列式的影响：</p><ul><li>交换两行：变号；</li><li>某行乘 $k$：行列式乘 $k$；</li><li>某行加另一行倍数：行列式不变。</li></ul><h5 id="线性方程组题模板">线性方程组题模板<a class="heading-anchor" href="#线性方程组题模板" data-heading-id="线性方程组题模板" aria-label="Copy section link / 复制小节链接">#</a></h5><p>对于</p><div class="math-display">$$
+$$</div><h5 id="矩阵可逆题模板">矩阵可逆题模板<a class="heading-anchor" href="#矩阵可逆题模板" data-heading-id="矩阵可逆题模板" aria-label="Copy section link / 复制小节链接">#</a></h5><p>证明 $A$ 可逆可选：</p><ol><li>构造 $B$ 使 $AB=BA=I$；</li><li>证明 $\det A\ne0$；</li><li>证明 $r(A)=n$；</li><li>证明 $Ax=0$ 只有零解；</li><li>证明列向量组构成 $F^n$ 的一组基；</li><li>证明 $A$ 是初等矩阵乘积。</li></ol><p>求逆方法：</p><ol><li>初等行变换：<div class="math-display">$$
+(A\mid I)\to(I\mid A^{-1}).
+$$</div></li><li>伴随矩阵：<div class="math-display">$$
+A^{-1}=\frac1{\det A}A^*.
+$$</div></li><li>分块矩阵法。</li><li>利用矩阵多项式，例如若<div class="math-display">$$
+A^2-3A+2I=0,
+$$</div>且常数项非零，则可解出 $A^{-1}$。</li></ol><h5 id="行列式计算方法">行列式计算方法<a class="heading-anchor" href="#行列式计算方法" data-heading-id="行列式计算方法" aria-label="Copy section link / 复制小节链接">#</a></h5><p>常用方法：</p><ol><li>初等变换化三角；</li><li>按行/列展开；</li><li>提取公因子；</li><li>递推法；</li><li>加边升阶法；</li><li>利用 Vandermonde 行列式：<div class="math-display">$$
+\prod_{1\le i&lt;j\le n}(x_j-x_i).
+$$</div></li><li>分块行列式；</li><li>利用<div class="math-display">$$
+\det(I_m-AB)=\det(I_n-BA).
+$$</div>注意初等变换对行列式的影响：</li></ol><ul><li>交换两行：变号；</li><li>某行乘 $k$：行列式乘 $k$；</li><li>某行加另一行倍数：行列式不变。</li></ul><h5 id="线性方程组题模板">线性方程组题模板<a class="heading-anchor" href="#线性方程组题模板" data-heading-id="线性方程组题模板" aria-label="Copy section link / 复制小节链接">#</a></h5><p>对于</p><div class="math-display">$$
 Ax=b
-$$</div><p>先比较秩：</p><ul><li>无解：</li></ul><div class="math-display">$$
-  r(A)&lt;r(A|b).
-  $$</div><ul><li>唯一解：</li></ul><div class="math-display">$$
-  r(A)=r(A|b)=n.
-  $$</div><ul><li>无穷多解：</li></ul><div class="math-display">$$
-  r(A)=r(A|b)&lt;n.
-  $$</div><p>通解写法：</p><ol><li>求一个特解 $x_0$；</li><li>求齐次方程基础解系 $\eta_1,\dots,\eta_{n-r}$；</li><li>写</li></ol><div class="math-display">$$
-   x=x_0+c_1\eta_1+\cdots+c_{n-r}\eta_{n-r}.
-   $$</div><h5 id="特征值与对角化流程">特征值与对角化流程<a class="heading-anchor" href="#特征值与对角化流程" data-heading-id="特征值与对角化流程" aria-label="Copy section link / 复制小节链接">#</a></h5><p>给定 $n$ 阶矩阵 $A$。</p><ol><li>求特征多项式：</li></ol><div class="math-display">$$
-   p_A(\lambda)=\det(\lambda I-A).
-   $$</div><ol><li>求特征值 $\lambda_i$。</li><li>对每个 $\lambda_i$ 解</li></ol><div class="math-display">$$
-   (A-\lambda_i I)x=0
-   $$</div><p>得特征子空间 $E_{\lambda_i}$。<br />4. 统计</p><div class="math-display">$$
-   \sum_i\dim E_{\lambda_i}.
-   $$</div><ol><li>若和为 $n$，则可对角化。</li></ol><p>构造对角化：<br />取一组特征向量基作为 $P$ 的列，则</p><div class="math-display">$$
+$$</div><p>先比较秩：</p><ul><li>无解：<div class="math-display">$$
+r(A)&lt;r(A|b).
+$$</div></li><li>唯一解：<div class="math-display">$$
+r(A)=r(A|b)=n.
+$$</div></li><li>无穷多解：<div class="math-display">$$
+r(A)=r(A|b)&lt;n.
+$$</div>通解写法：</li></ul><ol><li>求一个特解 $x_0$；</li><li>求齐次方程基础解系 $\eta_1,\dots,\eta_{n-r}$；</li><li>写<div class="math-display">$$
+x=x_0+c_1\eta_1+\cdots+c_{n-r}\eta_{n-r}.
+$$</div></li></ol><h5 id="特征值与对角化流程">特征值与对角化流程<a class="heading-anchor" href="#特征值与对角化流程" data-heading-id="特征值与对角化流程" aria-label="Copy section link / 复制小节链接">#</a></h5><p>给定 $n$ 阶矩阵 $A$。</p><ol><li>求特征多项式：<div class="math-display">$$
+p_A(\lambda)=\det(\lambda I-A).
+$$</div></li><li>求特征值 $\lambda_i$。</li><li>对每个 $\lambda_i$ 解<div class="math-display">$$
+(A-\lambda_i I)x=0
+$$</div>得特征子空间 $E_{\lambda_i}$。</li><li>统计<div class="math-display">$$
+\sum_i\dim E_{\lambda_i}.
+$$</div></li><li>若和为 $n$，则可对角化。</li></ol><p>构造对角化：<br />取一组特征向量基作为 $P$ 的列，则</p><div class="math-display">$$
 P^{-1}AP=D.
-$$</div><p>快速充分条件：<br />若 $A$ 在所讨论数域中有 $n$ 个互异特征值，则可对角化。</p><p>常见反例：<br />有重特征值不一定不可对角化，要看特征子空间维数。</p><h5 id="实对称矩阵题模板">实对称矩阵题模板<a class="heading-anchor" href="#实对称矩阵题模板" data-heading-id="实对称矩阵题模板" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若 $A=A^T$：</p><ol><li>特征值全为实数；</li><li>不同特征值的特征向量正交；</li><li>一定可正交对角化。</li></ol><p>流程：</p><ol><li>求特征值；</li><li>求各特征子空间；</li><li>对每个特征子空间内部做 Schmidt 正交化；</li><li>合并得到标准正交特征向量组；</li><li>令 $Q$ 为这些向量作列，则</li></ol><div class="math-display">$$
-   Q^TAQ=D.
-   $$</div><h5 id="二次型化标准形">二次型化标准形<a class="heading-anchor" href="#二次型化标准形" data-heading-id="二次型化标准形" aria-label="Copy section link / 复制小节链接">#</a></h5><p>方法一：配方法。</p><p>适合变量少、交叉项明显的二次型。</p><p>方法二：合同初等变换。</p><p>对称矩阵 $A$ 同时作相同类型的行列变换，相当于求</p><div class="math-display">$$
+$$</div><p>快速充分条件：<br />若 $A$ 在所讨论数域中有 $n$ 个互异特征值，则可对角化。</p><p>常见反例：<br />有重特征值不一定不可对角化，要看特征子空间维数。</p><h5 id="实对称矩阵题模板">实对称矩阵题模板<a class="heading-anchor" href="#实对称矩阵题模板" data-heading-id="实对称矩阵题模板" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若 $A=A^T$：</p><ol><li>特征值全为实数；</li><li>不同特征值的特征向量正交；</li><li>一定可正交对角化。</li></ol><p>流程：</p><ol><li>求特征值；</li><li>求各特征子空间；</li><li>对每个特征子空间内部做 Schmidt 正交化；</li><li>合并得到标准正交特征向量组；</li><li>令 $Q$ 为这些向量作列，则<div class="math-display">$$
+Q^TAQ=D.
+$$</div></li></ol><h5 id="二次型化标准形">二次型化标准形<a class="heading-anchor" href="#二次型化标准形" data-heading-id="二次型化标准形" aria-label="Copy section link / 复制小节链接">#</a></h5><p>方法一：配方法。</p><p>适合变量少、交叉项明显的二次型。</p><p>方法二：合同初等变换。</p><p>对称矩阵 $A$ 同时作相同类型的行列变换，相当于求</p><div class="math-display">$$
 C^TAC.
 $$</div><p>方法三：正交变换。</p><p>若 $A$ 实对称，可正交对角化：</p><div class="math-display">$$
 Q^TAQ=D.

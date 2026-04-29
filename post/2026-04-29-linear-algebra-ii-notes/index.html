@@ -60,9 +60,21 @@
         if (!window.renderMathInElement || !root) return;
         window.renderMathInElement(root, window.BLOG_MATH_OPTIONS);
       };
+      window.renderBlogMermaid = async (root = document.body) => {
+        if (!window.mermaid || !root) return;
+        const nodes = [...root.querySelectorAll(".mermaid:not([data-processed])")];
+        if (!nodes.length) return;
+        window.mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: "default" });
+        try {
+          await window.mermaid.run({ nodes });
+        } catch (error) {
+          console.warn("Mermaid render failed", error);
+        }
+      };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="window.renderBlogMath?.(document.body);"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" crossorigin="anonymous" onload="window.renderBlogMermaid?.(document.body);"></script>
     <script>
       if ("serviceWorker" in navigator) {
         let hadController = Boolean(navigator.serviceWorker.controller);
@@ -684,9 +696,9 @@ $$</div><p><strong>7.12 自伴算子的特征值为实数。</strong>  <br />若
 \lambda\|v\|^2=\langle Tv,v\rangle=\langle v,Tv\rangle=\overline\lambda\|v\|^2.
 $$</div><p><strong>7.13 复空间中二次型恒零推出算子为零。</strong>  <br />若 $\langle Tv,v\rangle=0$ 对所有 $v$ 成立，则 $T=0$。证明用极化恒等式恢复 $\langle Tu,v\rangle$。</p><p><strong>7.14 复空间中二次型实值等价于自伴。</strong>  <br />令 $A=T-T^*$，用 7.13 证明 $A=0$。</p><p><strong>7.16 自伴且二次型恒零等价于零算子。</strong>  <br />实情形用对称双线性极化公式；复情形用 7.13。</p><p><strong>7.20 正规判别。</strong></p><div class="math-display">$$
 T\text{ 正规}\Longleftrightarrow \|Tv\|=\|T^*v\|\quad \forall v.
-$$</div><p>证明：比较 $\|Tv\|^2$ 与 $\|T^<em>v\|^2$，得到二次型 $\langle(T^</em>T-TT^*)v,v\rangle$。</p><p><strong>7.21 正规算子的零空间、值域和特征向量。</strong>  <br />若 $T$ 正规，则 $\operatorname{null}T=\operatorname{null}T^<em>$；若 $Tv=\lambda v$，则 $T^</em>v=\overline\lambda v$。</p><p><strong>7.22 正规算子不同特征值对应特征向量正交。</strong>  <br />证明：利用 $T^*v=\overline\lambda v$，把 $\langle Tu,v\rangle$ 用两种方式计算。</p><p><strong>7.23 正规等价于实部与虚部可交换。</strong>  <br />写</p><div class="math-display">$$
+$$</div><p>证明：比较 $\|Tv\|^2$ 与 $\|T^*v\|^2$，得到二次型 $\langle(T^*T-TT^*)v,v\rangle$。</p><p><strong>7.21 正规算子的零空间、值域和特征向量。</strong>  <br />若 $T$ 正规，则 $\operatorname{null}T=\operatorname{null}T^*$；若 $Tv=\lambda v$，则 $T^*v=\overline\lambda v$。</p><p><strong>7.22 正规算子不同特征值对应特征向量正交。</strong>  <br />证明：利用 $T^*v=\overline\lambda v$，把 $\langle Tu,v\rangle$ 用两种方式计算。</p><p><strong>7.23 正规等价于实部与虚部可交换。</strong>  <br />写</p><div class="math-display">$$
 T=A+iB,\quad A=\frac{T+T^*}{2},\quad B=\frac{T-T^*}{2i}.
-$$</div><p>展开 $T^<em>T=TT^</em>$ 等价于 $AB=BA$。</p><h5 id="例题-22">例题<a class="heading-anchor" href="#例题-22" data-heading-id="例题-22" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>例：实对称矩阵给出自伴算子。</strong>  <br />在标准内积下，实矩阵 $A$ 自伴当且仅当 $A^t=A$。</p><h4 id="7b-谱定理">7B 谱定理<a class="heading-anchor" href="#7b-谱定理" data-heading-id="7b-谱定理" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="定义与对象-23">定义与对象<a class="heading-anchor" href="#定义与对象-23" data-heading-id="定义与对象-23" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>谱定理的对象。</strong>  <br />谱定理研究什么时候可以找到由特征向量组成的规范正交基。它是“可对角化”加上“正交性”的强化版本。</p><h5 id="常用性质-23">常用性质<a class="heading-anchor" href="#常用性质-23" data-heading-id="常用性质-23" aria-label="Copy section link / 复制小节链接">#</a></h5><h5 id="谱定理性质">谱定理性质<a class="heading-anchor" href="#谱定理性质" data-heading-id="谱定理性质" aria-label="Copy section link / 复制小节链接">#</a></h5><p>实内积空间：</p><div class="math-display">$$
+$$</div><p>展开 $T^*T=TT^*$ 等价于 $AB=BA$。</p><h5 id="例题-22">例题<a class="heading-anchor" href="#例题-22" data-heading-id="例题-22" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>例：实对称矩阵给出自伴算子。</strong>  <br />在标准内积下，实矩阵 $A$ 自伴当且仅当 $A^t=A$。</p><h4 id="7b-谱定理">7B 谱定理<a class="heading-anchor" href="#7b-谱定理" data-heading-id="7b-谱定理" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="定义与对象-23">定义与对象<a class="heading-anchor" href="#定义与对象-23" data-heading-id="定义与对象-23" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>谱定理的对象。</strong>  <br />谱定理研究什么时候可以找到由特征向量组成的规范正交基。它是“可对角化”加上“正交性”的强化版本。</p><h5 id="常用性质-23">常用性质<a class="heading-anchor" href="#常用性质-23" data-heading-id="常用性质-23" aria-label="Copy section link / 复制小节链接">#</a></h5><h5 id="谱定理性质">谱定理性质<a class="heading-anchor" href="#谱定理性质" data-heading-id="谱定理性质" aria-label="Copy section link / 复制小节链接">#</a></h5><p>实内积空间：</p><div class="math-display">$$
 T\text{ 有规范正交特征向量基}
 \Longleftrightarrow
 T=T^*.
@@ -734,13 +746,13 @@ $$</div><p>证明：谱定理下等价于所有特征值严格为正。</p><p><s
 A=R^*R,
 $$</div><p>其中 $R$ 上三角且对角线正。</p><h5 id="例题-25">例题<a class="heading-anchor" href="#例题-25" data-heading-id="例题-25" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>例：二维旋转矩阵是幺正矩阵。</strong>  <br />旋转矩阵列向量互相正交且长度为 $1$，所以 $A^tA=I$。</p><h4 id="7e-奇异值分解">7E 奇异值分解<a class="heading-anchor" href="#7e-奇异值分解" data-heading-id="7e-奇异值分解" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="定义与对象-26">定义与对象<a class="heading-anchor" href="#定义与对象-26" data-heading-id="定义与对象-26" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>奇异值。</strong>  <br />$T$ 的奇异值是正算子 $T^*T$ 的特征值的非负平方根。</p><p><strong>对角矩阵。</strong>  <br />此处允许矩形对角矩阵，即只有主对角线位置可能非零。</p><h5 id="常用性质-26">常用性质<a class="heading-anchor" href="#常用性质-26" data-heading-id="常用性质-26" aria-label="Copy section link / 复制小节链接">#</a></h5><h5 id="奇异值性质">奇异值性质<a class="heading-anchor" href="#奇异值性质" data-heading-id="奇异值性质" aria-label="Copy section link / 复制小节链接">#</a></h5><p>奇异值是 $T^*T$ 的特征值平方根。  <br />正奇异值个数等于 $\dim\operatorname{range}T$。  <br />SVD：</p><div class="math-display">$$
 Te_j=s_jf_j,\qquad A=U\Sigma V^*.
-$$</div><p>伪逆在 SVD 下把非零奇异值 $s_j$ 替换为 $s_j^{-1}$，把零奇异值方向送为零。</p><h5 id="定理与证明-26">定理与证明<a class="heading-anchor" href="#定理与证明-26" data-heading-id="定理与证明-26" aria-label="Copy section link / 复制小节链接">#</a></h5><p>*<em>7.64 $T^</em>T$ 的性质。*<em>  <br />$T^</em>T$ 是正算子，且</p><div class="math-display">$$
+$$</div><p>伪逆在 SVD 下把非零奇异值 $s_j$ 替换为 $s_j^{-1}$，把零奇异值方向送为零。</p><h5 id="定理与证明-26">定理与证明<a class="heading-anchor" href="#定理与证明-26" data-heading-id="定理与证明-26" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>7.64 $T^*T$ 的性质。</strong>  <br />$T^*T$ 是正算子，且</p><div class="math-display">$$
 \operatorname{null}(T^*T)=\operatorname{null}T.
 $$</div><p>证明：</p><div class="math-display">$$
 \langle T^*Tv,v\rangle=\|Tv\|^2.
 $$</div><p><strong>7.68 正奇异值的作用。</strong>  <br />正奇异值个数等于 $\dim\operatorname{range}T$。</p><p>证明：在 $T^*T$ 的规范正交特征向量基下，零奇异值对应 $\operatorname{null}T$，非零奇异值对应值域方向。</p><p><strong>7.69 所有奇异值为 $1$ 等价于等距。</strong>  <br />若所有奇异值为 $1$，则 $\|Tv\|=\|v\|$；反向由 $T^*T=I$ 得所有特征值为 $1$。</p><p><strong>7.70 奇异值分解。</strong>  <br />存在 $V$ 的规范正交基 $e_j$ 与 $W$ 的规范正交组/基 $f_j$，使</p><div class="math-display">$$
 Te_j=s_jf_j,\qquad s_j\ge0.
-$$</div><p>证明：对 $T^<em>T$ 用谱定理。若 $T^</em>Te_j=s_j^2e_j$ 且 $s_j&gt;0$，定义 $f_j=Te_j/s_j$，可验证 $f_j$ 规范正交。</p><p><strong>7.75 伴随和伪逆的奇异值分解。</strong>  <br />若 $Te_j=s_jf_j$，则</p><div class="math-display">$$
+$$</div><p>证明：对 $T^*T$ 用谱定理。若 $T^*Te_j=s_j^2e_j$ 且 $s_j&gt;0$，定义 $f_j=Te_j/s_j$，可验证 $f_j$ 规范正交。</p><p><strong>7.75 伴随和伪逆的奇异值分解。</strong>  <br />若 $Te_j=s_jf_j$，则</p><div class="math-display">$$
 T^*f_j=s_je_j,\qquad
 T^\dagger f_j=
 \begin{cases}
@@ -946,7 +958,7 @@ $$</div><p>并线性延拓。</p><p><strong>9.83 张量积的规范正交基。<
 \dim(V_1\otimes\cdots\otimes V_m)=\prod_j\dim V_j.
 $$</div><p><strong>9.90 多重张量积的基。</strong>  <br />各空间基向量的张量积构成多重张量积的基。</p><p><strong>9.92 化多重线性映射为线性映射。</strong>  <br />任意多重线性映射唯一对应张量积空间上的线性映射。</p><h5 id="例题-35">例题<a class="heading-anchor" href="#例题-35" data-heading-id="例题-35" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>例：$F^2\otimes F^3$ 的维数。</strong></p><div class="math-display">$$
 \dim(F^2\otimes F^3)=2\cdot3=6.
-$$</div><p>若 $e_1,e_2$ 是 $F^2$ 标准基，$f_1,f_2,f_3$ 是 $F^3$ 标准基，则 $e_i\otimes f_j$ 共六个，构成一组基。</p><h4 id="总复习">总复习<a class="heading-anchor" href="#总复习" data-heading-id="总复习" aria-label="Copy section link / 复制小节链接">#</a></h4><h4 id="主线图">主线图<a class="heading-anchor" href="#主线图" data-heading-id="主线图" aria-label="Copy section link / 复制小节链接">#</a></h4><pre class="code-block language-mermaid" data-language="mermaid"><code>flowchart TD
+$$</div><p>若 $e_1,e_2$ 是 $F^2$ 标准基，$f_1,f_2,f_3$ 是 $F^3$ 标准基，则 $e_i\otimes f_j$ 共六个，构成一组基。</p><h4 id="总复习">总复习<a class="heading-anchor" href="#总复习" data-heading-id="总复习" aria-label="Copy section link / 复制小节链接">#</a></h4><h4 id="主线图">主线图<a class="heading-anchor" href="#主线图" data-heading-id="主线图" aria-label="Copy section link / 复制小节链接">#</a></h4><pre class="mermaid">flowchart TD
     A[&quot;向量空间&quot;] --&gt; B[&quot;张成、线性无关、基、维数&quot;]
     B --&gt; C[&quot;线性映射&quot;]
     C --&gt; D[&quot;零空间和值域&quot;]
@@ -962,7 +974,7 @@ $$</div><p>若 $e_1,e_2$ 是 $F^2$ 标准基，$f_1,f_2,f_3$ 是 $F^3$ 标准基
     G --&gt; N[&quot;广义特征空间与若当型&quot;]
     N --&gt; O[&quot;迹与 Cayley-Hamilton&quot;]
     M --&gt; P[&quot;体积与行列式&quot;]
-    P --&gt; Q[&quot;多重线性与张量积&quot;]</code></pre><h4 id="证明模板">证明模板<a class="heading-anchor" href="#证明模板" data-heading-id="证明模板" aria-label="Copy section link / 复制小节链接">#</a></h4><ol><li><strong>子空间</strong>：证明非空且对任意线性组合封闭。</li><li><strong>线性无关</strong>：设线性组合为零，推出每个系数为零。</li><li><strong>张成</strong>：取任意目标向量，把它写成给定向量组的线性组合。</li><li><strong>基</strong>：线性无关 + 张成；或用长度等于维数的快捷判别。</li><li><strong>线性映射唯一性</strong>：基向量上的取值决定整个映射。</li><li><strong>维数公式</strong>：优先想到线性映射基本定理或构造基。</li><li><strong>正交结论</strong>：展开内积，使用伴随定义、谱定理或正交分解。</li><li><strong>对角化问题</strong>：看特征空间维数之和，或看最小多项式是否无重根。</li><li><strong>SVD 问题</strong>：先研究 $T^*T$。</li><li><strong>行列式性质</strong>：回到“交错多重线性”和“体积缩放”。</li></ol><h4 id="高频公式">高频公式<a class="heading-anchor" href="#高频公式" data-heading-id="高频公式" aria-label="Copy section link / 复制小节链接">#</a></h4><div class="math-display">$$
+    P --&gt; Q[&quot;多重线性与张量积&quot;]</pre><h4 id="证明模板">证明模板<a class="heading-anchor" href="#证明模板" data-heading-id="证明模板" aria-label="Copy section link / 复制小节链接">#</a></h4><ol><li><strong>子空间</strong>：证明非空且对任意线性组合封闭。</li><li><strong>线性无关</strong>：设线性组合为零，推出每个系数为零。</li><li><strong>张成</strong>：取任意目标向量，把它写成给定向量组的线性组合。</li><li><strong>基</strong>：线性无关 + 张成；或用长度等于维数的快捷判别。</li><li><strong>线性映射唯一性</strong>：基向量上的取值决定整个映射。</li><li><strong>维数公式</strong>：优先想到线性映射基本定理或构造基。</li><li><strong>正交结论</strong>：展开内积，使用伴随定义、谱定理或正交分解。</li><li><strong>对角化问题</strong>：看特征空间维数之和，或看最小多项式是否无重根。</li><li><strong>SVD 问题</strong>：先研究 $T^*T$。</li><li><strong>行列式性质</strong>：回到“交错多重线性”和“体积缩放”。</li></ol><h4 id="高频公式">高频公式<a class="heading-anchor" href="#高频公式" data-heading-id="高频公式" aria-label="Copy section link / 复制小节链接">#</a></h4><div class="math-display">$$
 \dim V=\dim\operatorname{null}T+\dim\operatorname{range}T.
 $$</div><div class="math-display">$$
 \dim(U+W)=\dim U+\dim W-\dim(U\cap W).
