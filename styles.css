@@ -2337,6 +2337,12 @@ h3 {
   padding-top: 18px;
 }
 
+.post-comments::after {
+  display: block;
+  height: var(--comment-focus-spacer, 0px);
+  content: "";
+}
+
 .post-comments[hidden] {
   display: none;
 }

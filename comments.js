@@ -41,12 +41,34 @@
   }
 
   function scrollToComments(container) {
+    const offset = commentScrollOffset();
+    container.style.setProperty("--comment-focus-spacer", "0px");
+
+    const desiredTop = commentScrollTop(container, offset);
+    const missingScroll = desiredTop - maxPageScroll();
+    if (missingScroll > 0) {
+      container.style.setProperty("--comment-focus-spacer", `${Math.ceil(missingScroll + offset + 24)}px`);
+    }
+
+    window.requestAnimationFrame(() => {
+      const top = commentScrollTop(container, offset);
+      window.scrollTo({ top: Math.max(0, Math.round(top)), behavior: "smooth" });
+    });
+  }
+
+  function commentScrollOffset() {
     const topbar = document.querySelector(".topbar");
     const topbarRect = topbar?.getBoundingClientRect();
     const topbarHeight = topbarRect && topbarRect.bottom > 0 ? topbarRect.height : 0;
-    const breathingRoom = Math.max(16, Math.min(28, window.innerHeight * 0.03));
-    const top = container.getBoundingClientRect().top + window.scrollY - topbarHeight - breathingRoom;
-    window.scrollTo({ top: Math.max(0, Math.round(top)), behavior: "smooth" });
+    return topbarHeight + Math.max(16, Math.min(28, window.innerHeight * 0.03));
+  }
+
+  function commentScrollTop(container, offset) {
+    return container.getBoundingClientRect().top + window.scrollY - offset;
+  }
+
+  function maxPageScroll() {
+    return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
   }
 
   function bind(container, settings, term) {
