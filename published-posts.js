@@ -244,7 +244,7 @@ window.PUBLISHED_POSTS = {
       "createdAt": "2026-04-28T00:00:00.000Z"
     },
     {
-      "id": "notes/线代/2026-04-29-linear-algebra-ii-notes.md",
+      "id": "notes/math/2026-04-29-linear-algebra-ii-notes.md",
       "slug": "2026-04-29-linear-algebra-ii-notes",
       "dataPath": "post-data/2026-04-29-linear-algebra-ii-notes.json",
       "source": "post",
