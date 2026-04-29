@@ -33,11 +33,20 @@
 
   function focus(container) {
     if (!container || container.hidden) return;
-    container.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollToComments(container);
     window.setTimeout(() => {
       const target = container.querySelector("textarea:not(:disabled), [data-comment-action='login']:not(:disabled)");
       target?.focus({ preventScroll: true });
     }, 260);
+  }
+
+  function scrollToComments(container) {
+    const topbar = document.querySelector(".topbar");
+    const topbarRect = topbar?.getBoundingClientRect();
+    const topbarHeight = topbarRect && topbarRect.bottom > 0 ? topbarRect.height : 0;
+    const breathingRoom = Math.max(16, Math.min(28, window.innerHeight * 0.03));
+    const top = container.getBoundingClientRect().top + window.scrollY - topbarHeight - breathingRoom;
+    window.scrollTo({ top: Math.max(0, Math.round(top)), behavior: "smooth" });
   }
 
   function bind(container, settings, term) {

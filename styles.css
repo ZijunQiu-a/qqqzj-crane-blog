@@ -1864,9 +1864,9 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-top: -4px;
 }
 
-.post-comment-jump,
 .post-jump-nav button {
   border: 1px solid rgba(20, 123, 145, 0.16);
   border-radius: 999px;
@@ -1880,8 +1880,35 @@ h3 {
 }
 
 .post-comment-jump {
-  background: var(--teal);
-  color: var(--paper-strong);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  min-height: 40px;
+  border: 1px solid rgba(20, 123, 145, 0.2);
+  border-radius: 999px;
+  padding: 9px 14px 9px 12px;
+  background:
+    linear-gradient(135deg, rgba(20, 123, 145, 0.13), rgba(195, 93, 111, 0.1)),
+    rgba(255, 254, 253, 0.78);
+  color: var(--teal-dark);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 254, 253, 0.55),
+    0 8px 18px rgba(16, 35, 46, 0.07);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.post-comment-jump::before {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  content: "";
+  background: linear-gradient(135deg, var(--teal), var(--gold));
+  box-shadow: 0 0 0 4px rgba(20, 123, 145, 0.08);
 }
 
 .post-comment-jump:hover,
@@ -1890,6 +1917,14 @@ h3 {
 .post-jump-nav button:focus-visible {
   border-color: rgba(14, 78, 102, 0.36);
   outline: 0;
+}
+
+.post-comment-jump:hover,
+.post-comment-jump:focus-visible {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 254, 253, 0.68),
+    0 12px 24px rgba(16, 35, 46, 0.1);
 }
 
 .post-toc {
@@ -2297,6 +2332,7 @@ h3 {
 .post-comments {
   display: grid;
   gap: 16px;
+  scroll-margin-top: 112px;
   border-top: 1px solid rgba(16, 35, 46, 0.1);
   padding-top: 18px;
 }
@@ -3431,8 +3467,19 @@ html.theme-enter-pneuma::after {
 }
 
 :root[data-theme-state="ousia"] .post-comment-jump {
-  background: var(--teal);
-  color: var(--paper);
+  border-color: rgba(129, 218, 242, 0.24);
+  background:
+    linear-gradient(135deg, rgba(102, 213, 240, 0.16), rgba(238, 142, 160, 0.1)),
+    rgba(13, 27, 45, 0.72);
+  color: #eefbff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 254, 253, 0.08),
+    0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+:root[data-theme-state="ousia"] .post-comment-jump::before {
+  background: linear-gradient(135deg, var(--teal), var(--gold));
+  box-shadow: 0 0 0 4px rgba(129, 218, 242, 0.12);
 }
 
 :root[data-theme-state="ousia"] .hello-spark {
