@@ -293,6 +293,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "第 7 章 内积空间上的算子 本章默认 $V,W,U$ 都是有限维内积空间，标量域 $F$ 为 $\\mathbb R$ 或 $\\mathbb C$。内积按本书约定对第一个变量线性、对第二个变量共轭线性： $$ \\langle \\lambda...",
       "readingMinutes": 27,
       "createdAt": "2026-04-29T00:00:00.000Z"
+    },
+    {
+      "id": "notes/math/2026-04-29-离散数学计数原理笔记.md",
+      "slug": "2026-04-29-离散数学计数原理笔记",
+      "dataPath": "post-data/2026-04-29-%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E8%AE%A1%E6%95%B0%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0.json",
+      "source": "post",
+      "kind": "notes",
+      "title": "离散数学计数原理笔记",
+      "publishedIndex": 26,
+      "stage": "Notes 笔记",
+      "tag": "数学",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "计数原理专题笔记 / Counting Principles Notes 主线说明 / Main line: 本笔记按离散数学教材常见顺序整理计数原理：有限集合基数规则、基本计数法、排列组合、二项式与多项式、容斥、鸽巢、星棒法、多重集合、错...",
+      "readingMinutes": 19,
+      "createdAt": "2026-04-29T00:00:00.000Z"
     }
   ],
   "videos": [

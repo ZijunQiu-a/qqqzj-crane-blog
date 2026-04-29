@@ -1,0 +1,505 @@
+{
+  "html": "<h4 id=\"计数原理专题笔记-counting-principles-notes\">计数原理专题笔记 / Counting Principles Notes<a class=\"heading-anchor\" href=\"#计数原理专题笔记-counting-principles-notes\" data-heading-id=\"计数原理专题笔记-counting-principles-notes\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><blockquote>主线说明 / Main line:<br />本笔记按离散数学教材常见顺序整理计数原理：有限集合基数规则、基本计数法、排列组合、二项式与多项式、容斥、鸽巢、星棒法、多重集合、错排、满射与 Stirling 数、递推、生成函数、Catalan 数和生日问题。  <br />This note follows the standard textbook path: finite cardinality rules, basic counting rules, permutations and combinations, binomial and multinomial coefficients, inclusion-exclusion, pigeonhole principle, stars and bars, multisets, derangements, onto functions and Stirling numbers, recurrences, generating functions, Catalan numbers, and the birthday principle.</blockquote><h4 id=\"0-计数题总策略-general-strategy-for-counting\">0. 计数题总策略 / General Strategy for Counting<a class=\"heading-anchor\" href=\"#0-计数题总策略-general-strategy-for-counting\" data-heading-id=\"0-计数题总策略-general-strategy-for-counting\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"0-1-计数题的本质-what-counting-really-means\">0.1 计数题的本质 / What Counting Really Means<a class=\"heading-anchor\" href=\"#0-1-计数题的本质-what-counting-really-means\" data-heading-id=\"0-1-计数题的本质-what-counting-really-means\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>核心思想 / Core idea</strong></p><p>计数不是“套公式”，而是先明确被数对象是什么，再找到一种不会漏、不会重的编码方式。</p><p>Counting is not just applying formulas. The first step is to identify the objects being counted, then encode them in a way that neither misses nor repeats objects.</p><p><strong>标准问题 / Standard questions</strong></p><ol><li>被数对象是什么？/ What are the objects?</li><li>顺序是否重要？/ Does order matter?</li><li>是否允许重复？/ Are repetitions allowed?</li><li>是否有禁止条件？/ Are there forbidden cases?</li><li>是否每个对象被数了多次？/ Is each object counted multiple times?</li><li>是否能与另一个更容易数的集合建立双射？/ Can we build a bijection to an easier set?</li></ol><h5 id=\"0-2-常用方法表-method-checklist\">0.2 常用方法表 / Method Checklist<a class=\"heading-anchor\" href=\"#0-2-常用方法表-method-checklist\" data-heading-id=\"0-2-常用方法表-method-checklist\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"table-scroll\"><table><thead><tr><th>题目特征 / Feature</th><th>方法 / Method</th></tr></thead><tbody><tr><td>分成互斥情况 / disjoint cases</td><td>加法原则 / sum rule</td></tr><tr><td>多步选择 / several-step process</td><td>乘法原则 / product rule</td></tr><tr><td>顺序重要、无重复 / ordered without repetition</td><td>排列 / permutations</td></tr><tr><td>顺序不重要、无重复 / unordered without repetition</td><td>组合 / combinations</td></tr><tr><td>顺序重要、可重复 / ordered with repetition</td><td>$n^r$</td></tr><tr><td>顺序不重要、可重复 / unordered with repetition</td><td>星棒法 / stars and bars</td></tr><tr><td>至少一个坏事件 / at least one bad event</td><td>容斥或补集 / inclusion-exclusion or complement</td></tr><tr><td>保证存在、至少相同 / guaranteed existence</td><td>鸽巢原理 / pigeonhole principle</td></tr><tr><td>没有固定点 / no fixed point</td><td>错排 / derangements</td></tr><tr><td>分到非空盒子、满射 / nonempty boxes, onto maps</td><td>满射公式或 Stirling 数 / onto formula or Stirling numbers</td></tr><tr><td>由前面状态推出后面状态 / defined by previous states</td><td>递推 / recurrences</td></tr><tr><td>每个变量限制不同 / variables have different allowed values</td><td>生成函数 / generating functions</td></tr><tr><td>合法括号、不越界路径 / legal parentheses, non-crossing paths</td><td>Catalan 数 / Catalan numbers</td></tr></tbody></table></div><h4 id=\"1-有限集合与基数-finite-sets-and-cardinality\">1. 有限集合与基数 / Finite Sets and Cardinality<a class=\"heading-anchor\" href=\"#1-有限集合与基数-finite-sets-and-cardinality\" data-heading-id=\"1-有限集合与基数-finite-sets-and-cardinality\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"1-1-定义-definitions\">1.1 定义 / Definitions<a class=\"heading-anchor\" href=\"#1-1-定义-definitions\" data-heading-id=\"1-1-定义-definitions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Finite set / 有限集合</strong></p><p>若集合 $A$ 与 $\\{1,2,\\ldots,n\\}$ 存在双射，则称 $A$ 是有限集合，且 $|A|=n$。</p><p>A set $A$ is finite if there is a bijection between $A$ and $\\{1,2,\\ldots,n\\}$. In that case, $|A|=n$.</p><p><strong>Cardinality / 基数</strong></p><p>$|A|$ 表示集合 $A$ 中元素的个数。</p><p>$|A|$ denotes the number of elements in $A$.</p><h5 id=\"1-2-双射原则-bijection-principle\">1.2 双射原则 / Bijection Principle<a class=\"heading-anchor\" href=\"#1-2-双射原则-bijection-principle\" data-heading-id=\"1-2-双射原则-bijection-principle\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>若有限集合 $A$ 与 $B$ 之间存在双射 $f:A\\to B$，则：</p><div class=\"math-display\">$$\n|A|=|B|.\n$$</div><p><strong>Proof / 证明</strong></p><p>双射意味着每个 $A$ 中元素恰好对应一个 $B$ 中元素，并且每个 $B$ 中元素恰好被一个 $A$ 中元素对应。因此两个集合元素数量相同。</p><p>A bijection pairs every element of $A$ with exactly one element of $B$, and every element of $B$ is paired with exactly one element of $A$. Therefore the two sets have the same size.</p><p><strong>Use / 怎么用</strong></p><p>很多计数题可以转化为“数另一个集合”。例如长度为 $n$ 的二进制串与集合 $\\{1,\\ldots,n\\}$ 的子集一一对应：第 $i$ 位为 $1$ 表示选中 $i$。</p><h5 id=\"1-3-有限集合基数公式-cardinality-formulas\">1.3 有限集合基数公式 / Cardinality Formulas<a class=\"heading-anchor\" href=\"#1-3-有限集合基数公式-cardinality-formulas\" data-heading-id=\"1-3-有限集合基数公式-cardinality-formulas\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Basic rules / 基本规则</strong></p><p>若 $A,B$ 有限，则：</p><div class=\"math-display\">$$\n|A\\cup B|=|A|+|B|-|A\\cap B|.\n$$</div><p>若 $A\\cap B=\\varnothing$，则：</p><div class=\"math-display\">$$\n|A\\cup B|=|A|+|B|.\n$$</div><p>笛卡尔积满足：</p><div class=\"math-display\">$$\n|A\\times B|=|A||B|.\n$$</div><p>幂集满足：</p><div class=\"math-display\">$$\n|\\mathcal{P}(A)|=2^{|A|}.\n$$</div><p><strong>Proof of power set formula / 幂集公式证明</strong></p><p>设 $|A|=n$。构造 $A$ 的一个子集时，每个元素有两个选择：选入或不选入。因此一共有：</p><div class=\"math-display\">$$\n2\\cdot2\\cdots2=2^n\n$$</div><p>个子集。</p><p>To form a subset, each element has two choices: included or not included. By the product rule, there are $2^n$ subsets.</p><p><strong>Example / 例题</strong></p><p>一个集合 $A$ 有 $8$ 个元素，则它有多少个子集？有多少个非空真子集？</p><p><strong>Solution / 解法</strong></p><p>子集总数为：</p><div class=\"math-display\">$$\n2^8=256.\n$$</div><p>非空真子集排除空集和全集：</p><div class=\"math-display\">$$\n256-2=254.\n$$</div><h4 id=\"2-基本计数原则-basic-counting-principles\">2. 基本计数原则 / Basic Counting Principles<a class=\"heading-anchor\" href=\"#2-基本计数原则-basic-counting-principles\" data-heading-id=\"2-基本计数原则-basic-counting-principles\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"2-1-加法原则-sum-rule\">2.1 加法原则 / Sum Rule<a class=\"heading-anchor\" href=\"#2-1-加法原则-sum-rule\" data-heading-id=\"2-1-加法原则-sum-rule\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>若选择可以分成互不重叠的 $k$ 类 $A_1,A_2,\\ldots,A_k$，则总数为：</p><div class=\"math-display\">$$\n|A_1\\cup A_2\\cup\\cdots\\cup A_k|\n=|A_1|+|A_2|+\\cdots+|A_k|.\n$$</div><p><strong>Proof / 证明</strong></p><p>因为这些情况两两不相交，每个对象只出现在一个类别中，所以把每类数量相加不会重复计数，也不会漏计。</p><p>Since the cases are disjoint, every object appears in exactly one case. Adding the sizes counts each object once.</p><p><strong>Example / 例题</strong></p><p>从 $3$ 本数学书和 $5$ 本计算机书中选一本书，有多少种选法？</p><p><strong>Solution / 解法</strong></p><p>选数学书有 $3$ 种，选计算机书有 $5$ 种，两类互斥，所以：</p><div class=\"math-display\">$$\n3+5=8.\n$$</div><h5 id=\"2-2-乘法原则-product-rule\">2.2 乘法原则 / Product Rule<a class=\"heading-anchor\" href=\"#2-2-乘法原则-product-rule\" data-heading-id=\"2-2-乘法原则-product-rule\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>若一个过程分成 $k$ 步，第 $i$ 步有 $n_i$ 种选择，则总数为：</p><div class=\"math-display\">$$\nn_1n_2\\cdots n_k.\n$$</div><p>更一般地，如果第 $i$ 步的选择数依赖于前面选择，也可以把每条分支的选择数相乘，再对分支求和。</p><p><strong>Proof / 证明</strong></p><p>两步情形中，每个第一步选择都能搭配 $n_2$ 个第二步选择，所以有 $n_1n_2$ 个有序对。多步情形由归纳法得到。</p><p>For two steps, each first choice can be paired with $n_2$ second choices, giving $n_1n_2$ ordered pairs. The general case follows by induction.</p><p><strong>Example / 例题</strong></p><p>一个密码由 $2$ 个大写字母后接 $3$ 个数字组成，允许重复。共有多少个密码？</p><p><strong>Solution / 解法</strong></p><p>每个字母位置有 $26$ 种，每个数字位置有 $10$ 种：</p><div class=\"math-display\">$$\n26^2\\cdot 10^3.\n$$</div><h5 id=\"2-3-减法原则与补集-subtraction-rule-and-complements\">2.3 减法原则与补集 / Subtraction Rule and Complements<a class=\"heading-anchor\" href=\"#2-3-减法原则与补集-subtraction-rule-and-complements\" data-heading-id=\"2-3-减法原则与补集-subtraction-rule-and-complements\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>若总集合为 $U$，坏集合为 $B$，好集合为 $G=U-B$，则：</p><div class=\"math-display\">$$\n|G|=|U|-|B|.\n$$</div><p><strong>Proof / 证明</strong></p><p>$U$ 被分成互不相交的好对象和坏对象，所以：</p><div class=\"math-display\">$$\n|U|=|G|+|B|.\n$$</div><p>移项得结论。</p><p><strong>Example / 例题</strong></p><p>长度为 $6$ 的二进制串中，至少有一个 $1$ 的有多少个？</p><p><strong>Solution / 解法</strong></p><p>总数为 $2^6$。没有 $1$ 的只有 $000000$ 一个，所以：</p><div class=\"math-display\">$$\n2^6-1=63.\n$$</div><h5 id=\"2-4-除法原则-division-rule\">2.4 除法原则 / Division Rule<a class=\"heading-anchor\" href=\"#2-4-除法原则-division-rule\" data-heading-id=\"2-4-除法原则-division-rule\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>若某种计数方法把每个目标对象恰好数了 $d$ 次，则真实数量为：</p><div class=\"math-display\">$$\n\\frac{\\text{counted representations}}{d}.\n$$</div><p><strong>Proof / 证明</strong></p><p>设真实对象数为 $N$。若每个对象恰好产生 $d$ 个表示，则表示总数为 $dN$，故：</p><div class=\"math-display\">$$\nN=\\frac{dN}{d}.\n$$</div><p><strong>Example / 例题</strong></p><p>$n$ 个不同的人围成一圈，旋转视为同一种座法，有多少种圆排列？</p><p><strong>Solution / 解法</strong></p><p>线性排列有 $n!$ 种。每个圆排列从 $n$ 个位置切开都得到不同线性排列，所以每个圆排列被数了 $n$ 次：</p><div class=\"math-display\">$$\n\\frac{n!}{n}=(n-1)!.\n$$</div><h4 id=\"3-排列-permutations\">3. 排列 / Permutations<a class=\"heading-anchor\" href=\"#3-排列-permutations\" data-heading-id=\"3-排列-permutations\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"3-1-排列定义-definition-of-permutation\">3.1 排列定义 / Definition of Permutation<a class=\"heading-anchor\" href=\"#3-1-排列定义-definition-of-permutation\" data-heading-id=\"3-1-排列定义-definition-of-permutation\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Permutation / 排列</strong></p><p>从 $n$ 个不同对象中按顺序选出 $r$ 个，称为 $r$-permutation。</p><p>An $r$-permutation of $n$ distinct objects is an ordered selection of $r$ objects from the $n$ objects.</p><h5 id=\"3-2-无重复排列-permutations-without-repetition\">3.2 无重复排列 / Permutations Without Repetition<a class=\"heading-anchor\" href=\"#3-2-无重复排列-permutations-without-repetition\" data-heading-id=\"3-2-无重复排列-permutations-without-repetition\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>从 $n$ 个不同对象中选出并排列 $r$ 个，数量为：</p><div class=\"math-display\">$$\nP(n,r)=n(n-1)\\cdots(n-r+1)=\\frac{n!}{(n-r)!}.\n$$</div><p><strong>Proof / 证明</strong></p><p>第 $1$ 个位置有 $n$ 种选择，第 $2$ 个位置有 $n-1$ 种，依此类推，第 $r$ 个位置有 $n-r+1$ 种。由乘法原则：</p><div class=\"math-display\">$$\nP(n,r)=n(n-1)\\cdots(n-r+1).\n$$</div><p>补上剩余因子可得：</p><div class=\"math-display\">$$\nn(n-1)\\cdots(n-r+1)=\\frac{n!}{(n-r)!}.\n$$</div><p><strong>Example / 例题</strong></p><p>从 $10$ 名学生中选出班长、副班长、学习委员各一人，不能兼任，有多少种方式？</p><p><strong>Solution / 解法</strong></p><p>三个职位不同，所以顺序重要：</p><div class=\"math-display\">$$\nP(10,3)=10\\cdot9\\cdot8=720.\n$$</div><h5 id=\"3-3-可重复序列-sequences-with-repetition\">3.3 可重复序列 / Sequences With Repetition<a class=\"heading-anchor\" href=\"#3-3-可重复序列-sequences-with-repetition\" data-heading-id=\"3-3-可重复序列-sequences-with-repetition\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>从 $n$ 个对象中构造长度为 $r$ 的有序序列，允许重复，数量为：</p><div class=\"math-display\">$$\nn^r.\n$$</div><p><strong>Proof / 证明</strong></p><p>每个位置都有 $n$ 种选择，共 $r$ 个位置，由乘法原则得 $n^r$。</p><p><strong>Example / 例题</strong></p><p>长度为 $8$ 的小写英文字母串有多少个？</p><p><strong>Solution / 解法</strong></p><p>每个位置 $26$ 种：</p><div class=\"math-display\">$$\n26^8.\n$$</div><h5 id=\"3-4-有重复元素的排列-permutations-of-multisets\">3.4 有重复元素的排列 / Permutations of Multisets<a class=\"heading-anchor\" href=\"#3-4-有重复元素的排列-permutations-of-multisets\" data-heading-id=\"3-4-有重复元素的排列-permutations-of-multisets\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>若一个多重集合共有 $n$ 个元素，其中第 $i$ 类重复 $n_i$ 次，且：</p><div class=\"math-display\">$$\nn_1+n_2+\\cdots+n_k=n,\n$$</div><p>则不同排列数为：</p><div class=\"math-display\">$$\n\\frac{n!}{n_1!n_2!\\cdots n_k!}.\n$$</div><p><strong>Proof / 证明</strong></p><p>先把所有相同元素临时标号，使它们都变成不同对象。此时共有 $n!$ 个排列。  <br />但第 $i$ 类内部的 $n_i!$ 种标号交换不会改变最终字符串，因此每个真实排列被数了：</p><div class=\"math-display\">$$\nn_1!n_2!\\cdots n_k!\n$$</div><p>次。由除法原则得到公式。</p><p><strong>Example / 例题</strong></p><p>单词 MISSISSIPPI 的不同排列数是多少？</p><p><strong>Solution / 解法</strong></p><p>字母数量为：</p><div class=\"math-display\">$$\nM:1,\\quad I:4,\\quad S:4,\\quad P:2.\n$$</div><p>所以：</p><div class=\"math-display\">$$\n\\frac{11!}{1!4!4!2!}.\n$$</div><h5 id=\"3-5-圆排列-circular-permutations\">3.5 圆排列 / Circular Permutations<a class=\"heading-anchor\" href=\"#3-5-圆排列-circular-permutations\" data-heading-id=\"3-5-圆排列-circular-permutations\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>$n$ 个不同对象围成一圈，若旋转视为相同，则圆排列数为：</p><div class=\"math-display\">$$\n(n-1)!.\n$$</div><p><strong>Proof / 证明</strong></p><p>普通线性排列有 $n!$ 种。每个圆排列可以从 $n$ 个不同位置切开成为线性排列，因此被重复计数 $n$ 次。故：</p><div class=\"math-display\">$$\n\\frac{n!}{n}=(n-1)!.\n$$</div><p><strong>Remark / 备注</strong></p><p>若翻转也视为相同，例如项链问题，则当 $n\\ge3$ 时通常还要再除以 $2$，得到：</p><div class=\"math-display\">$$\n\\frac{(n-1)!}{2}.\n$$</div><p>但若有重复颜色或特殊对称，需要更高级的 Burnside 引理，本笔记不展开。</p><h4 id=\"4-组合-combinations\">4. 组合 / Combinations<a class=\"heading-anchor\" href=\"#4-组合-combinations\" data-heading-id=\"4-组合-combinations\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"4-1-组合定义-definition-of-combination\">4.1 组合定义 / Definition of Combination<a class=\"heading-anchor\" href=\"#4-1-组合定义-definition-of-combination\" data-heading-id=\"4-1-组合定义-definition-of-combination\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Combination / 组合</strong></p><p>从 $n$ 个不同对象中无顺序地选出 $r$ 个，称为 $r$-combination。</p><p>An $r$-combination of $n$ distinct objects is an unordered selection of $r$ objects.</p><h5 id=\"4-2-组合公式-combination-formula\">4.2 组合公式 / Combination Formula<a class=\"heading-anchor\" href=\"#4-2-组合公式-combination-formula\" data-heading-id=\"4-2-组合公式-combination-formula\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>从 $n$ 个不同对象中选 $r$ 个，数量为：</p><div class=\"math-display\">$$\n\\binom{n}{r}=\\frac{n!}{r!(n-r)!}.\n$$</div><p><strong>Proof / 证明</strong></p><p>先数有序选择，有：</p><div class=\"math-display\">$$\nP(n,r)=\\frac{n!}{(n-r)!}.\n$$</div><p>每个无序 $r$ 元集合可以排列成 $r!$ 个有序序列，所以：</p><div class=\"math-display\">$$\n\\binom{n}{r}\n=\\frac{P(n,r)}{r!}\n=\\frac{n!}{r!(n-r)!}.\n$$</div><p><strong>Example / 例题</strong></p><p>从 $12$ 人中选 $5$ 人组成委员会，有多少种？</p><p><strong>Solution / 解法</strong></p><p>委员会内部无职位差别，所以：</p><div class=\"math-display\">$$\n\\binom{12}{5}.\n$$</div><h5 id=\"4-3-组合数对称性-symmetry-of-binomial-coefficients\">4.3 组合数对称性 / Symmetry of Binomial Coefficients<a class=\"heading-anchor\" href=\"#4-3-组合数对称性-symmetry-of-binomial-coefficients\" data-heading-id=\"4-3-组合数对称性-symmetry-of-binomial-coefficients\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\n\\binom{n}{r}=\\binom{n}{n-r}.\n$$</div><p><strong>Proof / 证明</strong></p><p>从 $n$ 个元素中选 $r$ 个，等价于决定哪 $n-r$ 个不选。映射：</p><div class=\"math-display\">$$\nS\\mapsto A-S\n$$</div><p>是从 $r$ 元子集到 $(n-r)$ 元子集的双射。</p><p><strong>Use / 怎么用</strong></p><p>当 $r$ 接近 $n$ 时，用对称性可简化计算，例如：</p><div class=\"math-display\">$$\n\\binom{100}{98}=\\binom{100}{2}.\n$$</div><h5 id=\"4-4-先选再排-choose-then-arrange\">4.4 先选再排 / Choose Then Arrange<a class=\"heading-anchor\" href=\"#4-4-先选再排-choose-then-arrange\" data-heading-id=\"4-4-先选再排-choose-then-arrange\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Pattern / 常见模型</strong></p><p>若先选出若干对象，再给它们安排不同角色，则常见形式为：</p><div class=\"math-display\">$$\n\\binom{n}{r}r!=P(n,r).\n$$</div><p><strong>Example / 例题</strong></p><p>从 $8$ 人中选 $3$ 人站成一排，有多少种？</p><p><strong>Solution / 解法一 / Method 1</strong></p><p>直接用排列：</p><div class=\"math-display\">$$\nP(8,3)=8\\cdot7\\cdot6.\n$$</div><p><strong>Solution / 解法二 / Method 2</strong></p><p>先选 $3$ 人，再排列：</p><div class=\"math-display\">$$\n\\binom{8}{3}3!.\n$$</div><p>两者相等。</p><h4 id=\"5-二项式系数与组合恒等式-binomial-coefficients-and-combinatorial-identities\">5. 二项式系数与组合恒等式 / Binomial Coefficients and Combinatorial Identities<a class=\"heading-anchor\" href=\"#5-二项式系数与组合恒等式-binomial-coefficients-and-combinatorial-identities\" data-heading-id=\"5-二项式系数与组合恒等式-binomial-coefficients-and-combinatorial-identities\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"5-1-pascal-恒等式-pascal-s-identity\">5.1 Pascal 恒等式 / Pascal&#039;s Identity<a class=\"heading-anchor\" href=\"#5-1-pascal-恒等式-pascal-s-identity\" data-heading-id=\"5-1-pascal-恒等式-pascal-s-identity\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\n\\binom{n}{r}=\\binom{n-1}{r}+\\binom{n-1}{r-1}.\n$$</div><p><strong>Proof / 组合证明</strong></p><p>从 $n$ 个元素中选 $r$ 个。固定一个特殊元素 $x$。</p><ul><li>不选 $x$：从其余 $n-1$ 个中选 $r$ 个，有 $\\binom{n-1}{r}$ 种。</li><li>选 $x$：还需从其余 $n-1$ 个中选 $r-1$ 个，有 $\\binom{n-1}{r-1}$ 种。</li></ul><p>两类互斥且覆盖所有选择，所以由加法原则得到结论。</p><p><strong>Use / 怎么用</strong></p><p>Pascal 恒等式是组合数递推、杨辉三角和很多归纳证明的基础。</p><h5 id=\"5-2-子集总数恒等式-subset-identity\">5.2 子集总数恒等式 / Subset Identity<a class=\"heading-anchor\" href=\"#5-2-子集总数恒等式-subset-identity\" data-heading-id=\"5-2-子集总数恒等式-subset-identity\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\n\\sum_{r=0}^{n}\\binom{n}{r}=2^n.\n$$</div><p><strong>Proof / 组合证明</strong></p><p>右边 $2^n$ 数的是 $n$ 元集合的所有子集。左边按子集大小分类：大小为 $r$ 的子集有 $\\binom{n}{r}$ 个，对 $r=0,\\ldots,n$ 求和。</p><p><strong>Example / 例题</strong></p><p>一个 $10$ 元集合有多少个偶数大小的子集？</p><p><strong>Solution / 解法</strong></p><p>偶数大小子集数为：</p><div class=\"math-display\">$$\n\\sum_{\\substack{0\\le r\\le 10\\\\r\\text{ even}}}\\binom{10}{r}.\n$$</div><p>由：</p><div class=\"math-display\">$$\n(1+1)^{10}=\\sum_{r=0}^{10}\\binom{10}{r},\n$$</div><p>和：</p><div class=\"math-display\">$$\n(1-1)^{10}=\\sum_{r=0}^{10}(-1)^r\\binom{10}{r}=0,\n$$</div><p>可知偶数项和奇数项相等，均为：</p><div class=\"math-display\">$$\n2^9.\n$$</div><h5 id=\"5-3-vandermonde-恒等式-vandermonde-s-identity\">5.3 Vandermonde 恒等式 / Vandermonde&#039;s Identity<a class=\"heading-anchor\" href=\"#5-3-vandermonde-恒等式-vandermonde-s-identity\" data-heading-id=\"5-3-vandermonde-恒等式-vandermonde-s-identity\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\n\\sum_{k=0}^{r}\\binom{m}{k}\\binom{n}{r-k}\n=\\binom{m+n}{r}.\n$$</div><p><strong>Proof / 组合证明</strong></p><p>从 $m+n$ 个人中选 $r$ 人。把人分成两组，第一组 $m$ 人，第二组 $n$ 人。  <br />若从第一组选 $k$ 人，则必须从第二组选 $r-k$ 人，有：</p><div class=\"math-display\">$$\n\\binom{m}{k}\\binom{n}{r-k}\n$$</div><p>种。对所有 $k$ 求和得左边。直接从 $m+n$ 人中选 $r$ 人得右边。</p><p><strong>Use / 怎么用</strong></p><p>看到形如：</p><div class=\"math-display\">$$\n\\sum_k \\binom{m}{k}\\binom{n}{r-k}\n$$</div><p>的卷积，就优先想到 Vandermonde。</p><h5 id=\"5-4-曲棍球杆恒等式-hockey-stick-identity\">5.4 曲棍球杆恒等式 / Hockey-Stick Identity<a class=\"heading-anchor\" href=\"#5-4-曲棍球杆恒等式-hockey-stick-identity\" data-heading-id=\"5-4-曲棍球杆恒等式-hockey-stick-identity\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\n\\sum_{k=r}^{n}\\binom{k}{r}=\\binom{n+1}{r+1}.\n$$</div><p><strong>Proof / 组合证明</strong></p><p>从集合 $\\{0,1,2,\\ldots,n\\}$ 中选 $r+1$ 个数。按最大元素分类。  <br />若最大元素是 $k$，其余 $r$ 个必须从 $0,1,\\ldots,k-1$ 中选，所以有：</p><div class=\"math-display\">$$\n\\binom{k}{r}\n$$</div><p>种。对 $k=r,\\ldots,n$ 求和得左边。直接选 $r+1$ 个数得右边。</p><h5 id=\"5-5-带权计数恒等式-weighted-counting-identity\">5.5 带权计数恒等式 / Weighted Counting Identity<a class=\"heading-anchor\" href=\"#5-5-带权计数恒等式-weighted-counting-identity\" data-heading-id=\"5-5-带权计数恒等式-weighted-counting-identity\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\n\\sum_{r=0}^{n}r\\binom{n}{r}=n2^{n-1}.\n$$</div><p><strong>Proof / 组合证明</strong></p><p>数“一个委员会和一个队长”的方式，其中委员会非空且队长在委员会中。</p><p>左边：先选大小为 $r$ 的委员会，有 $\\binom{n}{r}$ 种，再从其中选队长，有 $r$ 种。</p><p>右边：先选队长，有 $n$ 种；其余 $n-1$ 人每人可选入或不选入委员会，有 $2^{n-1}$ 种。</p><p>所以：</p><div class=\"math-display\">$$\n\\sum_{r=0}^{n}r\\binom{n}{r}=n2^{n-1}.\n$$</div><h4 id=\"6-二项式定理与多项式定理-binomial-and-multinomial-theorems\">6. 二项式定理与多项式定理 / Binomial and Multinomial Theorems<a class=\"heading-anchor\" href=\"#6-二项式定理与多项式定理-binomial-and-multinomial-theorems\" data-heading-id=\"6-二项式定理与多项式定理-binomial-and-multinomial-theorems\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"6-1-二项式定理-binomial-theorem\">6.1 二项式定理 / Binomial Theorem<a class=\"heading-anchor\" href=\"#6-1-二项式定理-binomial-theorem\" data-heading-id=\"6-1-二项式定理-binomial-theorem\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\n(x+y)^n=\\sum_{k=0}^{n}\\binom{n}{k}x^{n-k}y^k.\n$$</div><p><strong>Proof / 证明</strong></p><p>展开：</p><div class=\"math-display\">$$\n(x+y)(x+y)\\cdots(x+y)\n$$</div><p>时，每个括号中选择 $x$ 或 $y$。若要得到 $x^{n-k}y^k$，需要从 $n$ 个括号中选 $k$ 个贡献 $y$，其余贡献 $x$。这样的选择有 $\\binom{n}{k}$ 种。</p><p><strong>Example / 例题</strong></p><p>求 $(2x-3)^5$ 中 $x^3$ 的系数。</p><p><strong>Solution / 解法</strong></p><p>写成 $(2x+(-3))^5$。要得到 $x^3$，需要选 $2x$ 三次，选 $-3$ 两次：</p><div class=\"math-display\">$$\n\\binom{5}{3}(2x)^3(-3)^2.\n$$</div><p>系数为：</p><div class=\"math-display\">$$\n\\binom{5}{3}2^3\\cdot9=720.\n$$</div><h5 id=\"6-2-多项式定理-multinomial-theorem\">6.2 多项式定理 / Multinomial Theorem<a class=\"heading-anchor\" href=\"#6-2-多项式定理-multinomial-theorem\" data-heading-id=\"6-2-多项式定理-multinomial-theorem\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\n(x_1+x_2+\\cdots+x_m)^n\n=\n\\sum_{k_1+\\cdots+k_m=n}\n\\frac{n!}{k_1!k_2!\\cdots k_m!}\nx_1^{k_1}x_2^{k_2}\\cdots x_m^{k_m}.\n$$</div><p><strong>Proof / 证明</strong></p><p>展开时共有 $n$ 个括号。要得到：</p><div class=\"math-display\">$$\nx_1^{k_1}x_2^{k_2}\\cdots x_m^{k_m},\n$$</div><p>必须有 $k_i$ 个括号选择 $x_i$。选择这些位置的方式数为：</p><div class=\"math-display\">$$\n\\binom{n}{k_1}\\binom{n-k_1}{k_2}\\cdots\\binom{k_m}{k_m}\n=\\frac{n!}{k_1!k_2!\\cdots k_m!}.\n$$</div><p><strong>Example / 例题</strong></p><p>求 $(x+y+z)^{10}$ 中 $x^2y^3z^5$ 的系数。</p><p><strong>Solution / 解法</strong></p><p>由多项式定理，系数为：</p><div class=\"math-display\">$$\n\\frac{10!}{2!3!5!}.\n$$</div><h4 id=\"7-容斥原理-inclusion-exclusion-principle\">7. 容斥原理 / Inclusion-Exclusion Principle<a class=\"heading-anchor\" href=\"#7-容斥原理-inclusion-exclusion-principle\" data-heading-id=\"7-容斥原理-inclusion-exclusion-principle\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"7-1-两集合容斥-two-set-inclusion-exclusion\">7.1 两集合容斥 / Two-Set Inclusion-Exclusion<a class=\"heading-anchor\" href=\"#7-1-两集合容斥-two-set-inclusion-exclusion\" data-heading-id=\"7-1-两集合容斥-two-set-inclusion-exclusion\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\n|A\\cup B|=|A|+|B|-|A\\cap B|.\n$$</div><p><strong>Proof / 证明</strong></p><p>$|A|+|B|$ 中，属于 $A\\cap B$ 的元素被数了两次，因此需要减去一次。</p><p>In $|A|+|B|$, every element in $A\\cap B$ is counted twice, so we subtract it once.</p><p><strong>Example / 例题</strong></p><p>$1$ 到 $100$ 中能被 $2$ 或 $5$ 整除的数有多少个？</p><p><strong>Solution / 解法</strong></p><p>设：</p><div class=\"math-display\">$$\nA=\\{n:2\\mid n\\},\\quad B=\\{n:5\\mid n\\}.\n$$</div><p>则：</p><div class=\"math-display\">$$\n|A|=\\left\\lfloor\\frac{100}{2}\\right\\rfloor=50,\n\\quad\n|B|=\\left\\lfloor\\frac{100}{5}\\right\\rfloor=20,\n$$</div><div class=\"math-display\">$$\n|A\\cap B|=\\left\\lfloor\\frac{100}{10}\\right\\rfloor=10.\n$$</div><p>所以：</p><div class=\"math-display\">$$\n50+20-10=60.\n$$</div><h5 id=\"7-2-一般容斥-general-inclusion-exclusion\">7.2 一般容斥 / General Inclusion-Exclusion<a class=\"heading-anchor\" href=\"#7-2-一般容斥-general-inclusion-exclusion\" data-heading-id=\"7-2-一般容斥-general-inclusion-exclusion\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>对有限集合 $A_1,A_2,\\ldots,A_n$：</p><div class=\"math-display\">$$\n\\left|\\bigcup_{i=1}^{n}A_i\\right|\n=\n\\sum_i |A_i|\n-\n\\sum_{i&lt;j}|A_i\\cap A_j|\n+\n\\sum_{i&lt;j&lt;k}|A_i\\cap A_j\\cap A_k|\n-\n\\cdots\n+\n(-1)^{n+1}|A_1\\cap\\cdots\\cap A_n|.\n$$</div><p><strong>Proof / 证明</strong></p><p>考虑某个元素 $x$ 恰好属于 $r$ 个集合。右边对它的贡献为：</p><div class=\"math-display\">$$\n\\binom{r}{1}-\\binom{r}{2}+\\binom{r}{3}-\\cdots+(-1)^{r+1}\\binom{r}{r}.\n$$</div><p>由：</p><div class=\"math-display\">$$\n0=(1-1)^r\n=\\binom{r}{0}-\\binom{r}{1}+\\binom{r}{2}-\\cdots+(-1)^r\\binom{r}{r},\n$$</div><p>可得：</p><div class=\"math-display\">$$\n\\binom{r}{1}-\\binom{r}{2}+\\cdots+(-1)^{r+1}\\binom{r}{r}=1.\n$$</div><p>所以每个属于并集的元素被数一次，不属于并集的元素被数零次。</p><p><strong>Use / 怎么用</strong></p><p>容斥特别适合“至少一个条件发生”或“排除若干坏事件”。</p><h5 id=\"7-3-容斥计数补集-counting-by-excluding-bad-events\">7.3 容斥计数补集 / Counting by Excluding Bad Events<a class=\"heading-anchor\" href=\"#7-3-容斥计数补集-counting-by-excluding-bad-events\" data-heading-id=\"7-3-容斥计数补集-counting-by-excluding-bad-events\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>若全集为 $U$，坏事件集合为 $A_1,\\ldots,A_n$，则没有坏事件发生的对象数为：</p><div class=\"math-display\">$$\n|U|-|A_1\\cup\\cdots\\cup A_n|.\n$$</div><p>展开得：</p><div class=\"math-display\">$$\n\\sum_{J\\subseteq \\{1,\\ldots,n\\}}(-1)^{|J|}\n\\left|\\bigcap_{j\\in J}A_j\\right|,\n$$</div><p>其中 $J=\\varnothing$ 时交集理解为 $U$。</p><p><strong>Example / 例题</strong></p><p>长度为 $5$ 的十进制数字串中，每个数字 $0,1,2$ 都至少出现一次的有多少个？</p><p><strong>Solution / 解法</strong></p><p>全集 $U$ 为所有长度 $5$ 数字串：</p><div class=\"math-display\">$$\n|U|=10^5.\n$$</div><p>设 $A_i$ 表示数字 $i$ 没有出现，$i=0,1,2$。要求没有任何 $A_i$ 发生。</p><p>单个数字缺失：每个有 $9^5$ 种，共 $3\\cdot9^5$。  <br />两个指定数字缺失：每个有 $8^5$ 种，共 $\\binom{3}{2}8^5$。  <br />三个都缺失：有 $7^5$ 种。</p><p>答案：</p><div class=\"math-display\">$$\n10^5-3\\cdot9^5+\\binom{3}{2}8^5-7^5.\n$$</div><h4 id=\"8-鸽巢原理-pigeonhole-principle\">8. 鸽巢原理 / Pigeonhole Principle<a class=\"heading-anchor\" href=\"#8-鸽巢原理-pigeonhole-principle\" data-heading-id=\"8-鸽巢原理-pigeonhole-principle\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"8-1-基本鸽巢原理-basic-pigeonhole-principle\">8.1 基本鸽巢原理 / Basic Pigeonhole Principle<a class=\"heading-anchor\" href=\"#8-1-基本鸽巢原理-basic-pigeonhole-principle\" data-heading-id=\"8-1-基本鸽巢原理-basic-pigeonhole-principle\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>若把 $n+1$ 个对象放入 $n$ 个盒子，则至少有一个盒子含有至少 $2$ 个对象。</p><p>If $n+1$ objects are placed into $n$ boxes, at least one box contains at least two objects.</p><p><strong>Proof / 反证法</strong></p><p>假设每个盒子至多含有 $1$ 个对象，则 $n$ 个盒子最多容纳 $n$ 个对象，与有 $n+1$ 个对象矛盾。</p><h5 id=\"8-2-广义鸽巢原理-generalized-pigeonhole-principle\">8.2 广义鸽巢原理 / Generalized Pigeonhole Principle<a class=\"heading-anchor\" href=\"#8-2-广义鸽巢原理-generalized-pigeonhole-principle\" data-heading-id=\"8-2-广义鸽巢原理-generalized-pigeonhole-principle\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>若把 $N$ 个对象放入 $k$ 个盒子，则至少有一个盒子含有至少：</p><div class=\"math-display\">$$\n\\left\\lceil\\frac{N}{k}\\right\\rceil\n$$</div><p>个对象。</p><p><strong>Proof / 证明</strong></p><p>若每个盒子最多有 $\\left\\lceil N/k\\right\\rceil-1$ 个对象，则总对象数最多为：</p><div class=\"math-display\">$$\nk\\left(\\left\\lceil\\frac{N}{k}\\right\\rceil-1\\right)&lt;N,\n$$</div><p>矛盾。</p><p><strong>Example / 例题</strong></p><p>任取 $13$ 个人，证明至少有两个人出生月份相同。</p><p><strong>Solution / 解法</strong></p><p>对象是 $13$ 个人，盒子是 $12$ 个月。由鸽巢原理，至少一个月份含有至少：</p><div class=\"math-display\">$$\n\\left\\lceil\\frac{13}{12}\\right\\rceil=2\n$$</div><p>个人。</p><h5 id=\"8-3-鸽巢构造技巧-how-to-design-boxes\">8.3 鸽巢构造技巧 / How to Design Boxes<a class=\"heading-anchor\" href=\"#8-3-鸽巢构造技巧-how-to-design-boxes\" data-heading-id=\"8-3-鸽巢构造技巧-how-to-design-boxes\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Key idea / 核心</strong></p><p>鸽巢题的难点不是公式，而是“盒子”怎么设计。</p><p><strong>Common boxes / 常见盒子</strong></p><ul><li>余数类 / residue classes</li><li>子集大小 / sizes of subsets</li><li>首字母、生日月份、颜色 / labels such as initials, months, colors</li><li>图中的邻居数或边颜色 / degrees or edge colors in graphs</li><li>区间分段 / intervals</li></ul><p><strong>Example / 例题</strong></p><p>任取 $n+1$ 个整数，证明其中有两个整数对 $n$ 同余。</p><p><strong>Proof / 证明</strong></p><p>对象是 $n+1$ 个整数。盒子是模 $n$ 的 $n$ 个余数类：</p><div class=\"math-display\">$$\n0,1,\\ldots,n-1.\n$$</div><p>由鸽巢原理，至少两个整数落入同一个余数类，所以它们模 $n$ 同余。</p><h5 id=\"8-4-ramsey-例子-ramsey-example\">8.4 Ramsey 例子 / Ramsey Example<a class=\"heading-anchor\" href=\"#8-4-ramsey-例子-ramsey-example\" data-heading-id=\"8-4-ramsey-例子-ramsey-example\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\nR(3,3)=6.\n$$</div><p>也就是说，任意 $6$ 个人中，必有 $3$ 个人两两认识，或 $3$ 个人两两不认识。</p><p>In any group of six people, there are either three mutual acquaintances or three mutual strangers.</p><p><strong>Proof / 证明</strong></p><p>把 $6$ 个人看成完全图 $K_6$ 的顶点。两人认识的边染红色，不认识的边染蓝色。</p><p>固定一个顶点 $v$。它与其余 $5$ 个顶点相连，有 $5$ 条边。由鸽巢原理，其中至少 $3$ 条边同色。</p><p>不妨设 $v$ 到 $a,b,c$ 的边都是红色。若 $a,b,c$ 中有一条红边，例如 $ab$，则 $v,a,b$ 构成红三角形。若 $a,b,c$ 之间没有红边，则三条边全是蓝边，$a,b,c$ 构成蓝三角形。</p><p>所以 $K_6$ 的任意红蓝染色都含有单色三角形。</p><h4 id=\"9-星棒法与整数解-stars-and-bars\">9. 星棒法与整数解 / Stars and Bars<a class=\"heading-anchor\" href=\"#9-星棒法与整数解-stars-and-bars\" data-heading-id=\"9-星棒法与整数解-stars-and-bars\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"9-1-非负整数解-nonnegative-integer-solutions\">9.1 非负整数解 / Nonnegative Integer Solutions<a class=\"heading-anchor\" href=\"#9-1-非负整数解-nonnegative-integer-solutions\" data-heading-id=\"9-1-非负整数解-nonnegative-integer-solutions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>方程：</p><div class=\"math-display\">$$\nx_1+x_2+\\cdots+x_k=n,\\qquad x_i\\ge0\n$$</div><p>的非负整数解个数为：</p><div class=\"math-display\">$$\n\\binom{n+k-1}{k-1}\n=\\binom{n+k-1}{n}.\n$$</div><p><strong>Proof / 证明</strong></p><p>把 $n$ 个相同物品看成 $n$ 个星星，用 $k-1$ 根隔板分成 $k$ 组。  <br />例如 $k=4,n=7$ 时：</p><div class=\"math-display\">$$\n**|***||**\n$$</div><p>表示：</p><div class=\"math-display\">$$\n(x_1,x_2,x_3,x_4)=(2,3,0,2).\n$$</div><p>总共有 $n+k-1$ 个位置，其中选 $k-1$ 个放隔板，所以：</p><div class=\"math-display\">$$\n\\binom{n+k-1}{k-1}.\n$$</div><h5 id=\"9-2-正整数解-positive-integer-solutions\">9.2 正整数解 / Positive Integer Solutions<a class=\"heading-anchor\" href=\"#9-2-正整数解-positive-integer-solutions\" data-heading-id=\"9-2-正整数解-positive-integer-solutions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>方程：</p><div class=\"math-display\">$$\nx_1+x_2+\\cdots+x_k=n,\\qquad x_i\\ge1\n$$</div><p>的正整数解个数为：</p><div class=\"math-display\">$$\n\\binom{n-1}{k-1}.\n$$</div><p><strong>Proof / 证明</strong></p><p>令：</p><div class=\"math-display\">$$\ny_i=x_i-1\\ge0.\n$$</div><p>则：</p><div class=\"math-display\">$$\ny_1+\\cdots+y_k=n-k.\n$$</div><p>由非负整数解公式，解数为：</p><div class=\"math-display\">$$\n\\binom{(n-k)+k-1}{k-1}=\\binom{n-1}{k-1}.\n$$</div><p><strong>Example / 例题</strong></p><p>把 $12$ 个相同糖果分给 $4$ 个孩子，每个孩子至少 $1$ 个，有多少种？</p><p><strong>Solution / 解法</strong></p><p>求：</p><div class=\"math-display\">$$\nx_1+x_2+x_3+x_4=12,\\qquad x_i\\ge1.\n$$</div><p>答案：</p><div class=\"math-display\">$$\n\\binom{11}{3}.\n$$</div><h5 id=\"9-3-可重复组合-combinations-with-repetition\">9.3 可重复组合 / Combinations With Repetition<a class=\"heading-anchor\" href=\"#9-3-可重复组合-combinations-with-repetition\" data-heading-id=\"9-3-可重复组合-combinations-with-repetition\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>从 $n$ 类对象中选 $r$ 个，允许重复且不看顺序，数量为：</p><div class=\"math-display\">$$\n\\binom{n+r-1}{r}\n=\\binom{n+r-1}{n-1}.\n$$</div><p><strong>Proof / 证明</strong></p><p>设 $x_i$ 表示第 $i$ 类对象选了多少个，则：</p><div class=\"math-display\">$$\nx_1+x_2+\\cdots+x_n=r,\\qquad x_i\\ge0.\n$$</div><p>由星棒法得到公式。</p><p><strong>Example / 例题</strong></p><p>从 $5$ 种口味冰淇淋中买 $8$ 个球，允许重复，顺序不重要，有多少种买法？</p><p><strong>Solution / 解法</strong></p><p>这是从 $5$ 类中可重复选 $8$ 个：</p><div class=\"math-display\">$$\n\\binom{5+8-1}{8}=\\binom{12}{8}.\n$$</div><h5 id=\"9-4-有上界的星棒法-stars-and-bars-with-upper-bounds\">9.4 有上界的星棒法 / Stars and Bars With Upper Bounds<a class=\"heading-anchor\" href=\"#9-4-有上界的星棒法-stars-and-bars-with-upper-bounds\" data-heading-id=\"9-4-有上界的星棒法-stars-and-bars-with-upper-bounds\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Example / 例题</strong></p><p>求非负整数解数量：</p><div class=\"math-display\">$$\nx_1+x_2+x_3=10,\\qquad 0\\le x_i\\le5.\n$$</div><p><strong>Solution / 解法</strong></p><p>先忽略上界，非负解总数为：</p><div class=\"math-display\">$$\n\\binom{10+3-1}{3-1}=\\binom{12}{2}=66.\n$$</div><p>设坏事件 $A_i$ 表示 $x_i\\ge6$。若 $x_1\\ge6$，令 $y_1=x_1-6\\ge0$，则：</p><div class=\"math-display\">$$\ny_1+x_2+x_3=4,\n$$</div><p>解数为：</p><div class=\"math-display\">$$\n\\binom{4+3-1}{2}=\\binom{6}{2}=15.\n$$</div><p>三个变量对称，单个坏事件总数为 $3\\cdot15$。两个变量同时至少 $6$ 不可能，因为总和只有 $10$。所以答案：</p><div class=\"math-display\">$$\n66-3\\cdot15=21.\n$$</div><p><strong>General method / 通用方法</strong></p><p>有上界 $x_i\\le u_i$ 时，先忽略上界，再对 $x_i\\ge u_i+1$ 的坏事件做容斥。</p><h4 id=\"10-分配问题-distribution-problems\">10. 分配问题 / Distribution Problems<a class=\"heading-anchor\" href=\"#10-分配问题-distribution-problems\" data-heading-id=\"10-分配问题-distribution-problems\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"10-1-四种基本分配模型-four-basic-distribution-models\">10.1 四种基本分配模型 / Four Basic Distribution Models<a class=\"heading-anchor\" href=\"#10-1-四种基本分配模型-four-basic-distribution-models\" data-heading-id=\"10-1-四种基本分配模型-four-basic-distribution-models\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"table-scroll\"><table><thead><tr><th>物品 / Balls</th><th>盒子 / Boxes</th><th>是否允许空盒 / Empty boxes</th><th>数量 / Count</th></tr></thead><tbody><tr><td>不同 / distinct</td><td>不同 / distinct</td><td>允许 / allowed</td><td>$n^r$</td></tr><tr><td>相同 / identical</td><td>不同 / distinct</td><td>允许 / allowed</td><td>$\\binom{r+n-1}{n-1}$</td></tr><tr><td>相同 / identical</td><td>不同 / distinct</td><td>不允许 / not allowed</td><td>$\\binom{r-1}{n-1}$</td></tr><tr><td>不同 / distinct</td><td>不同 / distinct</td><td>不允许 / not allowed</td><td>满射数 / onto functions</td></tr></tbody></table></div><p>其中 $r$ 是物品数，$n$ 是盒子数。</p><h5 id=\"10-2-不同球到不同盒-distinct-balls-into-distinct-boxes\">10.2 不同球到不同盒 / Distinct Balls Into Distinct Boxes<a class=\"heading-anchor\" href=\"#10-2-不同球到不同盒-distinct-balls-into-distinct-boxes\" data-heading-id=\"10-2-不同球到不同盒-distinct-balls-into-distinct-boxes\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>$r$ 个不同球放入 $n$ 个不同盒子，允许空盒，数量为：</p><div class=\"math-display\">$$\nn^r.\n$$</div><p><strong>Proof / 证明</strong></p><p>每个球独立选择一个盒子，有 $n$ 种选择，共 $r$ 个球，所以 $n^r$。</p><h5 id=\"10-3-相同球到不同盒-identical-balls-into-distinct-boxes\">10.3 相同球到不同盒 / Identical Balls Into Distinct Boxes<a class=\"heading-anchor\" href=\"#10-3-相同球到不同盒-identical-balls-into-distinct-boxes\" data-heading-id=\"10-3-相同球到不同盒-identical-balls-into-distinct-boxes\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>$r$ 个相同球放入 $n$ 个不同盒子，允许空盒，数量为：</p><div class=\"math-display\">$$\n\\binom{r+n-1}{n-1}.\n$$</div><p><strong>Proof / 证明</strong></p><p>设 $x_i$ 是第 $i$ 个盒子中的球数，则：</p><div class=\"math-display\">$$\nx_1+\\cdots+x_n=r,\\qquad x_i\\ge0.\n$$</div><p>由星棒法得结论。</p><h4 id=\"11-错排-derangements\">11. 错排 / Derangements<a class=\"heading-anchor\" href=\"#11-错排-derangements\" data-heading-id=\"11-错排-derangements\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"11-1-定义-definition\">11.1 定义 / Definition<a class=\"heading-anchor\" href=\"#11-1-定义-definition\" data-heading-id=\"11-1-定义-definition\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Derangement / 错排</strong></p><p>$n$ 个元素的一个排列中，若没有任何元素留在原位置，则称为错排。</p><p>A derangement is a permutation with no fixed points.</p><p>设 $D_n$ 表示 $n$ 个元素的错排数。</p><h5 id=\"11-2-错排公式-derangement-formula\">11.2 错排公式 / Derangement Formula<a class=\"heading-anchor\" href=\"#11-2-错排公式-derangement-formula\" data-heading-id=\"11-2-错排公式-derangement-formula\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\nD_n=n!\\sum_{k=0}^{n}\\frac{(-1)^k}{k!}.\n$$</div><p><strong>Proof / 容斥证明</strong></p><p>全集 $U$ 是所有 $n$ 个元素的排列：</p><div class=\"math-display\">$$\n|U|=n!.\n$$</div><p>令 $A_i$ 表示第 $i$ 个元素固定不动。错排就是没有任何 $A_i$ 发生。</p><p>若指定 $k$ 个元素固定不动，其余 $n-k$ 个元素任意排列，有：</p><div class=\"math-display\">$$\n(n-k)!\n$$</div><p>种。选择这 $k$ 个固定元素有 $\\binom{n}{k}$ 种。由容斥：</p><div class=\"math-display\">$$\nD_n\n=\n\\sum_{k=0}^{n}(-1)^k\\binom{n}{k}(n-k)!.\n$$</div><p>化简：</p><div class=\"math-display\">$$\n\\binom{n}{k}(n-k)!\n=\n\\frac{n!}{k!(n-k)!}(n-k)!\n=\n\\frac{n!}{k!}.\n$$</div><p>所以：</p><div class=\"math-display\">$$\nD_n=n!\\sum_{k=0}^{n}\\frac{(-1)^k}{k!}.\n$$</div><h5 id=\"11-3-错排递推-derangement-recurrence\">11.3 错排递推 / Derangement Recurrence<a class=\"heading-anchor\" href=\"#11-3-错排递推-derangement-recurrence\" data-heading-id=\"11-3-错排递推-derangement-recurrence\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\nD_n=(n-1)(D_{n-1}+D_{n-2}),\n\\qquad D_0=1,\\quad D_1=0.\n$$</div><p><strong>Proof / 证明</strong></p><p>考虑元素 $1$ 被放到位置 $j$，其中 $j\\ne1$，有 $n-1$ 种选择。现在看位置 $1$ 上放什么。</p><p>若元素 $j$ 放到位置 $1$，则 $1$ 与 $j$ 交换，剩下 $n-2$ 个元素必须错排，有 $D_{n-2}$ 种。</p><p>若元素 $j$ 不放到位置 $1$，则可以把位置 $j$ 视为元素 $1$ 的“禁止位置”已经处理掉，剩下结构等价于 $n-1$ 个元素的错排，有 $D_{n-1}$ 种。</p><p>所以：</p><div class=\"math-display\">$$\nD_n=(n-1)(D_{n-1}+D_{n-2}).\n$$</div><p><strong>Example / 例题</strong></p><p>四个人随机拿四顶帽子，没人拿到自己的帽子有多少种？</p><p><strong>Solution / 解法</strong></p><div class=\"math-display\">$$\nD_4=4!\\left(1-\\frac1{1!}+\\frac1{2!}-\\frac1{3!}+\\frac1{4!}\\right)=9.\n$$</div><h4 id=\"12-满射函数与第二类-stirling-数-onto-functions-and-stirling-numbers-of-the-second-kind\">12. 满射函数与第二类 Stirling 数 / Onto Functions and Stirling Numbers of the Second Kind<a class=\"heading-anchor\" href=\"#12-满射函数与第二类-stirling-数-onto-functions-and-stirling-numbers-of-the-second-kind\" data-heading-id=\"12-满射函数与第二类-stirling-数-onto-functions-and-stirling-numbers-of-the-second-kind\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"12-1-满射函数计数-counting-onto-functions\">12.1 满射函数计数 / Counting Onto Functions<a class=\"heading-anchor\" href=\"#12-1-满射函数计数-counting-onto-functions\" data-heading-id=\"12-1-满射函数计数-counting-onto-functions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>从 $n$ 元集合到 $k$ 元集合的满射数量为：</p><div class=\"math-display\">$$\n\\sum_{i=0}^{k}(-1)^i\\binom{k}{i}(k-i)^n.\n$$</div><p><strong>Proof / 容斥证明</strong></p><p>所有函数共有 $k^n$ 个。令 $A_j$ 表示陪域中第 $j$ 个元素没有被命中。满射就是没有任何 $A_j$ 发生。</p><p>若指定 $i$ 个陪域元素没被命中，则每个定义域元素只能映到剩下的 $k-i$ 个元素，有：</p><div class=\"math-display\">$$\n(k-i)^n\n$$</div><p>个函数。选择这 $i$ 个没被命中的元素有 $\\binom{k}{i}$ 种。由容斥得到：</p><div class=\"math-display\">$$\n\\#\\text{onto}\n=\n\\sum_{i=0}^{k}(-1)^i\\binom{k}{i}(k-i)^n.\n$$</div><p><strong>Example / 例题</strong></p><p>从 $5$ 个学生到 $3$ 个项目组的分配中，每个项目组至少有一个学生，有多少种？</p><p><strong>Solution / 解法</strong></p><p>学生不同，项目组不同，每个组非空。这是从 $5$ 元集合到 $3$ 元集合的满射：</p><div class=\"math-display\">$$\n3^5-\\binom31 2^5+\\binom32 1^5\n=243-96+3=150.\n$$</div><h5 id=\"12-2-第二类-stirling-数-stirling-numbers-of-the-second-kind\">12.2 第二类 Stirling 数 / Stirling Numbers of the Second Kind<a class=\"heading-anchor\" href=\"#12-2-第二类-stirling-数-stirling-numbers-of-the-second-kind\" data-heading-id=\"12-2-第二类-stirling-数-stirling-numbers-of-the-second-kind\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义</strong></p><p>$S(n,k)$ 表示把 $n$ 个有标号元素分成 $k$ 个非空无标号块的数量。</p><p>$S(n,k)$ is the number of ways to partition $n$ labeled elements into $k$ nonempty unlabeled blocks.</p><h5 id=\"12-3-stirling-递推-stirling-recurrence\">12.3 Stirling 递推 / Stirling Recurrence<a class=\"heading-anchor\" href=\"#12-3-stirling-递推-stirling-recurrence\" data-heading-id=\"12-3-stirling-递推-stirling-recurrence\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\nS(n,k)=S(n-1,k-1)+kS(n-1,k).\n$$</div><p>边界条件：</p><div class=\"math-display\">$$\nS(0,0)=1,\\quad S(n,0)=0\\ (n&gt;0),\\quad S(0,k)=0\\ (k&gt;0).\n$$</div><p><strong>Proof / 证明</strong></p><p>观察元素 $n$。</p><p>第一种情况：元素 $n$ 单独成一块。剩下 $n-1$ 个元素分成 $k-1$ 个非空块，有 $S(n-1,k-1)$ 种。</p><p>第二种情况：元素 $n$ 加入已有的某个块。先把前 $n-1$ 个元素分成 $k$ 块，有 $S(n-1,k)$ 种；再选择 $n$ 加入哪一块，有 $k$ 种。因此有 $kS(n-1,k)$ 种。</p><p>两种情况互斥且完整，所以递推成立。</p><h5 id=\"12-4-满射与-stirling-数关系-relation-between-onto-functions-and-stirling-numbers\">12.4 满射与 Stirling 数关系 / Relation Between Onto Functions and Stirling Numbers<a class=\"heading-anchor\" href=\"#12-4-满射与-stirling-数关系-relation-between-onto-functions-and-stirling-numbers\" data-heading-id=\"12-4-满射与-stirling-数关系-relation-between-onto-functions-and-stirling-numbers\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>从 $n$ 元集合到 $k$ 元集合的满射数为：</p><div class=\"math-display\">$$\nk!S(n,k).\n$$</div><p><strong>Proof / 证明</strong></p><p>一个满射会把定义域分成 $k$ 个非空原像块。若忽略陪域标签，就是一个 $k$ 块划分，有 $S(n,k)$ 种。  <br />然后把这 $k$ 个无标号块分配给 $k$ 个有标号陪域元素，有 $k!$ 种。</p><p>因此满射数为：</p><div class=\"math-display\">$$\nk!S(n,k).\n$$</div><p>结合容斥公式可得：</p><div class=\"math-display\">$$\nS(n,k)\n=\n\\frac{1}{k!}\n\\sum_{i=0}^{k}(-1)^i\\binom{k}{i}(k-i)^n.\n$$</div><h4 id=\"13-递推计数-counting-with-recurrences\">13. 递推计数 / Counting With Recurrences<a class=\"heading-anchor\" href=\"#13-递推计数-counting-with-recurrences\" data-heading-id=\"13-递推计数-counting-with-recurrences\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"13-1-递推关系定义-definition-of-recurrence-relation\">13.1 递推关系定义 / Definition of Recurrence Relation<a class=\"heading-anchor\" href=\"#13-1-递推关系定义-definition-of-recurrence-relation\" data-heading-id=\"13-1-递推关系定义-definition-of-recurrence-relation\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Recurrence relation / 递推关系</strong></p><p>递推关系用前面若干项定义后续项。例如：</p><div class=\"math-display\">$$\na_n=a_{n-1}+a_{n-2}.\n$$</div><p>A recurrence relation defines later terms using earlier terms.</p><p><strong>Initial conditions / 初始条件</strong></p><p>递推必须配合初始条件才能确定唯一序列。例如 Fibonacci 数：</p><div class=\"math-display\">$$\nF_0=0,\\quad F_1=1,\\quad F_n=F_{n-1}+F_{n-2}.\n$$</div><h5 id=\"13-2-用递推建模-modeling-by-recurrences\">13.2 用递推建模 / Modeling by Recurrences<a class=\"heading-anchor\" href=\"#13-2-用递推建模-modeling-by-recurrences\" data-heading-id=\"13-2-用递推建模-modeling-by-recurrences\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Strategy / 策略</strong></p><ol><li>定义 $a_n$ 是什么。/ Define what $a_n$ counts.</li><li>按第一个位置、最后一步、是否包含某元素等分类。/ Split by first position, last step, or whether a special element is used.</li><li>把大问题化成小问题。/ Reduce the problem to smaller cases.</li><li>写初始条件。/ Give initial conditions.</li></ol><p><strong>Example / 例题：无连续 1 的二进制串</strong></p><p>设 $a_n$ 为长度 $n$ 且没有连续 $1$ 的二进制串数量。求递推式。</p><p><strong>Solution / 解法</strong></p><p>按最后一位分类。</p><p>若最后一位是 $0$，前 $n-1$ 位可以是任意合法串，有 $a_{n-1}$ 种。</p><p>若最后一位是 $1$，倒数第二位必须是 $0$，前 $n-2$ 位可以是任意合法串，有 $a_{n-2}$ 种。</p><p>所以：</p><div class=\"math-display\">$$\na_n=a_{n-1}+a_{n-2}.\n$$</div><p>初始条件：</p><div class=\"math-display\">$$\na_0=1,\\quad a_1=2.\n$$</div><h5 id=\"13-3-一阶线性递推-first-order-linear-recurrences\">13.3 一阶线性递推 / First-Order Linear Recurrences<a class=\"heading-anchor\" href=\"#13-3-一阶线性递推-first-order-linear-recurrences\" data-heading-id=\"13-3-一阶线性递推-first-order-linear-recurrences\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Standard form / 标准形式</strong></p><div class=\"math-display\">$$\na_n=ca_{n-1}+d.\n$$</div><p>若 $c\\ne1$，则展开得：</p><div class=\"math-display\">$$\na_n=c^n a_0+d(1+c+\\cdots+c^{n-1})\n=c^n a_0+d\\frac{c^n-1}{c-1}.\n$$</div><p>若 $c=1$，则：</p><div class=\"math-display\">$$\na_n=a_0+nd.\n$$</div><p><strong>Example / 例题</strong></p><p>解：</p><div class=\"math-display\">$$\na_n=2a_{n-1}+3,\\qquad a_0=1.\n$$</div><p><strong>Solution / 解法</strong></p><p>展开：</p><div class=\"math-display\">$$\na_n=2^n a_0+3(1+2+\\cdots+2^{n-1})\n=2^n+3(2^n-1)\n=4\\cdot2^n-3.\n$$</div><h5 id=\"13-4-常系数齐次线性递推-linear-homogeneous-recurrences\">13.4 常系数齐次线性递推 / Linear Homogeneous Recurrences<a class=\"heading-anchor\" href=\"#13-4-常系数齐次线性递推-linear-homogeneous-recurrences\" data-heading-id=\"13-4-常系数齐次线性递推-linear-homogeneous-recurrences\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>若：</p><div class=\"math-display\">$$\na_n=c_1a_{n-1}+c_2a_{n-2},\n$$</div><p>尝试解 $a_n=r^n$，得到特征方程：</p><div class=\"math-display\">$$\nr^2=c_1r+c_2.\n$$</div><p>若有两个不同根 $r_1,r_2$，则通解为：</p><div class=\"math-display\">$$\na_n=\\alpha r_1^n+\\beta r_2^n.\n$$</div><p><strong>Proof idea / 证明思路</strong></p><p>代入 $a_n=r^n$：</p><div class=\"math-display\">$$\nr^n=c_1r^{n-1}+c_2r^{n-2}.\n$$</div><p>当 $r\\ne0$ 时除以 $r^{n-2}$，得到特征方程。线性递推的线性组合仍是解，所以不同根对应的解可线性组合。常数由初始条件确定。</p><p><strong>Example / 例题</strong></p><p>解：</p><div class=\"math-display\">$$\na_n=3a_{n-1}-2a_{n-2},\\quad a_0=2,\\quad a_1=3.\n$$</div><p><strong>Solution / 解法</strong></p><p>特征方程：</p><div class=\"math-display\">$$\nr^2=3r-2,\n$$</div><p>即：</p><div class=\"math-display\">$$\n(r-1)(r-2)=0.\n$$</div><p>通解：</p><div class=\"math-display\">$$\na_n=\\alpha+\\beta2^n.\n$$</div><p>由 $a_0=2$ 得：</p><div class=\"math-display\">$$\n\\alpha+\\beta=2.\n$$</div><p>由 $a_1=3$ 得：</p><div class=\"math-display\">$$\n\\alpha+2\\beta=3.\n$$</div><p>解得 $\\beta=1,\\alpha=1$，所以：</p><div class=\"math-display\">$$\na_n=1+2^n.\n$$</div><h5 id=\"13-5-计数递推与闭式公式-recurrence-versus-closed-form\">13.5 计数递推与闭式公式 / Recurrence Versus Closed Form<a class=\"heading-anchor\" href=\"#13-5-计数递推与闭式公式-recurrence-versus-closed-form\" data-heading-id=\"13-5-计数递推与闭式公式-recurrence-versus-closed-form\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Use / 怎么用</strong></p><p>递推本身通常已经是有效答案，尤其在算法计数或动态规划中。若题目要求 explicit formula / closed form，才进一步求闭式。</p><p>Counting recurrences are often already useful answers, especially in algorithms and dynamic programming. Find a closed form only when needed.</p><h4 id=\"14-生成函数-generating-functions\">14. 生成函数 / Generating Functions<a class=\"heading-anchor\" href=\"#14-生成函数-generating-functions\" data-heading-id=\"14-生成函数-generating-functions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"14-1-普通生成函数定义-ordinary-generating-function\">14.1 普通生成函数定义 / Ordinary Generating Function<a class=\"heading-anchor\" href=\"#14-1-普通生成函数定义-ordinary-generating-function\" data-heading-id=\"14-1-普通生成函数定义-ordinary-generating-function\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Definition / 定义</strong></p><p>序列 $a_0,a_1,a_2,\\ldots$ 的普通生成函数是：</p><div class=\"math-display\">$$\nA(x)=\\sum_{n=0}^{\\infty}a_nx^n.\n$$</div><p>The ordinary generating function of a sequence is the formal power series whose coefficient of $x^n$ is $a_n$.</p><h5 id=\"14-2-基本生成函数-basic-generating-functions\">14.2 基本生成函数 / Basic Generating Functions<a class=\"heading-anchor\" href=\"#14-2-基本生成函数-basic-generating-functions\" data-heading-id=\"14-2-基本生成函数-basic-generating-functions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>常用公式：</p><div class=\"math-display\">$$\n\\frac{1}{1-x}=1+x+x^2+x^3+\\cdots.\n$$</div><div class=\"math-display\">$$\n\\frac{1}{(1-x)^k}\n=\n\\sum_{n=0}^{\\infty}\\binom{n+k-1}{k-1}x^n.\n$$</div><div class=\"math-display\">$$\n(1+x)^n=\\sum_{k=0}^{n}\\binom{n}{k}x^k.\n$$</div><h5 id=\"14-3-生成函数用于限制计数-generating-functions-as-translators\">14.3 生成函数用于限制计数 / Generating Functions as Translators<a class=\"heading-anchor\" href=\"#14-3-生成函数用于限制计数-generating-functions-as-translators\" data-heading-id=\"14-3-生成函数用于限制计数-generating-functions-as-translators\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Rule / 规则</strong></p><p>若变量 $x_i$ 可取集合 $S_i$ 中的值，则对应因子为：</p><div class=\"math-display\">$$\n\\sum_{s\\in S_i}x^s.\n$$</div><p>所有变量共同限制的解数等于乘积中目标次数项的系数。</p><p><strong>Example / 例题</strong></p><p>求方程：</p><div class=\"math-display\">$$\nx_1+x_2+x_3=10\n$$</div><p>的解数，其中：</p><div class=\"math-display\">$$\nx_1\\in\\{0,1,2\\},\\quad\nx_2\\in\\{0,2,4\\},\\quad\nx_3\\in\\{1,2,3,4\\}.\n$$</div><p><strong>Solution / 解法</strong></p><p>对应生成函数：</p><div class=\"math-display\">$$\n(1+x+x^2)(1+x^2+x^4)(x+x^2+x^3+x^4).\n$$</div><p>答案是其中 $x^{10}$ 的系数：</p><div class=\"math-display\">$$\n[x^{10}](1+x+x^2)(1+x^2+x^4)(x+x^2+x^3+x^4).\n$$</div><p>由于最高次数为 $2+4+4=10$，要得到 $10$ 只能选 $x^2,x^4,x^4$，所以答案为 $1$。</p><h5 id=\"14-4-生成函数解星棒法-stars-and-bars-by-generating-functions\">14.4 生成函数解星棒法 / Stars and Bars by Generating Functions<a class=\"heading-anchor\" href=\"#14-4-生成函数解星棒法-stars-and-bars-by-generating-functions\" data-heading-id=\"14-4-生成函数解星棒法-stars-and-bars-by-generating-functions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Example / 例题</strong></p><p>求非负整数解：</p><div class=\"math-display\">$$\nx_1+x_2+\\cdots+x_k=n.\n$$</div><p><strong>Solution / 解法</strong></p><p>每个变量可取 $0,1,2,\\ldots$，对应因子：</p><div class=\"math-display\">$$\n1+x+x^2+\\cdots=\\frac{1}{1-x}.\n$$</div><p>总生成函数：</p><div class=\"math-display\">$$\n\\left(\\frac{1}{1-x}\\right)^k.\n$$</div><p>答案为：</p><div class=\"math-display\">$$\n[x^n]\\frac{1}{(1-x)^k}\n=\\binom{n+k-1}{k-1}.\n$$</div><p>这与星棒法一致。</p><h5 id=\"14-5-生成函数解递推-solving-recurrences-by-generating-functions\">14.5 生成函数解递推 / Solving Recurrences by Generating Functions<a class=\"heading-anchor\" href=\"#14-5-生成函数解递推-solving-recurrences-by-generating-functions\" data-heading-id=\"14-5-生成函数解递推-solving-recurrences-by-generating-functions\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Example / 例题：Fibonacci 生成函数</strong></p><p>设：</p><div class=\"math-display\">$$\nF_0=0,\\quad F_1=1,\\quad F_n=F_{n-1}+F_{n-2}\\quad(n\\ge2).\n$$</div><p>令：</p><div class=\"math-display\">$$\nF(x)=\\sum_{n=0}^{\\infty}F_nx^n.\n$$</div><p>对递推乘以 $x^n$ 并对 $n\\ge2$ 求和：</p><div class=\"math-display\">$$\n\\sum_{n\\ge2}F_nx^n\n=\n\\sum_{n\\ge2}F_{n-1}x^n\n+\n\\sum_{n\\ge2}F_{n-2}x^n.\n$$</div><p>左边为：</p><div class=\"math-display\">$$\nF(x)-F_0-F_1x=F(x)-x.\n$$</div><p>右边为：</p><div class=\"math-display\">$$\nx(F(x)-F_0)+x^2F(x)=xF(x)+x^2F(x).\n$$</div><p>所以：</p><div class=\"math-display\">$$\nF(x)-x=xF(x)+x^2F(x).\n$$</div><p>整理：</p><div class=\"math-display\">$$\nF(x)=\\frac{x}{1-x-x^2}.\n$$</div><p><strong>Use / 怎么用</strong></p><p>生成函数把递推变成代数方程，把计数限制变成系数提取。</p><p>Generating functions turn recurrences into algebraic equations and counting restrictions into coefficient extraction.</p><h4 id=\"15-catalan-数-catalan-numbers\">15. Catalan 数 / Catalan Numbers<a class=\"heading-anchor\" href=\"#15-catalan-数-catalan-numbers\" data-heading-id=\"15-catalan-数-catalan-numbers\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"15-1-定义-definition\">15.1 定义 / Definition<a class=\"heading-anchor\" href=\"#15-1-定义-definition\" data-heading-id=\"15-1-定义-definition\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Catalan numbers / Catalan 数</strong></p><div class=\"math-display\">$$\nC_n=\\frac{1}{n+1}\\binom{2n}{n}.\n$$</div><p>等价形式：</p><div class=\"math-display\">$$\nC_n=\\binom{2n}{n}-\\binom{2n}{n+1}.\n$$</div><p>前几项为：</p><div class=\"math-display\">$$\n1,1,2,5,14,42,\\ldots\n$$</div><h5 id=\"15-2-catalan-数计数对象-objects-counted-by-catalan-numbers\">15.2 Catalan 数计数对象 / Objects Counted by Catalan Numbers<a class=\"heading-anchor\" href=\"#15-2-catalan-数计数对象-objects-counted-by-catalan-numbers\" data-heading-id=\"15-2-catalan-数计数对象-objects-counted-by-catalan-numbers\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>$C_n$ 常计数以下对象：</p><ul><li>$n$ 对括号的合法匹配方式 / valid parenthesizations of $n$ pairs of parentheses</li><li>从 $(0,0)$ 到 $(n,n)$ 且不越过对角线 $y=x$ 的路径 / lattice paths that do not cross the diagonal</li><li>$n+1$ 个叶子的满二叉树形状 / full binary trees with $n+1$ leaves</li><li>凸 $(n+2)$ 边形的三角剖分 / triangulations of a convex $(n+2)$-gon</li></ul><h5 id=\"15-3-反射法证明-reflection-principle-proof\">15.3 反射法证明 / Reflection Principle Proof<a class=\"heading-anchor\" href=\"#15-3-反射法证明-reflection-principle-proof\" data-heading-id=\"15-3-反射法证明-reflection-principle-proof\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><p>从 $(0,0)$ 到 $(n,n)$，每步向右 $R$ 或向上 $U$，且从不越过直线 $y=x$ 的路径数为：</p><div class=\"math-display\">$$\nC_n=\\frac{1}{n+1}\\binom{2n}{n}.\n$$</div><p><strong>Proof / 证明</strong></p><p>所有从 $(0,0)$ 到 $(n,n)$ 的路径共有：</p><div class=\"math-display\">$$\n\\binom{2n}{n}\n$$</div><p>条，因为要在 $2n$ 步中选 $n$ 步向上。</p><p>坏路径是第一次到达 $y=x+1$ 的路径。对坏路径中从起点到第一次越过对角线的部分做反射，把 $R$ 和 $U$ 互换。这样得到一条从 $(-1,1)$ 到 $(n,n)$ 的路径，等价于从 $(0,0)$ 到 $(n+1,n-1)$ 的路径。</p><p>坏路径数为：</p><div class=\"math-display\">$$\n\\binom{2n}{n+1}.\n$$</div><p>所以好路径数为：</p><div class=\"math-display\">$$\n\\binom{2n}{n}-\\binom{2n}{n+1}.\n$$</div><p>化简：</p><div class=\"math-display\">$$\n\\binom{2n}{n+1}\n=\n\\binom{2n}{n}\\frac{n}{n+1}.\n$$</div><p>于是：</p><div class=\"math-display\">$$\n\\binom{2n}{n}-\\binom{2n}{n+1}\n=\n\\binom{2n}{n}\\left(1-\\frac{n}{n+1}\\right)\n=\n\\frac{1}{n+1}\\binom{2n}{n}.\n$$</div><p><strong>Example / 例题</strong></p><p>$4$ 对括号有多少种合法匹配方式？</p><p><strong>Solution / 解法</strong></p><p>答案是：</p><div class=\"math-display\">$$\nC_4=\\frac{1}{5}\\binom{8}{4}=14.\n$$</div><h5 id=\"15-4-catalan-递推-catalan-recurrence\">15.4 Catalan 递推 / Catalan Recurrence<a class=\"heading-anchor\" href=\"#15-4-catalan-递推-catalan-recurrence\" data-heading-id=\"15-4-catalan-递推-catalan-recurrence\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Theorem / 定理</strong></p><div class=\"math-display\">$$\nC_0=1,\\qquad\nC_{n+1}=\\sum_{i=0}^{n}C_iC_{n-i}.\n$$</div><p><strong>Proof / 证明</strong></p><p>考虑一个合法括号串。第一个左括号与某个右括号匹配。设其内部有 $i$ 对括号，外部剩下 $n-i$ 对括号。内部可以用 $C_i$ 种方式合法匹配，外部可以用 $C_{n-i}$ 种方式合法匹配。对所有 $i$ 求和：</p><div class=\"math-display\">$$\nC_{n+1}=\\sum_{i=0}^{n}C_iC_{n-i}.\n$$</div><h4 id=\"16-概率中的计数-生日问题-counting-in-probability-birthday-principle\">16. 概率中的计数：生日问题 / Counting in Probability: Birthday Principle<a class=\"heading-anchor\" href=\"#16-概率中的计数-生日问题-counting-in-probability-birthday-principle\" data-heading-id=\"16-概率中的计数-生日问题-counting-in-probability-birthday-principle\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"16-1-等可能模型-equally-likely-model\">16.1 等可能模型 / Equally Likely Model<a class=\"heading-anchor\" href=\"#16-1-等可能模型-equally-likely-model\" data-heading-id=\"16-1-等可能模型-equally-likely-model\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Rule / 规则</strong></p><p>若样本空间中每个结果等可能，则：</p><div class=\"math-display\">$$\n\\Pr(A)=\\frac{|A|}{|\\Omega|}.\n$$</div><p>计数概率题的第一步是写清样本空间 $\\Omega$。</p><h5 id=\"16-2-生日问题-birthday-problem\">16.2 生日问题 / Birthday Problem<a class=\"heading-anchor\" href=\"#16-2-生日问题-birthday-problem\" data-heading-id=\"16-2-生日问题-birthday-problem\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Problem / 问题</strong></p><p>假设一年有 $365$ 天且生日均匀独立。$n$ 个人中至少两人生日相同的概率是多少？</p><p><strong>Solution / 解法</strong></p><p>用补集。总样本数为：</p><div class=\"math-display\">$$\n365^n.\n$$</div><p>所有人生日互不相同的方式数为：</p><div class=\"math-display\">$$\n365\\cdot364\\cdots(365-n+1)\n=P(365,n).\n$$</div><p>所以至少两人生日相同的概率为：</p><div class=\"math-display\">$$\n1-\\frac{365\\cdot364\\cdots(365-n+1)}{365^n}.\n$$</div><p>当 $n=23$ 时，这个概率已经超过 $1/2$。</p><p><strong>Connection / 联系</strong></p><p>生日问题是“补集 + 排列 + 概率”的典型组合。</p><h4 id=\"17-证明模板-proof-templates\">17. 证明模板 / Proof Templates<a class=\"heading-anchor\" href=\"#17-证明模板-proof-templates\" data-heading-id=\"17-证明模板-proof-templates\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"17-1-组合证明模板-combinatorial-proof-template\">17.1 组合证明模板 / Combinatorial Proof Template<a class=\"heading-anchor\" href=\"#17-1-组合证明模板-combinatorial-proof-template\" data-heading-id=\"17-1-组合证明模板-combinatorial-proof-template\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Template / 模板</strong></p><p>要证明两个表达式相等：</p><div class=\"math-display\">$$\nL=R,\n$$</div><p>可以这样写：</p><ol><li>定义一个集合 $S$。/ Define a set $S$.</li><li>说明左边 $L$ 是按一种方式计数 $S$。/ Explain that $L$ counts $S$ in one way.</li><li>说明右边 $R$ 是按另一种方式计数 $S$。/ Explain that $R$ counts $S$ in another way.</li><li>因为两边都数同一个集合，所以 $L=R$。/ Since both sides count the same set, $L=R$.</li></ol><p><strong>Example / 例题</strong></p><p>证明：</p><div class=\"math-display\">$$\n\\sum_{r=0}^{n}\\binom{n}{r}=2^n.\n$$</div><p><strong>Proof / 证明</strong></p><p>令 $S$ 为 $n$ 元集合的所有子集。右边 $2^n$ 通过“每个元素选或不选”计数 $S$。左边按子集大小分类计数 $S$。因此两边相等。</p><h5 id=\"17-2-容斥证明模板-inclusion-exclusion-template\">17.2 容斥证明模板 / Inclusion-Exclusion Template<a class=\"heading-anchor\" href=\"#17-2-容斥证明模板-inclusion-exclusion-template\" data-heading-id=\"17-2-容斥证明模板-inclusion-exclusion-template\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Template / 模板</strong></p><ol><li>写全集 $U$。/ Define the universe $U$.</li><li>写坏事件 $A_i$。/ Define bad events $A_i$.</li><li>判断要求的是 $|A_1\\cup\\cdots\\cup A_n|$ 还是 $|U-(A_1\\cup\\cdots\\cup A_n)|$。/ Decide whether to count the union or its complement.</li><li>计算单交、双交、三交等。/ Count intersections.</li><li>交替加减。/ Alternate signs.</li></ol><h5 id=\"17-3-递推建模模板-recurrence-modeling-template\">17.3 递推建模模板 / Recurrence Modeling Template<a class=\"heading-anchor\" href=\"#17-3-递推建模模板-recurrence-modeling-template\" data-heading-id=\"17-3-递推建模模板-recurrence-modeling-template\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Template / 模板</strong></p><ol><li>设 $a_n$ 为目标数量。/ Let $a_n$ be the desired number.</li><li>按最后一步或第一个元素分类。/ Classify by the last step or first element.</li><li>把每类化成较小规模的 $a_i$。/ Express each case using smaller $a_i$.</li><li>写递推式。/ Write the recurrence.</li><li>写初始条件。/ State initial conditions.</li></ol><h5 id=\"17-4-生成函数模板-generating-function-template\">17.4 生成函数模板 / Generating Function Template<a class=\"heading-anchor\" href=\"#17-4-生成函数模板-generating-function-template\" data-heading-id=\"17-4-生成函数模板-generating-function-template\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p><strong>Template / 模板</strong></p><ol><li>每个变量限制翻译成一个多项式或幂级数。/ Translate each variable restriction into a polynomial or power series.</li><li>把因子相乘。/ Multiply the factors.</li><li>取目标次数系数。/ Extract the target coefficient.</li></ol><p>符号：</p><div class=\"math-display\">$$\n[x^n]A(x)\n$$</div><p>表示 $A(x)$ 中 $x^n$ 的系数。</p><h4 id=\"18-常见易错点-common-pitfalls\">18. 常见易错点 / Common Pitfalls<a class=\"heading-anchor\" href=\"#18-常见易错点-common-pitfalls\" data-heading-id=\"18-常见易错点-common-pitfalls\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"18-1-加法原则误用-misusing-the-sum-rule\">18.1 加法原则误用 / Misusing the Sum Rule<a class=\"heading-anchor\" href=\"#18-1-加法原则误用-misusing-the-sum-rule\" data-heading-id=\"18-1-加法原则误用-misusing-the-sum-rule\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>加法原则要求情况互斥。如果情况不互斥，要用容斥。</p><p>The sum rule requires disjoint cases. If cases overlap, use inclusion-exclusion.</p><h5 id=\"18-2-排列组合混淆-confusing-permutations-and-combinations\">18.2 排列组合混淆 / Confusing Permutations and Combinations<a class=\"heading-anchor\" href=\"#18-2-排列组合混淆-confusing-permutations-and-combinations\" data-heading-id=\"18-2-排列组合混淆-confusing-permutations-and-combinations\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>看“角色是否不同”而不是只看“人是否不同”。  <br />班长、副班长不同，是排列；委员会成员无职位，是组合。</p><p>Look for whether roles are distinct. President and vice president are ordered roles; committee members are not.</p><h5 id=\"18-3-重复是否允许-whether-repetition-is-allowed\">18.3 重复是否允许 / Whether Repetition Is Allowed<a class=\"heading-anchor\" href=\"#18-3-重复是否允许-whether-repetition-is-allowed\" data-heading-id=\"18-3-重复是否允许-whether-repetition-is-allowed\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>密码、字符串、函数通常允许重复；抽牌、选人通常不允许重复。</p><p>Passwords, strings, and functions usually allow repetition. Drawing cards or choosing people usually does not.</p><h5 id=\"18-4-除法原则的前提-condition-for-division-rule\">18.4 除法原则的前提 / Condition for Division Rule<a class=\"heading-anchor\" href=\"#18-4-除法原则的前提-condition-for-division-rule\" data-heading-id=\"18-4-除法原则的前提-condition-for-division-rule\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>只有每个目标对象被数了相同次数 $d$，才能直接除以 $d$。</p><p>You may divide by $d$ only when every target object is counted exactly $d$ times.</p><h5 id=\"18-5-容斥中的交集-intersections-in-inclusion-exclusion\">18.5 容斥中的交集 / Intersections in Inclusion-Exclusion<a class=\"heading-anchor\" href=\"#18-5-容斥中的交集-intersections-in-inclusion-exclusion\" data-heading-id=\"18-5-容斥中的交集-intersections-in-inclusion-exclusion\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>双交不是把两个单独数量相乘，而是同时满足两个条件的对象数量。</p><p>An intersection count is not usually the product of two separate counts. It counts objects satisfying both conditions.</p><h4 id=\"19-公式索引-formula-index\">19. 公式索引 / Formula Index<a class=\"heading-anchor\" href=\"#19-公式索引-formula-index\" data-heading-id=\"19-公式索引-formula-index\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"19-1-基本计数-basic-counting\">19.1 基本计数 / Basic Counting<a class=\"heading-anchor\" href=\"#19-1-基本计数-basic-counting\" data-heading-id=\"19-1-基本计数-basic-counting\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\n|A\\cup B|=|A|+|B|-|A\\cap B|.\n$$</div><div class=\"math-display\">$$\n|A\\times B|=|A||B|.\n$$</div><div class=\"math-display\">$$\n|\\mathcal{P}(A)|=2^{|A|}.\n$$</div><h5 id=\"19-2-排列组合-permutations-and-combinations\">19.2 排列组合 / Permutations and Combinations<a class=\"heading-anchor\" href=\"#19-2-排列组合-permutations-and-combinations\" data-heading-id=\"19-2-排列组合-permutations-and-combinations\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\nP(n,r)=\\frac{n!}{(n-r)!}.\n$$</div><div class=\"math-display\">$$\n\\binom{n}{r}=\\frac{n!}{r!(n-r)!}.\n$$</div><div class=\"math-display\">$$\n\\binom{n}{r}=\\binom{n}{n-r}.\n$$</div><h5 id=\"19-3-二项式-binomial\">19.3 二项式 / Binomial<a class=\"heading-anchor\" href=\"#19-3-二项式-binomial\" data-heading-id=\"19-3-二项式-binomial\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\n(x+y)^n=\\sum_{k=0}^{n}\\binom{n}{k}x^{n-k}y^k.\n$$</div><div class=\"math-display\">$$\n\\sum_{k=0}^{n}\\binom{n}{k}=2^n.\n$$</div><div class=\"math-display\">$$\n\\sum_{k=0}^{n}(-1)^k\\binom{n}{k}=0.\n$$</div><div class=\"math-display\">$$\n\\sum_{k=0}^{n}k\\binom{n}{k}=n2^{n-1}.\n$$</div><h5 id=\"19-4-容斥-inclusion-exclusion\">19.4 容斥 / Inclusion-Exclusion<a class=\"heading-anchor\" href=\"#19-4-容斥-inclusion-exclusion\" data-heading-id=\"19-4-容斥-inclusion-exclusion\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\n\\left|\\bigcup_{i=1}^{n}A_i\\right|\n=\n\\sum_i |A_i|\n-\n\\sum_{i&lt;j}|A_i\\cap A_j|\n+\n\\sum_{i&lt;j&lt;k}|A_i\\cap A_j\\cap A_k|\n-\\cdots.\n$$</div><h5 id=\"19-5-星棒法-stars-and-bars\">19.5 星棒法 / Stars and Bars<a class=\"heading-anchor\" href=\"#19-5-星棒法-stars-and-bars\" data-heading-id=\"19-5-星棒法-stars-and-bars\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\nx_1+\\cdots+x_k=n,\\ x_i\\ge0:\n\\quad\n\\binom{n+k-1}{k-1}.\n$$</div><div class=\"math-display\">$$\nx_1+\\cdots+x_k=n,\\ x_i\\ge1:\n\\quad\n\\binom{n-1}{k-1}.\n$$</div><h5 id=\"19-6-错排-满射-stirling-derangements-onto-functions-stirling\">19.6 错排、满射、Stirling / Derangements, Onto Functions, Stirling<a class=\"heading-anchor\" href=\"#19-6-错排-满射-stirling-derangements-onto-functions-stirling\" data-heading-id=\"19-6-错排-满射-stirling-derangements-onto-functions-stirling\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\nD_n=n!\\sum_{k=0}^{n}\\frac{(-1)^k}{k!}.\n$$</div><div class=\"math-display\">$$\n\\#\\text{onto from }[n]\\text{ to }[k]\n=\n\\sum_{i=0}^{k}(-1)^i\\binom{k}{i}(k-i)^n.\n$$</div><div class=\"math-display\">$$\nS(n,k)=S(n-1,k-1)+kS(n-1,k).\n$$</div><div class=\"math-display\">$$\n\\#\\text{onto}=k!S(n,k).\n$$</div><h5 id=\"19-7-catalan-catalan\">19.7 Catalan / Catalan<a class=\"heading-anchor\" href=\"#19-7-catalan-catalan\" data-heading-id=\"19-7-catalan-catalan\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"math-display\">$$\nC_n=\\frac{1}{n+1}\\binom{2n}{n}\n=\n\\binom{2n}{n}-\\binom{2n}{n+1}.\n$$</div><div class=\"math-display\">$$\nC_{n+1}=\\sum_{i=0}^{n}C_iC_{n-i}.\n$$</div><h4 id=\"20-中英术语表-bilingual-glossary\">20. 中英术语表 / Bilingual Glossary<a class=\"heading-anchor\" href=\"#20-中英术语表-bilingual-glossary\" data-heading-id=\"20-中英术语表-bilingual-glossary\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"table-scroll\"><table><thead><tr><th>English</th><th>中文</th></tr></thead><tbody><tr><td>counting principle</td><td>计数原理</td></tr><tr><td>cardinality</td><td>基数</td></tr><tr><td>finite set</td><td>有限集合</td></tr><tr><td>bijection</td><td>双射</td></tr><tr><td>sum rule</td><td>加法原则</td></tr><tr><td>product rule</td><td>乘法原则</td></tr><tr><td>subtraction rule</td><td>减法原则</td></tr><tr><td>division rule</td><td>除法原则</td></tr><tr><td>permutation</td><td>排列</td></tr><tr><td>combination</td><td>组合</td></tr><tr><td>binomial coefficient</td><td>二项式系数</td></tr><tr><td>binomial theorem</td><td>二项式定理</td></tr><tr><td>multinomial theorem</td><td>多项式定理</td></tr><tr><td>inclusion-exclusion principle</td><td>容斥原理</td></tr><tr><td>pigeonhole principle</td><td>鸽巢原理</td></tr><tr><td>stars and bars</td><td>星棒法</td></tr><tr><td>multiset</td><td>多重集合</td></tr><tr><td>circular permutation</td><td>圆排列</td></tr><tr><td>derangement</td><td>错排</td></tr><tr><td>fixed point</td><td>不动点</td></tr><tr><td>onto function</td><td>满射函数</td></tr><tr><td>Stirling number of the second kind</td><td>第二类 Stirling 数</td></tr><tr><td>recurrence relation</td><td>递推关系</td></tr><tr><td>generating function</td><td>生成函数</td></tr><tr><td>coefficient extraction</td><td>系数提取</td></tr><tr><td>Catalan number</td><td>Catalan 数</td></tr><tr><td>birthday problem</td><td>生日问题</td></tr></tbody></table></div>",
+  "headings": [
+    {
+      "id": "计数原理专题笔记-counting-principles-notes",
+      "title": "计数原理专题笔记 / Counting Principles Notes",
+      "level": 3
+    },
+    {
+      "id": "0-计数题总策略-general-strategy-for-counting",
+      "title": "0. 计数题总策略 / General Strategy for Counting",
+      "level": 4
+    },
+    {
+      "id": "0-1-计数题的本质-what-counting-really-means",
+      "title": "0.1 计数题的本质 / What Counting Really Means",
+      "level": 5
+    },
+    {
+      "id": "0-2-常用方法表-method-checklist",
+      "title": "0.2 常用方法表 / Method Checklist",
+      "level": 5
+    },
+    {
+      "id": "1-有限集合与基数-finite-sets-and-cardinality",
+      "title": "1. 有限集合与基数 / Finite Sets and Cardinality",
+      "level": 4
+    },
+    {
+      "id": "1-1-定义-definitions",
+      "title": "1.1 定义 / Definitions",
+      "level": 5
+    },
+    {
+      "id": "1-2-双射原则-bijection-principle",
+      "title": "1.2 双射原则 / Bijection Principle",
+      "level": 5
+    },
+    {
+      "id": "1-3-有限集合基数公式-cardinality-formulas",
+      "title": "1.3 有限集合基数公式 / Cardinality Formulas",
+      "level": 5
+    },
+    {
+      "id": "2-基本计数原则-basic-counting-principles",
+      "title": "2. 基本计数原则 / Basic Counting Principles",
+      "level": 4
+    },
+    {
+      "id": "2-1-加法原则-sum-rule",
+      "title": "2.1 加法原则 / Sum Rule",
+      "level": 5
+    },
+    {
+      "id": "2-2-乘法原则-product-rule",
+      "title": "2.2 乘法原则 / Product Rule",
+      "level": 5
+    },
+    {
+      "id": "2-3-减法原则与补集-subtraction-rule-and-complements",
+      "title": "2.3 减法原则与补集 / Subtraction Rule and Complements",
+      "level": 5
+    },
+    {
+      "id": "2-4-除法原则-division-rule",
+      "title": "2.4 除法原则 / Division Rule",
+      "level": 5
+    },
+    {
+      "id": "3-排列-permutations",
+      "title": "3. 排列 / Permutations",
+      "level": 4
+    },
+    {
+      "id": "3-1-排列定义-definition-of-permutation",
+      "title": "3.1 排列定义 / Definition of Permutation",
+      "level": 5
+    },
+    {
+      "id": "3-2-无重复排列-permutations-without-repetition",
+      "title": "3.2 无重复排列 / Permutations Without Repetition",
+      "level": 5
+    },
+    {
+      "id": "3-3-可重复序列-sequences-with-repetition",
+      "title": "3.3 可重复序列 / Sequences With Repetition",
+      "level": 5
+    },
+    {
+      "id": "3-4-有重复元素的排列-permutations-of-multisets",
+      "title": "3.4 有重复元素的排列 / Permutations of Multisets",
+      "level": 5
+    },
+    {
+      "id": "3-5-圆排列-circular-permutations",
+      "title": "3.5 圆排列 / Circular Permutations",
+      "level": 5
+    },
+    {
+      "id": "4-组合-combinations",
+      "title": "4. 组合 / Combinations",
+      "level": 4
+    },
+    {
+      "id": "4-1-组合定义-definition-of-combination",
+      "title": "4.1 组合定义 / Definition of Combination",
+      "level": 5
+    },
+    {
+      "id": "4-2-组合公式-combination-formula",
+      "title": "4.2 组合公式 / Combination Formula",
+      "level": 5
+    },
+    {
+      "id": "4-3-组合数对称性-symmetry-of-binomial-coefficients",
+      "title": "4.3 组合数对称性 / Symmetry of Binomial Coefficients",
+      "level": 5
+    },
+    {
+      "id": "4-4-先选再排-choose-then-arrange",
+      "title": "4.4 先选再排 / Choose Then Arrange",
+      "level": 5
+    },
+    {
+      "id": "5-二项式系数与组合恒等式-binomial-coefficients-and-combinatorial-identities",
+      "title": "5. 二项式系数与组合恒等式 / Binomial Coefficients and Combinatorial Identities",
+      "level": 4
+    },
+    {
+      "id": "5-1-pascal-恒等式-pascal-s-identity",
+      "title": "5.1 Pascal 恒等式 / Pascal's Identity",
+      "level": 5
+    },
+    {
+      "id": "5-2-子集总数恒等式-subset-identity",
+      "title": "5.2 子集总数恒等式 / Subset Identity",
+      "level": 5
+    },
+    {
+      "id": "5-3-vandermonde-恒等式-vandermonde-s-identity",
+      "title": "5.3 Vandermonde 恒等式 / Vandermonde's Identity",
+      "level": 5
+    },
+    {
+      "id": "5-4-曲棍球杆恒等式-hockey-stick-identity",
+      "title": "5.4 曲棍球杆恒等式 / Hockey-Stick Identity",
+      "level": 5
+    },
+    {
+      "id": "5-5-带权计数恒等式-weighted-counting-identity",
+      "title": "5.5 带权计数恒等式 / Weighted Counting Identity",
+      "level": 5
+    },
+    {
+      "id": "6-二项式定理与多项式定理-binomial-and-multinomial-theorems",
+      "title": "6. 二项式定理与多项式定理 / Binomial and Multinomial Theorems",
+      "level": 4
+    },
+    {
+      "id": "6-1-二项式定理-binomial-theorem",
+      "title": "6.1 二项式定理 / Binomial Theorem",
+      "level": 5
+    },
+    {
+      "id": "6-2-多项式定理-multinomial-theorem",
+      "title": "6.2 多项式定理 / Multinomial Theorem",
+      "level": 5
+    },
+    {
+      "id": "7-容斥原理-inclusion-exclusion-principle",
+      "title": "7. 容斥原理 / Inclusion-Exclusion Principle",
+      "level": 4
+    },
+    {
+      "id": "7-1-两集合容斥-two-set-inclusion-exclusion",
+      "title": "7.1 两集合容斥 / Two-Set Inclusion-Exclusion",
+      "level": 5
+    },
+    {
+      "id": "7-2-一般容斥-general-inclusion-exclusion",
+      "title": "7.2 一般容斥 / General Inclusion-Exclusion",
+      "level": 5
+    },
+    {
+      "id": "7-3-容斥计数补集-counting-by-excluding-bad-events",
+      "title": "7.3 容斥计数补集 / Counting by Excluding Bad Events",
+      "level": 5
+    },
+    {
+      "id": "8-鸽巢原理-pigeonhole-principle",
+      "title": "8. 鸽巢原理 / Pigeonhole Principle",
+      "level": 4
+    },
+    {
+      "id": "8-1-基本鸽巢原理-basic-pigeonhole-principle",
+      "title": "8.1 基本鸽巢原理 / Basic Pigeonhole Principle",
+      "level": 5
+    },
+    {
+      "id": "8-2-广义鸽巢原理-generalized-pigeonhole-principle",
+      "title": "8.2 广义鸽巢原理 / Generalized Pigeonhole Principle",
+      "level": 5
+    },
+    {
+      "id": "8-3-鸽巢构造技巧-how-to-design-boxes",
+      "title": "8.3 鸽巢构造技巧 / How to Design Boxes",
+      "level": 5
+    },
+    {
+      "id": "8-4-ramsey-例子-ramsey-example",
+      "title": "8.4 Ramsey 例子 / Ramsey Example",
+      "level": 5
+    },
+    {
+      "id": "9-星棒法与整数解-stars-and-bars",
+      "title": "9. 星棒法与整数解 / Stars and Bars",
+      "level": 4
+    },
+    {
+      "id": "9-1-非负整数解-nonnegative-integer-solutions",
+      "title": "9.1 非负整数解 / Nonnegative Integer Solutions",
+      "level": 5
+    },
+    {
+      "id": "9-2-正整数解-positive-integer-solutions",
+      "title": "9.2 正整数解 / Positive Integer Solutions",
+      "level": 5
+    },
+    {
+      "id": "9-3-可重复组合-combinations-with-repetition",
+      "title": "9.3 可重复组合 / Combinations With Repetition",
+      "level": 5
+    },
+    {
+      "id": "9-4-有上界的星棒法-stars-and-bars-with-upper-bounds",
+      "title": "9.4 有上界的星棒法 / Stars and Bars With Upper Bounds",
+      "level": 5
+    },
+    {
+      "id": "10-分配问题-distribution-problems",
+      "title": "10. 分配问题 / Distribution Problems",
+      "level": 4
+    },
+    {
+      "id": "10-1-四种基本分配模型-four-basic-distribution-models",
+      "title": "10.1 四种基本分配模型 / Four Basic Distribution Models",
+      "level": 5
+    },
+    {
+      "id": "10-2-不同球到不同盒-distinct-balls-into-distinct-boxes",
+      "title": "10.2 不同球到不同盒 / Distinct Balls Into Distinct Boxes",
+      "level": 5
+    },
+    {
+      "id": "10-3-相同球到不同盒-identical-balls-into-distinct-boxes",
+      "title": "10.3 相同球到不同盒 / Identical Balls Into Distinct Boxes",
+      "level": 5
+    },
+    {
+      "id": "11-错排-derangements",
+      "title": "11. 错排 / Derangements",
+      "level": 4
+    },
+    {
+      "id": "11-1-定义-definition",
+      "title": "11.1 定义 / Definition",
+      "level": 5
+    },
+    {
+      "id": "11-2-错排公式-derangement-formula",
+      "title": "11.2 错排公式 / Derangement Formula",
+      "level": 5
+    },
+    {
+      "id": "11-3-错排递推-derangement-recurrence",
+      "title": "11.3 错排递推 / Derangement Recurrence",
+      "level": 5
+    },
+    {
+      "id": "12-满射函数与第二类-stirling-数-onto-functions-and-stirling-numbers-of-the-second-kind",
+      "title": "12. 满射函数与第二类 Stirling 数 / Onto Functions and Stirling Numbers of the Second Kind",
+      "level": 4
+    },
+    {
+      "id": "12-1-满射函数计数-counting-onto-functions",
+      "title": "12.1 满射函数计数 / Counting Onto Functions",
+      "level": 5
+    },
+    {
+      "id": "12-2-第二类-stirling-数-stirling-numbers-of-the-second-kind",
+      "title": "12.2 第二类 Stirling 数 / Stirling Numbers of the Second Kind",
+      "level": 5
+    },
+    {
+      "id": "12-3-stirling-递推-stirling-recurrence",
+      "title": "12.3 Stirling 递推 / Stirling Recurrence",
+      "level": 5
+    },
+    {
+      "id": "12-4-满射与-stirling-数关系-relation-between-onto-functions-and-stirling-numbers",
+      "title": "12.4 满射与 Stirling 数关系 / Relation Between Onto Functions and Stirling Numbers",
+      "level": 5
+    },
+    {
+      "id": "13-递推计数-counting-with-recurrences",
+      "title": "13. 递推计数 / Counting With Recurrences",
+      "level": 4
+    },
+    {
+      "id": "13-1-递推关系定义-definition-of-recurrence-relation",
+      "title": "13.1 递推关系定义 / Definition of Recurrence Relation",
+      "level": 5
+    },
+    {
+      "id": "13-2-用递推建模-modeling-by-recurrences",
+      "title": "13.2 用递推建模 / Modeling by Recurrences",
+      "level": 5
+    },
+    {
+      "id": "13-3-一阶线性递推-first-order-linear-recurrences",
+      "title": "13.3 一阶线性递推 / First-Order Linear Recurrences",
+      "level": 5
+    },
+    {
+      "id": "13-4-常系数齐次线性递推-linear-homogeneous-recurrences",
+      "title": "13.4 常系数齐次线性递推 / Linear Homogeneous Recurrences",
+      "level": 5
+    },
+    {
+      "id": "13-5-计数递推与闭式公式-recurrence-versus-closed-form",
+      "title": "13.5 计数递推与闭式公式 / Recurrence Versus Closed Form",
+      "level": 5
+    },
+    {
+      "id": "14-生成函数-generating-functions",
+      "title": "14. 生成函数 / Generating Functions",
+      "level": 4
+    },
+    {
+      "id": "14-1-普通生成函数定义-ordinary-generating-function",
+      "title": "14.1 普通生成函数定义 / Ordinary Generating Function",
+      "level": 5
+    },
+    {
+      "id": "14-2-基本生成函数-basic-generating-functions",
+      "title": "14.2 基本生成函数 / Basic Generating Functions",
+      "level": 5
+    },
+    {
+      "id": "14-3-生成函数用于限制计数-generating-functions-as-translators",
+      "title": "14.3 生成函数用于限制计数 / Generating Functions as Translators",
+      "level": 5
+    },
+    {
+      "id": "14-4-生成函数解星棒法-stars-and-bars-by-generating-functions",
+      "title": "14.4 生成函数解星棒法 / Stars and Bars by Generating Functions",
+      "level": 5
+    },
+    {
+      "id": "14-5-生成函数解递推-solving-recurrences-by-generating-functions",
+      "title": "14.5 生成函数解递推 / Solving Recurrences by Generating Functions",
+      "level": 5
+    },
+    {
+      "id": "15-catalan-数-catalan-numbers",
+      "title": "15. Catalan 数 / Catalan Numbers",
+      "level": 4
+    },
+    {
+      "id": "15-1-定义-definition",
+      "title": "15.1 定义 / Definition",
+      "level": 5
+    },
+    {
+      "id": "15-2-catalan-数计数对象-objects-counted-by-catalan-numbers",
+      "title": "15.2 Catalan 数计数对象 / Objects Counted by Catalan Numbers",
+      "level": 5
+    },
+    {
+      "id": "15-3-反射法证明-reflection-principle-proof",
+      "title": "15.3 反射法证明 / Reflection Principle Proof",
+      "level": 5
+    },
+    {
+      "id": "15-4-catalan-递推-catalan-recurrence",
+      "title": "15.4 Catalan 递推 / Catalan Recurrence",
+      "level": 5
+    },
+    {
+      "id": "16-概率中的计数-生日问题-counting-in-probability-birthday-principle",
+      "title": "16. 概率中的计数：生日问题 / Counting in Probability: Birthday Principle",
+      "level": 4
+    },
+    {
+      "id": "16-1-等可能模型-equally-likely-model",
+      "title": "16.1 等可能模型 / Equally Likely Model",
+      "level": 5
+    },
+    {
+      "id": "16-2-生日问题-birthday-problem",
+      "title": "16.2 生日问题 / Birthday Problem",
+      "level": 5
+    },
+    {
+      "id": "17-证明模板-proof-templates",
+      "title": "17. 证明模板 / Proof Templates",
+      "level": 4
+    },
+    {
+      "id": "17-1-组合证明模板-combinatorial-proof-template",
+      "title": "17.1 组合证明模板 / Combinatorial Proof Template",
+      "level": 5
+    },
+    {
+      "id": "17-2-容斥证明模板-inclusion-exclusion-template",
+      "title": "17.2 容斥证明模板 / Inclusion-Exclusion Template",
+      "level": 5
+    },
+    {
+      "id": "17-3-递推建模模板-recurrence-modeling-template",
+      "title": "17.3 递推建模模板 / Recurrence Modeling Template",
+      "level": 5
+    },
+    {
+      "id": "17-4-生成函数模板-generating-function-template",
+      "title": "17.4 生成函数模板 / Generating Function Template",
+      "level": 5
+    },
+    {
+      "id": "18-常见易错点-common-pitfalls",
+      "title": "18. 常见易错点 / Common Pitfalls",
+      "level": 4
+    },
+    {
+      "id": "18-1-加法原则误用-misusing-the-sum-rule",
+      "title": "18.1 加法原则误用 / Misusing the Sum Rule",
+      "level": 5
+    },
+    {
+      "id": "18-2-排列组合混淆-confusing-permutations-and-combinations",
+      "title": "18.2 排列组合混淆 / Confusing Permutations and Combinations",
+      "level": 5
+    },
+    {
+      "id": "18-3-重复是否允许-whether-repetition-is-allowed",
+      "title": "18.3 重复是否允许 / Whether Repetition Is Allowed",
+      "level": 5
+    },
+    {
+      "id": "18-4-除法原则的前提-condition-for-division-rule",
+      "title": "18.4 除法原则的前提 / Condition for Division Rule",
+      "level": 5
+    },
+    {
+      "id": "18-5-容斥中的交集-intersections-in-inclusion-exclusion",
+      "title": "18.5 容斥中的交集 / Intersections in Inclusion-Exclusion",
+      "level": 5
+    },
+    {
+      "id": "19-公式索引-formula-index",
+      "title": "19. 公式索引 / Formula Index",
+      "level": 4
+    },
+    {
+      "id": "19-1-基本计数-basic-counting",
+      "title": "19.1 基本计数 / Basic Counting",
+      "level": 5
+    },
+    {
+      "id": "19-2-排列组合-permutations-and-combinations",
+      "title": "19.2 排列组合 / Permutations and Combinations",
+      "level": 5
+    },
+    {
+      "id": "19-3-二项式-binomial",
+      "title": "19.3 二项式 / Binomial",
+      "level": 5
+    },
+    {
+      "id": "19-4-容斥-inclusion-exclusion",
+      "title": "19.4 容斥 / Inclusion-Exclusion",
+      "level": 5
+    },
+    {
+      "id": "19-5-星棒法-stars-and-bars",
+      "title": "19.5 星棒法 / Stars and Bars",
+      "level": 5
+    },
+    {
+      "id": "19-6-错排-满射-stirling-derangements-onto-functions-stirling",
+      "title": "19.6 错排、满射、Stirling / Derangements, Onto Functions, Stirling",
+      "level": 5
+    },
+    {
+      "id": "19-7-catalan-catalan",
+      "title": "19.7 Catalan / Catalan",
+      "level": 5
+    },
+    {
+      "id": "20-中英术语表-bilingual-glossary",
+      "title": "20. 中英术语表 / Bilingual Glossary",
+      "level": 4
+    }
+  ]
+}
