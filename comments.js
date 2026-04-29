@@ -156,7 +156,7 @@
 
     setBusy(container, true);
     try {
-      const data = await request(settings, "/api/comment-auth/email/start", {
+      const data = await request(settings, "/api/comment-email-start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email }),
@@ -177,7 +177,7 @@
 
     setBusy(container, true);
     try {
-      await request(settings, "/api/comment-auth/email/verify", {
+      await request(settings, "/api/comment-email-verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code }),
