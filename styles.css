@@ -2410,7 +2410,7 @@ h3 {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
-  align-items: end;
+  align-items: start;
 }
 
 .comment-email-form {
@@ -2438,6 +2438,10 @@ h3 {
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
+}
+
+.comment-github-login {
+  align-self: start;
 }
 
 .comment-email-form input {
