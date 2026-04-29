@@ -264,13 +264,10 @@
   function shellMarkup(settings) {
     return `
       <div class="comments-heading">
-        <div>
-          <p class="eyebrow">Comments 评论</p>
-          <h2>留言区</h2>
-        </div>
+        <h2>留言区</h2>
+        <p class="comment-status" data-comment-status aria-live="polite"></p>
       </div>
       <div class="comments-panel">
-        <p class="comment-status" data-comment-status aria-live="polite"></p>
         <div data-comment-composer></div>
         <div class="comment-list" data-comments-body></div>
       </div>
@@ -280,13 +277,12 @@
   function loginMarkup() {
     return `
       <div class="comment-login">
-        <p>登录后可以发表评论、回复，并且编辑或删除自己的评论。</p>
         <div class="comment-login-grid">
           <form class="comment-email-form" data-comment-email-start>
             <input name="name" type="text" maxlength="32" autocomplete="nickname" placeholder="显示昵称" required />
             <input name="email" type="email" inputmode="email" autocomplete="email" placeholder="QQ 邮箱" required />
             <button class="comment-button comment-button-primary" type="submit">QQ 邮箱登录</button>
-            <small class="comment-login-note">QQ 邮箱首次登录会绑定昵称，之后同一邮箱会沿用第一次绑定的昵称；不能使用作者昵称或已注册昵称，邮箱不会公开显示。</small>
+            <small class="comment-login-note">首次绑定昵称；禁用作者/重复昵称；邮箱不公开。</small>
           </form>
           <div class="comment-github-login">
             <button class="comment-button comment-button-primary" type="button" data-comment-action="login">GitHub 登录</button>
@@ -321,7 +317,6 @@
         </div>
         <textarea name="comment" maxlength="${Number(settings.maxLength) || 2000}" placeholder="写下你的评论..." required></textarea>
         <div class="comment-form-actions">
-          <small>你可以回复他人，也可以随时编辑或删除自己的评论。</small>
           <button class="comment-button comment-button-primary" type="submit">发表评论</button>
         </div>
       </form>
