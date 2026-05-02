@@ -494,6 +494,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "::: note Warning！！！ 观前提醒： 本文仅为脸滚键盘的随意组合，请勿与本人联系在一起。 ::: “我祈祷拥有一颗透明的心灵，和会流泪的眼睛。” 可是，“会流泪的眼睛” 没有用，哭 解决不了任何问题，就好像今天的杭州又下起了雨...",
       "readingMinutes": 1,
       "createdAt": "2026-04-28T00:00:00.000Z"
+    },
+    {
+      "id": "life/2026-05-03-到家前的一刻.md",
+      "slug": "2026-05-03-到家前的一刻",
+      "dataPath": "post-data/2026-05-03-%E5%88%B0%E5%AE%B6%E5%89%8D%E7%9A%84%E4%B8%80%E5%88%BB.json",
+      "source": "post",
+      "kind": "videos",
+      "title": "到家前的一刻",
+      "publishedIndex": 28,
+      "stage": "Life Log 生活记录",
+      "tag": "随笔",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "回石狮 想来，也许久没有更新了。 这句话在凌晨的杭州东站里反复出现在我的脑海，像一条没有发出去的朋友圈文案。屏幕亮着，输入框空着，身边的人拖着行李箱从我面前经过，轮子压过地砖缝隙，发出细碎而规律的声响。凌晨的车站并不真正安静，只是所有声音都...",
+      "readingMinutes": 4,
+      "createdAt": "2026-05-03T00:00:00.000Z"
     }
   ]
 };

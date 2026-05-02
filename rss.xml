@@ -6,7 +6,14 @@
     <link>https://qqqzj.cn/</link>
     <description>qqqzj 的个人笔记、生活记录与学习档案。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 29 Apr 2026 13:10:12 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 02 May 2026 16:43:16 GMT</lastBuildDate>
+    <item>
+      <title>到家前的一刻</title>
+      <link>https://qqqzj.cn/post/2026-05-03-%E5%88%B0%E5%AE%B6%E5%89%8D%E7%9A%84%E4%B8%80%E5%88%BB/</link>
+      <guid>https://qqqzj.cn/post/2026-05-03-%E5%88%B0%E5%AE%B6%E5%89%8D%E7%9A%84%E4%B8%80%E5%88%BB/</guid>
+      <pubDate>Sun, 03 May 2026 00:00:00 GMT</pubDate>
+      <description>回石狮 想来，也许久没有更新了。 这句话在凌晨的杭州东站里反复出现在我的脑海，像一条没有发出去的朋友圈文案。屏幕亮着，输入框空着，身边的人拖着行李箱从我面前经过，轮子压过地砖缝隙，发出细碎而规律的声响。凌晨的车站并不真正安静，只是所有声音都...</description>
+    </item>
     <item>
       <title>DataStructure_Tree</title>
       <link>https://qqqzj.cn/post/2026-04-29-datastructure-tree/</link>
@@ -139,13 +146,6 @@
       <guid>https://qqqzj.cn/post/2026-04-25-physics-i-midterm-mechanics-complete-review/</guid>
       <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
       <description>General Physics I Midterm Review Outline / 普物 I 期中复习提纲（Mechanics 讲义全覆盖版） Main reference / 主参考：普物I/reference books/mechan...</description>
-    </item>
-    <item>
-      <title>普物 I 期中复习提纲（重点速览版）</title>
-      <link>https://qqqzj.cn/post/2026-04-25-physics-i-midterm-review-outline/</link>
-      <guid>https://qqqzj.cn/post/2026-04-25-physics-i-midterm-review-outline/</guid>
-      <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
-      <description>General Physics I Midterm Review Outline / 普物 I 期中复习提纲 Based on / 依据：slides 课件、homework 作业、midterm 历年期中卷。 Focus / 重点：mec...</description>
     </item>
   </channel>
 </rss>
