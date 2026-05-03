@@ -1,4 +1,4 @@
-const CACHE_NAME = "crane-site-shell-v14";
+const CACHE_NAME = "crane-site-shell-v15";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -11,7 +11,6 @@ const APP_SHELL = [
   "/published-posts.js",
   "/manifest.webmanifest",
   "/assets/site-icon-192.png",
-  "/assets/site-icon-512.png",
   "/assets/furina-avatar-pneuma.webp",
   "/assets/furina-avatar-ousia.webp",
   "/assets/blog-studio.webp",

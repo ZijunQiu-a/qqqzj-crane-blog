@@ -1788,7 +1788,7 @@ function calloutTitle(type) {
 
 function typesetMath() {
   if (typeof window.renderBlogMath === "function") {
-    window.renderBlogMath(document.body);
+    window.renderBlogMath(document.body).catch?.(() => {});
     return;
   }
 
@@ -1798,7 +1798,7 @@ function typesetMath() {
 
 function renderMermaid(root = document.body) {
   if (typeof window.renderBlogMermaid === "function") {
-    window.renderBlogMermaid(root);
+    window.renderBlogMermaid(root).catch?.(() => {});
   }
 }
 
