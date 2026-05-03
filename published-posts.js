@@ -327,6 +327,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "树专题复习笔记 0. 总览 树专题在这门课里大致分成四块： 1. 普通树与二叉树：术语、表示法、遍历、表达式树、线索二叉树。 2. 二叉搜索树 BST：ADT、查找、插入、删除、平均情况分析。 3. 优先队列与二叉堆：堆的结构性质、堆序性质...",
       "readingMinutes": 10,
       "createdAt": "2026-04-29T00:00:00.000Z"
+    },
+    {
+      "id": "notes/programming/2026-05-03-algorithm-list-stack-queue-复习笔记.md",
+      "slug": "2026-05-03-algorithm-list-stack-queue-复习笔记",
+      "dataPath": "post-data/2026-05-03-algorithm-list-stack-queue-%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0.json",
+      "source": "post",
+      "kind": "notes",
+      "title": "Algorithm / List / Stack / Queue 复习笔记",
+      "publishedIndex": 29,
+      "stage": "Notes 笔记",
+      "tag": "programming",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "Algorithm / List / Stack / Queue 复习笔记 0. 总览 这份笔记把以下四块按课程学习顺序整理成一份连续笔记： 1. Algorithm Analysis：算法定义、复杂度、渐进记号、循环/递归分析、最大子列和...",
+      "readingMinutes": 19,
+      "createdAt": "2026-05-03T00:00:00.000Z"
     }
   ],
   "videos": [

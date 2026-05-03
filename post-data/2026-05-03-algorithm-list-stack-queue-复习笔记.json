@@ -1,0 +1,570 @@
+{
+  "html": "<h4 id=\"algorithm-list-stack-queue-复习笔记\">Algorithm / List / Stack / Queue 复习笔记<a class=\"heading-anchor\" href=\"#algorithm-list-stack-queue-复习笔记\" data-heading-id=\"algorithm-list-stack-queue-复习笔记\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h4 id=\"0-总览\">0. 总览<a class=\"heading-anchor\" href=\"#0-总览\" data-heading-id=\"0-总览\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>这份笔记把以下四块按课程学习顺序整理成一份连续笔记：</p><ol><li>Algorithm Analysis：算法定义、复杂度、渐进记号、循环/递归分析、最大子列和、二分搜索。</li><li>List ADT：ADT 思想、数组表、单链表、双向循环链表、多项式、多重链表、游标实现。</li><li>Stack ADT：LIFO、数组/链表栈、括号匹配、后缀表达式、中缀转后缀、函数调用栈。</li><li>Queue ADT：FIFO、数组/链表队列、循环队列、层序遍历、BFS、LRU-K。</li></ol><p>逻辑顺序是：先学会如何分析算法，再学线性表这个一般 ADT；Stack 和 Queue 是 List 的两个受限版本，所以放在 List 后面。后续树、堆、图的复杂度分析都会反复用到这里的 Big-O、循环规则和递归式。</p><h4 id=\"1-algorithm-与-program\">1. Algorithm 与 Program<a class=\"heading-anchor\" href=\"#1-algorithm-与-program\" data-heading-id=\"1-algorithm-与-program\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"1-1-algorithm-的定义\">1.1 Algorithm 的定义<a class=\"heading-anchor\" href=\"#1-1-algorithm-的定义\" data-heading-id=\"1-1-algorithm-的定义\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>课程 PPT 的定义：</p><p>An algorithm is a finite set of instructions that, if followed, accomplishes a particular task.</p><p>一个算法必须满足五个条件：</p><div class=\"table-scroll\"><table><thead><tr><th>条件</th><th>含义</th></tr></thead><tbody><tr><td>Input</td><td>有零个或多个外部输入</td></tr><tr><td>Output</td><td>至少产生一个输出</td></tr><tr><td>Definiteness</td><td>每条指令清楚且无歧义</td></tr><tr><td>Finiteness</td><td>对所有情况，有限步后终止</td></tr><tr><td>Effectiveness</td><td>每条指令都足够基本，原则上能用纸笔执行</td></tr></tbody></table></div><p>注意：</p><ul><li>Program 用某种编程语言写出，不一定有限。例如 operating system 可以一直运行。</li><li>Algorithm 可以用自然语言、流程图、程序语言或 pseudo-code 描述。</li></ul><h5 id=\"1-2-selection-sort-例子\">1.2 Selection Sort 例子<a class=\"heading-anchor\" href=\"#1-2-selection-sort-例子\" data-heading-id=\"1-2-selection-sort-例子\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 用 selection sort 说明算法描述。</p><p>任务：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>Sort a set of n &gt;= 1 integers in increasing order.</code></pre><p>思想：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>From those integers that are currently unsorted,\nfind the smallest and place it next in the sorted list.</code></pre><p>伪代码：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">for</span> (i = <span class=\"syntax-number\">0</span>; i &lt; n; i++) {\n    Examine list[i] to list[n - <span class=\"syntax-number\">1</span>]\n    and suppose that the smallest integer is at list[min];\n    Interchange list[i] and list[min];\n}</code></pre><p>复杂度：</p><ul><li>外层执行 $n$ 次。</li><li>第 $i$ 次从未排序区间中找最小值，长度约为 $n-i$。</li><li>总比较次数是：</li></ul><div class=\"math-display\">$$\n\\sum_{i=0}^{n-1} (n-i) = \\Theta(N^2)\n$$</div><p>所以：</p><div class=\"math-display\">$$\nT(N) = \\Theta(N^2)\n$$</div><p>额外空间：</p><div class=\"math-display\">$$\nS(N) = O(1)\n$$</div><h4 id=\"2-what-to-analyze\">2. What to Analyze<a class=\"heading-anchor\" href=\"#2-what-to-analyze\" data-heading-id=\"2-what-to-analyze\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"2-1-分析什么\">2.1 分析什么<a class=\"heading-anchor\" href=\"#2-1-分析什么\" data-heading-id=\"2-1-分析什么\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 区分两类时间：</p><ul><li>Machine &amp; compiler-dependent run times：依赖机器、编译器、系统环境。</li><li>Time &amp; space complexities：尽量和机器、编译器无关。</li></ul><p>算法分析通常关注：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>Tavg(N)\nTworst(N)</code></pre><p>其中：</p><ul><li>$T_{avg}(N)$ 是平均情况时间复杂度。</li><li>$T_{worst}(N)$ 是最坏情况时间复杂度。</li><li>如果输入不止一个规模参数，复杂度函数也可以有多个参数。</li></ul><h5 id=\"2-2-课程分析假设\">2.2 课程分析假设<a class=\"heading-anchor\" href=\"#2-2-课程分析假设\" data-heading-id=\"2-2-课程分析假设\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 的假设：</p><ol><li>instructions are executed sequentially</li><li>each instruction is simple, and takes exactly one time unit</li><li>integer size is fixed and we have infinite memory</li></ol><p>这些假设不是现实机器的完整模型，但足够用来比较增长趋势。</p><h4 id=\"3-精确计数到渐进分析\">3. 精确计数到渐进分析<a class=\"heading-anchor\" href=\"#3-精确计数到渐进分析\" data-heading-id=\"3-精确计数到渐进分析\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"3-1-matrix-addition\">3.1 Matrix Addition<a class=\"heading-anchor\" href=\"#3-1-matrix-addition\" data-heading-id=\"3-1-matrix-addition\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 例子：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">add</span>(<span class=\"syntax-keyword\">int</span> a[][MAX_SIZE],\n         <span class=\"syntax-keyword\">int</span> b[][MAX_SIZE],\n         <span class=\"syntax-keyword\">int</span> c[][MAX_SIZE],\n         <span class=\"syntax-keyword\">int</span> rows, <span class=\"syntax-keyword\">int</span> cols)\n{\n    <span class=\"syntax-keyword\">int</span> i, j;\n    <span class=\"syntax-keyword\">for</span> (i = <span class=\"syntax-number\">0</span>; i &lt; rows; i++)\n        <span class=\"syntax-keyword\">for</span> (j = <span class=\"syntax-number\">0</span>; j &lt; cols; j++)\n            c[i][j] = a[i][j] + b[i][j];\n}</code></pre><p>PPT 给出的精确计数：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>outer loop test: rows + 1\ninner loop test: rows * (cols + 1)\nassignment:       rows * cols</code></pre><p>所以：</p><div class=\"math-display\">$$\nT(rows, cols) = 2rows \\cdot cols + 2rows + 1\n$$</div><p>渐进复杂度：</p><div class=\"math-display\">$$\nT(rows, cols) = \\Theta(rows \\cdot cols)\n$$</div><p>如果 <span class=\"math-inline\">\\(rows &gt;&gt; cols\\)</span>，交换循环顺序并不会改变渐进复杂度，但可能影响缓存局部性和常数时间；课程在这里主要强调多参数复杂度要保留参数关系。</p><h5 id=\"3-2-iterative-sum\">3.2 Iterative Sum<a class=\"heading-anchor\" href=\"#3-2-iterative-sum\" data-heading-id=\"3-2-iterative-sum\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 例子：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">float</span> <span class=\"syntax-function\">sum</span>(<span class=\"syntax-keyword\">float</span> list[], <span class=\"syntax-keyword\">int</span> n)\n{\n    <span class=\"syntax-keyword\">float</span> tempsum = <span class=\"syntax-number\">0</span>;\n    <span class=\"syntax-keyword\">int</span> i;\n\n    <span class=\"syntax-keyword\">for</span> (i = <span class=\"syntax-number\">0</span>; i &lt; n; i++)\n        tempsum += list[i];\n\n    <span class=\"syntax-keyword\">return</span> tempsum;\n}</code></pre><p>精确计数：</p><div class=\"math-display\">$$\nT_{sum}(n) = 2n + 3\n$$</div><p>渐进复杂度：</p><div class=\"math-display\">$$\nT(n) = \\Theta(N)\n$$</div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(n) = O(1)\n$$</div><h5 id=\"3-3-recursive-sum\">3.3 Recursive Sum<a class=\"heading-anchor\" href=\"#3-3-recursive-sum\" data-heading-id=\"3-3-recursive-sum\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 例子：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">float</span> <span class=\"syntax-function\">rsum</span>(<span class=\"syntax-keyword\">float</span> list[], <span class=\"syntax-keyword\">int</span> n)\n{\n    <span class=\"syntax-keyword\">if</span> (n)\n        <span class=\"syntax-keyword\">return</span> <span class=\"syntax-function\">rsum</span>(list, n - <span class=\"syntax-number\">1</span>) + list[n - <span class=\"syntax-number\">1</span>];\n    <span class=\"syntax-keyword\">return</span> <span class=\"syntax-number\">0</span>;\n}</code></pre><p>PPT 给出的计数：</p><div class=\"math-display\">$$\nT_{rsum}(n) = 2n + 2\n$$</div><p>渐进复杂度：</p><div class=\"math-display\">$$\nT(n) = \\Theta(N)\n$$</div><p>但递归版每一步有函数调用开销，而且使用系统栈：</p><div class=\"math-display\">$$\nS(n) = O(N)\n$$</div><p>所以不要因为 $2n+2 &lt; 2n+3$ 就误以为递归一定更快。复杂度主要比较增长趋势，不等于真实运行时间的全部。</p><h4 id=\"4-asymptotic-notation\">4. Asymptotic Notation<a class=\"heading-anchor\" href=\"#4-asymptotic-notation\" data-heading-id=\"4-asymptotic-notation\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"4-1-为什么需要渐进记号\">4.1 为什么需要渐进记号<a class=\"heading-anchor\" href=\"#4-1-为什么需要渐进记号\" data-heading-id=\"4-1-为什么需要渐进记号\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 的问题：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>Suppose Tp1(N) = c1N^2 + c2N\nand     Tp2(N) = c3N.\nWhich one is faster?</code></pre><p>不管常数 $c_1,c_2,c_3$ 是什么，只要 $N$ 足够大，$N^2$ 最终会比 $N$ 增长更快。</p><p>所以分析重点是：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>growth in run time as N changes</code></pre><h5 id=\"4-2-big-o\">4.2 Big-O<a class=\"heading-anchor\" href=\"#4-2-big-o\" data-heading-id=\"4-2-big-o\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>定义：</p><div class=\"math-display\">$$\nT(N) = O(f(N))\n$$</div><p>如果存在正常数 $c$ 和 $n_0$，使得对所有 $N \\ge n_0$：</p><div class=\"math-display\">$$\nT(N) \\le c \\cdot f(N)\n$$</div><p>直观理解：</p><ul><li>$O(f(N))$ 是渐进上界。</li><li>通常用于表示最坏增长不超过某个量级。</li></ul><p>例子：</p><div class=\"math-display\">$$\n2N + 3 = O(N)\n$$</div><p>也可以说 $2N+3=O(N^2)$，但课程强调我们总是取最小、最紧的常用上界。</p><h5 id=\"4-3-big-omega\">4.3 Big-Omega<a class=\"heading-anchor\" href=\"#4-3-big-omega\" data-heading-id=\"4-3-big-omega\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>定义：</p><div class=\"math-display\">$$\nT(N) = \\Omega(g(N))\n$$</div><p>如果存在正常数 $c$ 和 $n_0$，使得对所有 $N \\ge n_0$：</p><div class=\"math-display\">$$\nT(N) \\ge c \\cdot g(N)\n$$</div><p>直观理解：</p><ul><li>$\\Omega(g(N))$ 是渐进下界。</li><li>课程强调我们总是取最大的、最紧的常用下界。</li></ul><h5 id=\"4-4-big-theta\">4.4 Big-Theta<a class=\"heading-anchor\" href=\"#4-4-big-theta\" data-heading-id=\"4-4-big-theta\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>定义：</p><div class=\"math-display\">$$\nT(N) = \\Theta(h(N))\n$$</div><p>当且仅当：</p><div class=\"math-display\">$$\nT(N) = O(h(N)) \\quad \\text{and} \\quad T(N)=\\Omega(h(N))\n$$</div><p>直观理解：</p><ul><li>$\\Theta$ 是 tight bound。</li><li>既有上界，也有下界。</li></ul><p>例子：</p><div class=\"math-display\">$$\n2N + 3 = \\Theta(N)\n$$</div><h5 id=\"4-5-little-o\">4.5 little-o<a class=\"heading-anchor\" href=\"#4-5-little-o\" data-heading-id=\"4-5-little-o\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>定义：</p><div class=\"math-display\">$$\nT(N) = o(p(N))\n$$</div><p>如果：</p><div class=\"math-display\">$$\nT(N) = O(p(N))\n$$</div><p>并且：</p><div class=\"math-display\">$$\nT(N) \\ne \\Theta(p(N))\n$$</div><p>直观理解：</p><ul><li>$o(p(N))$ 表示严格小阶。</li><li>例如 $N = o(N^2)$。</li></ul><h4 id=\"5-渐进分析规则\">5. 渐进分析规则<a class=\"heading-anchor\" href=\"#5-渐进分析规则\" data-heading-id=\"5-渐进分析规则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"5-1-加法与乘法规则\">5.1 加法与乘法规则<a class=\"heading-anchor\" href=\"#5-1-加法与乘法规则\" data-heading-id=\"5-1-加法与乘法规则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 规则：</p><p>如果：</p><div class=\"math-display\">$$\nT_1(N)=O(f(N)), \\quad T_2(N)=O(g(N))\n$$</div><p>那么：</p><div class=\"math-display\">$$\nT_1(N)+T_2(N)=\\max(O(f(N)), O(g(N)))\n$$</div><p>也就是连续语句复杂度取较大者。</p><p>乘法规则：</p><div class=\"math-display\">$$\nT_1(N) \\cdot T_2(N)=O(f(N)\\cdot g(N))\n$$</div><p>常用于嵌套循环。</p><h5 id=\"5-2-多项式规则\">5.2 多项式规则<a class=\"heading-anchor\" href=\"#5-2-多项式规则\" data-heading-id=\"5-2-多项式规则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>如果 $T(N)$ 是 $k$ 次多项式，则：</p><div class=\"math-display\">$$\nT(N)=\\Theta(N^k)\n$$</div><p>例子：</p><div class=\"math-display\">$$\n3N^3 + 20N^2 + 7N + 9 = \\Theta(N^3)\n$$</div><h5 id=\"5-3-对数增长\">5.3 对数增长<a class=\"heading-anchor\" href=\"#5-3-对数增长\" data-heading-id=\"5-3-对数增长\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 结论：</p><div class=\"math-display\">$$\n\\log^k N = O(N)\n$$</div><p>其中 $k$ 是任意常数。</p><p>含义：</p><ul><li>logarithms grow very slowly。</li><li>二分搜索、平衡树、堆的高度都常出现 $\\log N$。</li></ul><h5 id=\"5-4-循环分析通用规则\">5.4 循环分析通用规则<a class=\"heading-anchor\" href=\"#5-4-循环分析通用规则\" data-heading-id=\"5-4-循环分析通用规则\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><h5 id=\"for-loops\">For Loops<a class=\"heading-anchor\" href=\"#for-loops\" data-heading-id=\"for-loops\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>一个 <code>for</code> 循环的时间：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>循环体时间 * 迭代次数</code></pre><p>例子：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">for</span> (i = <span class=\"syntax-number\">0</span>; i &lt; N; i++) {\n    x++;\n}</code></pre><p>复杂度：</p><div class=\"math-display\">$$\nO(N)\n$$</div><h5 id=\"nested-for-loops\">Nested For Loops<a class=\"heading-anchor\" href=\"#nested-for-loops\" data-heading-id=\"nested-for-loops\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>嵌套循环的时间通常是各层次数相乘：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">for</span> (i = <span class=\"syntax-number\">0</span>; i &lt; N; i++)\n    <span class=\"syntax-keyword\">for</span> (j = <span class=\"syntax-number\">0</span>; j &lt; N; j++)\n        x++;</code></pre><p>复杂度：</p><div class=\"math-display\">$$\nO(N^2)\n$$</div><p>如果内层次数依赖外层：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">for</span> (i = <span class=\"syntax-number\">0</span>; i &lt; N; i++)\n    <span class=\"syntax-keyword\">for</span> (j = i; j &lt; N; j++)\n        x++;</code></pre><p>总次数：</p><div class=\"math-display\">$$\n\\sum_{i=0}^{N-1}(N-i)=\\Theta(N^2)\n$$</div><h5 id=\"consecutive-statements\">Consecutive Statements<a class=\"heading-anchor\" href=\"#consecutive-statements\" data-heading-id=\"consecutive-statements\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>连续语句相加，最后取最大阶：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>statement1;  <span class=\"syntax-comment\">/* O(N) */</span>\nstatement2;  <span class=\"syntax-comment\">/* O(N^2) */</span></code></pre><p>总复杂度：</p><div class=\"math-display\">$$\nO(N^2)\n$$</div><h5 id=\"if-else\">If / Else<a class=\"heading-anchor\" href=\"#if-else\" data-heading-id=\"if-else\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 规则：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">if</span> (Condition)\n    S1;\n<span class=\"syntax-keyword\">else</span>\n    S2;</code></pre><p>时间不超过：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>test + max(time(S1), time(S2))</code></pre><h5 id=\"5-5-递归分析\">5.5 递归分析<a class=\"heading-anchor\" href=\"#5-5-递归分析\" data-heading-id=\"5-5-递归分析\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 的 Fibonacci 例子：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">long</span> <span class=\"syntax-keyword\">int</span> <span class=\"syntax-function\">Fib</span>(<span class=\"syntax-keyword\">int</span> N)\n{\n    <span class=\"syntax-keyword\">if</span> (N &lt;= <span class=\"syntax-number\">1</span>)\n        <span class=\"syntax-keyword\">return</span> <span class=\"syntax-number\">1</span>;\n    <span class=\"syntax-keyword\">else</span>\n        <span class=\"syntax-keyword\">return</span> <span class=\"syntax-function\">Fib</span>(N - <span class=\"syntax-number\">1</span>) + <span class=\"syntax-function\">Fib</span>(N - <span class=\"syntax-number\">2</span>);\n}</code></pre><p>递推式：</p><div class=\"math-display\">$$\nT(N)=T(N-1)+T(N-2)+2\n$$</div><p>并且：</p><div class=\"math-display\">$$\nT(N) \\ge Fib(N)\n$$</div><p>所以朴素递归 Fibonacci 是指数级。</p><p>直观原因：</p><ul><li>大量子问题重复计算。</li><li><code>Fib(N-2)</code>、<code>Fib(N-3)</code> 等会在不同分支中反复出现。</li></ul><p>复杂度：</p><div class=\"math-display\">$$\nT(N)=\\Omega(\\phi^N)\n$$</div><p>通常粗略写成指数级：</p><div class=\"math-display\">$$\nT(N)=O(2^N)\n$$</div><p>空间复杂度是递归深度：</p><div class=\"math-display\">$$\nS(N)=O(N)\n$$</div><h4 id=\"6-compare-the-algorithms-maximum-subsequence-sum\">6. Compare the Algorithms: Maximum Subsequence Sum<a class=\"heading-anchor\" href=\"#6-compare-the-algorithms-maximum-subsequence-sum\" data-heading-id=\"6-compare-the-algorithms-maximum-subsequence-sum\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"6-1-问题定义\">6.1 问题定义<a class=\"heading-anchor\" href=\"#6-1-问题定义\" data-heading-id=\"6-1-问题定义\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 问题：</p><p>Given possibly negative integers:</p><div class=\"math-display\">$$\nA_1,A_2,\\dots,A_N\n$$</div><p>find the maximum value of a contiguous subsequence sum.</p><p>课程约定：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>Max sum is 0 if all the integers are negative.</code></pre><h5 id=\"6-2-algorithm-1-三重循环\">6.2 Algorithm 1: 三重循环<a class=\"heading-anchor\" href=\"#6-2-algorithm-1-三重循环\" data-heading-id=\"6-2-algorithm-1-三重循环\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>代码结构：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">int</span> <span class=\"syntax-function\">MaxSubsequenceSum</span>(<span class=\"syntax-keyword\">const</span> <span class=\"syntax-keyword\">int</span> A[], <span class=\"syntax-keyword\">int</span> N)\n{\n    <span class=\"syntax-keyword\">int</span> ThisSum, MaxSum, i, j, k;\n    MaxSum = <span class=\"syntax-number\">0</span>;\n\n    <span class=\"syntax-keyword\">for</span> (i = <span class=\"syntax-number\">0</span>; i &lt; N; i++) {\n        <span class=\"syntax-keyword\">for</span> (j = i; j &lt; N; j++) {\n            ThisSum = <span class=\"syntax-number\">0</span>;\n            <span class=\"syntax-keyword\">for</span> (k = i; k &lt;= j; k++) {\n                ThisSum += A[k];\n            }\n            <span class=\"syntax-keyword\">if</span> (ThisSum &gt; MaxSum) {\n                MaxSum = ThisSum;\n            }\n        }\n    }\n    <span class=\"syntax-keyword\">return</span> MaxSum;\n}</code></pre><p>含义：</p><ul><li>枚举起点 $i$。</li><li>枚举终点 $j$。</li><li>每次重新求 $A[i]$ 到 $A[j]$ 的和。</li></ul><p>复杂度：</p><div class=\"math-display\">$$\nT(N)=O(N^3)\n$$</div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N)=O(1)\n$$</div><h5 id=\"6-3-algorithm-2-二重循环\">6.3 Algorithm 2: 二重循环<a class=\"heading-anchor\" href=\"#6-3-algorithm-2-二重循环\" data-heading-id=\"6-3-algorithm-2-二重循环\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>改进点：</p><ul><li>固定起点 $i$ 后，随着 $j$ 向右移动，增量维护 <code>ThisSum</code>。</li><li>不再每次从 $i$ 到 $j$ 重新求和。</li></ul><p>代码结构：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">int</span> <span class=\"syntax-function\">MaxSubsequenceSum</span>(<span class=\"syntax-keyword\">const</span> <span class=\"syntax-keyword\">int</span> A[], <span class=\"syntax-keyword\">int</span> N)\n{\n    <span class=\"syntax-keyword\">int</span> ThisSum, MaxSum, i, j;\n    MaxSum = <span class=\"syntax-number\">0</span>;\n\n    <span class=\"syntax-keyword\">for</span> (i = <span class=\"syntax-number\">0</span>; i &lt; N; i++) {\n        ThisSum = <span class=\"syntax-number\">0</span>;\n        <span class=\"syntax-keyword\">for</span> (j = i; j &lt; N; j++) {\n            ThisSum += A[j];\n            <span class=\"syntax-keyword\">if</span> (ThisSum &gt; MaxSum) {\n                MaxSum = ThisSum;\n            }\n        }\n    }\n    <span class=\"syntax-keyword\">return</span> MaxSum;\n}</code></pre><p>复杂度：</p><div class=\"math-display\">$$\nT(N)=O(N^2)\n$$</div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N)=O(1)\n$$</div><h5 id=\"6-4-algorithm-3-divide-and-conquer\">6.4 Algorithm 3: Divide and Conquer<a class=\"heading-anchor\" href=\"#6-4-algorithm-3-divide-and-conquer\" data-heading-id=\"6-4-algorithm-3-divide-and-conquer\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>核心想法：</p><p>最大子列和只可能在三种位置：</p><ol><li>完全在左半边。</li><li>完全在右半边。</li><li>跨过中点。</li></ol><p>递归求左右两边；跨中点的最大和可以线性扫描得到。</p><p>递推式：</p><div class=\"math-display\">$$\nT(N)=2T(N/2)+cN,\\quad T(1)=O(1)\n$$</div><p>展开：</p><div class=\"math-display\">$$\nT(N)=O(N\\log N)\n$$</div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N)=O(\\log N)\n$$</div><p>因为递归深度约为 $\\log N$。</p><h5 id=\"6-5-algorithm-4-on-line-algorithm\">6.5 Algorithm 4: On-line Algorithm<a class=\"heading-anchor\" href=\"#6-5-algorithm-4-on-line-algorithm\" data-heading-id=\"6-5-algorithm-4-on-line-algorithm\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 代码：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">int</span> <span class=\"syntax-function\">MaxSubsequenceSum</span>(<span class=\"syntax-keyword\">const</span> <span class=\"syntax-keyword\">int</span> A[], <span class=\"syntax-keyword\">int</span> N)\n{\n    <span class=\"syntax-keyword\">int</span> ThisSum, MaxSum, j;\n    ThisSum = MaxSum = <span class=\"syntax-number\">0</span>;\n\n    <span class=\"syntax-keyword\">for</span> (j = <span class=\"syntax-number\">0</span>; j &lt; N; j++) {\n        ThisSum += A[j];\n\n        <span class=\"syntax-keyword\">if</span> (ThisSum &gt; MaxSum) {\n            MaxSum = ThisSum;\n        } <span class=\"syntax-keyword\">else</span> <span class=\"syntax-keyword\">if</span> (ThisSum &lt; <span class=\"syntax-number\">0</span>) {\n            ThisSum = <span class=\"syntax-number\">0</span>;\n        }\n    }\n    <span class=\"syntax-keyword\">return</span> MaxSum;\n}</code></pre><p>这个算法也常叫 Kadane algorithm。</p><p>关键判断：</p><ul><li>如果当前前缀和 <span class=\"math-inline\">\\(ThisSum &lt; 0\\)</span>，它只会拖累后面的子列。</li><li>所以直接丢弃，从下一个位置重新开始。</li></ul><p>复杂度：</p><div class=\"math-display\">$$\nT(N)=O(N)\n$$</div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N)=O(1)\n$$</div><p>PPT 强调：</p><ul><li><code>A[]</code> is scanned once only.</li><li>At any point in time, the algorithm can correctly give an answer to the subsequence problem for the data it has already read.</li></ul><p>所以它是 on-line algorithm。</p><h5 id=\"6-6-四个算法对比\">6.6 四个算法对比<a class=\"heading-anchor\" href=\"#6-6-四个算法对比\" data-heading-id=\"6-6-四个算法对比\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"table-scroll\"><table><thead><tr><th>算法</th><th>思想</th><th>时间复杂度</th><th>空间复杂度</th></tr></thead><tbody><tr><td>Algorithm 1</td><td>枚举起点、终点，每次重新求和</td><td>$O(N^3)$</td><td>$O(1)$</td></tr><tr><td>Algorithm 2</td><td>枚举起点、终点，增量维护和</td><td>$O(N^2)$</td><td>$O(1)$</td></tr><tr><td>Algorithm 3</td><td>分治，比较左/右/跨中点</td><td>$O(N\\log N)$</td><td>$O(\\log N)$</td></tr><tr><td>Algorithm 4</td><td>在线扫描，负和归零</td><td>$O(N)$</td><td>$O(1)$</td></tr></tbody></table></div><p>这组例子是算法分析的核心模板：同一个问题，不同算法的复杂度差异可以非常大。</p><h4 id=\"7-logarithms-in-running-time\">7. Logarithms in Running Time<a class=\"heading-anchor\" href=\"#7-logarithms-in-running-time\" data-heading-id=\"7-logarithms-in-running-time\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"7-1-binary-search\">7.1 Binary Search<a class=\"heading-anchor\" href=\"#7-1-binary-search\" data-heading-id=\"7-1-binary-search\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 问题：</p><p>给定有序数组：</p><div class=\"math-display\">$$\nA[0] \\le A[1] \\le \\dots \\le A[N-1]\n$$</div><p>查找元素 $X$。</p><p>输出：</p><ul><li>如果 $X==A[i]$，返回 $i$。</li><li>如果不存在，返回 $-1$。</li></ul><h5 id=\"7-2-迭代模板\">7.2 迭代模板<a class=\"heading-anchor\" href=\"#7-2-迭代模板\" data-heading-id=\"7-2-迭代模板\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">int</span> <span class=\"syntax-function\">BinarySearch</span>(<span class=\"syntax-keyword\">const</span> ElementType A[], ElementType X, <span class=\"syntax-keyword\">int</span> N)\n{\n    <span class=\"syntax-keyword\">int</span> Low, Mid, High;\n    Low = <span class=\"syntax-number\">0</span>;\n    High = N - <span class=\"syntax-number\">1</span>;\n\n    <span class=\"syntax-keyword\">while</span> (Low &lt;= High) {\n        Mid = (Low + High) / <span class=\"syntax-number\">2</span>;\n\n        <span class=\"syntax-keyword\">if</span> (A[Mid] &lt; X) {\n            Low = Mid + <span class=\"syntax-number\">1</span>;\n        } <span class=\"syntax-keyword\">else</span> <span class=\"syntax-keyword\">if</span> (A[Mid] &gt; X) {\n            High = Mid - <span class=\"syntax-number\">1</span>;\n        } <span class=\"syntax-keyword\">else</span> {\n            <span class=\"syntax-keyword\">return</span> Mid;\n        }\n    }\n    <span class=\"syntax-keyword\">return</span> -<span class=\"syntax-number\">1</span>;\n}</code></pre><p>每次循环都把搜索区间大约减半：</p><div class=\"math-display\">$$\nN,\\frac{N}{2},\\frac{N}{4},\\dots,1\n$$</div><p>所以最坏情况：</p><div class=\"math-display\">$$\nT_{worst}(N)=O(\\log N)\n$$</div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N)=O(1)\n$$</div><h5 id=\"7-3-什么时候适合二分搜索\">7.3 什么时候适合二分搜索<a class=\"heading-anchor\" href=\"#7-3-什么时候适合二分搜索\" data-heading-id=\"7-3-什么时候适合二分搜索\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 说明：</p><p>Binary search is very useful when the data are static and sorted.</p><p>适用条件：</p><ol><li>数据支持随机访问，例如数组。</li><li>数据已经排序。</li><li>查找次数足够多，使排序或维护有序的成本值得。</li></ol><p>和本仓库近期项目的关系：</p><ul><li><code>project/project1/code/search.c</code> 中有 iterative/recursive binary search。</li><li>递归二分的时间也是 $O(\\log N)$，但额外空间是递归栈 $O(\\log N)$。</li><li>迭代二分额外空间是 $O(1)$。</li></ul><h4 id=\"8-checking-your-analysis\">8. Checking Your Analysis<a class=\"heading-anchor\" href=\"#8-checking-your-analysis\" data-heading-id=\"8-checking-your-analysis\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"8-1-倍增检查法\">8.1 倍增检查法<a class=\"heading-anchor\" href=\"#8-1-倍增检查法\" data-heading-id=\"8-1-倍增检查法\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 方法 1：</p><p>当输入规模从 $N$ 变成 $2N$：</p><div class=\"table-scroll\"><table><thead><tr><th>如果复杂度是</th><th>期望比值</th></tr></thead><tbody><tr><td>$O(N)$</td><td>$T(2N)/T(N) \\approx 2$</td></tr><tr><td>$O(N^2)$</td><td>$T(2N)/T(N) \\approx 4$</td></tr><tr><td>$O(N^3)$</td><td>$T(2N)/T(N) \\approx 8$</td></tr><tr><td>$O(\\log N)$</td><td>比值接近 1，增长很慢</td></tr></tbody></table></div><p>这不是严格证明，但可以用实验检查自己的分析是否合理。</p><h5 id=\"8-2-归一化检查法\">8.2 归一化检查法<a class=\"heading-anchor\" href=\"#8-2-归一化检查法\" data-heading-id=\"8-2-归一化检查法\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 方法 2：</p><p>如果猜测：</p><div class=\"math-display\">$$\nT(N)=O(f(N))\n$$</div><p>就检查：</p><div class=\"math-display\">$$\n\\frac{T(N)}{f(N)}\n$$</div><p>是否趋向相对稳定。</p><p>本仓库 <code>project/project1/works/Normal-1 Performance Measurement (Search).md</code> 就是类似思路：通过实验比较顺序搜索、二分搜索、递归和迭代版本的运行时间。</p><h4 id=\"9-abstract-data-type\">9. Abstract Data Type<a class=\"heading-anchor\" href=\"#9-abstract-data-type\" data-heading-id=\"9-abstract-data-type\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"9-1-data-type\">9.1 Data Type<a class=\"heading-anchor\" href=\"#9-1-data-type\" data-heading-id=\"9-1-data-type\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>课程 PPT 的定义：</p><div class=\"math-display\">$$\nData\\ Type = \\{Objects\\} \\cup \\{Operations\\}\n$$</div><p>例子：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>int = {0, +/-1, +/-2, ..., INT_MAX, INT_MIN}\n      union {+, -, *, /, %, ...}</code></pre><h5 id=\"9-2-adt\">9.2 ADT<a class=\"heading-anchor\" href=\"#9-2-adt\" data-heading-id=\"9-2-adt\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 定义：</p><p>An Abstract Data Type is a data type that is organized in such a way that the specification on the objects and specification of the operations on the objects are separated from the representation of the objects and the implementation of the operations.</p><p>直观理解：</p><ul><li>ADT 关心“能做什么”。</li><li>实现关心“怎么做”。</li><li>使用者不应该依赖内部表示。</li></ul><p>和近期专题的关系：</p><ul><li>Stack ADT：只允许在 top 插入/删除。</li><li>Queue ADT：rear 插入、front 删除。</li><li>List ADT：允许按位置、按结点关系进行更一般的操作。</li><li>Tree ADT：对象和操作又换成树结构，但思想仍是对象和操作分离。</li></ul><h4 id=\"10-the-list-adt\">10. The List ADT<a class=\"heading-anchor\" href=\"#10-the-list-adt\" data-heading-id=\"10-the-list-adt\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"10-1-对象\">10.1 对象<a class=\"heading-anchor\" href=\"#10-1-对象\" data-heading-id=\"10-1-对象\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 写作：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>(item0, item1, ..., itemN-1)</code></pre><p>也就是一个有限序列。</p><h5 id=\"10-2-操作\">10.2 操作<a class=\"heading-anchor\" href=\"#10-2-操作\" data-heading-id=\"10-2-操作\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 列出的操作：</p><ol><li>Finding the length, $N$, of a list.</li><li>Printing all the items in a list.</li><li>Making an empty list.</li><li>Finding the $k$-th item from a list, $0 \\le k &lt; N$.</li><li>Inserting a new item after the $k$-th item of a list, $0 \\le k &lt; N$.</li><li>Deleting an item from a list.</li><li>Finding next of the current item from a list.</li><li>Finding previous of the current item from a list.</li></ol><p>PPT 问了一个小问题：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>Why after?</code></pre><p>原因和链表实现有关：如果已经给出当前位置结点，在它后面插入只需要改常数个指针；在它前面插入则常常需要先找到前驱。</p><h4 id=\"11-simple-array-implementation-of-lists\">11. Simple Array Implementation of Lists<a class=\"heading-anchor\" href=\"#11-simple-array-implementation-of-lists\" data-heading-id=\"11-simple-array-implementation-of-lists\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"11-1-表示法\">11.1 表示法<a class=\"heading-anchor\" href=\"#11-1-表示法\" data-heading-id=\"11-1-表示法\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 的顺序映射：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>array[i] = item_i</code></pre><p>数组中逻辑相邻的元素在物理地址上也相邻：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>array + i     -&gt; item_i\narray + i + 1 -&gt; item_{i+1}</code></pre><h5 id=\"11-2-优点\">11.2 优点<a class=\"heading-anchor\" href=\"#11-2-优点\" data-heading-id=\"11-2-优点\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>按下标查找很快：</p><div class=\"math-display\">$$\nFind\\_Kth = O(1)\n$$</div><p>因为数组支持随机访问。</p><h5 id=\"11-3-缺点\">11.3 缺点<a class=\"heading-anchor\" href=\"#11-3-缺点\" data-heading-id=\"11-3-缺点\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 强调两个问题：</p><ol><li><code>MaxSize</code> has to be estimated.</li><li>Insertion and Deletion not only take $O(N)$ time, but also involve a lot of data movements.</li></ol><p>插入第 $k$ 个位置后面时，要把后面的元素整体后移：</p><div class=\"math-display\">$$\nInsert = O(N)\n$$</div><p>删除时，要把后面的元素整体前移：</p><div class=\"math-display\">$$\nDelete = O(N)\n$$</div><h5 id=\"11-4-数组-list-复杂度\">11.4 数组 List 复杂度<a class=\"heading-anchor\" href=\"#11-4-数组-list-复杂度\" data-heading-id=\"11-4-数组-list-复杂度\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"table-scroll\"><table><thead><tr><th>操作</th><th>时间复杂度</th><th>原因</th></tr></thead><tbody><tr><td>Find length</td><td>$O(1)$</td><td>维护 <code>size</code></td></tr><tr><td>Print all</td><td>$O(N)$</td><td>每个元素访问一次</td></tr><tr><td>Make empty</td><td>$O(1)$</td><td><span class=\"math-inline\">\\(size = 0\\)</span></td></tr><tr><td>Find kth</td><td>$O(1)$</td><td>随机访问</td></tr><tr><td>Insert after kth</td><td>$O(N)$</td><td>可能移动大量元素</td></tr><tr><td>Delete item</td><td>$O(N)$</td><td>查找和移动</td></tr><tr><td>Find next</td><td>$O(1)$</td><td>下标加 1</td></tr><tr><td>Find previous</td><td>$O(1)$</td><td>下标减 1</td></tr></tbody></table></div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N)=O(MaxSize)\n$$</div><h4 id=\"12-linked-lists\">12. Linked Lists<a class=\"heading-anchor\" href=\"#12-linked-lists\" data-heading-id=\"12-linked-lists\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"12-1-基本结构\">12.1 基本结构<a class=\"heading-anchor\" href=\"#12-1-基本结构\" data-heading-id=\"12-1-基本结构\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 中每个链表结点包含：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>Data\nPointer</code></pre><p>C 结构示例：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">typedef</span> <span class=\"syntax-keyword\">struct</span> list_node *list_ptr;\n\n<span class=\"syntax-keyword\">struct</span> list_node {\n    <span class=\"syntax-keyword\">char</span> data[<span class=\"syntax-number\">4</span>];\n    list_ptr next;\n};\n\nlist_ptr ptr;</code></pre><p>链表结点在内存中的位置不必连续。PPT 提醒：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>Locations of the nodes may change on different runs.</code></pre><h5 id=\"12-2-创建和链接结点\">12.2 创建和链接结点<a class=\"heading-anchor\" href=\"#12-2-创建和链接结点\" data-heading-id=\"12-2-创建和链接结点\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 示例：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>list_ptr N1, N2;\n\nN1 = (list_ptr)<span class=\"syntax-function\">malloc</span>(<span class=\"syntax-keyword\">sizeof</span>(<span class=\"syntax-keyword\">struct</span> list_node));\nN2 = (list_ptr)<span class=\"syntax-function\">malloc</span>(<span class=\"syntax-keyword\">sizeof</span>(<span class=\"syntax-keyword\">struct</span> list_node));\n\n<span class=\"syntax-comment\">/* conceptually:\n   N1-&gt;data = &quot;ZHAO&quot;;\n   N2-&gt;data = &quot;QIAN&quot;;\n*/</span>\n\nN1-&gt;next = N2;\nN2-&gt;next = NULL;\nptr = N1;</code></pre><p>注意在真实 C 代码中，数组字段不能直接用 <span class=\"math-inline\">\\(=\\)</span> 赋字符串，应该使用 <code>strcpy</code> 或初始化时赋值。</p><h5 id=\"12-3-插入\">12.3 插入<a class=\"heading-anchor\" href=\"#12-3-插入\" data-heading-id=\"12-3-插入\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>在结点 <code>node</code> 后插入 <code>temp</code>：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>temp-&gt;next = node-&gt;next;\nnode-&gt;next = temp;</code></pre><p>顺序不能反。</p><p>如果先做：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>node-&gt;next = temp;\ntemp-&gt;next = node-&gt;next;</code></pre><p>那么第二句会变成：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>temp-&gt;next = temp;</code></pre><p>原来 <code>node</code> 后面的链会丢失。</p><p>复杂度：</p><div class=\"math-display\">$$\nO(1)\n$$</div><p>前提是已经拿到了 <code>node</code> 指针。</p><h5 id=\"12-4-插入新的第一个元素\">12.4 插入新的第一个元素<a class=\"heading-anchor\" href=\"#12-4-插入新的第一个元素\" data-heading-id=\"12-4-插入新的第一个元素\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>如果没有 dummy head node，插入头结点需要单独处理：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>temp-&gt;next = head;\nhead = temp;</code></pre><p>如果有 dummy head node，可以统一写成“在 header 后插入”：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>temp-&gt;next = header-&gt;next;\nheader-&gt;next = temp;</code></pre><p>这就是 header node 的好处：减少边界情况。</p><h5 id=\"12-5-删除\">12.5 删除<a class=\"heading-anchor\" href=\"#12-5-删除\" data-heading-id=\"12-5-删除\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 中删除 <code>node</code> 时，需要已知它的前驱 <code>pre</code>：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>pre-&gt;next = node-&gt;next;\n<span class=\"syntax-function\">free</span>(node);</code></pre><p>复杂度：</p><div class=\"math-display\">$$\nO(1)\n$$</div><p>前提是已经拿到了 <code>pre</code>。</p><p>如果只知道要删除的值，通常要先从头扫描：</p><div class=\"math-display\">$$\nFind + Delete = O(N)\n$$</div><h5 id=\"12-6-删除第一个结点\">12.6 删除第一个结点<a class=\"heading-anchor\" href=\"#12-6-删除第一个结点\" data-heading-id=\"12-6-删除第一个结点\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>没有 dummy head node 时：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>node = head;\nhead = head-&gt;next;\n<span class=\"syntax-function\">free</span>(node);</code></pre><p>有 dummy head node 时：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>node = header-&gt;next;\nheader-&gt;next = node-&gt;next;\n<span class=\"syntax-function\">free</span>(node);</code></pre><p>因此 PPT 的回答是：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>We can add a dummy head node to a list.</code></pre><h5 id=\"12-7-单链表复杂度\">12.7 单链表复杂度<a class=\"heading-anchor\" href=\"#12-7-单链表复杂度\" data-heading-id=\"12-7-单链表复杂度\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"table-scroll\"><table><thead><tr><th>操作</th><th>时间复杂度</th><th>原因</th></tr></thead><tbody><tr><td>Find length</td><td>$O(N)$ 或 $O(1)$</td><td>不维护 size 就要扫描</td></tr><tr><td>Print all</td><td>$O(N)$</td><td>每个结点访问一次</td></tr><tr><td>Make empty</td><td>$O(N)$</td><td>需要释放结点</td></tr><tr><td>Find kth</td><td>$O(N)$</td><td>从头走到第 k 个</td></tr><tr><td>Insert after known node</td><td>$O(1)$</td><td>改两个指针</td></tr><tr><td>Delete after known previous</td><td>$O(1)$</td><td>改指针并 free</td></tr><tr><td>Delete by value</td><td>$O(N)$</td><td>先查找</td></tr><tr><td>Find next</td><td>$O(1)$</td><td><span class=\"math-inline\">\\(p-&gt;next\\)</span></td></tr><tr><td>Find previous</td><td>$O(N)$</td><td>单链表没有前驱指针</td></tr></tbody></table></div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N)=O(N)\n$$</div><p>每个结点还要额外存一个 <code>next</code> 指针。</p><h4 id=\"13-doubly-linked-circular-lists\">13. Doubly Linked Circular Lists<a class=\"heading-anchor\" href=\"#13-doubly-linked-circular-lists\" data-heading-id=\"13-doubly-linked-circular-lists\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"13-1-为什么需要双向链表\">13.1 为什么需要双向链表<a class=\"heading-anchor\" href=\"#13-1-为什么需要双向链表\" data-heading-id=\"13-1-为什么需要双向链表\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 的动机：</p><p>如果有链表：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>1 -&gt; 2 -&gt; 3 -&gt; ... -&gt; m</code></pre><p>当你已经在第 $m$ 个结点时，如果要找它的前驱 $m-1$：</p><ul><li>单链表只能从头重新走一遍。</li><li>双向链表可以直接走 <code>llink</code>。</li></ul><p>这对删除当前结点尤其重要，因为删除通常要改前驱的链接。</p><h5 id=\"13-2-结构\">13.2 结构<a class=\"heading-anchor\" href=\"#13-2-结构\" data-heading-id=\"13-2-结构\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 结构：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">typedef</span> <span class=\"syntax-keyword\">struct</span> node *node_ptr;\n\n<span class=\"syntax-keyword\">struct</span> node {\n    node_ptr llink;\n    element item;\n    node_ptr rlink;\n};</code></pre><p>关系：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>ptr == ptr-&gt;llink-&gt;rlink\nptr == ptr-&gt;rlink-&gt;llink</code></pre><h5 id=\"13-3-circular-head-node\">13.3 Circular + Head Node<a class=\"heading-anchor\" href=\"#13-3-circular-head-node\" data-heading-id=\"13-3-circular-head-node\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>双向循环链表常带 head node：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>H &lt;-&gt; item1 &lt;-&gt; item2 &lt;-&gt; item3\n^                         |\n|_________________________|</code></pre><p>空链表：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>H-&gt;llink = H\nH-&gt;rlink = H</code></pre><p>好处：</p><ul><li>插入第一个结点和普通插入统一。</li><li>删除最后一个结点和普通删除统一。</li><li>找 previous 是 $O(1)$。</li></ul><h5 id=\"13-4-双向循环链表复杂度\">13.4 双向循环链表复杂度<a class=\"heading-anchor\" href=\"#13-4-双向循环链表复杂度\" data-heading-id=\"13-4-双向循环链表复杂度\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"table-scroll\"><table><thead><tr><th>操作</th><th>时间复杂度</th></tr></thead><tbody><tr><td>Insert before/after known node</td><td>$O(1)$</td></tr><tr><td>Delete known node</td><td>$O(1)$</td></tr><tr><td>Find next</td><td>$O(1)$</td></tr><tr><td>Find previous</td><td>$O(1)$</td></tr><tr><td>Find kth / Find by value</td><td>$O(N)$</td></tr><tr><td>Print all</td><td>$O(N)$</td></tr></tbody></table></div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N)=O(N)\n$$</div><p>每个结点多存两个指针，常数空间开销比单链表更大。</p><h4 id=\"14-polynomial-adt\">14. Polynomial ADT<a class=\"heading-anchor\" href=\"#14-polynomial-adt\" data-heading-id=\"14-polynomial-adt\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"14-1-对象\">14.1 对象<a class=\"heading-anchor\" href=\"#14-1-对象\" data-heading-id=\"14-1-对象\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 定义：</p><div class=\"math-display\">$$\nP(x)=a_1x^{e_1}+\\cdots+a_nx^{e_n}\n$$</div><p>可以看成一组有序对：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>&lt;e_i, a_i&gt;</code></pre><p>其中：</p><ul><li>$a_i$ 是 coefficient。</li><li>$e_i$ 是 exponent。</li><li>$e_i$ 是非负整数。</li></ul><h5 id=\"14-2-操作\">14.2 操作<a class=\"heading-anchor\" href=\"#14-2-操作\" data-heading-id=\"14-2-操作\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 列出的操作：</p><ol><li>Finding degree, $\\max\\{e_i\\}$.</li><li>Addition of two polynomials.</li><li>Subtraction between two polynomials.</li><li>Multiplication of two polynomials.</li><li>Differentiation of a polynomial.</li></ol><h5 id=\"14-3-representation-1-array\">14.3 Representation 1: Array<a class=\"heading-anchor\" href=\"#14-3-representation-1-array\" data-heading-id=\"14-3-representation-1-array\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 表示：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">typedef</span> <span class=\"syntax-keyword\">struct</span> {\n    <span class=\"syntax-keyword\">int</span> CoeffArray[MaxDegree + <span class=\"syntax-number\">1</span>];\n    <span class=\"syntax-keyword\">int</span> HighPower;\n} *Polynomial;</code></pre><p>含义：</p><ul><li><code>CoeffArray[i]</code> 存 $x^i$ 的系数。</li><li><code>HighPower</code> 存最高次数。</li></ul><p>优点：</p><ul><li>如果多项式比较 dense，实现加法、乘法都直接。</li><li>按指数访问系数是 $O(1)$。</li></ul><p>缺点：</p><ul><li>对 sparse polynomial 很浪费。</li></ul><p>PPT 例子：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>P1(x) = 10x^1000 + 5x^14 + 1\nP2(x) = 3x^1990 - 2x^1492 + 11x + 5</code></pre><p>虽然非零项很少，但数组必须开到很高次数。</p><p>乘法复杂度：</p><p>如果两个多项式次数分别为 $N_1,N_2$：</p><div class=\"math-display\">$$\nO(N_1N_2)\n$$</div><p>这里按最高次数计算，遇到稀疏多项式会做大量无意义的零项计算。</p><h5 id=\"14-4-representation-2-linked-list\">14.4 Representation 2: Linked List<a class=\"heading-anchor\" href=\"#14-4-representation-2-linked-list\" data-heading-id=\"14-4-representation-2-linked-list\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 表示每一项为一个结点：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">typedef</span> <span class=\"syntax-keyword\">struct</span> poly_node *poly_ptr;\n\n<span class=\"syntax-keyword\">struct</span> poly_node {\n    <span class=\"syntax-keyword\">int</span> Coefficient;\n    <span class=\"syntax-keyword\">int</span> Exponent;\n    poly_ptr Next;\n};</code></pre><p>链表按 exponent 排序。</p><p>优点：</p><ul><li>只存非零项，适合 sparse polynomial。</li><li>多项式加法可以像 merge sorted lists 一样做。</li></ul><p>如果两个多项式分别有 $m,n$ 个非零项：</p><div class=\"table-scroll\"><table><thead><tr><th>操作</th><th>链表表示复杂度</th></tr></thead><tbody><tr><td>Finding degree</td><td>$O(1)$ 或 $O(N)$，取决于排序方向和是否维护</td></tr><tr><td>Addition</td><td>$O(m+n)$</td></tr><tr><td>Subtraction</td><td>$O(m+n)$</td></tr><tr><td>Multiplication</td><td>$O(mn)$</td></tr><tr><td>Differentiation</td><td>$O(m)$</td></tr></tbody></table></div><p>其中 $m,n$ 是非零项个数，不是最高次数。</p><h4 id=\"15-multilists\">15. Multilists<a class=\"heading-anchor\" href=\"#15-multilists\" data-heading-id=\"15-multilists\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"15-1-动机\">15.1 动机<a class=\"heading-anchor\" href=\"#15-1-动机\" data-heading-id=\"15-1-动机\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 例子：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>40,000 students\n2,500 courses</code></pre><p>需要：</p><ol><li>Print the students&#039; name list for each course.</li><li>Print the registered classes&#039; list for each student.</li></ol><p>如果用二维数组：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">int</span> Array[<span class=\"syntax-number\">40000</span>][<span class=\"syntax-number\">2500</span>];</code></pre><p>空间巨大：</p><div class=\"math-display\">$$\n40000 \\times 2500 = 100,000,000\n$$</div><p>并且很多位置可能为空。</p><h5 id=\"15-2-multilist-思想\">15.2 Multilist 思想<a class=\"heading-anchor\" href=\"#15-2-multilist-思想\" data-heading-id=\"15-2-multilist-思想\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>每个 registration record 同时属于两条链：</p><ul><li>某个学生的课程链。</li><li>某门课的学生链。</li></ul><p>这样一个结点可以被两个方向访问。</p><p>适合场景：</p><ul><li>稀疏关系。</li><li>需要同时按行和按列遍历。</li></ul><p>PPT 让自学 sparse matrix representation，它和 multilist 是同类思想。</p><p>复杂度视具体操作而定：</p><ul><li>按某个学生列出课程：$O(k_s)$，其中 $k_s$ 是该学生选课数。</li><li>按某门课列出学生：$O(k_c)$，其中 $k_c$ 是该课学生数。</li><li>空间复杂度：$O(R + S + C)$，其中 $R$ 是注册记录数，$S$ 是学生数，$C$ 是课程数。</li></ul><h4 id=\"16-cursor-implementation-of-linked-lists\">16. Cursor Implementation of Linked Lists<a class=\"heading-anchor\" href=\"#16-cursor-implementation-of-linked-lists\" data-heading-id=\"16-cursor-implementation-of-linked-lists\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"16-1-动机\">16.1 动机<a class=\"heading-anchor\" href=\"#16-1-动机\" data-heading-id=\"16-1-动机\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 说 linked list 必须具备两个特征：</p><ol><li>The data are stored in a collection of structures. Each structure contains data and a pointer to the next structure.</li><li>A new structure can be obtained from the system&#039;s global memory by <code>malloc</code> and released by <code>free</code>.</li></ol><p>Cursor implementation 用数组下标模拟指针，不直接用真实 pointer。</p><h5 id=\"16-2-结构\">16.2 结构<a class=\"heading-anchor\" href=\"#16-2-结构\" data-heading-id=\"16-2-结构\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 表示：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">struct</span> Node {\n    ElementType Element;\n    <span class=\"syntax-keyword\">int</span> Next;\n};\n\n<span class=\"syntax-keyword\">struct</span> Node CursorSpace[SpaceSize];</code></pre><p>其中：</p><ul><li><code>CursorSpace[i].Element</code> 是数据。</li><li><code>CursorSpace[i].Next</code> 是下一个结点的数组下标。</li><li><code>0</code> 号位置通常作为 freelist 的 header。</li></ul><h5 id=\"16-3-cursor-malloc\">16.3 Cursor malloc<a class=\"heading-anchor\" href=\"#16-3-cursor-malloc\" data-heading-id=\"16-3-cursor-malloc\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 伪代码：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>p = CursorSpace[<span class=\"syntax-number\">0</span>].Next;\nCursorSpace[<span class=\"syntax-number\">0</span>].Next = CursorSpace[p].Next;</code></pre><p>含义：</p><ul><li>freelist 的第一个可用结点编号是 <span class=\"math-inline\">\\(p\\)</span>。</li><li>把它从 freelist 中取出。</li></ul><p>复杂度：</p><div class=\"math-display\">$$\nO(1)\n$$</div><h5 id=\"16-4-cursor-free\">16.4 Cursor free<a class=\"heading-anchor\" href=\"#16-4-cursor-free\" data-heading-id=\"16-4-cursor-free\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 伪代码：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>CursorSpace[p].Next = CursorSpace[<span class=\"syntax-number\">0</span>].Next;\nCursorSpace[<span class=\"syntax-number\">0</span>].Next = p;</code></pre><p>含义：</p><ul><li>把编号为 <span class=\"math-inline\">\\(p\\)</span> 的结点重新挂回 freelist 头部。</li></ul><p>复杂度：</p><div class=\"math-display\">$$\nO(1)\n$$</div><p>PPT 说明：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>The cursor implementation is usually significantly faster\nbecause of the lack of memory management routines.</code></pre><p>原因是它避免频繁调用系统级 <code>malloc/free</code>，但代价是需要预先估计 <code>SpaceSize</code>，且空间上限固定。</p><h5 id=\"16-5-cursor-与-pointer-接口一致\">16.5 Cursor 与 Pointer 接口一致<a class=\"heading-anchor\" href=\"#16-5-cursor-与-pointer-接口一致\" data-heading-id=\"16-5-cursor-与-pointer-接口一致\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 特别强调：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>The interface for the cursor implementation is identical to the pointer implementation.</code></pre><p>这正是 ADT 的意义：</p><ul><li>外部操作接口不变。</li><li>内部表示可以从 pointer linked list 换成 cursor linked list。</li></ul><h4 id=\"17-list-实现复杂度总表\">17. List 实现复杂度总表<a class=\"heading-anchor\" href=\"#17-list-实现复杂度总表\" data-heading-id=\"17-list-实现复杂度总表\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"table-scroll\"><table><thead><tr><th>操作</th><th>Array List</th><th>Singly Linked List</th><th>Doubly Linked Circular List</th></tr></thead><tbody><tr><td>Find kth</td><td>$O(1)$</td><td>$O(N)$</td><td>$O(N)$</td></tr><tr><td>Find by value</td><td>$O(N)$</td><td>$O(N)$</td><td>$O(N)$</td></tr><tr><td>Find next</td><td>$O(1)$</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td>Find previous</td><td>$O(1)$</td><td>$O(N)$</td><td>$O(1)$</td></tr><tr><td>Insert after known position</td><td>$O(N)$</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td>Delete known position</td><td>$O(N)$</td><td>需要前驱，$O(1)$</td><td>$O(1)$</td></tr><tr><td>Print all</td><td>$O(N)$</td><td>$O(N)$</td><td>$O(N)$</td></tr><tr><td>Make empty</td><td>$O(1)$</td><td>$O(N)$</td><td>$O(N)$</td></tr></tbody></table></div><p>选择原则：</p><ul><li>需要大量随机访问：array list。</li><li>需要频繁在已知位置插入/删除：linked list。</li><li>需要频繁找前驱或删除当前结点：doubly linked list。</li><li>不想频繁系统 <code>malloc/free</code> 或语言环境没有指针：cursor implementation。</li></ul><h4 id=\"18-从-list-到-stack-queue\">18. 从 List 到 Stack / Queue<a class=\"heading-anchor\" href=\"#18-从-list-到-stack-queue\" data-heading-id=\"18-从-list-到-stack-queue\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><p>List ADT 允许比较一般的位置操作；Stack 和 Queue 可以看成对 List 操作位置施加限制后得到的 ADT。</p><div class=\"table-scroll\"><table><thead><tr><th>ADT</th><th>插入位置</th><th>删除位置</th><th>顺序规则</th><th>典型用途</th></tr></thead><tbody><tr><td>List</td><td>任意指定位置附近</td><td>任意指定位置附近</td><td>按线性次序访问</td><td>多项式、稀疏结构、一般序列</td></tr><tr><td>Stack</td><td>top</td><td>top</td><td>LIFO</td><td>括号、表达式、递归、回溯</td></tr><tr><td>Queue</td><td>rear</td><td>front</td><td>FIFO</td><td>调度、层序遍历、BFS</td></tr></tbody></table></div><p>因此下面的 Stack 和 Queue 不是新的孤立内容，而是 List ADT 在不同约束下的两种常用形态。</p><h4 id=\"19-stack-adt\">19. Stack ADT<a class=\"heading-anchor\" href=\"#19-stack-adt\" data-heading-id=\"19-stack-adt\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"1-1-定义\">1.1 定义<a class=\"heading-anchor\" href=\"#1-1-定义\" data-heading-id=\"1-1-定义\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>课程 PPT 的定义：</p><ul><li>A stack is a Last-In-First-Out (LIFO) list.</li><li>It is an ordered list in which insertions and deletions are made at the top only.</li></ul><p>也就是：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>last in, first out</code></pre><p>只能在栈顶插入和删除，所以最后压入的元素最先被弹出。</p><h5 id=\"1-2-对象与操作\">1.2 对象与操作<a class=\"heading-anchor\" href=\"#1-2-对象与操作\" data-heading-id=\"1-2-对象与操作\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>对象：</p><ul><li>A finite ordered list with zero or more elements.</li></ul><p>核心操作：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">int</span> <span class=\"syntax-function\">IsEmpty</span>(Stack S);\nStack <span class=\"syntax-function\">CreateStack</span>(<span class=\"syntax-keyword\">void</span>);\n<span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">DisposeStack</span>(Stack S);\n<span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">MakeEmpty</span>(Stack S);\n<span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">Push</span>(ElementType X, Stack S);\nElementType <span class=\"syntax-function\">Top</span>(Stack S);\n<span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">Pop</span>(Stack S);</code></pre><p>PPT 特别说明：</p><ul><li>对空栈执行 <code>Pop</code> 或 <code>Top</code> 是 stack ADT error。</li><li>对满栈执行 <code>Push</code> 是 implementation error，不是 ADT 本身的错误。</li></ul><h5 id=\"1-3-操作复杂度\">1.3 操作复杂度<a class=\"heading-anchor\" href=\"#1-3-操作复杂度\" data-heading-id=\"1-3-操作复杂度\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>在正常的数组栈或链表栈中，栈顶位置可以直接访问，所以基本操作都是常数时间。</p><div class=\"table-scroll\"><table><thead><tr><th>操作</th><th>含义</th><th>时间复杂度</th><th>空间复杂度</th></tr></thead><tbody><tr><td><code>IsEmpty(S)</code></td><td>判断是否为空</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td><code>CreateStack()</code></td><td>建立空栈</td><td>$O(1)$ 或 $O(C)$</td><td>$O(C)$</td></tr><tr><td><code>MakeEmpty(S)</code></td><td>清空栈</td><td>数组栈 $O(1)$，链表栈 $O(N)$</td><td>$O(1)$</td></tr><tr><td><code>Push(X, S)</code></td><td>压入栈顶</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td><code>Top(S)</code></td><td>读取栈顶</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td><code>Pop(S)</code></td><td>删除栈顶</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td><code>DisposeStack(S)</code></td><td>销毁栈</td><td>数组栈 $O(1)$，链表栈 $O(N)$</td><td>$O(1)$</td></tr></tbody></table></div><p>这里 $C$ 是数组容量，$N$ 是当前元素个数。若实现中使用动态扩容，单次 <code>Push</code> 可能是 $O(N)$，但摊还复杂度通常仍为 $O(1)$；课程 PPT 的数组实现按固定容量讨论。</p><h4 id=\"20-stack-的实现\">20. Stack 的实现<a class=\"heading-anchor\" href=\"#20-stack-的实现\" data-heading-id=\"20-stack-的实现\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"2-1-linked-list-implementation\">2.1 Linked List Implementation<a class=\"heading-anchor\" href=\"#2-1-linked-list-implementation\" data-heading-id=\"2-1-linked-list-implementation\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 使用带 header node 的链表实现。</p><p>结构想法：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>S(header) -&gt; first node -&gt; second node -&gt; ... -&gt; NULL</code></pre><p>其中 <span class=\"math-inline\">\\(S-&gt;Next\\)</span> 指向栈顶。</p><p><code>Push</code> 的核心步骤：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>TmpCell-&gt;Element = X;\nTmpCell-&gt;Next = S-&gt;Next;\nS-&gt;Next = TmpCell;</code></pre><p><code>Top</code>：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">if</span> (S-&gt;Next == NULL) {\n    <span class=\"syntax-function\">Error</span>(<span class=\"syntax-string\">&quot;Empty stack&quot;</span>);\n}\n<span class=\"syntax-keyword\">return</span> S-&gt;Next-&gt;Element;</code></pre><p><code>Pop</code>：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">if</span> (S-&gt;Next == NULL) {\n    <span class=\"syntax-function\">Error</span>(<span class=\"syntax-string\">&quot;Empty stack&quot;</span>);\n} <span class=\"syntax-keyword\">else</span> {\n    FirstCell = S-&gt;Next;\n    S-&gt;Next = S-&gt;Next-&gt;Next;\n    <span class=\"syntax-function\">free</span>(FirstCell);\n}</code></pre><p>复杂度：</p><ul><li><code>Push</code>：$O(1)$。</li><li><code>Top</code>：$O(1)$。</li><li><code>Pop</code>：$O(1)$。</li></ul><p>PPT 提醒：<code>malloc</code> 和 <code>free</code> 的调用比较贵。一个改进思路是维护另一个 stack 作为 recycle bin，把删除的结点暂存起来复用，减少频繁内存分配。</p><h5 id=\"2-2-array-implementation\">2.2 Array Implementation<a class=\"heading-anchor\" href=\"#2-2-array-implementation\" data-heading-id=\"2-2-array-implementation\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>课程 PPT 的结构：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">struct</span> StackRecord {\n    <span class=\"syntax-keyword\">int</span> Capacity;          <span class=\"syntax-comment\">/* size of stack */</span>\n    <span class=\"syntax-keyword\">int</span> TopOfStack;        <span class=\"syntax-comment\">/* top pointer */</span>\n    ElementType *Array;    <span class=\"syntax-comment\">/* array for stack elements */</span>\n};</code></pre><p>约定：</p><ul><li><span class=\"math-inline\">\\(TopOfStack == -1\\)</span> 表示空栈。</li><li><code>Push</code> 时先 <span class=\"math-inline\">\\(++TopOfStack\\)</span>，再写入元素。</li><li><code>Pop</code> 时删除当前栈顶，再 <code>--TopOfStack</code>。</li></ul><p>典型代码：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">Push</span>(ElementType X, Stack S) {\n    <span class=\"syntax-keyword\">if</span> (<span class=\"syntax-function\">IsFull</span>(S)) {\n        <span class=\"syntax-function\">Error</span>(<span class=\"syntax-string\">&quot;Full stack&quot;</span>);\n    } <span class=\"syntax-keyword\">else</span> {\n        S-&gt;Array[++S-&gt;TopOfStack] = X;\n    }\n}</code></pre><pre class=\"code-block language-c\" data-language=\"c\"><code>ElementType <span class=\"syntax-function\">Top</span>(Stack S) {\n    <span class=\"syntax-keyword\">if</span> (<span class=\"syntax-function\">IsEmpty</span>(S)) {\n        <span class=\"syntax-function\">Error</span>(<span class=\"syntax-string\">&quot;Empty stack&quot;</span>);\n    }\n    <span class=\"syntax-keyword\">return</span> S-&gt;Array[S-&gt;TopOfStack];\n}</code></pre><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">Pop</span>(Stack S) {\n    <span class=\"syntax-keyword\">if</span> (<span class=\"syntax-function\">IsEmpty</span>(S)) {\n        <span class=\"syntax-function\">Error</span>(<span class=\"syntax-string\">&quot;Empty stack&quot;</span>);\n    } <span class=\"syntax-keyword\">else</span> {\n        S-&gt;TopOfStack--;\n    }\n}</code></pre><p>PPT 强调：</p><ol><li>Stack model must be well encapsulated.</li><li>除了 stack routines，其他代码不应该直接访问 <code>Array</code> 或 <code>TopOfStack</code>。</li><li><code>Push</code>、<code>Pop</code>、<code>Top</code> 前必须做 error check。</li></ol><p>复杂度：</p><ul><li><code>Push</code>：$O(1)$。</li><li><code>Top</code>：$O(1)$。</li><li><code>Pop</code>：$O(1)$。</li><li>初始化数组：分配容量为 $C$ 的数组，空间 $O(C)$。</li></ul><h4 id=\"21-stack-的典型应用\">21. Stack 的典型应用<a class=\"heading-anchor\" href=\"#21-stack-的典型应用\" data-heading-id=\"21-stack-的典型应用\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"3-1-balancing-symbols\">3.1 Balancing Symbols<a class=\"heading-anchor\" href=\"#3-1-balancing-symbols\" data-heading-id=\"3-1-balancing-symbols\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>问题：</p><p>检查圆括号 <code>()</code>、方括号 <code>[]</code>、花括号 <code>{}</code> 是否匹配。</p><p>PPT 算法：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>Make an empty stack S;\n\n<span class=\"syntax-keyword\">while</span> (read in a character c) {\n    <span class=\"syntax-keyword\">if</span> (c is an opening symbol) {\n        <span class=\"syntax-function\">Push</span>(c, S);\n    } <span class=\"syntax-keyword\">else</span> <span class=\"syntax-keyword\">if</span> (c is a closing symbol) {\n        <span class=\"syntax-keyword\">if</span> (S is empty) {\n            ERROR;\n            exit;\n        } <span class=\"syntax-keyword\">else</span> {\n            <span class=\"syntax-keyword\">if</span> (<span class=\"syntax-function\">Top</span>(S) doesn&#039;t match c) {\n                ERROR;\n                exit;\n            } <span class=\"syntax-keyword\">else</span> {\n                <span class=\"syntax-function\">Pop</span>(S);\n            }\n        }\n    }\n}\n\n<span class=\"syntax-keyword\">if</span> (S is not empty) {\n    ERROR;\n}</code></pre><p>核心不变量：</p><ul><li>栈中保存的是“已经出现但尚未匹配”的 opening symbols。</li><li>当前 closing symbol 必须匹配最近的 opening symbol，所以用栈。</li></ul><p>复杂度：</p><div class=\"math-display\">$$\nT(N) = O(N)\n$$</div><p>每个字符最多入栈一次、出栈一次。</p><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N) = O(N)\n$$</div><p>最坏情况下，表达式前半段全是 opening symbols。</p><p>PPT 说明这是一个 on-line algorithm，因为读到当前位置就能发现一部分错误，不需要等所有输入都读完。</p><h5 id=\"3-2-postfix-evaluation\">3.2 Postfix Evaluation<a class=\"heading-anchor\" href=\"#3-2-postfix-evaluation\" data-heading-id=\"3-2-postfix-evaluation\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 示例：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>infix:   a + b * c - d / e\nprefix:  - + a * b c / d e\npostfix: a b c * + d e / -</code></pre><p>Postfix expression 又叫 Reverse Polish notation。</p><p>后缀表达式求值算法：</p><ol><li>从左到右扫描 token。</li><li>遇到 operand，压栈。</li><li>遇到 operator，弹出两个 operand。</li><li>计算结果，再把结果压回栈。</li><li>扫描结束后，栈顶就是最终结果。</li></ol><p>注意弹出顺序：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>left operand  = second pop\nright operand = first pop</code></pre><p>例如处理 <code>a b -</code>：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>先弹出 b，再弹出 a，计算 a - b</code></pre><p>PPT 示例：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>6 2 / 3 - 4 2 * +</code></pre><p>计算过程：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>6 2 /       -&gt; 3\n3 3 -       -&gt; 0\n4 2 *       -&gt; 8\n0 8 +       -&gt; 8</code></pre><p>复杂度：</p><div class=\"math-display\">$$\nT(N) = O(N)\n$$</div><p>PPT 强调：postfix evaluation 不需要知道 precedence rules，因为运算顺序已经体现在表达式里。</p><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N) = O(N)\n$$</div><p>最坏情况下会有很多 operand 连续入栈。</p><h5 id=\"3-3-infix-to-postfix-conversion\">3.3 Infix to Postfix Conversion<a class=\"heading-anchor\" href=\"#3-3-infix-to-postfix-conversion\" data-heading-id=\"3-3-infix-to-postfix-conversion\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>目标：</p><p>把中缀表达式转成后缀表达式，方便后续用栈求值。</p><p>PPT 例子：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>a + b * c - d</code></pre><p>转换结果：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>a b c * + d -</code></pre><p>两个基本观察：</p><ol><li>Operands 在 infix 和 postfix 中的相对顺序不变。</li><li>优先级高的 operators 在 postfix 中应该更早出现。</li></ol><p>算法思想：</p><ul><li>operand：直接输出。</li><li>operator：和栈顶 operator 比较优先级，必要时弹出栈顶并输出，再把当前 operator 入栈。</li><li>left parenthesis <code>(</code>：入栈。</li><li>right parenthesis <code>)</code>：不断弹栈输出，直到遇到 <code>(</code>；然后丢弃这一对括号。</li><li>输入结束：把栈中剩余 operators 全部弹出输出。</li></ul><p>伪代码：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">for</span> each token x in input {\n    <span class=\"syntax-keyword\">if</span> (x is operand) {\n        output x;\n    } <span class=\"syntax-keyword\">else</span> <span class=\"syntax-keyword\">if</span> (x == <span class=\"syntax-string\">&#039;(&#039;</span>) {\n        <span class=\"syntax-function\">Push</span>(x, S);\n    } <span class=\"syntax-keyword\">else</span> <span class=\"syntax-keyword\">if</span> (x == <span class=\"syntax-string\">&#039;)&#039;</span>) {\n        <span class=\"syntax-keyword\">while</span> (<span class=\"syntax-function\">Top</span>(S) != <span class=\"syntax-string\">&#039;(&#039;</span>) {\n            output <span class=\"syntax-function\">Top</span>(S);\n            <span class=\"syntax-function\">Pop</span>(S);\n        }\n        <span class=\"syntax-function\">Pop</span>(S);  <span class=\"syntax-comment\">/* discard &#039;(&#039; */</span>\n    } <span class=\"syntax-keyword\">else</span> <span class=\"syntax-keyword\">if</span> (x is operator) {\n        <span class=\"syntax-keyword\">while</span> (!<span class=\"syntax-function\">IsEmpty</span>(S) &amp;&amp;\n               <span class=\"syntax-function\">Top</span>(S) is operator &amp;&amp;\n               <span class=\"syntax-function\">precedence</span>(<span class=\"syntax-function\">Top</span>(S)) &gt;= <span class=\"syntax-function\">precedence</span>(x)) {\n            output <span class=\"syntax-function\">Top</span>(S);\n            <span class=\"syntax-function\">Pop</span>(S);\n        }\n        <span class=\"syntax-function\">Push</span>(x, S);\n    }\n}\n\n<span class=\"syntax-keyword\">while</span> (!<span class=\"syntax-function\">IsEmpty</span>(S)) {\n    output <span class=\"syntax-function\">Top</span>(S);\n    <span class=\"syntax-function\">Pop</span>(S);\n}</code></pre><p>复杂度：</p><div class=\"math-display\">$$\nT(N) = O(N)\n$$</div><p>因为每个 token 最多入栈一次、出栈一次。</p><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N) = O(N)\n$$</div><p>栈中保存尚未输出的 operators 和 left parentheses。</p><h5 id=\"3-4-parentheses-与优先级细节\">3.4 Parentheses 与优先级细节<a class=\"heading-anchor\" href=\"#3-4-parentheses-与优先级细节\" data-heading-id=\"3-4-parentheses-与优先级细节\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 的第二个例子：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>a * ( b + c ) / d</code></pre><p>转换结果：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>a b c + * d /</code></pre><p>难点在于 <code>(</code>：</p><ol><li>除非正在处理 <code>)</code>，否则不要从栈中弹出 <code>(</code>。</li><li>当 <code>(</code> 还没有入栈时，它作为 incoming symbol 应该有最高优先级，这样能直接入栈。</li><li>当 <code>(</code> 已经在栈中时，它作为 in-stack symbol 应该有最低优先级，这样不会阻止后面的运算符入栈。</li></ol><p>所以 PPT 建议区分：</p><ul><li>in-stack precedence</li><li>incoming precedence</li></ul><p>结合性也要小心：</p><ul><li><span class=\"math-inline\">\\(a - b - c\\)</span> 应转换成 <span class=\"math-inline\">\\(a b - c -\\)</span>，因为减法左结合。</li><li><span class=\"math-inline\">\\(2 ^ 2 ^ 3\\)</span> 应转换成 <span class=\"math-inline\">\\(2 2 3 ^ ^\\)</span>，不是 <span class=\"math-inline\">\\(2 2 ^ 3 ^\\)</span>，因为指数运算右结合。</li></ul><p>本仓库里的参考实现：</p><ul><li><code>w3_stack_and_queue/mid_to_post.c</code></li></ul><p>它处理 <span class=\"math-inline\">\\(+ - * /\\)</span> 和括号，核心逻辑就是“优先级不低于当前运算符的栈顶运算符先弹出”。</p><h5 id=\"3-5-function-calls-system-stack\">3.5 Function Calls: System Stack<a class=\"heading-anchor\" href=\"#3-5-function-calls-system-stack\" data-heading-id=\"3-5-function-calls-system-stack\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>函数调用也依赖栈。</p><p>每一次函数调用都会形成一个 stack frame，通常包含：</p><ul><li>return address</li><li>local variables</li><li>old frame pointer</li><li>参数和临时状态</li></ul><p>PPT 中的递归例子：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">PrintList</span>(List L) {\n    <span class=\"syntax-keyword\">if</span> (L != NULL) {\n        <span class=\"syntax-function\">PrintElement</span>(L-&gt;Element);\n        <span class=\"syntax-function\">PrintList</span>(L-&gt;Next);\n    }\n}</code></pre><p>这是 tail recursion，但 PPT 说它是 a bad use of recursion。</p><p>原因：</p><ul><li>如果链表有 1 million elements，递归深度可能达到 $N$。</li><li>每一层递归都占用系统栈空间。</li><li>输入足够大时可能 stack overflow。</li></ul><p>时间复杂度：</p><div class=\"math-display\">$$\nT(N) = O(N)\n$$</div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N) = O(N)\n$$</div><p>如果改成迭代：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">while</span> (L != NULL) {\n    <span class=\"syntax-function\">PrintElement</span>(L-&gt;Element);\n    L = L-&gt;Next;\n}</code></pre><p>时间复杂度仍是：</p><div class=\"math-display\">$$\nT(N) = O(N)\n$$</div><p>但额外空间变成：</p><div class=\"math-display\">$$\nS(N) = O(1)\n$$</div><p>PPT 的结论：</p><ul><li>Recursion can always be completely removed.</li><li>Non-recursive programs are generally faster than equivalent recursive programs.</li><li>However, recursive programs are generally simpler and easier to understand.</li></ul><h4 id=\"22-queue-adt\">22. Queue ADT<a class=\"heading-anchor\" href=\"#22-queue-adt\" data-heading-id=\"22-queue-adt\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"4-1-定义\">4.1 定义<a class=\"heading-anchor\" href=\"#4-1-定义\" data-heading-id=\"4-1-定义\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>课程 PPT 的定义：</p><ul><li>A queue is a First-In-First-Out (FIFO) list.</li><li>It is an ordered list in which insertions take place at one end and deletions take place at the opposite end.</li></ul><p>也就是：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>first in, first out</code></pre><p>入队发生在队尾，出队发生在队首。</p><h5 id=\"4-2-对象与操作\">4.2 对象与操作<a class=\"heading-anchor\" href=\"#4-2-对象与操作\" data-heading-id=\"4-2-对象与操作\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>核心操作：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">int</span> <span class=\"syntax-function\">IsEmpty</span>(Queue Q);\nQueue <span class=\"syntax-function\">CreateQueue</span>(<span class=\"syntax-keyword\">void</span>);\n<span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">DisposeQueue</span>(Queue Q);\n<span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">MakeEmpty</span>(Queue Q);\n<span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">Enqueue</span>(ElementType X, Queue Q);\nElementType <span class=\"syntax-function\">Front</span>(Queue Q);\n<span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">Dequeue</span>(Queue Q);</code></pre><p>常见扩展：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>ElementType <span class=\"syntax-function\">FrontAndDequeue</span>(Queue Q);\n<span class=\"syntax-keyword\">int</span> <span class=\"syntax-function\">IsFull</span>(Queue Q);</code></pre><h5 id=\"4-3-操作复杂度\">4.3 操作复杂度<a class=\"heading-anchor\" href=\"#4-3-操作复杂度\" data-heading-id=\"4-3-操作复杂度\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>只要实现中直接维护 <code>Front</code> 和 <code>Rear</code>，队列基本操作都是常数时间。</p><div class=\"table-scroll\"><table><thead><tr><th>操作</th><th>含义</th><th>时间复杂度</th><th>空间复杂度</th></tr></thead><tbody><tr><td><code>IsEmpty(Q)</code></td><td>判断是否为空</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td><code>CreateQueue()</code></td><td>建立空队列</td><td>$O(1)$ 或 $O(C)$</td><td>$O(C)$</td></tr><tr><td><code>MakeEmpty(Q)</code></td><td>清空队列</td><td>数组队列 $O(1)$，链表队列 $O(N)$</td><td>$O(1)$</td></tr><tr><td><code>Enqueue(X, Q)</code></td><td>插入队尾</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td><code>Front(Q)</code></td><td>读取队首</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td><code>Dequeue(Q)</code></td><td>删除队首</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td><code>DisposeQueue(Q)</code></td><td>销毁队列</td><td>数组队列 $O(1)$，链表队列 $O(N)$</td><td>$O(1)$</td></tr></tbody></table></div><p>这里 $C$ 是数组容量，$N$ 是当前元素个数。</p><h4 id=\"23-queue-的实现\">23. Queue 的实现<a class=\"heading-anchor\" href=\"#23-queue-的实现\" data-heading-id=\"23-queue-的实现\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"5-1-linked-list-implementation\">5.1 Linked List Implementation<a class=\"heading-anchor\" href=\"#5-1-linked-list-implementation\" data-heading-id=\"5-1-linked-list-implementation\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 只说 linked list implementation is trivial。</p><p>典型做法是维护两个指针：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">typedef</span> <span class=\"syntax-keyword\">struct</span> QueueNode *PtrToNode;\n\n<span class=\"syntax-keyword\">struct</span> QueueNode {\n    ElementType Element;\n    PtrToNode Next;\n};\n\n<span class=\"syntax-keyword\">struct</span> QueueRecord {\n    PtrToNode Front;\n    PtrToNode Rear;\n};</code></pre><p>入队：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>Rear-&gt;Next = NewNode;\nRear = NewNode;</code></pre><p>出队：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>OldFront = Front;\nFront = Front-&gt;Next;\n<span class=\"syntax-function\">free</span>(OldFront);</code></pre><p>空队列需要特殊处理，因为第一个元素入队时 <code>Front</code> 和 <code>Rear</code> 都要指向它；最后一个元素出队后 <code>Rear</code> 也要置空。</p><p>复杂度：</p><ul><li><code>Enqueue</code>：$O(1)$。</li><li><code>Front</code>：$O(1)$。</li><li><code>Dequeue</code>：$O(1)$。</li></ul><h5 id=\"5-2-array-implementation\">5.2 Array Implementation<a class=\"heading-anchor\" href=\"#5-2-array-implementation\" data-heading-id=\"5-2-array-implementation\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>课程 PPT 的结构：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">struct</span> QueueRecord {\n    <span class=\"syntax-keyword\">int</span> Capacity;          <span class=\"syntax-comment\">/* max size of queue */</span>\n    <span class=\"syntax-keyword\">int</span> Front;             <span class=\"syntax-comment\">/* the front pointer */</span>\n    <span class=\"syntax-keyword\">int</span> Rear;              <span class=\"syntax-comment\">/* the rear pointer */</span>\n    <span class=\"syntax-keyword\">int</span> Size;              <span class=\"syntax-comment\">/* optional: current size of queue */</span>\n    ElementType *Array;    <span class=\"syntax-comment\">/* array for queue elements */</span>\n};</code></pre><p>如果只是普通数组，每次 <code>Dequeue</code> 后都把后面所有元素前移，会导致：</p><div class=\"math-display\">$$\nDequeue = O(N)\n$$</div><p>这不是课程想要的队列实现。</p><p>正确想法是：</p><ul><li>不移动元素。</li><li>只移动 <code>Front</code> 和 <code>Rear</code> 指针。</li><li>数组末尾用完后回到数组开头，即 circular queue。</li></ul><h5 id=\"5-3-circular-queue\">5.3 Circular Queue<a class=\"heading-anchor\" href=\"#5-3-circular-queue\" data-heading-id=\"5-3-circular-queue\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>循环队列把数组下标看成一个环：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">static</span> <span class=\"syntax-keyword\">int</span> <span class=\"syntax-function\">Succ</span>(<span class=\"syntax-keyword\">int</span> Value, Queue Q) {\n    <span class=\"syntax-keyword\">if</span> (++Value == Q-&gt;Capacity) {\n        Value = <span class=\"syntax-number\">0</span>;\n    }\n    <span class=\"syntax-keyword\">return</span> Value;\n}</code></pre><p>一种常见约定：</p><ul><li><code>Front</code> 指向队首元素。</li><li><code>Rear</code> 指向下一个可写位置。</li><li><span class=\"math-inline\">\\(Front == Rear\\)</span> 表示空。</li><li><span class=\"math-inline\">\\((Rear + 1) % Capacity == Front\\)</span> 表示满。</li></ul><p>入队：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">Enqueue</span>(ElementType X, Queue Q) {\n    <span class=\"syntax-keyword\">if</span> (<span class=\"syntax-function\">IsFull</span>(Q)) {\n        <span class=\"syntax-function\">Error</span>(<span class=\"syntax-string\">&quot;Full queue&quot;</span>);\n    } <span class=\"syntax-keyword\">else</span> {\n        Q-&gt;Array[Q-&gt;Rear] = X;\n        Q-&gt;Rear = (Q-&gt;Rear + <span class=\"syntax-number\">1</span>) % Q-&gt;Capacity;\n    }\n}</code></pre><p>出队：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">Dequeue</span>(Queue Q) {\n    <span class=\"syntax-keyword\">if</span> (<span class=\"syntax-function\">IsEmpty</span>(Q)) {\n        <span class=\"syntax-function\">Error</span>(<span class=\"syntax-string\">&quot;Empty queue&quot;</span>);\n    } <span class=\"syntax-keyword\">else</span> {\n        Q-&gt;Front = (Q-&gt;Front + <span class=\"syntax-number\">1</span>) % Q-&gt;Capacity;\n    }\n}</code></pre><p>读取队首：</p><pre class=\"code-block language-c\" data-language=\"c\"><code>ElementType <span class=\"syntax-function\">Front</span>(Queue Q) {\n    <span class=\"syntax-keyword\">if</span> (<span class=\"syntax-function\">IsEmpty</span>(Q)) {\n        <span class=\"syntax-function\">Error</span>(<span class=\"syntax-string\">&quot;Empty queue&quot;</span>);\n    }\n    <span class=\"syntax-keyword\">return</span> Q-&gt;Array[Q-&gt;Front];\n}</code></pre><p>复杂度：</p><ul><li><code>Enqueue</code>：$O(1)$。</li><li><code>Dequeue</code>：$O(1)$。</li><li><code>Front</code>：$O(1)$。</li><li>空间：$O(C)$。</li></ul><h5 id=\"5-4-为什么有空位却说队满\">5.4 为什么有空位却说队满<a class=\"heading-anchor\" href=\"#5-4-为什么有空位却说队满\" data-heading-id=\"5-4-为什么有空位却说队满\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 的问题：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>Why is the queue announced full while there is still a free space left?</code></pre><p>原因：</p><ul><li>如果只用 <code>Front</code> 和 <code>Rear</code> 两个指针，并且规定 <span class=\"math-inline\">\\(Front == Rear\\)</span> 表示 empty；</li><li>那么满队列时也可能出现 <span class=\"math-inline\">\\(Front == Rear\\)</span>；</li><li>为了区分 empty 和 full，循环队列常故意浪费一个空位。</li></ul><p>因此：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>empty: Front == Rear\nfull:  (Rear + 1) % Capacity == Front</code></pre><p>这时数组容量为 <code>Capacity</code>，最多只能放：</p><div class=\"math-display\">$$\nCapacity - 1\n$$</div><p>个元素。</p><p>PPT 提到：Adding a <code>Size</code> field can avoid wasting one empty space.</p><p>如果维护 <code>Size</code>：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>empty: Size == 0\nfull:  Size == Capacity</code></pre><p>这样可以使用所有数组位置，但每次 <code>Enqueue</code> 和 <code>Dequeue</code> 都要同步更新 <code>Size</code>。</p><p>复杂度仍然是：</p><div class=\"math-display\">$$\nO(1)\n$$</div><h5 id=\"5-5-队列实现易错点\">5.5 队列实现易错点<a class=\"heading-anchor\" href=\"#5-5-队列实现易错点\" data-heading-id=\"5-5-队列实现易错点\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><div class=\"table-scroll\"><table><thead><tr><th>易错点</th><th>正确处理</th></tr></thead><tbody><tr><td>出队时移动数组元素</td><td>不移动元素，只移动 <code>Front</code></td></tr><tr><td>忘记取模</td><td>用 <code>Succ</code> 或 <code>% Capacity</code> 回到数组开头</td></tr><tr><td><span class=\"math-inline\">\\(Front == Rear\\)</span> 同时表示空和满</td><td>浪费一个空位，或维护 <code>Size</code></td></tr><tr><td>空队列 <code>Front</code></td><td>先检查 <code>IsEmpty</code>，再访问队首</td></tr><tr><td>链表队列最后一个元素出队</td><td>同时更新 <code>Front</code> 和 <code>Rear</code></td></tr></tbody></table></div><h4 id=\"24-queue-的典型应用\">24. Queue 的典型应用<a class=\"heading-anchor\" href=\"#24-queue-的典型应用\" data-heading-id=\"24-queue-的典型应用\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><h5 id=\"6-1-job-scheduling\">6.1 Job Scheduling<a class=\"heading-anchor\" href=\"#6-1-job-scheduling\" data-heading-id=\"6-1-job-scheduling\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 示例是 operating system 中的 job scheduling。</p><p>任务按到达顺序进入队列：</p><pre class=\"code-block language-text\" data-language=\"text\"><code>Enqueue Job 1\nEnqueue Job 2\nEnqueue Job 3\nDequeue Job 1\nEnqueue Job 4\n...</code></pre><p>含义：</p><ul><li>新任务从队尾进入。</li><li>最早等待的任务从队首被处理。</li></ul><p>每个任务入队一次、出队一次：</p><div class=\"math-display\">$$\nT(N) = O(N)\n$$</div><p>队列操作本身：</p><div class=\"math-display\">$$\nEnqueue = O(1), \\quad Dequeue = O(1)\n$$</div><h5 id=\"6-2-level-order-traversal\">6.2 Level-order Traversal<a class=\"heading-anchor\" href=\"#6-2-level-order-traversal\" data-heading-id=\"6-2-level-order-traversal\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>树的层序遍历需要队列。</p><p>算法：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">LevelOrder</span>(Tree T) {\n    Queue Q = <span class=\"syntax-function\">CreateQueue</span>();\n    <span class=\"syntax-keyword\">if</span> (T != NULL) {\n        <span class=\"syntax-function\">Enqueue</span>(T, Q);\n    }\n\n    <span class=\"syntax-keyword\">while</span> (!<span class=\"syntax-function\">IsEmpty</span>(Q)) {\n        Tree Cur = <span class=\"syntax-function\">Front</span>(Q);\n        <span class=\"syntax-function\">Dequeue</span>(Q);\n        <span class=\"syntax-function\">visit</span>(Cur);\n\n        <span class=\"syntax-keyword\">if</span> (Cur-&gt;Left != NULL) {\n            <span class=\"syntax-function\">Enqueue</span>(Cur-&gt;Left, Q);\n        }\n        <span class=\"syntax-keyword\">if</span> (Cur-&gt;Right != NULL) {\n            <span class=\"syntax-function\">Enqueue</span>(Cur-&gt;Right, Q);\n        }\n    }\n}</code></pre><p>复杂度：</p><div class=\"math-display\">$$\nT(N) = O(N)\n$$</div><p>每个结点入队一次、出队一次。</p><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N) = O(W)\n$$</div><p>其中 $W$ 是树的最大宽度，最坏可以是 $O(N)$。</p><p>本仓库里可以参考：</p><ul><li><code>w4_binary_tree/best_zigzag.c</code></li><li><code>midtermreview/binary_tree.c</code></li><li><code>w6_binary_heap/complete binary search tree.c</code></li></ul><p>这些代码都用数组模拟队列来做层序处理。</p><h5 id=\"6-3-bfs\">6.3 BFS<a class=\"heading-anchor\" href=\"#6-3-bfs\" data-heading-id=\"6-3-bfs\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>图的广度优先搜索也使用队列。</p><p>基本模板：</p><pre class=\"code-block language-c\" data-language=\"c\"><code><span class=\"syntax-keyword\">void</span> <span class=\"syntax-function\">BFS</span>(Vertex S) {\n    Mark[S] = true;\n    <span class=\"syntax-function\">Enqueue</span>(S, Q);\n\n    <span class=\"syntax-keyword\">while</span> (!<span class=\"syntax-function\">IsEmpty</span>(Q)) {\n        Vertex V = <span class=\"syntax-function\">Front</span>(Q);\n        <span class=\"syntax-function\">Dequeue</span>(Q);\n\n        <span class=\"syntax-keyword\">for</span> (each neighbor W of V) {\n            <span class=\"syntax-keyword\">if</span> (!Mark[W]) {\n                Mark[W] = true;\n                <span class=\"syntax-function\">Enqueue</span>(W, Q);\n            }\n        }\n    }\n}</code></pre><p>邻接表实现下：</p><div class=\"math-display\">$$\nT(V, E) = O(V + E)\n$$</div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(V) = O(V)\n$$</div><p>队列保证按距离从近到远扩展，所以 BFS 可以求无权图的最短路径层数。</p><h5 id=\"6-4-bonus-problem-lru-k\">6.4 Bonus Problem: LRU-K<a class=\"heading-anchor\" href=\"#6-4-bonus-problem-lru-k\" data-heading-id=\"6-4-bonus-problem-lru-k\" aria-label=\"Copy section link / 复制小节链接\">#</a></h5><p>PPT 最后一页提到 Bonus Problem 1：LRU-K。</p><p>本仓库中的参考代码：</p><ul><li><code>bonus/bonus1.c</code></li></ul><p>它维护两个队列：</p><ul><li>history queue：访问次数还没有达到阈值 $K$ 的页面。</li><li>cache queue：访问次数达到阈值 $K$ 后进入缓存的页面。</li></ul><p>代码中还使用 <code>hash_map[value]</code> 直接定位队列结点，使删除指定页面不需要线性扫描。</p><p>核心操作：</p><div class=\"table-scroll\"><table><thead><tr><th>操作</th><th>如果没有 hash_map</th><th>使用 hash_map 后</th></tr></thead><tbody><tr><td>查找页面是否在队列</td><td>$O(N)$</td><td>$O(1)$</td></tr><tr><td>删除指定页面</td><td>$O(N)$</td><td>$O(1)$</td></tr><tr><td>插入队尾</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td>超容量时删除队首</td><td>$O(1)$</td><td>$O(1)$</td></tr></tbody></table></div><p>所以对 $M$ 次访问，若哈希定位均摊 $O(1)$，总复杂度近似：</p><div class=\"math-display\">$$\nT(M) = O(M)\n$$</div><p>空间复杂度：</p><div class=\"math-display\">$$\nS(N, U) = O(N + U)\n$$</div><p>其中 $N$ 是队列容量，$U$ 是页面 ID 范围或哈希表大小。</p><h4 id=\"25-栈与队列对比\">25. 栈与队列对比<a class=\"heading-anchor\" href=\"#25-栈与队列对比\" data-heading-id=\"25-栈与队列对比\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"table-scroll\"><table><thead><tr><th>结构</th><th>顺序规则</th><th>插入位置</th><th>删除位置</th><th>典型关键词</th></tr></thead><tbody><tr><td>Stack</td><td>LIFO</td><td>top</td><td>top</td><td>matching, recursion, backtracking, expression</td></tr><tr><td>Queue</td><td>FIFO</td><td>rear</td><td>front</td><td>scheduling, level-order, BFS, waiting line</td></tr></tbody></table></div><p>共同点：</p><ul><li>都是受限的线性表。</li><li>如果直接维护关键位置指针，基本操作都是 $O(1)$。</li><li>都常用数组或链表实现。</li></ul><p>区别：</p><ul><li>栈关心“最近的对象”。</li><li>队列关心“最早的对象”。</li></ul><h4 id=\"26-总复杂度速查\">26. 总复杂度速查<a class=\"heading-anchor\" href=\"#26-总复杂度速查\" data-heading-id=\"26-总复杂度速查\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><div class=\"table-scroll\"><table><thead><tr><th>主题</th><th>典型操作/算法</th><th>时间复杂度</th><th>空间复杂度</th></tr></thead><tbody><tr><td>Selection sort</td><td>选择排序</td><td>$\\Theta(N^2)$</td><td>$O(1)$</td></tr><tr><td>Matrix addition</td><td>矩阵加法</td><td>$\\Theta(rows \\cdot cols)$</td><td>$O(1)$ 额外空间</td></tr><tr><td>Iterative sum</td><td>数组求和</td><td>$\\Theta(N)$</td><td>$O(1)$</td></tr><tr><td>Recursive sum</td><td>递归求和</td><td>$\\Theta(N)$</td><td>$O(N)$</td></tr><tr><td>Fibonacci naive recursion</td><td>朴素递归 Fibonacci</td><td>exponential</td><td>$O(N)$</td></tr><tr><td>Max subsequence algorithm 1</td><td>三重循环</td><td>$O(N^3)$</td><td>$O(1)$</td></tr><tr><td>Max subsequence algorithm 2</td><td>二重循环</td><td>$O(N^2)$</td><td>$O(1)$</td></tr><tr><td>Max subsequence algorithm 3</td><td>分治</td><td>$O(N\\log N)$</td><td>$O(\\log N)$</td></tr><tr><td>Max subsequence algorithm 4</td><td>在线算法</td><td>$O(N)$</td><td>$O(1)$</td></tr><tr><td>Binary search</td><td>二分搜索</td><td>$O(\\log N)$</td><td>迭代 $O(1)$，递归 $O(\\log N)$</td></tr><tr><td>Array list</td><td><span class=\"math-inline\">\\(Find_{Kth}\\)</span></td><td>$O(1)$</td><td>$O(MaxSize)$</td></tr><tr><td>Array list</td><td>insert/delete</td><td>$O(N)$</td><td>$O(1)$</td></tr><tr><td>Singly linked list</td><td>known-node insert</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td>Singly linked list</td><td>find kth / previous</td><td>$O(N)$</td><td>$O(1)$</td></tr><tr><td>Doubly linked list</td><td>known-node delete / previous</td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td>Stack</td><td><code>Push</code> / <code>Pop</code> / <code>Top</code></td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td>Queue</td><td><code>Enqueue</code> / <code>Dequeue</code> / <code>Front</code></td><td>$O(1)$</td><td>$O(1)$</td></tr><tr><td>Infix to postfix</td><td>中缀转后缀</td><td>$O(N)$</td><td>$O(N)$</td></tr><tr><td>Level-order traversal</td><td>层序遍历</td><td>$O(N)$</td><td>$O(W)$，最坏 $O(N)$</td></tr><tr><td>BFS adjacency list</td><td>图 BFS</td><td>$O(V+E)$</td><td>$O(V)$</td></tr></tbody></table></div><h4 id=\"27-考试抓手\">27. 考试抓手<a class=\"heading-anchor\" href=\"#27-考试抓手\" data-heading-id=\"27-考试抓手\" aria-label=\"Copy section link / 复制小节链接\">#</a></h4><ol><li>复杂度题先写输入规模，再看循环次数、递归式和是否重复扫描。</li><li>ADT 题先写对象和操作，再比较不同表示法的复杂度。</li><li>List 题重点看数组移动、链表指针顺序、dummy head node、previous 的代价。</li><li>Stack 题重点看“最近未匹配”：括号、运算符、递归调用。</li><li>Queue 题重点看“最早等待”：循环队列、层序遍历、BFS。</li></ol>",
+  "headings": [
+    {
+      "id": "algorithm-list-stack-queue-复习笔记",
+      "title": "Algorithm / List / Stack / Queue 复习笔记",
+      "level": 3
+    },
+    {
+      "id": "0-总览",
+      "title": "0. 总览",
+      "level": 4
+    },
+    {
+      "id": "1-algorithm-与-program",
+      "title": "1. Algorithm 与 Program",
+      "level": 4
+    },
+    {
+      "id": "1-1-algorithm-的定义",
+      "title": "1.1 Algorithm 的定义",
+      "level": 5
+    },
+    {
+      "id": "1-2-selection-sort-例子",
+      "title": "1.2 Selection Sort 例子",
+      "level": 5
+    },
+    {
+      "id": "2-what-to-analyze",
+      "title": "2. What to Analyze",
+      "level": 4
+    },
+    {
+      "id": "2-1-分析什么",
+      "title": "2.1 分析什么",
+      "level": 5
+    },
+    {
+      "id": "2-2-课程分析假设",
+      "title": "2.2 课程分析假设",
+      "level": 5
+    },
+    {
+      "id": "3-精确计数到渐进分析",
+      "title": "3. 精确计数到渐进分析",
+      "level": 4
+    },
+    {
+      "id": "3-1-matrix-addition",
+      "title": "3.1 Matrix Addition",
+      "level": 5
+    },
+    {
+      "id": "3-2-iterative-sum",
+      "title": "3.2 Iterative Sum",
+      "level": 5
+    },
+    {
+      "id": "3-3-recursive-sum",
+      "title": "3.3 Recursive Sum",
+      "level": 5
+    },
+    {
+      "id": "4-asymptotic-notation",
+      "title": "4. Asymptotic Notation",
+      "level": 4
+    },
+    {
+      "id": "4-1-为什么需要渐进记号",
+      "title": "4.1 为什么需要渐进记号",
+      "level": 5
+    },
+    {
+      "id": "4-2-big-o",
+      "title": "4.2 Big-O",
+      "level": 5
+    },
+    {
+      "id": "4-3-big-omega",
+      "title": "4.3 Big-Omega",
+      "level": 5
+    },
+    {
+      "id": "4-4-big-theta",
+      "title": "4.4 Big-Theta",
+      "level": 5
+    },
+    {
+      "id": "4-5-little-o",
+      "title": "4.5 little-o",
+      "level": 5
+    },
+    {
+      "id": "5-渐进分析规则",
+      "title": "5. 渐进分析规则",
+      "level": 4
+    },
+    {
+      "id": "5-1-加法与乘法规则",
+      "title": "5.1 加法与乘法规则",
+      "level": 5
+    },
+    {
+      "id": "5-2-多项式规则",
+      "title": "5.2 多项式规则",
+      "level": 5
+    },
+    {
+      "id": "5-3-对数增长",
+      "title": "5.3 对数增长",
+      "level": 5
+    },
+    {
+      "id": "5-4-循环分析通用规则",
+      "title": "5.4 循环分析通用规则",
+      "level": 5
+    },
+    {
+      "id": "for-loops",
+      "title": "For Loops",
+      "level": 6
+    },
+    {
+      "id": "nested-for-loops",
+      "title": "Nested For Loops",
+      "level": 6
+    },
+    {
+      "id": "consecutive-statements",
+      "title": "Consecutive Statements",
+      "level": 6
+    },
+    {
+      "id": "if-else",
+      "title": "If / Else",
+      "level": 6
+    },
+    {
+      "id": "5-5-递归分析",
+      "title": "5.5 递归分析",
+      "level": 5
+    },
+    {
+      "id": "6-compare-the-algorithms-maximum-subsequence-sum",
+      "title": "6. Compare the Algorithms: Maximum Subsequence Sum",
+      "level": 4
+    },
+    {
+      "id": "6-1-问题定义",
+      "title": "6.1 问题定义",
+      "level": 5
+    },
+    {
+      "id": "6-2-algorithm-1-三重循环",
+      "title": "6.2 Algorithm 1: 三重循环",
+      "level": 5
+    },
+    {
+      "id": "6-3-algorithm-2-二重循环",
+      "title": "6.3 Algorithm 2: 二重循环",
+      "level": 5
+    },
+    {
+      "id": "6-4-algorithm-3-divide-and-conquer",
+      "title": "6.4 Algorithm 3: Divide and Conquer",
+      "level": 5
+    },
+    {
+      "id": "6-5-algorithm-4-on-line-algorithm",
+      "title": "6.5 Algorithm 4: On-line Algorithm",
+      "level": 5
+    },
+    {
+      "id": "6-6-四个算法对比",
+      "title": "6.6 四个算法对比",
+      "level": 5
+    },
+    {
+      "id": "7-logarithms-in-running-time",
+      "title": "7. Logarithms in Running Time",
+      "level": 4
+    },
+    {
+      "id": "7-1-binary-search",
+      "title": "7.1 Binary Search",
+      "level": 5
+    },
+    {
+      "id": "7-2-迭代模板",
+      "title": "7.2 迭代模板",
+      "level": 5
+    },
+    {
+      "id": "7-3-什么时候适合二分搜索",
+      "title": "7.3 什么时候适合二分搜索",
+      "level": 5
+    },
+    {
+      "id": "8-checking-your-analysis",
+      "title": "8. Checking Your Analysis",
+      "level": 4
+    },
+    {
+      "id": "8-1-倍增检查法",
+      "title": "8.1 倍增检查法",
+      "level": 5
+    },
+    {
+      "id": "8-2-归一化检查法",
+      "title": "8.2 归一化检查法",
+      "level": 5
+    },
+    {
+      "id": "9-abstract-data-type",
+      "title": "9. Abstract Data Type",
+      "level": 4
+    },
+    {
+      "id": "9-1-data-type",
+      "title": "9.1 Data Type",
+      "level": 5
+    },
+    {
+      "id": "9-2-adt",
+      "title": "9.2 ADT",
+      "level": 5
+    },
+    {
+      "id": "10-the-list-adt",
+      "title": "10. The List ADT",
+      "level": 4
+    },
+    {
+      "id": "10-1-对象",
+      "title": "10.1 对象",
+      "level": 5
+    },
+    {
+      "id": "10-2-操作",
+      "title": "10.2 操作",
+      "level": 5
+    },
+    {
+      "id": "11-simple-array-implementation-of-lists",
+      "title": "11. Simple Array Implementation of Lists",
+      "level": 4
+    },
+    {
+      "id": "11-1-表示法",
+      "title": "11.1 表示法",
+      "level": 5
+    },
+    {
+      "id": "11-2-优点",
+      "title": "11.2 优点",
+      "level": 5
+    },
+    {
+      "id": "11-3-缺点",
+      "title": "11.3 缺点",
+      "level": 5
+    },
+    {
+      "id": "11-4-数组-list-复杂度",
+      "title": "11.4 数组 List 复杂度",
+      "level": 5
+    },
+    {
+      "id": "12-linked-lists",
+      "title": "12. Linked Lists",
+      "level": 4
+    },
+    {
+      "id": "12-1-基本结构",
+      "title": "12.1 基本结构",
+      "level": 5
+    },
+    {
+      "id": "12-2-创建和链接结点",
+      "title": "12.2 创建和链接结点",
+      "level": 5
+    },
+    {
+      "id": "12-3-插入",
+      "title": "12.3 插入",
+      "level": 5
+    },
+    {
+      "id": "12-4-插入新的第一个元素",
+      "title": "12.4 插入新的第一个元素",
+      "level": 5
+    },
+    {
+      "id": "12-5-删除",
+      "title": "12.5 删除",
+      "level": 5
+    },
+    {
+      "id": "12-6-删除第一个结点",
+      "title": "12.6 删除第一个结点",
+      "level": 5
+    },
+    {
+      "id": "12-7-单链表复杂度",
+      "title": "12.7 单链表复杂度",
+      "level": 5
+    },
+    {
+      "id": "13-doubly-linked-circular-lists",
+      "title": "13. Doubly Linked Circular Lists",
+      "level": 4
+    },
+    {
+      "id": "13-1-为什么需要双向链表",
+      "title": "13.1 为什么需要双向链表",
+      "level": 5
+    },
+    {
+      "id": "13-2-结构",
+      "title": "13.2 结构",
+      "level": 5
+    },
+    {
+      "id": "13-3-circular-head-node",
+      "title": "13.3 Circular + Head Node",
+      "level": 5
+    },
+    {
+      "id": "13-4-双向循环链表复杂度",
+      "title": "13.4 双向循环链表复杂度",
+      "level": 5
+    },
+    {
+      "id": "14-polynomial-adt",
+      "title": "14. Polynomial ADT",
+      "level": 4
+    },
+    {
+      "id": "14-1-对象",
+      "title": "14.1 对象",
+      "level": 5
+    },
+    {
+      "id": "14-2-操作",
+      "title": "14.2 操作",
+      "level": 5
+    },
+    {
+      "id": "14-3-representation-1-array",
+      "title": "14.3 Representation 1: Array",
+      "level": 5
+    },
+    {
+      "id": "14-4-representation-2-linked-list",
+      "title": "14.4 Representation 2: Linked List",
+      "level": 5
+    },
+    {
+      "id": "15-multilists",
+      "title": "15. Multilists",
+      "level": 4
+    },
+    {
+      "id": "15-1-动机",
+      "title": "15.1 动机",
+      "level": 5
+    },
+    {
+      "id": "15-2-multilist-思想",
+      "title": "15.2 Multilist 思想",
+      "level": 5
+    },
+    {
+      "id": "16-cursor-implementation-of-linked-lists",
+      "title": "16. Cursor Implementation of Linked Lists",
+      "level": 4
+    },
+    {
+      "id": "16-1-动机",
+      "title": "16.1 动机",
+      "level": 5
+    },
+    {
+      "id": "16-2-结构",
+      "title": "16.2 结构",
+      "level": 5
+    },
+    {
+      "id": "16-3-cursor-malloc",
+      "title": "16.3 Cursor malloc",
+      "level": 5
+    },
+    {
+      "id": "16-4-cursor-free",
+      "title": "16.4 Cursor free",
+      "level": 5
+    },
+    {
+      "id": "16-5-cursor-与-pointer-接口一致",
+      "title": "16.5 Cursor 与 Pointer 接口一致",
+      "level": 5
+    },
+    {
+      "id": "17-list-实现复杂度总表",
+      "title": "17. List 实现复杂度总表",
+      "level": 4
+    },
+    {
+      "id": "18-从-list-到-stack-queue",
+      "title": "18. 从 List 到 Stack / Queue",
+      "level": 4
+    },
+    {
+      "id": "19-stack-adt",
+      "title": "19. Stack ADT",
+      "level": 4
+    },
+    {
+      "id": "1-1-定义",
+      "title": "1.1 定义",
+      "level": 5
+    },
+    {
+      "id": "1-2-对象与操作",
+      "title": "1.2 对象与操作",
+      "level": 5
+    },
+    {
+      "id": "1-3-操作复杂度",
+      "title": "1.3 操作复杂度",
+      "level": 5
+    },
+    {
+      "id": "20-stack-的实现",
+      "title": "20. Stack 的实现",
+      "level": 4
+    },
+    {
+      "id": "2-1-linked-list-implementation",
+      "title": "2.1 Linked List Implementation",
+      "level": 5
+    },
+    {
+      "id": "2-2-array-implementation",
+      "title": "2.2 Array Implementation",
+      "level": 5
+    },
+    {
+      "id": "21-stack-的典型应用",
+      "title": "21. Stack 的典型应用",
+      "level": 4
+    },
+    {
+      "id": "3-1-balancing-symbols",
+      "title": "3.1 Balancing Symbols",
+      "level": 5
+    },
+    {
+      "id": "3-2-postfix-evaluation",
+      "title": "3.2 Postfix Evaluation",
+      "level": 5
+    },
+    {
+      "id": "3-3-infix-to-postfix-conversion",
+      "title": "3.3 Infix to Postfix Conversion",
+      "level": 5
+    },
+    {
+      "id": "3-4-parentheses-与优先级细节",
+      "title": "3.4 Parentheses 与优先级细节",
+      "level": 5
+    },
+    {
+      "id": "3-5-function-calls-system-stack",
+      "title": "3.5 Function Calls: System Stack",
+      "level": 5
+    },
+    {
+      "id": "22-queue-adt",
+      "title": "22. Queue ADT",
+      "level": 4
+    },
+    {
+      "id": "4-1-定义",
+      "title": "4.1 定义",
+      "level": 5
+    },
+    {
+      "id": "4-2-对象与操作",
+      "title": "4.2 对象与操作",
+      "level": 5
+    },
+    {
+      "id": "4-3-操作复杂度",
+      "title": "4.3 操作复杂度",
+      "level": 5
+    },
+    {
+      "id": "23-queue-的实现",
+      "title": "23. Queue 的实现",
+      "level": 4
+    },
+    {
+      "id": "5-1-linked-list-implementation",
+      "title": "5.1 Linked List Implementation",
+      "level": 5
+    },
+    {
+      "id": "5-2-array-implementation",
+      "title": "5.2 Array Implementation",
+      "level": 5
+    },
+    {
+      "id": "5-3-circular-queue",
+      "title": "5.3 Circular Queue",
+      "level": 5
+    },
+    {
+      "id": "5-4-为什么有空位却说队满",
+      "title": "5.4 为什么有空位却说队满",
+      "level": 5
+    },
+    {
+      "id": "5-5-队列实现易错点",
+      "title": "5.5 队列实现易错点",
+      "level": 5
+    },
+    {
+      "id": "24-queue-的典型应用",
+      "title": "24. Queue 的典型应用",
+      "level": 4
+    },
+    {
+      "id": "6-1-job-scheduling",
+      "title": "6.1 Job Scheduling",
+      "level": 5
+    },
+    {
+      "id": "6-2-level-order-traversal",
+      "title": "6.2 Level-order Traversal",
+      "level": 5
+    },
+    {
+      "id": "6-3-bfs",
+      "title": "6.3 BFS",
+      "level": 5
+    },
+    {
+      "id": "6-4-bonus-problem-lru-k",
+      "title": "6.4 Bonus Problem: LRU-K",
+      "level": 5
+    },
+    {
+      "id": "25-栈与队列对比",
+      "title": "25. 栈与队列对比",
+      "level": 4
+    },
+    {
+      "id": "26-总复杂度速查",
+      "title": "26. 总复杂度速查",
+      "level": 4
+    },
+    {
+      "id": "27-考试抓手",
+      "title": "27. 考试抓手",
+      "level": 4
+    }
+  ]
+}
