@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>并查集专题复习笔记 · qqqzj@Crane</title>
+    <meta name="description" content="并查集专题复习笔记 0. 总览 并查集这一章在课程 PPT 中的主线是： 1. Equivalence Relations：等价关系、等价类。 2. Dynamic Equivalence Problem：动态判断两个元素是否等价。 3...." />
+    <link rel="canonical" href="https://qqqzj.cn/post/2026-05-03-%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="并查集专题复习笔记 · qqqzj@Crane" />
+    <meta property="og:description" content="并查集专题复习笔记 0. 总览 并查集这一章在课程 PPT 中的主线是： 1. Equivalence Relations：等价关系、等价类。 2. Dynamic Equivalence Problem：动态判断两个元素是否等价。 3...." />
+    <meta property="og:url" content="https://qqqzj.cn/post/2026-05-03-%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" />
+    <meta property="og:image" content="https://qqqzj.cn/assets/blog-studio-og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f3f7f8" />
+    <meta name="application-name" content="qqqzj@Crane" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="qqqzj@Crane" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="manifest" href="../../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../../assets/site-icon-192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/site-icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="../../assets/site-icon-512.png" />
+    <link rel="alternate" type="application/rss+xml" title="qqqzj@Crane RSS" href="../../rss.xml" />
+    <link rel="icon" href="../../assets/furina-avatar-pneuma.png?v=20260425-1" type="image/png" />
+    <script>
+      (() => {
+        const key = "qqqzj-crane-theme";
+        const modes = ["pneuma", "ousia", "auto"];
+        let preference = "auto";
+        try {
+          const stored = window.localStorage.getItem(key);
+          preference = modes.includes(stored) ? stored : "auto";
+        } catch {
+          preference = "auto";
+        }
+
+        const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const state = preference === "auto" ? (prefersDark ? "ousia" : "pneuma") : preference;
+        document.documentElement.dataset.themePreference = preference;
+        document.documentElement.dataset.themeState = state;
+        document.documentElement.style.colorScheme = state === "ousia" ? "dark" : "light";
+      })();
+    </script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <script defer src="../../theme.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" crossorigin="anonymous" />
+    <script>
+      window.BLOG_MATH_OPTIONS = {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
+        throwOnError: false,
+      };
+      window.renderBlogMath = (root = document.body) => {
+        if (!window.renderMathInElement || !root) return;
+        window.renderMathInElement(root, window.BLOG_MATH_OPTIONS);
+      };
+      window.renderBlogMermaid = async (root = document.body) => {
+        if (!window.mermaid || !root) return;
+        const nodes = [...root.querySelectorAll(".mermaid:not([data-processed])")];
+        if (!nodes.length) return;
+        window.mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: "default" });
+        try {
+          await window.mermaid.run({ nodes });
+        } catch (error) {
+          console.warn("Mermaid render failed", error);
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="window.renderBlogMath?.(document.body);"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" crossorigin="anonymous" onload="window.renderBlogMermaid?.(document.body);"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        let hadController = Boolean(navigator.serviceWorker.controller);
+        let reloadingForUpdate = false;
+        const activateWaitingServiceWorker = (worker) => {
+          if (!worker || !navigator.serviceWorker.controller) return;
+          worker.postMessage({ type: "SKIP_WAITING" });
+        };
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (!hadController) {
+            hadController = true;
+            return;
+          }
+          if (reloadingForUpdate) return;
+          reloadingForUpdate = true;
+          window.location.reload();
+        });
+        window.addEventListener("load", async () => {
+          try {
+            const registration = await navigator.serviceWorker.register("/service-worker.js", {
+              updateViaCache: "none",
+            });
+            activateWaitingServiceWorker(registration.waiting);
+            registration.addEventListener("updatefound", () => {
+              const worker = registration.installing;
+              if (!worker) return;
+              worker.addEventListener("statechange", () => {
+                if (worker.state === "installed") {
+                  activateWaitingServiceWorker(worker);
+                }
+              });
+            });
+            await registration.update();
+          } catch {}
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="../../index.html#home" aria-label="Back to home / 回到首页">
+          <span class="brand-mark brand-avatar" aria-hidden="true">
+            <img
+              src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
+              data-theme-asset
+              data-pneuma-src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
+              data-ousia-src="../../assets/furina-avatar-ousia.webp"
+              data-fallback-src="../../assets/furina-avatar.png"
+              alt=""
+            />
+          </span>
+          <span>qqqzj@Crane</span>
+        </a>
+        <div class="topbar-actions">
+          <nav class="nav-links" aria-label="Primary navigation / 主导航">
+            <a href="../../index.html#about">About me</a>
+            <a href="../../index.html#growth">News 动态</a>
+            <a href="../../index.html#notes">Notes 笔记</a>
+            <a href="../../index.html#life">Life 生活</a>
+            <a href="../../index.html#archive">Archive 归档</a>
+            <a href="../../rss.xml">RSS</a>
+          </nav>
+          <div class="theme-switcher" data-theme-switcher aria-label="Theme mode / 主题模式">
+            <button class="theme-trigger" type="button" data-theme-trigger aria-haspopup="menu" aria-expanded="false" title="选择主题模式">
+              <span class="theme-trigger-icon" data-theme-current-icon aria-hidden="true">A</span>
+              <span data-theme-current-label>自动</span>
+            </button>
+            <div class="theme-options" role="menu" aria-label="Theme choices / 主题选项">
+              <button type="button" role="menuitemradio" data-theme-mode="pneuma" aria-checked="false" aria-pressed="false" title="固定白天主题">
+                <span aria-hidden="true">☀</span>
+                白天
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="ousia" aria-checked="false" aria-pressed="false" title="固定黑夜主题">
+                <span aria-hidden="true">☾</span>
+                黑夜
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="auto" aria-checked="false" aria-pressed="false" title="跟随系统">
+                <span aria-hidden="true">A</span>
+                自动
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="home">
+        <section class="post-detail-section">
+          <div class="post-detail-shell">
+            <a class="back-link" href="../../index.html#home">Back to home / 返回首页</a>
+            <article class="post-detail-card">
+              <div class="post-detail-kicker">
+                <p class="eyebrow">Notes 笔记</p>
+                <button class="post-comment-jump" id="post-jump-comments" type="button">发布评论</button>
+              </div>
+              <h1>并查集专题复习笔记</h1>
+              <div class="post-detail-meta">
+                <time datetime="2026-05-03T00:00:00.000Z">2026年5月03日</time>
+                <span>随笔</span>
+                <span class="author-chip">作者 qqqzj-crane</span>
+                <span>约 8 分钟</span>
+              </div>
+              <nav class="post-toc" aria-label="Table of contents / 文章目录">
+                <strong>Contents 目录</strong>
+                <div>
+                  <a class="toc-level-3" href="#并查集专题复习笔记" data-heading-id="并查集专题复习笔记">并查集专题复习笔记</a><a class="toc-level-4" href="#0-总览" data-heading-id="0-总览">0. 总览</a><a class="toc-level-4" href="#1-equivalence-relations" data-heading-id="1-equivalence-relations">1. Equivalence Relations</a><a class="toc-level-5" href="#1-1-relation" data-heading-id="1-1-relation">1.1 Relation</a><a class="toc-level-5" href="#1-2-equivalence-relation" data-heading-id="1-2-equivalence-relation">1.2 Equivalence Relation</a><a class="toc-level-5" href="#1-3-equivalence-class" data-heading-id="1-3-equivalence-class">1.3 Equivalence Class</a><a class="toc-level-4" href="#2-dynamic-equivalence-problem" data-heading-id="2-dynamic-equivalence-problem">2. Dynamic Equivalence Problem</a><a class="toc-level-5" href="#2-1-问题描述" data-heading-id="2-1-问题描述">2.1 问题描述</a><a class="toc-level-5" href="#2-2-基本算法框架" data-heading-id="2-2-基本算法框架">2.2 基本算法框架</a><a class="toc-level-5" href="#2-3-disjoint-sets" data-heading-id="2-3-disjoint-sets">2.3 Disjoint Sets</a><a class="toc-level-4" href="#3-basic-data-structure" data-heading-id="3-basic-data-structure">3. Basic Data Structure</a><a class="toc-level-5" href="#3-1-forest-representation" data-heading-id="3-1-forest-representation">3.1 Forest Representation</a><a class="toc-level-5" href="#3-2-union" data-heading-id="3-2-union">3.2 Union</a><a class="toc-level-5" href="#3-3-find" data-heading-id="3-3-find">3.3 Find</a><a class="toc-level-5" href="#3-4-两种实现思路" data-heading-id="3-4-两种实现思路">3.4 两种实现思路</a><a class="toc-level-4" href="#4-smart-union-algorithms" data-heading-id="4-smart-union-algorithms">4. Smart Union Algorithms</a><a class="toc-level-5" href="#4-1-union-by-size" data-heading-id="4-1-union-by-size">4.1 Union-by-Size</a><a class="toc-level-5" href="#4-2-union-by-size-的高度界" data-heading-id="4-2-union-by-size-的高度界">4.2 Union-by-Size 的高度界</a><a class="toc-level-5" href="#4-3-union-by-height-union-by-rank" data-heading-id="4-3-union-by-height-union-by-rank">4.3 Union-by-Height / Union-by-Rank</a><a class="toc-level-4" href="#5-path-compression" data-heading-id="5-path-compression">5. Path Compression</a><a class="toc-level-5" href="#5-1-思想" data-heading-id="5-1-思想">5.1 思想</a><a class="toc-level-5" href="#5-2-递归版-path-compression" data-heading-id="5-2-递归版-path-compression">5.2 递归版 Path Compression</a><a class="toc-level-5" href="#5-3-非递归版-path-compression" data-heading-id="5-3-非递归版-path-compression">5.3 非递归版 Path Compression</a><a class="toc-level-5" href="#5-4-与-union-by-height-的关系" data-heading-id="5-4-与-union-by-height-的关系">5.4 与 Union-by-Height 的关系</a><a class="toc-level-4" href="#6-worst-case-complexity" data-heading-id="6-worst-case-complexity">6. Worst Case Complexity</a><a class="toc-level-5" href="#6-1-tarjan-lemma" data-heading-id="6-1-tarjan-lemma">6.1 Tarjan Lemma</a><a class="toc-level-5" href="#6-2-log-star" data-heading-id="6-2-log-star">6.2 log star</a><a class="toc-level-4" href="#7-课程代码-file-transfer" data-heading-id="7-课程代码-file-transfer">7. 课程代码：File Transfer</a><a class="toc-level-5" href="#7-1-操作含义" data-heading-id="7-1-操作含义">7.1 操作含义</a><a class="toc-level-5" href="#7-2-初始化" data-heading-id="7-2-初始化">7.2 初始化</a><a class="toc-level-5" href="#7-3-find-路径压缩" data-heading-id="7-3-find-路径压缩">7.3 Find：路径压缩</a><a class="toc-level-5" href="#7-4-union-按大小合并" data-heading-id="7-4-union-按大小合并">7.4 Union：按大小合并</a><a class="toc-level-5" href="#7-5-统计-connected-components" data-heading-id="7-5-统计-connected-components">7.5 统计 connected components</a><a class="toc-level-4" href="#8-常用模板" data-heading-id="8-常用模板">8. 常用模板</a><a class="toc-level-5" href="#8-1-负-size-path-compression-union-by-size" data-heading-id="8-1-负-size-path-compression-union-by-size">8.1 负 size + path compression + union-by-size</a><a class="toc-level-5" href="#8-2-如果根用-0-表示" data-heading-id="8-2-如果根用-0-表示">8.2 如果根用 0 表示</a><a class="toc-level-4" href="#9-易错点" data-heading-id="9-易错点">9. 易错点</a><a class="toc-level-5" href="#9-1-union-a-b-前必须先找根" data-heading-id="9-1-union-a-b-前必须先找根">9.1 Union(a, b) 前必须先找根</a><a class="toc-level-5" href="#9-2-负数-size-的比较方向" data-heading-id="9-2-负数-size-的比较方向">9.2 负数 size 的比较方向</a><a class="toc-level-5" href="#9-3-查询时比较代表元" data-heading-id="9-3-查询时比较代表元">9.3 查询时比较代表元</a><a class="toc-level-5" href="#9-4-component-个数等于根的个数" data-heading-id="9-4-component-个数等于根的个数">9.4 component 个数等于根的个数</a><a class="toc-level-5" href="#9-5-下标范围" data-heading-id="9-5-下标范围">9.5 下标范围</a><a class="toc-level-4" href="#10-复习速记" data-heading-id="10-复习速记">10. 复习速记</a>
+                </div>
+              </nav>
+              <div class="post-detail-body">
+                <div class="entry-body"><h4 id="并查集专题复习笔记">并查集专题复习笔记<a class="heading-anchor" href="#并查集专题复习笔记" data-heading-id="并查集专题复习笔记" aria-label="Copy section link / 复制小节链接">#</a></h4><h4 id="0-总览">0. 总览<a class="heading-anchor" href="#0-总览" data-heading-id="0-总览" aria-label="Copy section link / 复制小节链接">#</a></h4><p>并查集这一章在课程 PPT 中的主线是：</p><ol><li>Equivalence Relations：等价关系、等价类。</li><li>Dynamic Equivalence Problem：动态判断两个元素是否等价。</li><li>Basic Data Structure：用森林和数组表示 disjoint sets。</li><li>Smart Union Algorithms：union-by-size 和 union-by-height/rank。</li><li>Path Compression：路径压缩。</li><li>Worst Case：union-by-rank + path compression 的反 Ackermann 复杂度。</li></ol><p>复习时抓住一句话：并查集维护的是“集合划分”，核心操作只有两个：</p><ul><li><code>Find(x)</code>：找到元素 <span class="math-inline">\(x\)</span> 所在集合的代表元。</li><li><code>Union(a, b)</code>：把两个集合合并成一个集合。</li></ul><p>在题目里它常被包装成“连通性”“朋友圈/社交簇”“网络是否连通”“等价类合并”等问题。</p><h4 id="1-equivalence-relations">1. Equivalence Relations<a class="heading-anchor" href="#1-equivalence-relations" data-heading-id="1-equivalence-relations" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="1-1-relation">1.1 Relation<a class="heading-anchor" href="#1-1-relation" data-heading-id="1-1-relation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>课程 PPT 的定义：</p><blockquote>A relation $R$ is defined on a set $S$ if for every pair of elements $(a, b)$, $a, b \in S$, $aRb$ is either true or false.</blockquote><p>也就是说，关系 $R$ 是定义在集合 $S$ 上的一种判断规则。对任意两个元素 $a, b$，命题 $aRb$ 要么为真，要么为假。</p><p>如果 $aRb$ 为真，就说：</p><pre class="code-block language-text" data-language="text"><code>a is related to b</code></pre><h5 id="1-2-equivalence-relation">1.2 Equivalence Relation<a class="heading-anchor" href="#1-2-equivalence-relation" data-heading-id="1-2-equivalence-relation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>课程 PPT 的定义：</p><blockquote>A relation, $\sim$, over a set $S$, is said to be an equivalence relation over $S$ iff it is symmetric, reflexive, and transitive over $S$.</blockquote><p>等价关系必须满足三条性质：</p><div class="table-scroll"><table><thead><tr><th>性质</th><th>英文</th><th>含义</th></tr></thead><tbody><tr><td>自反性</td><td>reflexive</td><td>对任意 $a \in S$，都有 $a \sim a$</td></tr><tr><td>对称性</td><td>symmetric</td><td>如果 $a \sim b$，则 $b \sim a$</td></tr><tr><td>传递性</td><td>transitive</td><td>如果 $a \sim b$ 且 $b \sim c$，则 $a \sim c$</td></tr></tbody></table></div><p>这三条性质决定了等价关系会把原集合切分成若干个互不相交的小集合。</p><h5 id="1-3-equivalence-class">1.3 Equivalence Class<a class="heading-anchor" href="#1-3-equivalence-class" data-heading-id="1-3-equivalence-class" aria-label="Copy section link / 复制小节链接">#</a></h5><p>课程 PPT 的定义：</p><blockquote>Two members $x$ and $y$ of a set $S$ are said to be in the same equivalence class iff $x \sim y$.</blockquote><p>如果 $x \sim y$，则 $x$ 和 $y$ 在同一个等价类里。</p><p>例如：</p><pre class="code-block language-text" data-language="text"><code>S = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 }</code></pre><p>给定 9 个关系：</p><pre class="code-block language-text" data-language="text"><code>12 == 4, 3 == 1, 6 == 10, 8 == 9, 7 == 4,
+6 == 8, 3 == 5, 2 == 11, 11 == 12</code></pre><p>最后得到的等价类是：</p><pre class="code-block language-text" data-language="text"><code>{ 2, 4, 7, 11, 12 }
+{ 1, 3, 5 }
+{ 6, 8, 9, 10 }</code></pre><p>注意：并查集不关心集合内元素的顺序，只关心“谁和谁属于同一个集合”。</p><h4 id="2-dynamic-equivalence-problem">2. Dynamic Equivalence Problem<a class="heading-anchor" href="#2-dynamic-equivalence-problem" data-heading-id="2-dynamic-equivalence-problem" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="2-1-问题描述">2.1 问题描述<a class="heading-anchor" href="#2-1-问题描述" data-heading-id="2-1-问题描述" aria-label="Copy section link / 复制小节链接">#</a></h5><p>课程 PPT 的说法：</p><blockquote>Given an equivalence relation $\sim$, decide for any $a$ and $b$ if $a \sim b$.</blockquote><p>目标是动态处理两类操作：</p><ol><li>输入一个关系 $a \sim b$，把 $a$ 和 $b$ 所在集合合并。</li><li>查询任意两个元素 $a$ 和 $b$ 是否在同一个等价类中。</li></ol><p>这就是 dynamic equivalence problem。</p><p>“Dynamic / on-line” 的意思是：关系和查询不是一次性全部算好，而是一边读入操作，一边维护当前状态。</p><h5 id="2-2-基本算法框架">2.2 基本算法框架<a class="heading-anchor" href="#2-2-基本算法框架" data-heading-id="2-2-基本算法框架" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 中给出的算法思想：</p><pre class="code-block language-text" data-language="text"><code>Initialize N disjoint sets;
+
+while (read in a ~ b) {
+    if (!(Find(a) == Find(b)))
+        Union the two sets;
+}
+
+while (read in a and b) {
+    if (Find(a) == Find(b))
+        output(true);
+    else
+        output(false);
+}</code></pre><p>核心判断：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-function">Find</span>(a) == <span class="syntax-function">Find</span>(b)</code></pre><p>如果两个元素的代表元相同，说明它们在同一个集合里。</p><h5 id="2-3-disjoint-sets">2.3 Disjoint Sets<a class="heading-anchor" href="#2-3-disjoint-sets" data-heading-id="2-3-disjoint-sets" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 对集合的设定：</p><pre class="code-block language-text" data-language="text"><code>Elements: 1, 2, 3, ..., N
+Sets: S1, S2, ...
+Si ∩ Sj = empty, if i != j</code></pre><p>也就是说：</p><ul><li>每个元素属于且只属于一个集合。</li><li>不同集合之间没有公共元素。</li><li>初始时通常令每个元素自成一个集合：$S_i = \{i\}$。</li></ul><p>例如：</p><pre class="code-block language-text" data-language="text"><code>S1 = { 6, 7, 8, 10 }
+S2 = { 1, 4, 9 }
+S3 = { 2, 3, 5 }</code></pre><h4 id="3-basic-data-structure">3. Basic Data Structure<a class="heading-anchor" href="#3-basic-data-structure" data-heading-id="3-basic-data-structure" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="3-1-forest-representation">3.1 Forest Representation<a class="heading-anchor" href="#3-1-forest-representation" data-heading-id="3-1-forest-representation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>并查集通常用森林表示每个集合：</p><ul><li>每个集合是一棵树。</li><li>树根作为这个集合的代表元。</li><li>指针方向从 child 指向 parent。</li><li>根结点没有父亲。</li></ul><p>PPT 特别强调：</p><pre class="code-block language-text" data-language="text"><code>Pointers are from children to parents.</code></pre><p>这和普通树里常画的 parent-to-children 方向相反。这里这么做是为了让 <code>Find(x)</code> 可以从元素一路向上找到根。</p><h5 id="3-2-union">3.2 Union<a class="heading-anchor" href="#3-2-union" data-heading-id="3-2-union" aria-label="Copy section link / 复制小节链接">#</a></h5><p>课程 PPT 的定义：</p><pre class="code-block language-text" data-language="text"><code>Union(i, j) ::= Replace Si and Sj by S = Si ∪ Sj</code></pre><p>思想：</p><blockquote>Make $S_i$ a subtree of $S_j$, or vice versa.</blockquote><p>也就是把一棵树的根挂到另一棵树的根下面。</p><p>基础版本：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">SetUnion</span>(DisjSet S, SetType Rt1, SetType Rt2) {
+    S[Rt2] = Rt1;
+}</code></pre><p>这里默认 <code>Rt1</code> 和 <code>Rt2</code> 已经是两个集合的根。实际写代码时，常见写法是：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> r1 = <span class="syntax-function">Find</span>(x, S);
+<span class="syntax-keyword">int</span> r2 = <span class="syntax-function">Find</span>(y, S);
+
+<span class="syntax-keyword">if</span> (r1 != r2)
+    S[r2] = r1;</code></pre><h5 id="3-3-find">3.3 Find<a class="heading-anchor" href="#3-3-find" data-heading-id="3-3-find" aria-label="Copy section link / 复制小节链接">#</a></h5><p>课程 PPT 的定义：</p><pre class="code-block language-text" data-language="text"><code>Find(i) ::= Find the set Sk which contains the element i.</code></pre><p>如果使用数组 <span class="math-inline">\(S[element] = element&#039;s parent\)</span>，则：</p><ul><li><span class="math-inline">\(S[x] &gt; 0\)</span>：<code>S[x]</code> 是 <span class="math-inline">\(x\)</span> 的父结点。</li><li><span class="math-inline">\(S[root] = 0\)</span>：<code>root</code> 是根，集合名就是根的编号。</li></ul><p>PPT 中的基础 <code>Find</code>：</p><pre class="code-block language-c" data-language="c"><code>SetType <span class="syntax-function">Find</span>(ElementType X, DisjSet S) {
+    <span class="syntax-keyword">for</span> (; S[X] &gt; <span class="syntax-number">0</span>; X = S[X])
+        ;
+    <span class="syntax-keyword">return</span> X;
+}</code></pre><p>这个版本会沿着父指针不断向上走，直到找到根。</p><h5 id="3-4-两种实现思路">3.4 两种实现思路<a class="heading-anchor" href="#3-4-两种实现思路" data-heading-id="3-4-两种实现思路" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 里区分了两种实现：</p><div class="table-scroll"><table><thead><tr><th>实现</th><th>思路</th><th>特点</th></tr></thead><tbody><tr><td>Implementation 1</td><td>直接维护 <code>name[]</code>，记录每个元素属于哪个集合</td><td>查询快，但合并时可能要改很多元素的集合名</td></tr><tr><td>Implementation 2</td><td>维护 parent array <code>S[]</code>，用树表示集合</td><td>合并只改一个根的父指针，但查询要沿父指针找根</td></tr></tbody></table></div><p>课程后续主要使用 Implementation 2，也就是 parent array。</p><p>原因是元素编号为 <code>1..N</code>：</p><blockquote>the elements are numbered from 1 to N. Hence they can be used as indices of an array.</blockquote><p>所以 C 语言中可以直接用数组表示：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> S[N + <span class="syntax-number">1</span>];</code></pre><p>通常下标 <code>0</code> 不用，元素从 <code>1</code> 到 <span class="math-inline">\(N\)</span>。</p><h4 id="4-smart-union-algorithms">4. Smart Union Algorithms<a class="heading-anchor" href="#4-smart-union-algorithms" data-heading-id="4-smart-union-algorithms" aria-label="Copy section link / 复制小节链接">#</a></h4><p>普通 <code>Union</code> 的问题是：如果总是随便把一棵树挂到另一棵树下面，树可能退化成一条长链，<code>Find</code> 最坏会变成 $O(N)$。</p><p>Smart union 的目标是让树尽量矮。</p><h5 id="4-1-union-by-size">4.1 Union-by-Size<a class="heading-anchor" href="#4-1-union-by-size" data-heading-id="4-1-union-by-size" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 的原则：</p><pre class="code-block language-text" data-language="text"><code>Always change the smaller tree.</code></pre><p>也就是把小树挂到大树下面。</p><p>课程 PPT 中的数组约定：</p><pre class="code-block language-c" data-language="c"><code>S[Root] = -size;  <span class="syntax-comment">/* initialized to be -1 */</span></code></pre><p>含义：</p><ul><li>如果 <span class="math-inline">\(S[x] &lt; 0\)</span>，则 <span class="math-inline">\(x\)</span> 是根。</li><li><code>-S[x]</code> 表示这棵树的结点数。</li><li>初始时每个集合只有一个元素，所以 <span class="math-inline">\(S[i] = -1\)</span>。</li></ul><p>合并时：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">if</span> (S[root1] &lt; S[root2]) {
+    <span class="syntax-comment">/* root1 的集合更大，因为负数更小 */</span>
+    S[root1] += S[root2];
+    S[root2] = root1;
+} <span class="syntax-keyword">else</span> {
+    S[root2] += S[root1];
+    S[root1] = root2;
+}</code></pre><p>注意这个比较很容易写反：</p><ul><li><code>S[root]</code> 是负数。</li><li><code>S[root]</code> 越小，集合越大。</li><li>例如 <span class="math-inline">\(-8 &lt; -3\)</span>，所以 <code>-8</code> 对应的集合更大。</li></ul><h5 id="4-2-union-by-size-的高度界">4.2 Union-by-Size 的高度界<a class="heading-anchor" href="#4-2-union-by-size-的高度界" data-heading-id="4-2-union-by-size-的高度界" aria-label="Copy section link / 复制小节链接">#</a></h5><p>课程 PPT 的 lemma：</p><blockquote>Let $T$ be a tree created by union-by-size with $N$ nodes.</blockquote><p>结论是树高最多是 $O(\log N)$。</p><p>直观证明：</p><ol><li>一个结点的深度只有在它所在的树被挂到另一棵树下面时才会增加。</li><li>union-by-size 只会把小树挂到大树下面。</li><li>所以每当某个结点深度增加 1，它所在集合的大小至少翻倍。</li><li>一个集合最多长到 $N$，所以一个结点的深度最多增加 $\log_2 N$ 次。</li></ol><p>因此使用 union-by-size 后，<code>Find</code> 的最坏复杂度从 $O(N)$ 降到 $O(\log N)$。</p><p>课程 PPT 给出的序列复杂度：</p><pre class="code-block language-text" data-language="text"><code>N Union and M Find operations: O(N + M log2 N)</code></pre><h5 id="4-3-union-by-height-union-by-rank">4.3 Union-by-Height / Union-by-Rank<a class="heading-anchor" href="#4-3-union-by-height-union-by-rank" data-heading-id="4-3-union-by-height-union-by-rank" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 的原则：</p><pre class="code-block language-text" data-language="text"><code>Always change the shallow tree.</code></pre><p>也就是把较矮的树挂到较高的树下面。</p><p>常见实现会把根的高度或 rank 存在根结点中：</p><ul><li>高度小的根挂到高度大的根下面。</li><li>高度相等时，任选一个作为新根，并把新根的 rank 加 1。</li></ul><p>路径压缩加入后，真实高度会被改变，所以通常不再把它理解为准确 height，而是把它当成估计用的 rank。</p><h4 id="5-path-compression">5. Path Compression<a class="heading-anchor" href="#5-path-compression" data-heading-id="5-path-compression" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="5-1-思想">5.1 思想<a class="heading-anchor" href="#5-1-思想" data-heading-id="5-1-思想" aria-label="Copy section link / 复制小节链接">#</a></h5><p>路径压缩的核心是：</p><blockquote>做 <code>Find(x)</code> 时，不只找到根，还顺手把路径上的结点都直接挂到根下面。</blockquote><p>这样一次 <code>Find</code> 可能比普通版本稍慢，但之后同一条路径上的查询会快很多。</p><p>PPT 的说明：</p><pre class="code-block language-text" data-language="text"><code>Slower for a single find, but faster for a sequence of find operations.</code></pre><h5 id="5-2-递归版-path-compression">5.2 递归版 Path Compression<a class="heading-anchor" href="#5-2-递归版-path-compression" data-heading-id="5-2-递归版-path-compression" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 中的递归版本：</p><pre class="code-block language-c" data-language="c"><code>SetType <span class="syntax-function">Find</span>(ElementType X, DisjSet S) {
+    <span class="syntax-keyword">if</span> (S[X] &lt;= <span class="syntax-number">0</span>)
+        <span class="syntax-keyword">return</span> X;
+    <span class="syntax-keyword">else</span>
+        <span class="syntax-keyword">return</span> S[X] = <span class="syntax-function">Find</span>(S[X], S);
+}</code></pre><p>关键语句：</p><pre class="code-block language-c" data-language="c"><code>S[X] = <span class="syntax-function">Find</span>(S[X], S);</code></pre><p>它同时完成两件事：</p><ol><li>递归找到根。</li><li>回溯时把 <span class="math-inline">\(X\)</span> 的父亲直接改成根。</li></ol><p>如果采用 <span class="math-inline">\(S[root] = -size\)</span> 的写法，根的判断条件就是：</p><pre class="code-block language-c" data-language="c"><code>S[X] &lt;= <span class="syntax-number">0</span></code></pre><p>或者更常见地写成：</p><pre class="code-block language-c" data-language="c"><code>S[X] &lt; <span class="syntax-number">0</span></code></pre><p>具体取决于根结点用 <code>0</code> 还是负数表示。</p><h5 id="5-3-非递归版-path-compression">5.3 非递归版 Path Compression<a class="heading-anchor" href="#5-3-非递归版-path-compression" data-heading-id="5-3-非递归版-path-compression" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 中的非递归版本：</p><pre class="code-block language-c" data-language="c"><code>SetType <span class="syntax-function">Find</span>(ElementType X, DisjSet S) {
+    ElementType root, trail, lead;
+
+    <span class="syntax-keyword">for</span> (root = X; S[root] &gt; <span class="syntax-number">0</span>; root = S[root])
+        ;  <span class="syntax-comment">/* find the root */</span>
+
+    <span class="syntax-keyword">for</span> (trail = X; trail != root; trail = lead) {
+        lead = S[trail];
+        S[trail] = root;
+    }  <span class="syntax-comment">/* collapsing */</span>
+
+    <span class="syntax-keyword">return</span> root;
+}</code></pre><p>它分两步：</p><ol><li>第一段循环找到根 <code>root</code>。</li><li>第二段循环从原来的 <span class="math-inline">\(X\)</span> 出发，把路径上的每个结点都改为直接指向 <code>root</code>。</li></ol><h5 id="5-4-与-union-by-height-的关系">5.4 与 Union-by-Height 的关系<a class="heading-anchor" href="#5-4-与-union-by-height-的关系" data-heading-id="5-4-与-union-by-height-的关系" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 的提醒：</p><pre class="code-block language-text" data-language="text"><code>Not compatible with union-by-height since it changes the heights.
+Just take &quot;height&quot; as an estimated rank.</code></pre><p>意思是：</p><ul><li>路径压缩会改变树的真实高度。</li><li>如果你还维护一个字段叫 height，它不再是真实高度。</li><li>但可以把它当作 rank，用来近似指导合并方向。</li></ul><p>所以常见组合是：</p><pre class="code-block language-text" data-language="text"><code>union-by-rank + path compression</code></pre><p>而不是严格意义上的“真实高度 + path compression”。</p><h4 id="6-worst-case-complexity">6. Worst Case Complexity<a class="heading-anchor" href="#6-worst-case-complexity" data-heading-id="6-worst-case-complexity" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="6-1-tarjan-lemma">6.1 Tarjan Lemma<a class="heading-anchor" href="#6-1-tarjan-lemma" data-heading-id="6-1-tarjan-lemma" aria-label="Copy section link / 复制小节链接">#</a></h5><p>课程 PPT 给出的结论：</p><blockquote>Let $T(M, N)$ be the maximum time required to process an intermixed sequence of $M \ge N$ finds and $N - 1$ unions.</blockquote><p>则：</p><div class="math-display">$$
+k_1 M \alpha(M, N) \le T(M, N) \le k_2 M \alpha(M, N)
+$$</div><p>其中 $k_1, k_2$ 是正常数，$\alpha(M, N)$ 是反 Ackermann 函数。</p><p>复习时不需要展开 Ackermann 函数的完整定义，记住考试常用结论即可：</p><pre class="code-block language-text" data-language="text"><code>union-by-rank + path compression 的摊还复杂度几乎是常数</code></pre><p>更具体地说，单次操作的摊还复杂度常写作：</p><div class="math-display">$$
+O(\alpha(N))
+$$</div><p>在实际数据范围内，$\alpha(N)$ 增长极慢，可以近似看成不超过一个很小的常数。</p><h5 id="6-2-log-star">6.2 log star<a class="heading-anchor" href="#6-2-log-star" data-heading-id="6-2-log-star" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 还提到：</p><pre class="code-block language-text" data-language="text"><code>alpha(M, N) &lt;= O(log* N) &lt;= 4</code></pre><p>其中 <span class="math-inline">\(\log* N\)</span> 表示不断对 $N$ 取对数，直到结果 $\le 1$ 所需的次数。</p><p>PPT 示例：</p><pre class="code-block language-text" data-language="text"><code>log* 2^65536 = 5</code></pre><p>因为：</p><pre class="code-block language-text" data-language="text"><code>log log log log log (2^65536) = 1</code></pre><p>这说明这些函数增长极慢。并查集的复杂度分析看起来很高级，但写题时通常只需要知道：</p><ul><li>不优化：最坏可能 $O(N)$。</li><li>union-by-size/rank：$O(\log N)$。</li><li>再加 path compression：摊还近似 $O(1)$。</li></ul><h4 id="7-课程代码-file-transfer">7. 课程代码：File Transfer<a class="heading-anchor" href="#7-课程代码-file-transfer" data-heading-id="7-课程代码-file-transfer" aria-label="Copy section link / 复制小节链接">#</a></h4><p>仓库里的实现文件：</p><pre class="code-block language-text" data-language="text"><code>w7_union_and_find/filetransfer.c</code></pre><p>这是一个典型的并查集连通性问题。</p><h5 id="7-1-操作含义">7.1 操作含义<a class="heading-anchor" href="#7-1-操作含义" data-heading-id="7-1-操作含义" aria-label="Copy section link / 复制小节链接">#</a></h5><p>常见输入命令：</p><div class="table-scroll"><table><thead><tr><th>命令</th><th>含义</th><th>并查集操作</th></tr></thead><tbody><tr><td><code>I a b</code></td><td>Input a connection，连接 <span class="math-inline">\(a\)</span> 和 <span class="math-inline">\(b\)</span></td><td><code>Union(a, b)</code></td></tr><tr><td><code>C a b</code></td><td>Check connection，检查 <span class="math-inline">\(a\)</span> 和 <span class="math-inline">\(b\)</span> 是否连通</td><td><span class="math-inline">\(Find(a) == Find(b)\)</span></td></tr><tr><td><span class="math-inline">\(S\)</span></td><td>Stop，输出整个网络是否连通</td><td>统计根的个数</td></tr></tbody></table></div><p>判断网络是否连通：</p><ul><li>如果只有一个根，说明所有结点属于同一个集合。</li><li>如果有多个根，根的数量就是 connected components 的数量。</li></ul><h5 id="7-2-初始化">7.2 初始化<a class="heading-anchor" href="#7-2-初始化" data-heading-id="7-2-初始化" aria-label="Copy section link / 复制小节链接">#</a></h5><p>代码使用负数表示集合大小：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">init</span>(<span class="syntax-keyword">int</span> *set, <span class="syntax-keyword">int</span> n) {
+    <span class="syntax-keyword">for</span> (<span class="syntax-keyword">int</span> i = <span class="syntax-number">1</span>; i &lt; n + <span class="syntax-number">1</span>; i++) {
+        set[i] = -<span class="syntax-number">1</span>;
+    }
+}</code></pre><p>含义：</p><ul><li>初始时每个结点自成一个集合。</li><li>每个集合大小为 1。</li><li>根结点存储 <code>-1</code>。</li></ul><h5 id="7-3-find-路径压缩">7.3 Find：路径压缩<a class="heading-anchor" href="#7-3-find-路径压缩" data-heading-id="7-3-find-路径压缩" aria-label="Copy section link / 复制小节链接">#</a></h5><p>代码中的 <code>find</code>：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> <span class="syntax-function">find</span>(<span class="syntax-keyword">int</span> ele, <span class="syntax-keyword">int</span> *set) {
+    <span class="syntax-keyword">if</span> (set[ele] &lt; <span class="syntax-number">0</span>)
+        <span class="syntax-keyword">return</span> ele;
+    <span class="syntax-keyword">else</span>
+        <span class="syntax-keyword">return</span> set[ele] = <span class="syntax-function">find</span>(set[ele], set);
+}</code></pre><p>这是递归版 path compression。</p><p>如果 <span class="math-inline">\(set[ele] &lt; 0\)</span>，说明 <code>ele</code> 是根；否则继续向父结点查找，并把 <code>ele</code> 直接挂到根下面。</p><h5 id="7-4-union-按大小合并">7.4 Union：按大小合并<a class="heading-anchor" href="#7-4-union-按大小合并" data-heading-id="7-4-union-按大小合并" aria-label="Copy section link / 复制小节链接">#</a></h5><p>代码中的 <span class="math-inline">\(my_{union}\)</span>：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">my_union</span>(<span class="syntax-keyword">int</span> e1, <span class="syntax-keyword">int</span> e2, <span class="syntax-keyword">int</span> *set) {
+    <span class="syntax-keyword">int</span> s1 = <span class="syntax-function">find</span>(e1, set), s2 = <span class="syntax-function">find</span>(e2, set);
+
+    <span class="syntax-keyword">if</span> (s1 == s2)
+        <span class="syntax-keyword">return</span>;
+
+    <span class="syntax-keyword">if</span> (set[s1] &lt; set[s2]) {
+        set[s1] += set[s2];
+        set[s2] = s1;
+    } <span class="syntax-keyword">else</span> {
+        set[s2] += set[s1];
+        set[s1] = s2;
+    }
+}</code></pre><p>这里 <code>set[root]</code> 是负数，所以：</p><pre class="code-block language-text" data-language="text"><code>set[s1] &lt; set[s2]</code></pre><p>表示 <span class="math-inline">\(s_{1}\)</span> 所在集合更大。</p><p>例如：</p><pre class="code-block language-text" data-language="text"><code>set[s1] = -5
+set[s2] = -2</code></pre><p>则 <span class="math-inline">\(s_{1}\)</span> 的集合大小是 5，<span class="math-inline">\(s_{2}\)</span> 的集合大小是 2，应当把 <span class="math-inline">\(s_{2}\)</span> 挂到 <span class="math-inline">\(s_{1}\)</span> 下。</p><p>合并后的更新：</p><pre class="code-block language-c" data-language="c"><code>set[s1] += set[s2];  <span class="syntax-comment">/* 新 size = 5 + 2，只是用负数存，所以是 -7 */</span>
+set[s2] = s1;        <span class="syntax-comment">/* s2 不再是根，父亲变成 s1 */</span></code></pre><h5 id="7-5-统计-connected-components">7.5 统计 connected components<a class="heading-anchor" href="#7-5-统计-connected-components" data-heading-id="7-5-统计-connected-components" aria-label="Copy section link / 复制小节链接">#</a></h5><p>代码中判断网络是否连通：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> num_of_connect = <span class="syntax-number">0</span>;
+<span class="syntax-keyword">for</span> (<span class="syntax-keyword">int</span> i = <span class="syntax-number">1</span>; i &lt; N + <span class="syntax-number">1</span>; i++) {
+    <span class="syntax-keyword">if</span> (disjset[i] &lt; <span class="syntax-number">0</span>) {
+        num_of_connect++;
+    }
+}</code></pre><p>因为只有根结点的值是负数，所以统计负数个数就等于统计集合个数。</p><p>输出逻辑：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">if</span> (num_of_connect == <span class="syntax-number">1</span>)
+    <span class="syntax-function">printf</span>(<span class="syntax-string">&quot;The network is connected.\n&quot;</span>);
+<span class="syntax-keyword">else</span>
+    <span class="syntax-function">printf</span>(<span class="syntax-string">&quot;There are %d components.&quot;</span>, num_of_connect);</code></pre><h4 id="8-常用模板">8. 常用模板<a class="heading-anchor" href="#8-常用模板" data-heading-id="8-常用模板" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="8-1-负-size-path-compression-union-by-size">8.1 负 size + path compression + union-by-size<a class="heading-anchor" href="#8-1-负-size-path-compression-union-by-size" data-heading-id="8-1-负-size-path-compression-union-by-size" aria-label="Copy section link / 复制小节链接">#</a></h5><p>这是本课程代码最常用的写法：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">Init</span>(<span class="syntax-keyword">int</span> S[], <span class="syntax-keyword">int</span> N) {
+    <span class="syntax-keyword">for</span> (<span class="syntax-keyword">int</span> i = <span class="syntax-number">1</span>; i &lt;= N; i++)
+        S[i] = -<span class="syntax-number">1</span>;
+}
+
+<span class="syntax-keyword">int</span> <span class="syntax-function">Find</span>(<span class="syntax-keyword">int</span> x, <span class="syntax-keyword">int</span> S[]) {
+    <span class="syntax-keyword">if</span> (S[x] &lt; <span class="syntax-number">0</span>)
+        <span class="syntax-keyword">return</span> x;
+    <span class="syntax-keyword">return</span> S[x] = <span class="syntax-function">Find</span>(S[x], S);
+}
+
+<span class="syntax-keyword">void</span> <span class="syntax-function">Union</span>(<span class="syntax-keyword">int</span> a, <span class="syntax-keyword">int</span> b, <span class="syntax-keyword">int</span> S[]) {
+    <span class="syntax-keyword">int</span> r1 = <span class="syntax-function">Find</span>(a, S);
+    <span class="syntax-keyword">int</span> r2 = <span class="syntax-function">Find</span>(b, S);
+
+    <span class="syntax-keyword">if</span> (r1 == r2)
+        <span class="syntax-keyword">return</span>;
+
+    <span class="syntax-keyword">if</span> (S[r1] &lt; S[r2]) {
+        S[r1] += S[r2];
+        S[r2] = r1;
+    } <span class="syntax-keyword">else</span> {
+        S[r2] += S[r1];
+        S[r1] = r2;
+    }
+}</code></pre><h5 id="8-2-如果根用-0-表示">8.2 如果根用 0 表示<a class="heading-anchor" href="#8-2-如果根用-0-表示" data-heading-id="8-2-如果根用-0-表示" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 的基础版本中也出现过：</p><pre class="code-block language-text" data-language="text"><code>S[root] = 0</code></pre><p>此时 <code>Find</code> 判断根的条件通常写成：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">while</span> (S[x] &gt; <span class="syntax-number">0</span>)
+    x = S[x];</code></pre><p>或者：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">if</span> (S[x] &lt;= <span class="syntax-number">0</span>)
+    <span class="syntax-keyword">return</span> x;</code></pre><p>但如果根用 <code>0</code> 表示，就不能同时在根里保存集合大小。要做 union-by-size，需要另外开一个 <code>size[]</code> 数组。</p><h4 id="9-易错点">9. 易错点<a class="heading-anchor" href="#9-易错点" data-heading-id="9-易错点" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="9-1-union-a-b-前必须先找根">9.1 <code>Union(a, b)</code> 前必须先找根<a class="heading-anchor" href="#9-1-union-a-b-前必须先找根" data-heading-id="9-1-union-a-b-前必须先找根" aria-label="Copy section link / 复制小节链接">#</a></h5><p>错误写法：</p><pre class="code-block language-c" data-language="c"><code>S[b] = a;</code></pre><p>如果 <span class="math-inline">\(a\)</span> 或 <span class="math-inline">\(b\)</span> 不是根，这样会破坏集合结构。</p><p>正确做法：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> r1 = <span class="syntax-function">Find</span>(a, S);
+<span class="syntax-keyword">int</span> r2 = <span class="syntax-function">Find</span>(b, S);
+S[r2] = r1;</code></pre><h5 id="9-2-负数-size-的比较方向">9.2 负数 size 的比较方向<a class="heading-anchor" href="#9-2-负数-size-的比较方向" data-heading-id="9-2-负数-size-的比较方向" aria-label="Copy section link / 复制小节链接">#</a></h5><p>如果根里存的是 <code>-size</code>：</p><pre class="code-block language-text" data-language="text"><code>-10 &lt; -3</code></pre><p>所以值更小的根，集合反而更大。</p><p>写 union-by-size 时要特别注意：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">if</span> (S[r1] &lt; S[r2])
+    r1 is larger;
+<span class="syntax-keyword">else</span>
+    r2 is larger or equal;</code></pre><h5 id="9-3-查询时比较代表元">9.3 查询时比较代表元<a class="heading-anchor" href="#9-3-查询时比较代表元" data-heading-id="9-3-查询时比较代表元" aria-label="Copy section link / 复制小节链接">#</a></h5><p>判断两个元素是否在同一集合：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-function">Find</span>(a, S) == <span class="syntax-function">Find</span>(b, S)</code></pre><p>不要直接写：</p><pre class="code-block language-c" data-language="c"><code>S[a] == S[b]</code></pre><p>因为两个结点可能父亲不同，但根相同。</p><h5 id="9-4-component-个数等于根的个数">9.4 component 个数等于根的个数<a class="heading-anchor" href="#9-4-component-个数等于根的个数" data-heading-id="9-4-component-个数等于根的个数" aria-label="Copy section link / 复制小节链接">#</a></h5><p>如果使用 <span class="math-inline">\(S[root] &lt; 0\)</span> 表示根，则 connected components 个数为：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> count = <span class="syntax-number">0</span>;
+<span class="syntax-keyword">for</span> (<span class="syntax-keyword">int</span> i = <span class="syntax-number">1</span>; i &lt;= N; i++)
+    <span class="syntax-keyword">if</span> (S[i] &lt; <span class="syntax-number">0</span>)
+        count++;</code></pre><p>路径压缩不会改变根的负数标记，所以这个统计方法仍然有效。</p><h5 id="9-5-下标范围">9.5 下标范围<a class="heading-anchor" href="#9-5-下标范围" data-heading-id="9-5-下标范围" aria-label="Copy section link / 复制小节链接">#</a></h5><p>本课程 PPT 假设元素编号为：</p><pre class="code-block language-text" data-language="text"><code>1, 2, 3, ..., N</code></pre><p>因此数组通常开：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> S[N + <span class="syntax-number">1</span>];</code></pre><p>循环用：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">for</span> (<span class="syntax-keyword">int</span> i = <span class="syntax-number">1</span>; i &lt;= N; i++)</code></pre><p>不要误把 <code>0</code> 当作有效元素，除非题目明确说元素从 0 开始编号。</p><h4 id="10-复习速记">10. 复习速记<a class="heading-anchor" href="#10-复习速记" data-heading-id="10-复习速记" aria-label="Copy section link / 复制小节链接">#</a></h4><div class="table-scroll"><table><thead><tr><th>主题</th><th>记忆点</th></tr></thead><tbody><tr><td>等价关系</td><td>reflexive + symmetric + transitive</td></tr><tr><td>等价类</td><td>$x \sim y$ 当且仅当两者在同一类</td></tr><tr><td>并查集维护内容</td><td>disjoint sets / connected components</td></tr><tr><td><code>Find(x)</code></td><td>找根，也就是集合代表元</td></tr><tr><td><code>Union(a, b)</code></td><td>合并两个根所在的集合</td></tr><tr><td>parent array</td><td><code>S[x]</code> 存父结点</td></tr><tr><td>负 size 写法</td><td>根 <span class="math-inline">\(S[root] &lt; 0\)</span>，大小为 <code>-S[root]</code></td></tr><tr><td>union-by-size</td><td>小树挂大树</td></tr><tr><td>union-by-rank</td><td>低 rank 挂高 rank</td></tr><tr><td>path compression</td><td>查找后把路径直接压到根</td></tr><tr><td>判断连通</td><td><span class="math-inline">\(Find(a) == Find(b)\)</span></td></tr><tr><td>统计集合数</td><td>统计根的个数</td></tr><tr><td>复杂度</td><td>rank/size + path compression 后摊还近似常数</td></tr></tbody></table></div><p>一句话模板：</p><pre class="code-block language-text" data-language="text"><code>并查集用 parent array 表示一组互不相交的集合；
+Find 沿父指针找根，Union 合并两个根；
+用 union-by-size/rank 控制树高，用 path compression 加速后续查询。</code></pre></div>
+              </div>
+              <div class="post-jump-nav" aria-label="文章跳转">
+                <button type="button" id="post-jump-top">回到顶部</button>
+              </div>
+              <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
+                
+                <a href="../../post/2026-05-03-graph/"><span>Older / 更早</span><strong>Graph</strong></a>
+              </nav>
+              <section class="post-comments" id="post-comments" aria-label="Comments / 评论区" hidden></section>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" aria-label="Site information / 站点信息">
+        <p>© 2025-2026 qqqzj@Crane</p>
+        <p>qqqzj 的个人笔记、生活记录与学习档案。</p>
+        <p><a href="../../rss.xml">RSS 订阅</a></p>
+      </footer>
+    </div>
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <script src="../../comments-config.js"></script>
+    <script src="../../comments.js"></script>
+    <script>
+      window.CraneComments?.render(document.querySelector("#post-comments"), {
+        slug: "2026-05-03-并查集专题复习笔记",
+        title: "并查集专题复习笔记",
+        commentTerm: "post:2026-05-03-并查集专题复习笔记",
+      });
+
+      const readingProgress = document.querySelector("#reading-progress");
+      function updateReadingProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max <= 0 ? 1 : Math.min(1, Math.max(0, window.scrollY / max));
+        readingProgress.style.transform = `scaleX(${progress})`;
+      }
+      window.addEventListener("scroll", updateReadingProgress, { passive: true });
+      window.addEventListener("resize", updateReadingProgress);
+      updateReadingProgress();
+
+      document.querySelector("#post-jump-top")?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-comments")?.addEventListener("click", () => {
+        window.CraneComments?.focus(document.querySelector("#post-comments"));
+      });
+
+      const toc = document.querySelector(".post-toc");
+      const tocLinks = toc ? [...toc.querySelectorAll("a[data-heading-id]")] : [];
+      const tocSections = tocLinks
+        .map((link) => findHeadingById(document, link.dataset.headingId))
+        .filter(Boolean);
+      let tocClickLockUntil = 0;
+
+      toc?.addEventListener("click", (event) => {
+        const link = event.target.closest("a[data-heading-id]");
+        if (link) {
+          const heading = findHeadingById(document, link.dataset.headingId);
+          if (!heading) return;
+          event.preventDefault();
+          scrollToHeading(heading);
+          activateTocLink(heading.id);
+          tocClickLockUntil = Date.now() + 900;
+          if (heading.id) history.pushState(null, "", `#${heading.id}`);
+          toc.classList.remove("is-open");
+          return;
+        }
+        toc.classList.toggle("is-open");
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!toc || toc.contains(event.target)) return;
+        toc.classList.remove("is-open");
+      });
+
+      function activateTocLink(id) {
+        tocLinks.forEach((link) => {
+          const active = link.dataset.headingId === id;
+          link.classList.toggle("is-active", active);
+          if (active) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function findHeadingById(root, id) {
+        if (!root || !id) return null;
+        const escapedId = window.CSS?.escape ? window.CSS.escape(id) : id.replaceAll('"', '\"');
+        return root.querySelector(`#${escapedId}`);
+      }
+
+      function scrollToHeading(heading) {
+        const topbarHeight = document.querySelector(".topbar")?.getBoundingClientRect().height || 0;
+        const offset = topbarHeight + 8;
+        const top = heading.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
+
+      if (tocSections.length) {
+        activateTocLink(tocSections[0].id);
+
+        if ("IntersectionObserver" in window) {
+          const visibleSections = new Map();
+          const observer = new IntersectionObserver((entries) => {
+            if (Date.now() < tocClickLockUntil) return;
+
+            entries.forEach((entry) => {
+              visibleSections.set(entry.target.id, entry.isIntersecting);
+            });
+
+            const current = tocSections.find((section) => visibleSections.get(section.id))
+              || [...tocSections].reverse().find((section) => section.getBoundingClientRect().top <= 140)
+              || tocSections[0];
+
+            activateTocLink(current.id);
+          }, {
+            rootMargin: "-18% 0px -68% 0px",
+            threshold: [0, 1],
+          });
+
+          tocSections.forEach((section) => observer.observe(section));
+        }
+      }
+    </script>
+  </body>
+</html>

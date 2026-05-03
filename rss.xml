@@ -6,7 +6,14 @@
     <link>https://qqqzj.cn/</link>
     <description>qqqzj 的个人笔记、生活记录与学习档案。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 03 May 2026 05:43:33 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2026 05:44:10 GMT</lastBuildDate>
+    <item>
+      <title>并查集专题复习笔记</title>
+      <link>https://qqqzj.cn/post/2026-05-03-%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <guid>https://qqqzj.cn/post/2026-05-03-%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <pubDate>Sun, 03 May 2026 00:00:00 GMT</pubDate>
+      <description>并查集专题复习笔记 0. 总览 并查集这一章在课程 PPT 中的主线是： 1. Equivalence Relations：等价关系、等价类。 2. Dynamic Equivalence Problem：动态判断两个元素是否等价。 3....</description>
+    </item>
     <item>
       <title>Graph</title>
       <link>https://qqqzj.cn/post/2026-05-03-graph/</link>
@@ -139,13 +146,6 @@
       <guid>https://qqqzj.cn/post/2026-04-26-qzj-%E8%80%81%E7%88%B9%E8%8E%85%E4%B8%B4%E6%A3%80%E6%9F%A5/</guid>
       <pubDate>Sun, 26 Apr 2026 00:00:00 GMT</pubDate>
       <description>加油吧撑过这段时间就好了宝宝</description>
-    </item>
-    <item>
-      <title>这个后台推送给我弄死了</title>
-      <link>https://qqqzj.cn/post/2026-04-26-%E8%BF%99%E4%B8%AA%E5%90%8E%E7%AB%AF%E6%8E%A8%E9%80%81%E7%BB%99%E6%88%91%E5%BC%84%E6%AD%BB%E4%BA%86/</link>
-      <guid>https://qqqzj.cn/post/2026-04-26-%E8%BF%99%E4%B8%AA%E5%90%8E%E7%AB%AF%E6%8E%A8%E9%80%81%E7%BB%99%E6%88%91%E5%BC%84%E6%AD%BB%E4%BA%86/</guid>
-      <pubDate>Sun, 26 Apr 2026 00:00:00 GMT</pubDate>
-      <description>我真花了一早上 现在午饭还没吃 又玩了一早上AI 两点了还没吃</description>
     </item>
   </channel>
 </rss>

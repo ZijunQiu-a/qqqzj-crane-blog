@@ -361,6 +361,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "图专题复习笔记 0. 总览 图专题在这门课里主要按以下顺序展开： 1. Graph definitions：图、无向图、有向图、路径、连通性、度、DAG。 2. Representation of graphs：邻接矩阵、邻接表、逆邻接表、...",
       "readingMinutes": 10,
       "createdAt": "2026-05-03T00:00:00.000Z"
+    },
+    {
+      "id": "notes/随笔/2026-05-03-并查集专题复习笔记.md",
+      "slug": "2026-05-03-并查集专题复习笔记",
+      "dataPath": "post-data/2026-05-03-%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0.json",
+      "source": "post",
+      "kind": "notes",
+      "title": "并查集专题复习笔记",
+      "publishedIndex": 31,
+      "stage": "Notes 笔记",
+      "tag": "随笔",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "并查集专题复习笔记 0. 总览 并查集这一章在课程 PPT 中的主线是： 1. Equivalence Relations：等价关系、等价类。 2. Dynamic Equivalence Problem：动态判断两个元素是否等价。 3....",
+      "readingMinutes": 8,
+      "createdAt": "2026-05-03T00:00:00.000Z"
     }
   ],
   "videos": [
