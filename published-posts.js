@@ -344,6 +344,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "Algorithm / List / Stack / Queue 复习笔记 0. 总览 这份笔记把以下四块按课程学习顺序整理成一份连续笔记： 1. Algorithm Analysis：算法定义、复杂度、渐进记号、循环/递归分析、最大子列和...",
       "readingMinutes": 19,
       "createdAt": "2026-05-03T00:00:00.000Z"
+    },
+    {
+      "id": "notes/programming/2026-05-03-graph.md",
+      "slug": "2026-05-03-graph",
+      "dataPath": "post-data/2026-05-03-graph.json",
+      "source": "post",
+      "kind": "notes",
+      "title": "Graph",
+      "publishedIndex": 30,
+      "stage": "Notes 笔记",
+      "tag": "programming",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "图专题复习笔记 0. 总览 图专题在这门课里主要按以下顺序展开： 1. Graph definitions：图、无向图、有向图、路径、连通性、度、DAG。 2. Representation of graphs：邻接矩阵、邻接表、逆邻接表、...",
+      "readingMinutes": 10,
+      "createdAt": "2026-05-03T00:00:00.000Z"
     }
   ],
   "videos": [

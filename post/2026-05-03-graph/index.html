@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graph · qqqzj@Crane</title>
+    <meta name="description" content="图专题复习笔记 0. 总览 图专题在这门课里主要按以下顺序展开： 1. Graph definitions：图、无向图、有向图、路径、连通性、度、DAG。 2. Representation of graphs：邻接矩阵、邻接表、逆邻接表、..." />
+    <link rel="canonical" href="https://qqqzj.cn/post/2026-05-03-graph/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Graph · qqqzj@Crane" />
+    <meta property="og:description" content="图专题复习笔记 0. 总览 图专题在这门课里主要按以下顺序展开： 1. Graph definitions：图、无向图、有向图、路径、连通性、度、DAG。 2. Representation of graphs：邻接矩阵、邻接表、逆邻接表、..." />
+    <meta property="og:url" content="https://qqqzj.cn/post/2026-05-03-graph/" />
+    <meta property="og:image" content="https://qqqzj.cn/assets/blog-studio-og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f3f7f8" />
+    <meta name="application-name" content="qqqzj@Crane" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="qqqzj@Crane" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="manifest" href="../../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../../assets/site-icon-192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/site-icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="../../assets/site-icon-512.png" />
+    <link rel="alternate" type="application/rss+xml" title="qqqzj@Crane RSS" href="../../rss.xml" />
+    <link rel="icon" href="../../assets/furina-avatar-pneuma.png?v=20260425-1" type="image/png" />
+    <script>
+      (() => {
+        const key = "qqqzj-crane-theme";
+        const modes = ["pneuma", "ousia", "auto"];
+        let preference = "auto";
+        try {
+          const stored = window.localStorage.getItem(key);
+          preference = modes.includes(stored) ? stored : "auto";
+        } catch {
+          preference = "auto";
+        }
+
+        const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const state = preference === "auto" ? (prefersDark ? "ousia" : "pneuma") : preference;
+        document.documentElement.dataset.themePreference = preference;
+        document.documentElement.dataset.themeState = state;
+        document.documentElement.style.colorScheme = state === "ousia" ? "dark" : "light";
+      })();
+    </script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <script defer src="../../theme.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" crossorigin="anonymous" />
+    <script>
+      window.BLOG_MATH_OPTIONS = {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
+        throwOnError: false,
+      };
+      window.renderBlogMath = (root = document.body) => {
+        if (!window.renderMathInElement || !root) return;
+        window.renderMathInElement(root, window.BLOG_MATH_OPTIONS);
+      };
+      window.renderBlogMermaid = async (root = document.body) => {
+        if (!window.mermaid || !root) return;
+        const nodes = [...root.querySelectorAll(".mermaid:not([data-processed])")];
+        if (!nodes.length) return;
+        window.mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: "default" });
+        try {
+          await window.mermaid.run({ nodes });
+        } catch (error) {
+          console.warn("Mermaid render failed", error);
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="window.renderBlogMath?.(document.body);"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" crossorigin="anonymous" onload="window.renderBlogMermaid?.(document.body);"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        let hadController = Boolean(navigator.serviceWorker.controller);
+        let reloadingForUpdate = false;
+        const activateWaitingServiceWorker = (worker) => {
+          if (!worker || !navigator.serviceWorker.controller) return;
+          worker.postMessage({ type: "SKIP_WAITING" });
+        };
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (!hadController) {
+            hadController = true;
+            return;
+          }
+          if (reloadingForUpdate) return;
+          reloadingForUpdate = true;
+          window.location.reload();
+        });
+        window.addEventListener("load", async () => {
+          try {
+            const registration = await navigator.serviceWorker.register("/service-worker.js", {
+              updateViaCache: "none",
+            });
+            activateWaitingServiceWorker(registration.waiting);
+            registration.addEventListener("updatefound", () => {
+              const worker = registration.installing;
+              if (!worker) return;
+              worker.addEventListener("statechange", () => {
+                if (worker.state === "installed") {
+                  activateWaitingServiceWorker(worker);
+                }
+              });
+            });
+            await registration.update();
+          } catch {}
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="../../index.html#home" aria-label="Back to home / 回到首页">
+          <span class="brand-mark brand-avatar" aria-hidden="true">
+            <img
+              src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
+              data-theme-asset
+              data-pneuma-src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
+              data-ousia-src="../../assets/furina-avatar-ousia.webp"
+              data-fallback-src="../../assets/furina-avatar.png"
+              alt=""
+            />
+          </span>
+          <span>qqqzj@Crane</span>
+        </a>
+        <div class="topbar-actions">
+          <nav class="nav-links" aria-label="Primary navigation / 主导航">
+            <a href="../../index.html#about">About me</a>
+            <a href="../../index.html#growth">News 动态</a>
+            <a href="../../index.html#notes">Notes 笔记</a>
+            <a href="../../index.html#life">Life 生活</a>
+            <a href="../../index.html#archive">Archive 归档</a>
+            <a href="../../rss.xml">RSS</a>
+          </nav>
+          <div class="theme-switcher" data-theme-switcher aria-label="Theme mode / 主题模式">
+            <button class="theme-trigger" type="button" data-theme-trigger aria-haspopup="menu" aria-expanded="false" title="选择主题模式">
+              <span class="theme-trigger-icon" data-theme-current-icon aria-hidden="true">A</span>
+              <span data-theme-current-label>自动</span>
+            </button>
+            <div class="theme-options" role="menu" aria-label="Theme choices / 主题选项">
+              <button type="button" role="menuitemradio" data-theme-mode="pneuma" aria-checked="false" aria-pressed="false" title="固定白天主题">
+                <span aria-hidden="true">☀</span>
+                白天
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="ousia" aria-checked="false" aria-pressed="false" title="固定黑夜主题">
+                <span aria-hidden="true">☾</span>
+                黑夜
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="auto" aria-checked="false" aria-pressed="false" title="跟随系统">
+                <span aria-hidden="true">A</span>
+                自动
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="home">
+        <section class="post-detail-section">
+          <div class="post-detail-shell">
+            <a class="back-link" href="../../index.html#home">Back to home / 返回首页</a>
+            <article class="post-detail-card">
+              <div class="post-detail-kicker">
+                <p class="eyebrow">Notes 笔记</p>
+                <button class="post-comment-jump" id="post-jump-comments" type="button">发布评论</button>
+              </div>
+              <h1>Graph</h1>
+              <div class="post-detail-meta">
+                <time datetime="2026-05-03T00:00:00.000Z">2026年5月03日</time>
+                <span>programming</span>
+                <span class="author-chip">作者 qqqzj-crane</span>
+                <span>约 10 分钟</span>
+              </div>
+              <nav class="post-toc" aria-label="Table of contents / 文章目录">
+                <strong>Contents 目录</strong>
+                <div>
+                  <a class="toc-level-3" href="#图专题复习笔记" data-heading-id="图专题复习笔记">图专题复习笔记</a><a class="toc-level-4" href="#0-总览" data-heading-id="0-总览">0. 总览</a><a class="toc-level-4" href="#1-graph-definitions" data-heading-id="1-graph-definitions">1. Graph Definitions</a><a class="toc-level-5" href="#1-1-图的定义" data-heading-id="1-1-图的定义">1.1 图的定义</a><a class="toc-level-5" href="#1-2-相邻与关联" data-heading-id="1-2-相邻与关联">1.2 相邻与关联</a><a class="toc-level-5" href="#1-3-子图-路径-环" data-heading-id="1-3-子图-路径-环">1.3 子图、路径、环</a><a class="toc-level-5" href="#1-4-连通性" data-heading-id="1-4-连通性">1.4 连通性</a><a class="toc-level-5" href="#1-5-度" data-heading-id="1-5-度">1.5 度</a><a class="toc-level-4" href="#2-representation-of-graphs" data-heading-id="2-representation-of-graphs">2. Representation of Graphs</a><a class="toc-level-5" href="#2-1-adjacency-matrix" data-heading-id="2-1-adjacency-matrix">2.1 Adjacency Matrix</a><a class="toc-level-5" href="#2-2-adjacency-lists" data-heading-id="2-2-adjacency-lists">2.2 Adjacency Lists</a><a class="toc-level-5" href="#2-3-有向图中的入度" data-heading-id="2-3-有向图中的入度">2.3 有向图中的入度</a><a class="toc-level-5" href="#2-4-adjacency-multilists" data-heading-id="2-4-adjacency-multilists">2.4 Adjacency Multilists</a><a class="toc-level-5" href="#2-5-weighted-edges" data-heading-id="2-5-weighted-edges">2.5 Weighted Edges</a><a class="toc-level-4" href="#3-topological-sort" data-heading-id="3-topological-sort">3. Topological Sort</a><a class="toc-level-5" href="#3-1-aov-network" data-heading-id="3-1-aov-network">3.1 AOV Network</a><a class="toc-level-5" href="#3-2-partial-order-与-dag" data-heading-id="3-2-partial-order-与-dag">3.2 Partial Order 与 DAG</a><a class="toc-level-5" href="#3-3-topological-order" data-heading-id="3-3-topological-order">3.3 Topological Order</a><a class="toc-level-5" href="#3-4-朴素拓扑排序" data-heading-id="3-4-朴素拓扑排序">3.4 朴素拓扑排序</a><a class="toc-level-5" href="#3-5-用队列或栈改进" data-heading-id="3-5-用队列或栈改进">3.5 用队列或栈改进</a><a class="toc-level-4" href="#4-shortest-path-algorithms" data-heading-id="4-shortest-path-algorithms">4. Shortest Path Algorithms</a><a class="toc-level-5" href="#4-1-最短路问题定义" data-heading-id="4-1-最短路问题定义">4.1 最短路问题定义</a><a class="toc-level-5" href="#4-2-最短路表-table" data-heading-id="4-2-最短路表-table">4.2 最短路表 Table</a><a class="toc-level-5" href="#4-3-unweighted-shortest-paths" data-heading-id="4-3-unweighted-shortest-paths">4.3 Unweighted Shortest Paths</a><a class="toc-level-5" href="#4-4-dijkstra-s-algorithm" data-heading-id="4-4-dijkstra-s-algorithm">4.4 Dijkstra&#039;s Algorithm</a><a class="toc-level-5" href="#4-5-dijkstra-的两种实现" data-heading-id="4-5-dijkstra-的两种实现">4.5 Dijkstra 的两种实现</a><a class="toc-level-5" href="#4-6-graphs-with-negative-edge-costs" data-heading-id="4-6-graphs-with-negative-edge-costs">4.6 Graphs with Negative Edge Costs</a><a class="toc-level-5" href="#4-7-acyclic-graphs" data-heading-id="4-7-acyclic-graphs">4.7 Acyclic Graphs</a><a class="toc-level-4" href="#5-aoe-networks-and-cpm" data-heading-id="5-aoe-networks-and-cpm">5. AOE Networks and CPM</a><a class="toc-level-5" href="#5-1-aoe-network" data-heading-id="5-1-aoe-network">5.1 AOE Network</a><a class="toc-level-5" href="#5-2-ec-与-lc" data-heading-id="5-2-ec-与-lc">5.2 EC 与 LC</a><a class="toc-level-5" href="#5-3-slack-time-与-critical-path" data-heading-id="5-3-slack-time-与-critical-path">5.3 Slack Time 与 Critical Path</a><a class="toc-level-4" href="#6-all-pairs-shortest-path-problem" data-heading-id="6-all-pairs-shortest-path-problem">6. All-Pairs Shortest Path Problem</a><a class="toc-level-4" href="#7-本地代码例子-hamilton-cycle-检查" data-heading-id="7-本地代码例子-hamilton-cycle-检查">7. 本地代码例子：Hamilton Cycle 检查</a><a class="toc-level-4" href="#8-复杂度速查" data-heading-id="8-复杂度速查">8. 复杂度速查</a><a class="toc-level-4" href="#9-做题时的判断路线" data-heading-id="9-做题时的判断路线">9. 做题时的判断路线</a><a class="toc-level-5" href="#9-1-先看图的类型" data-heading-id="9-1-先看图的类型">9.1 先看图的类型</a><a class="toc-level-5" href="#9-2-算法选择" data-heading-id="9-2-算法选择">9.2 算法选择</a><a class="toc-level-5" href="#9-3-判环与不可行" data-heading-id="9-3-判环与不可行">9.3 判环与不可行</a><a class="toc-level-5" href="#9-4-路径恢复" data-heading-id="9-4-路径恢复">9.4 路径恢复</a><a class="toc-level-4" href="#10-易错点汇总" data-heading-id="10-易错点汇总">10. 易错点汇总</a>
+                </div>
+              </nav>
+              <div class="post-detail-body">
+                <div class="entry-body"><h4 id="图专题复习笔记">图专题复习笔记<a class="heading-anchor" href="#图专题复习笔记" data-heading-id="图专题复习笔记" aria-label="Copy section link / 复制小节链接">#</a></h4><h4 id="0-总览">0. 总览<a class="heading-anchor" href="#0-总览" data-heading-id="0-总览" aria-label="Copy section link / 复制小节链接">#</a></h4><p>图专题在这门课里主要按以下顺序展开：</p><ol><li>Graph definitions：图、无向图、有向图、路径、连通性、度、DAG。</li><li>Representation of graphs：邻接矩阵、邻接表、逆邻接表、邻接多重表、带权边。</li><li>Topological Sort：AOV network、拓扑序、用入度为 0 的点生成拓扑序、判环。</li><li>Shortest Path Algorithms：无权最短路、Dijkstra、负边权图、DAG 最短路。</li><li>AOE / CPM：项目调度、EC/LC、slack time、critical path。</li><li>All-pairs shortest path：把单源最短路跑 $|V|$ 次，或使用 $O(|V|^3)$ 的全源算法。</li></ol><p>复习时抓住一句话：图算法通常都在围绕“点、边、路径约束、访问顺序、松弛更新”这几个动作做文章。</p><h4 id="1-graph-definitions">1. Graph Definitions<a class="heading-anchor" href="#1-graph-definitions" data-heading-id="1-graph-definitions" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="1-1-图的定义">1.1 图的定义<a class="heading-anchor" href="#1-1-图的定义" data-heading-id="1-1-图的定义" aria-label="Copy section link / 复制小节链接">#</a></h5><p>课程 PPT 的定义：</p><div class="math-display">$$
+G(V, E)
+$$</div><p>其中：</p><ul><li>$G$ 表示 graph。</li><li>$V = V(G)$ 是有限非空顶点集合。</li><li>$E = E(G)$ 是有限边集合。</li></ul><p>两类基本图：</p><div class="table-scroll"><table><thead><tr><th>类型</th><th>边的写法</th><th>含义</th></tr></thead><tbody><tr><td>Undirected graph</td><td>$(v_i, v_j)$</td><td>$(v_i, v_j) = (v_j, v_i)$，两端没有方向</td></tr><tr><td>Directed graph / digraph</td><td>$\langle v_i, v_j \rangle$</td><td>$\langle v_i, v_j \rangle \ne \langle v_j, v_i \rangle$，从 tail 指向 head</td></tr></tbody></table></div><p>本课程的限制：</p><ol><li>Self loop is illegal：不考虑自环。</li><li>Multigraph is not considered：不考虑重边。</li></ol><p>Complete graph 是边数达到最大值的图：</p><ul><li>无向完全图最多有 $\frac{n(n-1)}{2}$ 条边。</li><li>有向完全图如果不允许自环，最多有 $n(n-1)$ 条有向边。</li></ul><h5 id="1-2-相邻与关联">1.2 相邻与关联<a class="heading-anchor" href="#1-2-相邻与关联" data-heading-id="1-2-相邻与关联" aria-label="Copy section link / 复制小节链接">#</a></h5><p>无向图中：</p><ul><li>$v_i$ and $v_j$ are adjacent：$v_i$ 和 $v_j$ 相邻。</li><li>$(v_i, v_j)$ is incident on $v_i$ and $v_j$：这条边关联到两个端点。</li></ul><p>有向图中：</p><ul><li>$\langle v_i, v_j \rangle$ 表示从 $v_i$ 指向 $v_j$。</li><li>$v_i$ is adjacent to $v_j$。</li><li>$v_j$ is adjacent from $v_i$。</li><li>$\langle v_i, v_j \rangle$ is incident on $v_i$ and $v_j$。</li></ul><p>这几个英文短语容易在题目里出现，重点是区分 <code>to</code> 和 <code>from</code> 的方向。</p><h5 id="1-3-子图-路径-环">1.3 子图、路径、环<a class="heading-anchor" href="#1-3-子图-路径-环" data-heading-id="1-3-子图-路径-环" aria-label="Copy section link / 复制小节链接">#</a></h5><p>Subgraph：</p><div class="math-display">$$
+G&#039; \subset G
+$$</div><p>含义：</p><div class="math-display">$$
+V(G&#039;) \subseteq V(G), \qquad E(G&#039;) \subseteq E(G)
+$$</div><p>Path from $v_p$ to $v_q$：</p><div class="math-display">$$
+\{v_p, v_{i1}, v_{i2}, \dots, v_{in}, v_q\}
+$$</div><p>要求路径上相邻的顶点之间有对应的边：</p><ul><li>无向图中是 $(v_p, v_{i1}), (v_{i1}, v_{i2}), \dots, (v_{in}, v_q) \in E(G)$。</li><li>有向图中是 $\langle v_p, v_{i1} \rangle, \dots, \langle v_{in}, v_q \rangle \in E(G)$，方向必须一致。</li></ul><p>几个重要定义：</p><div class="table-scroll"><table><thead><tr><th>概念</th><th>含义</th></tr></thead><tbody><tr><td>Length of a path</td><td>路径上的边数</td></tr><tr><td>Simple path</td><td>中间顶点 $v_{i1}, \dots, v_{in}$ 都不同</td></tr><tr><td>Cycle</td><td>$v_p = v_q$ 的 simple path</td></tr><tr><td>DAG</td><td>directed acyclic graph，有向无环图</td></tr></tbody></table></div><h5 id="1-4-连通性">1.4 连通性<a class="heading-anchor" href="#1-4-连通性" data-heading-id="1-4-连通性" aria-label="Copy section link / 复制小节链接">#</a></h5><p>无向图中：</p><ul><li>$v_i$ and $v_j$ are connected：从 $v_i$ 到 $v_j$ 有路径，因此从 $v_j$ 到 $v_i$ 也有路径。</li><li>An undirected graph $G$ is connected：任意两个不同顶点之间都 connected。</li><li>Connected component：无向图中的 maximal connected subgraph。</li></ul><p>树也可以从图的角度定义：</p><blockquote>A tree is a graph that is connected and acyclic.</blockquote><p>也就是：连通且无环。</p><p>有向图中：</p><ul><li>Strongly connected directed graph：任意两个顶点 $v_i, v_j$ 之间，都同时存在 $v_i \to v_j$ 和 $v_j \to v_i$ 的有向路径。</li><li>Weakly connected：如果忽略边方向后图是连通的，则称弱连通。</li><li>Strongly connected component：maximal subgraph that is strongly connected。</li></ul><h5 id="1-5-度">1.5 度<a class="heading-anchor" href="#1-5-度" data-heading-id="1-5-度" aria-label="Copy section link / 复制小节链接">#</a></h5><p>无向图：</p><div class="math-display">$$
+Degree(v) = \text{number of edges incident to } v
+$$</div><p>有向图：</p><ul><li>in-degree：进入该顶点的边数。</li><li>out-degree：从该顶点出去的边数。</li><li>degree 通常可看作 in-degree + out-degree。</li></ul><p>给定 $n$ 个顶点、$e$ 条边：</p><div class="table-scroll"><table><thead><tr><th>图类型</th><th>度数关系</th></tr></thead><tbody><tr><td>无向图</td><td>$\sum_{v \in V} degree(v) = 2e$</td></tr><tr><td>有向图</td><td>$\sum inDegree(v) = \sum outDegree(v) = e$</td></tr></tbody></table></div><p>这两个式子很常用于检查计数题。</p><h4 id="2-representation-of-graphs">2. Representation of Graphs<a class="heading-anchor" href="#2-representation-of-graphs" data-heading-id="2-representation-of-graphs" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="2-1-adjacency-matrix">2.1 Adjacency Matrix<a class="heading-anchor" href="#2-1-adjacency-matrix" data-heading-id="2-1-adjacency-matrix" aria-label="Copy section link / 复制小节链接">#</a></h5><p>邻接矩阵对 $G(V,E)$ 的 $n$ 个顶点建立：</p><pre class="code-block language-text" data-language="text"><code>adj_mat[n][n]</code></pre><p>无权图中常用：</p><div class="math-display">$$
+adj\_mat[i][j] =
+\begin{cases}
+1, &amp; (i,j) \in E \text{ or } \langle i,j\rangle \in E \\
+0, &amp; \text{otherwise}
+\end{cases}
+$$</div><p>带权图中常用：</p><div class="math-display">$$
+adj\_mat[i][j] = weight
+$$</div><p>如果两点之间没有边，通常可设为 $0$、$\infty$ 或某个 sentinel，具体取决于算法。</p><p>特点：</p><div class="table-scroll"><table><thead><tr><th>操作</th><th>复杂度 / 特点</th></tr></thead><tbody><tr><td>空间</td><td>$O(n^2)$</td></tr><tr><td>判断边 $(i,j)$ 是否存在</td><td>$O(1)$</td></tr><tr><td>扫描某个点的所有邻接点</td><td>$O(n)$</td></tr><tr><td>无向图</td><td>矩阵对称，可以只存一半节省空间</td></tr><tr><td>稠密图</td><td>适合</td></tr><tr><td>稀疏图</td><td>可能浪费空间</td></tr></tbody></table></div><h5 id="2-2-adjacency-lists">2.2 Adjacency Lists<a class="heading-anchor" href="#2-2-adjacency-lists" data-heading-id="2-2-adjacency-lists" aria-label="Copy section link / 复制小节链接">#</a></h5><p>邻接表的思想：</p><blockquote>Replace each row by a linked list.</blockquote><p>也就是每个顶点有一个表头，后面挂它的邻接点。</p><p>无向图中，每条边 $(i,j)$ 会出现两次：</p><ul><li>一次出现在 <code>graph[i]</code> 的链表里。</li><li>一次出现在 <code>graph[j]</code> 的链表里。</li></ul><p>PPT 给出的空间估计：</p><pre class="code-block language-text" data-language="text"><code>For undirected G:
+S = n heads + 2e nodes = (n + 2e) ptrs + 2e ints</code></pre><p>要点：</p><ul><li>每个链表中结点的顺序不影响图的含义。</li><li>无向图中，<code>Degree(i)</code> 等于 <code>graph[i]</code> 链表中的结点个数。</li><li>扫描整个边集的时间是：</li></ul><div class="math-display">$$
+O(n + e)
+$$</div><p>这也是 BFS、DFS、拓扑排序、稀疏图最短路经常能做到 $O(|V|+|E|)$ 的原因。</p><h5 id="2-3-有向图中的入度">2.3 有向图中的入度<a class="heading-anchor" href="#2-3-有向图中的入度" data-heading-id="2-3-有向图中的入度" aria-label="Copy section link / 复制小节链接">#</a></h5><p>有向图的邻接表天然容易得到 out-degree，但如果要频繁求 in-degree，就需要额外处理。</p><p>PPT 给出两种方法：</p><ol><li>Add inverse adjacency lists：增加逆邻接表。</li><li>Multilist representation for <code>adj_mat[i][j]</code>：使用多重链表结构，让边结点能同时挂在 tail 行和 head 列上。</li></ol><p>逆邻接表的含义：</p><ul><li>普通邻接表按 outgoing edge 存。</li><li>逆邻接表按 incoming edge 存。</li><li>如果拓扑排序中要快速维护入度，一般可以直接用 <code>Indegree[]</code> 数组，而不一定真的建逆邻接表。</li></ul><h5 id="2-4-adjacency-multilists">2.4 Adjacency Multilists<a class="heading-anchor" href="#2-4-adjacency-multilists" data-heading-id="2-4-adjacency-multilists" aria-label="Copy section link / 复制小节链接">#</a></h5><p>无向图的邻接表里，每条边要建两个结点。邻接多重表的想法是：</p><blockquote>Combine the two nodes into one.</blockquote><p>一个边结点同时服务于两个端点，典型字段：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">struct</span> EdgeNode {
+    Vertex v1;
+    Vertex v2;
+    <span class="syntax-keyword">int</span> mark;
+    <span class="syntax-keyword">struct</span> EdgeNode *next_v1;
+    <span class="syntax-keyword">struct</span> EdgeNode *next_v2;
+};</code></pre><p>理解重点：</p><ul><li><span class="math-inline">\(v_{1}\)</span> 和 <span class="math-inline">\(v_{2}\)</span> 是边的两个端点。</li><li><span class="math-inline">\(next_{v_{1}}\)</span> 挂在 $v_1$ 的链上。</li><li><span class="math-inline">\(next_{v_{2}}\)</span> 挂在 $v_2$ 的链上。</li><li><code>mark</code> 常用于遍历时避免同一条边被处理两次。</li></ul><p>这种结构比普通邻接表更复杂，考试里更常考“为什么这样能避免一条无向边存两个结点”。</p><h5 id="2-5-weighted-edges">2.5 Weighted Edges<a class="heading-anchor" href="#2-5-weighted-edges" data-heading-id="2-5-weighted-edges" aria-label="Copy section link / 复制小节链接">#</a></h5><p>带权边的表示：</p><ul><li>邻接矩阵：<span class="math-inline">\(adj_{mat}[i][j] = weight\)</span>。</li><li>邻接表 / 邻接多重表：在边结点中增加 <code>weight</code> 字段。</li></ul><p>后面的最短路算法都依赖这个 <code>weight</code> 或 <code>cost</code>。</p><h4 id="3-topological-sort">3. Topological Sort<a class="heading-anchor" href="#3-topological-sort" data-heading-id="3-topological-sort" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="3-1-aov-network">3.1 AOV Network<a class="heading-anchor" href="#3-1-aov-network" data-heading-id="3-1-aov-network" aria-label="Copy section link / 复制小节链接">#</a></h5><p>AOV Network：</p><blockquote>A digraph $G$ in which $V(G)$ represents activities and $E(G)$ represents precedence relations.</blockquote><p>例子：课程先修关系。</p><p>如果有边：</p><div class="math-display">$$
+C_1 \to C_3
+$$</div><p>含义是 $C_1$ 是 $C_3$ 的先修课。</p><p>术语：</p><div class="table-scroll"><table><thead><tr><th>术语</th><th>含义</th></tr></thead><tbody><tr><td>predecessor of $j$</td><td>有一条路径从 $i$ 到 $j$</td></tr><tr><td>immediate predecessor of $j$</td><td>有一条直接边 $\langle i,j\rangle \in E(G)$</td></tr><tr><td>successor of $i$</td><td>$j$ 是 $i$ 的后继</td></tr><tr><td>immediate successor of $i$</td><td>$j$ 是 $i$ 的直接后继</td></tr></tbody></table></div><h5 id="3-2-partial-order-与-dag">3.2 Partial Order 与 DAG<a class="heading-anchor" href="#3-2-partial-order-与-dag" data-heading-id="3-2-partial-order-与-dag" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 中 partial order 的性质：</p><ol><li>Transitive：如果 $i \to k$ 且 $k \to j$，则 $i \to j$。</li><li>Irreflexive：$i \to i$ 不可能。</li></ol><p>Feasible AOV network must be a DAG。</p><p>原因：</p><ul><li>如果有环，就意味着某个任务最终依赖自己。</li><li>如果一个任务必须在自己开始前完成，项目不可行。</li></ul><h5 id="3-3-topological-order">3.3 Topological Order<a class="heading-anchor" href="#3-3-topological-order" data-heading-id="3-3-topological-order" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 定义：</p><blockquote>A topological order is a linear ordering of the vertices of a graph such that, for any two vertices $i, j$, if $i$ is a predecessor of $j$ in the network then $i$ precedes $j$ in the linear ordering.</blockquote><p>中文理解：</p><ul><li>把 DAG 的顶点排成一条线。</li><li>所有依赖关系都必须从前指向后。</li><li>拓扑序不一定唯一。</li></ul><p>目标：</p><ol><li>Test an AOV for feasibility。</li><li>Generate a topological order if possible。</li></ol><h5 id="3-4-朴素拓扑排序">3.4 朴素拓扑排序<a class="heading-anchor" href="#3-4-朴素拓扑排序" data-heading-id="3-4-朴素拓扑排序" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 的朴素版本：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">Topsort</span>(Graph G)
+{
+    <span class="syntax-keyword">int</span> Counter;
+    Vertex V, W;
+
+    <span class="syntax-keyword">for</span> (Counter = <span class="syntax-number">0</span>; Counter &lt; NumVertex; Counter++) {
+        V = <span class="syntax-function">FindNewVertexOfDegreeZero</span>();
+        <span class="syntax-keyword">if</span> (V == NotAVertex) {
+            <span class="syntax-function">Error</span>(<span class="syntax-string">&quot;Graph has a cycle&quot;</span>);
+            <span class="syntax-keyword">break</span>;
+        }
+        TopNum[V] = Counter; <span class="syntax-comment">/* or output V */</span>
+        <span class="syntax-keyword">for</span> (each W adjacent to V)
+            Indegree[W]--;
+    }
+}</code></pre><p>关键点：</p><ul><li>每次找一个当前入度为 0 且还没编号的顶点。</li><li>输出它或给它分配拓扑编号。</li><li>删除它的出边，表现为让后继的入度减 1。</li><li>如果找不到入度为 0 的点，但还有顶点没处理，说明有环。</li></ul><p>如果 <code>FindNewVertexOfDegreeZero()</code> 每次都扫描所有顶点，则总时间：</p><div class="math-display">$$
+T = O(|V|^2)
+$$</div><h5 id="3-5-用队列或栈改进">3.5 用队列或栈改进<a class="heading-anchor" href="#3-5-用队列或栈改进" data-heading-id="3-5-用队列或栈改进" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 的改进：</p><blockquote>Keep all the unassigned vertices of degree 0 in a special box (queue or stack).</blockquote><p>队列版本：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">Topsort</span>(Graph G)
+{
+    Queue Q;
+    <span class="syntax-keyword">int</span> Counter = <span class="syntax-number">0</span>;
+    Vertex V, W;
+
+    Q = <span class="syntax-function">CreateQueue</span>(NumVertex);
+    <span class="syntax-function">MakeEmpty</span>(Q);
+
+    <span class="syntax-keyword">for</span> (each vertex V)
+        <span class="syntax-keyword">if</span> (Indegree[V] == <span class="syntax-number">0</span>)
+            <span class="syntax-function">Enqueue</span>(V, Q);
+
+    <span class="syntax-keyword">while</span> (!<span class="syntax-function">IsEmpty</span>(Q)) {
+        V = <span class="syntax-function">Dequeue</span>(Q);
+        TopNum[V] = ++Counter; <span class="syntax-comment">/* assign next */</span>
+        <span class="syntax-keyword">for</span> (each W adjacent to V)
+            <span class="syntax-keyword">if</span> (--Indegree[W] == <span class="syntax-number">0</span>)
+                <span class="syntax-function">Enqueue</span>(W, Q);
+    }
+
+    <span class="syntax-keyword">if</span> (Counter != NumVertex)
+        <span class="syntax-function">Error</span>(<span class="syntax-string">&quot;Graph has a cycle&quot;</span>);
+
+    <span class="syntax-function">DisposeQueue</span>(Q);
+}</code></pre><p>复杂度：</p><div class="math-display">$$
+T = O(|V| + |E|)
+$$</div><p>原因：</p><ul><li>每个顶点入队、出队至多一次。</li><li>每条边在更新后继入度时被检查一次。</li></ul><p>复习提醒：</p><ul><li>用 queue 和 stack 都可以生成拓扑序，只是得到的具体顺序可能不同。</li><li>如果题目问“拓扑序是否唯一”，要看每一步是否都只有一个入度为 0 的候选点。</li></ul><h4 id="4-shortest-path-algorithms">4. Shortest Path Algorithms<a class="heading-anchor" href="#4-shortest-path-algorithms" data-heading-id="4-shortest-path-algorithms" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="4-1-最短路问题定义">4.1 最短路问题定义<a class="heading-anchor" href="#4-1-最短路问题定义" data-heading-id="4-1-最短路问题定义" aria-label="Copy section link / 复制小节链接">#</a></h5><p>给定有向图：</p><div class="math-display">$$
+G = (V,E)
+$$</div><p>以及边的代价函数：</p><div class="math-display">$$
+c(e), \qquad e \in E(G)
+$$</div><p>路径 $P$ 的长度，也叫 weighted path length，是路径上所有边权的和：</p><div class="math-display">$$
+length(P) = \sum_{e \in P} c(e)
+$$</div><p>Single-Source Shortest-Path Problem：</p><blockquote>Given as input a weighted graph $G=(V,E)$ and a distinguished vertex $s$, find the shortest weighted path from $s$ to every other vertex in $G$.</blockquote><p>注意：</p><ul><li>如果存在 negative-cost cycle，最短路可能没有定义，因为可以不断绕圈让路径长度越来越小。</li><li>如果没有 negative-cost cycle，通常把从 $s$ 到 $s$ 的最短路定义为 0。</li></ul><h5 id="4-2-最短路表-table">4.2 最短路表 Table<a class="heading-anchor" href="#4-2-最短路表-table" data-heading-id="4-2-最短路表-table" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 中最短路算法常用一个表：</p><div class="table-scroll"><table><thead><tr><th>字段</th><th>含义</th></tr></thead><tbody><tr><td><code>Table[i].Dist</code></td><td>从源点 $s$ 到 $v_i$ 的当前最短距离估计，除源点外初始化为 $\infty$</td></tr><tr><td><code>Table[i].Known</code></td><td>$v_i$ 是否已经被确认 / checked</td></tr><tr><td><code>Table[i].Path</code></td><td>路径追踪字段，记录最短路上 $v_i$ 的前驱</td></tr></tbody></table></div><p><code>Path</code> 字段用于最后打印路径：从目标点不断沿 <code>Path</code> 回溯到源点，再反向输出。</p><h5 id="4-3-unweighted-shortest-paths">4.3 Unweighted Shortest Paths<a class="heading-anchor" href="#4-3-unweighted-shortest-paths" data-heading-id="4-3-unweighted-shortest-paths" aria-label="Copy section link / 复制小节链接">#</a></h5><p>无权最短路可以看作所有边权都为 1。</p><p>核心思想：</p><blockquote>Breadth-first search.</blockquote><p>BFS 按距离层次扩展：</p><ul><li>距离 0：源点。</li><li>距离 1：源点直接邻接点。</li><li>距离 2：从距离 1 顶点继续扩展得到的未访问点。</li><li>依此类推。</li></ul><p>朴素版本按 <code>CurrDist</code> 一层层扫描所有顶点：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">Unweighted</span>(Table T)
+{
+    <span class="syntax-keyword">int</span> CurrDist;
+    Vertex V, W;
+
+    <span class="syntax-keyword">for</span> (CurrDist = <span class="syntax-number">0</span>; CurrDist &lt; NumVertex; CurrDist++) {
+        <span class="syntax-keyword">for</span> (each vertex V)
+            <span class="syntax-keyword">if</span> (!T[V].Known &amp;&amp; T[V].Dist == CurrDist) {
+                T[V].Known = true;
+                <span class="syntax-keyword">for</span> (each W adjacent to V)
+                    <span class="syntax-keyword">if</span> (T[W].Dist == Infinity) {
+                        T[W].Dist = CurrDist + <span class="syntax-number">1</span>;
+                        T[W].Path = V;
+                    }
+            }
+    }
+}</code></pre><p>最坏情况：</p><div class="math-display">$$
+T = O(|V|^2)
+$$</div><p>改进版本使用队列：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">Unweighted</span>(Table T)
+{
+    Queue Q;
+    Vertex V, W;
+
+    Q = <span class="syntax-function">CreateQueue</span>(NumVertex);
+    <span class="syntax-function">MakeEmpty</span>(Q);
+    <span class="syntax-function">Enqueue</span>(S, Q);
+
+    <span class="syntax-keyword">while</span> (!<span class="syntax-function">IsEmpty</span>(Q)) {
+        V = <span class="syntax-function">Dequeue</span>(Q);
+        T[V].Known = true; <span class="syntax-comment">/* not really necessary */</span>
+
+        <span class="syntax-keyword">for</span> (each W adjacent to V)
+            <span class="syntax-keyword">if</span> (T[W].Dist == Infinity) {
+                T[W].Dist = T[V].Dist + <span class="syntax-number">1</span>;
+                T[W].Path = V;
+                <span class="syntax-function">Enqueue</span>(W, Q);
+            }
+    }
+
+    <span class="syntax-function">DisposeQueue</span>(Q);
+}</code></pre><p>复杂度：</p><div class="math-display">$$
+T = O(|V| + |E|)
+$$</div><p>关键判断：</p><ul><li>只有 <span class="math-inline">\(Dist == Infinity\)</span> 的点才第一次入队。</li><li>第一次到达某个点时，已经是无权图中的最短距离。</li></ul><h5 id="4-4-dijkstra-s-algorithm">4.4 Dijkstra&#039;s Algorithm<a class="heading-anchor" href="#4-4-dijkstra-s-algorithm" data-heading-id="4-4-dijkstra-s-algorithm" aria-label="Copy section link / 复制小节链接">#</a></h5><p>Dijkstra 用于 weighted shortest paths，但要求边权非负。</p><p>PPT 中的集合：</p><div class="math-display">$$
+S = \{s \text{ and vertices whose shortest paths have been found}\}
+$$</div><p>对任意 $u \notin S$，定义：</p><div class="math-display">$$
+distance[u] = \text{minimal length of path } \{s \to (v_i \in S) \to u\}
+$$</div><p>如果路径按非递减顺序生成，则：</p><ol><li>已确认的最短路只经过 $S$ 中的顶点。</li><li>每次选择满足 <code>distance[u]</code> 最小的未知顶点 $u$，这一步是 greedy method。</li><li>加入新顶点 $u_1$ 后，其他未知顶点 $u_2$ 的距离可能变小；如果变小，则新路径经过 $u_1$：</li></ol><div class="math-display">$$
+distance&#039;[u_2] = distance[u_1] + length(\langle u_1,u_2\rangle)
+$$</div><p>这一步就是 relaxation。</p><p>PPT 伪代码：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">Dijkstra</span>(Table T)
+{
+    Vertex V, W;
+
+    <span class="syntax-keyword">for</span> (;;) {
+        V = smallest unknown distance vertex;
+        <span class="syntax-keyword">if</span> (V == NotAVertex)
+            <span class="syntax-keyword">break</span>;
+
+        T[V].Known = true;
+
+        <span class="syntax-keyword">for</span> (each W adjacent to V)
+            <span class="syntax-keyword">if</span> (!T[W].Known)
+                <span class="syntax-keyword">if</span> (T[V].Dist + Cvw &lt; T[W].Dist) {
+                    <span class="syntax-function">Decrease</span>(T[W].Dist to T[V].Dist + Cvw);
+                    T[W].Path = V;
+                }
+    }
+}</code></pre><p>注意：</p><ul><li>Dijkstra 不适用于有负边权的图。</li><li>只要存在负边，贪心选择“当前最小未知距离点”就可能过早确认错误答案。</li></ul><h5 id="4-5-dijkstra-的两种实现">4.5 Dijkstra 的两种实现<a class="heading-anchor" href="#4-5-dijkstra-的两种实现" data-heading-id="4-5-dijkstra-的两种实现" aria-label="Copy section link / 复制小节链接">#</a></h5><p>Implementation 1：直接扫描表找最小未知距离顶点。</p><pre class="code-block language-c" data-language="c"><code>V = smallest unknown distance vertex; <span class="syntax-comment">/* simply scan the table */</span></code></pre><p>复杂度：</p><div class="math-display">$$
+T = O(|V|^2 + |E|)
+$$</div><p>适合 dense graph。</p><p>Implementation 2：用 priority queue 保存距离。</p><pre class="code-block language-c" data-language="c"><code>V = <span class="syntax-function">DeleteMin</span>(PQ);</code></pre><p>更新距离时：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-function">Decrease</span>(T[W].Dist to T[V].Dist + Cvw);</code></pre><p>如果支持 <code>DecreaseKey</code>：</p><div class="math-display">$$
+T = O(|V|\log |V| + |E|\log |V|) = O(|E|\log |V|)
+$$</div><p>如果不实现 <code>DecreaseKey</code>，可以把更新后的 $W$ 重新插入优先队列：</p><ul><li>需要一直 <code>DeleteMin</code>，直到弹出一个 unknown vertex。</li><li>时间仍可写作 $O(|E|\log |V|)$。</li><li>但可能需要 $|E|$ 次 <code>DeleteMin</code> 和 $|E|$ 空间。</li></ul><p>适合 sparse graph。</p><h5 id="4-6-graphs-with-negative-edge-costs">4.6 Graphs with Negative Edge Costs<a class="heading-anchor" href="#4-6-graphs-with-negative-edge-costs" data-heading-id="4-6-graphs-with-negative-edge-costs" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 特别提醒：不能简单地给所有边加同一个常数来消除负边。</p><p>原因：</p><ul><li>不同路径经过的边数可能不同。</li><li>每条边都加 $\Delta$ 后，边数多的路径会被额外增加更多。</li><li>原本的最短路顺序可能被改变。</li></ul><p>负边权版本的队列松弛算法：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">void</span> <span class="syntax-function">WeightedNegative</span>(Table T)
+{
+    Queue Q;
+    Vertex V, W;
+
+    Q = <span class="syntax-function">CreateQueue</span>(NumVertex);
+    <span class="syntax-function">MakeEmpty</span>(Q);
+    <span class="syntax-function">Enqueue</span>(S, Q);
+
+    <span class="syntax-keyword">while</span> (!<span class="syntax-function">IsEmpty</span>(Q)) {
+        V = <span class="syntax-function">Dequeue</span>(Q);
+
+        <span class="syntax-keyword">for</span> (each W adjacent to V)
+            <span class="syntax-keyword">if</span> (T[V].Dist + Cvw &lt; T[W].Dist) {
+                T[W].Dist = T[V].Dist + Cvw;
+                T[W].Path = V;
+                <span class="syntax-keyword">if</span> (W is not already in Q)
+                    <span class="syntax-function">Enqueue</span>(W, Q);
+            }
+    }
+
+    <span class="syntax-function">DisposeQueue</span>(Q);
+}</code></pre><p>要点：</p><ul><li>每次发现更短路径就继续把顶点放入队列。</li><li>如果有 negative-cost cycle，会造成 indefinite loop。</li><li>每条边不再只处理一次。</li><li>PPT 给出的复杂度：</li></ul><div class="math-display">$$
+T = O(|V| \times |E|)
+$$</div><h5 id="4-7-acyclic-graphs">4.7 Acyclic Graphs<a class="heading-anchor" href="#4-7-acyclic-graphs" data-heading-id="4-7-acyclic-graphs" aria-label="Copy section link / 复制小节链接">#</a></h5><p>如果图是 DAG，可以按拓扑序处理顶点。</p><p>PPT 的理由：</p><blockquote>If the graph is acyclic, vertices may be selected in topological order since when a vertex is selected, its distance can no longer be lowered without any incoming edges from unknown nodes.</blockquote><p>复杂度：</p><div class="math-display">$$
+T = O(|E| + |V|)
+$$</div><p>且不需要 priority queue。</p><p>理解方法：</p><ol><li>先做拓扑排序。</li><li>按拓扑序依次对每个顶点的出边做 relaxation。</li><li>因为所有可能进入当前顶点的前驱都已经处理过，所以当前距离不会再被后面的点降低。</li></ol><h4 id="5-aoe-networks-and-cpm">5. AOE Networks and CPM<a class="heading-anchor" href="#5-aoe-networks-and-cpm" data-heading-id="5-aoe-networks-and-cpm" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="5-1-aoe-network">5.1 AOE Network<a class="heading-anchor" href="#5-1-aoe-network" data-heading-id="5-1-aoe-network" aria-label="Copy section link / 复制小节链接">#</a></h5><p>AOE 是 Activity On Edge。</p><p>PPT 中的应用：</p><blockquote>scheduling a project</blockquote><p>在 AOE 网络中：</p><ul><li>边 $a_i = \langle v, w \rangle$ 表示一个 activity。</li><li>顶点 $v_j$ 通常表示事件或阶段完成点。</li><li>边权表示 activity 的 lasting time。</li><li>dummy activity 可用权重 0 的边表示，只表达依赖关系，不消耗时间。</li></ul><p>与 AOV 的区别：</p><div class="table-scroll"><table><thead><tr><th>网络</th><th>顶点表示</th><th>边表示</th></tr></thead><tbody><tr><td>AOV</td><td>activity</td><td>precedence relation</td></tr><tr><td>AOE</td><td>event / completion state</td><td>activity</td></tr></tbody></table></div><h5 id="5-2-ec-与-lc">5.2 EC 与 LC<a class="heading-anchor" href="#5-2-ec-与-lc" data-heading-id="5-2-ec-与-lc" aria-label="Copy section link / 复制小节链接">#</a></h5><p>PPT 记号：</p><pre class="code-block language-text" data-language="text"><code>EC[j] / LC[j] ::= earliest / latest completion time for node vj</code></pre><p>EC 的计算：</p><ul><li>从起点开始。</li><li>对任意 activity $a_i = \langle v,w\rangle$，设持续时间为 $duration(v,w)$。</li><li>更新：</li></ul><div class="math-display">$$
+EC[w] = \max(EC[w], EC[v] + duration(v,w))
+$$</div><p>LC 的计算：</p><ul><li>从终点开始反向计算。</li><li>通常先令终点的 $LC$ 等于项目最早完成时间。</li><li>对任意 activity $a_i = \langle v,w\rangle$：</li></ul><div class="math-display">$$
+LC[v] = \min(LC[v], LC[w] - duration(v,w))
+$$</div><h5 id="5-3-slack-time-与-critical-path">5.3 Slack Time 与 Critical Path<a class="heading-anchor" href="#5-3-slack-time-与-critical-path" data-heading-id="5-3-slack-time-与-critical-path" aria-label="Copy section link / 复制小节链接">#</a></h5><p>对 activity $\langle v,w\rangle$，slack time 表示这条活动最多可以延迟多久而不影响整个项目完成时间。</p><p>常用公式：</p><div class="math-display">$$
+Slack(v,w) = LC[w] - EC[v] - duration(v,w)
+$$</div><p>Critical Path：</p><blockquote>path consisting entirely of zero-slack edges.</blockquote><p>也就是全部由 slack time 为 0 的活动组成的路径。</p><p>复习要点：</p><ul><li>关键路径上的活动不能延迟。</li><li>项目的最短完成时间等于终点的 $EC$。</li><li>可能有多条 critical path。</li><li>AOE/CPM 的计算本质上仍然是 DAG 上的动态规划。</li></ul><h4 id="6-all-pairs-shortest-path-problem">6. All-Pairs Shortest Path Problem<a class="heading-anchor" href="#6-all-pairs-shortest-path-problem" data-heading-id="6-all-pairs-shortest-path-problem" aria-label="Copy section link / 复制小节链接">#</a></h4><p>问题：</p><blockquote>For all pairs of $v_i$ and $v_j$ $(i \ne j)$, find the shortest path between.</blockquote><p>PPT 给出两类方法：</p><p>Method 1：Use single-source algorithm for $|V|$ times。</p><p>如果使用类似 Dijkstra 的表扫描版本：</p><div class="math-display">$$
+T = O(|V|^3)
+$$</div><p>PPT 注记：</p><blockquote>works fast on sparse graph.</blockquote><p>Method 2：Chapter 10 中的 $O(|V|^3)$ algorithm。</p><p>这类算法通常适合 dense graphs，因为结构更紧凑，不需要对每个源点重复维护一套图搜索过程。</p><h4 id="7-本地代码例子-hamilton-cycle-检查">7. 本地代码例子：Hamilton Cycle 检查<a class="heading-anchor" href="#7-本地代码例子-hamilton-cycle-检查" data-heading-id="7-本地代码例子-hamilton-cycle-检查" aria-label="Copy section link / 复制小节链接">#</a></h4><p>仓库中的本地图相关代码：</p><pre class="code-block language-text" data-language="text"><code>w8_graph/hamilton.c</code></pre><p>它做的是 Hamiltonian cycle 的合法性检查。</p><p>代码中的图表示：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> graph[MAXN + <span class="syntax-number">1</span>][MAXN + <span class="syntax-number">1</span>];</code></pre><p>即邻接矩阵。</p><p>读入无向边时：</p><pre class="code-block language-c" data-language="c"><code>graph[v1][v2] = <span class="syntax-number">1</span>;
+graph[v2][v1] = <span class="syntax-number">1</span>;</code></pre><p>一个序列是 Hamiltonian cycle，需要满足：</p><ol><li>序列长度必须是 $n+1$。</li><li>最后一个顶点必须等于第一个顶点，表示回到起点。</li><li>除了最后重复起点外，前 $n$ 个顶点不能重复。</li><li>序列中每一对相邻顶点之间都必须有边。</li></ol><p>对应实现逻辑：</p><pre class="code-block language-c" data-language="c"><code><span class="syntax-keyword">int</span> <span class="syntax-function">is_hamilton</span>(sequence seq)
+{
+    <span class="syntax-keyword">if</span> (seq.num != n + <span class="syntax-number">1</span> || seq.arr[seq.num - <span class="syntax-number">1</span>] != seq.arr[<span class="syntax-number">0</span>])
+        <span class="syntax-keyword">return</span> <span class="syntax-number">0</span>;
+
+    <span class="syntax-keyword">int</span> vertex[MAXN + <span class="syntax-number">1</span>] = {<span class="syntax-number">0</span>};
+
+    <span class="syntax-keyword">for</span> (<span class="syntax-keyword">int</span> i = <span class="syntax-number">0</span>; i &lt; seq.num - <span class="syntax-number">1</span>; i++) {
+        <span class="syntax-keyword">if</span> (vertex[seq.arr[i]] == <span class="syntax-number">1</span>)
+            <span class="syntax-keyword">return</span> <span class="syntax-number">0</span>;
+        vertex[seq.arr[i]]++;
+
+        <span class="syntax-keyword">if</span> (graph[seq.arr[i]][seq.arr[i + <span class="syntax-number">1</span>]] == <span class="syntax-number">0</span>)
+            <span class="syntax-keyword">return</span> <span class="syntax-number">0</span>;
+    }
+
+    <span class="syntax-keyword">return</span> <span class="syntax-number">1</span>;
+}</code></pre><p>复杂度：</p><ul><li>检查长度和首尾：$O(1)$。</li><li>扫描序列：$O(n)$。</li><li>邻接矩阵查边：每次 $O(1)$。</li><li>总复杂度：$O(n)$。</li></ul><p>写类似题时的常见坑：</p><ul><li>忘记要求长度为 $n+1$。</li><li>只检查了点不重复，没检查每条边是否存在。</li><li>忘记最后一个点必须回到起点。</li><li>把 Hamiltonian path 和 Hamiltonian cycle 混淆。</li></ul><h4 id="8-复杂度速查">8. 复杂度速查<a class="heading-anchor" href="#8-复杂度速查" data-heading-id="8-复杂度速查" aria-label="Copy section link / 复制小节链接">#</a></h4><div class="table-scroll"><table><thead><tr><th>内容</th><th>关键数据结构</th><th>时间复杂度</th></tr></thead><tbody><tr><td>邻接矩阵查边</td><td>matrix</td><td>$O(1)$</td></tr><tr><td>邻接矩阵扫描某点邻接点</td><td>matrix row</td><td>$O(</td></tr><tr><td>邻接表扫描整张图</td><td>adjacency list</td><td>$O(</td></tr><tr><td>朴素拓扑排序</td><td>repeatedly scan indegree</td><td>$O(</td></tr><tr><td>队列改进拓扑排序</td><td>queue + indegree array</td><td>$O(</td></tr><tr><td>无权最短路朴素版</td><td>table scan by distance</td><td>$O(</td></tr><tr><td>无权最短路改进版</td><td>BFS queue</td><td>$O(</td></tr><tr><td>Dijkstra 表扫描版</td><td>adjacency list/matrix + scan</td><td>$O(</td></tr><tr><td>Dijkstra 优先队列版</td><td>priority queue</td><td>$O(</td></tr><tr><td>负边权队列松弛</td><td>queue relaxation</td><td>$O(</td></tr><tr><td>DAG 最短路</td><td>topological order</td><td>$O(</td></tr><tr><td>All-pairs shortest path</td><td>repeat SSSP / Ch.10 algorithm</td><td>$O(</td></tr><tr><td>Hamiltonian cycle 检查</td><td>adjacency matrix + visited array</td><td>$O(n)$</td></tr></tbody></table></div><h4 id="9-做题时的判断路线">9. 做题时的判断路线<a class="heading-anchor" href="#9-做题时的判断路线" data-heading-id="9-做题时的判断路线" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="9-1-先看图的类型">9.1 先看图的类型<a class="heading-anchor" href="#9-1-先看图的类型" data-heading-id="9-1-先看图的类型" aria-label="Copy section link / 复制小节链接">#</a></h5><p>拿到题先判断：</p><ol><li>无向图还是有向图？</li><li>有没有权重？</li><li>权重是否可能为负？</li><li>有没有环？</li><li>图是稠密还是稀疏？</li><li>要求一个源点到所有点，还是所有点对之间？</li></ol><p>这些判断基本决定算法选择。</p><h5 id="9-2-算法选择">9.2 算法选择<a class="heading-anchor" href="#9-2-算法选择" data-heading-id="9-2-算法选择" aria-label="Copy section link / 复制小节链接">#</a></h5><div class="table-scroll"><table><thead><tr><th>条件</th><th>常用算法</th></tr></thead><tbody><tr><td>无权最短路</td><td>BFS</td></tr><tr><td>非负权单源最短路</td><td>Dijkstra</td></tr><tr><td>有负边但无负环</td><td>队列松弛 / Bellman-Ford 思想</td></tr><tr><td>DAG 上的最短路</td><td>Topological order + relaxation</td></tr><tr><td>AOV 可行性 / 课程安排</td><td>Topological sort</td></tr><tr><td>AOE 项目调度</td><td>EC / LC / slack / critical path</td></tr><tr><td>所有点对最短路</td><td>跑 $</td></tr></tbody></table></div><h5 id="9-3-判环与不可行">9.3 判环与不可行<a class="heading-anchor" href="#9-3-判环与不可行" data-heading-id="9-3-判环与不可行" aria-label="Copy section link / 复制小节链接">#</a></h5><p>拓扑排序中：</p><ul><li>如果最终 <span class="math-inline">\(Counter == NumVertex\)</span>，说明处理了所有顶点，图是 DAG。</li><li>如果 <span class="math-inline">\(Counter \ne  NumVertex\)</span>，说明有环，AOV network 不可行。</li></ul><p>最短路中：</p><ul><li>Dijkstra 遇到负边不可靠。</li><li>负边权图如果有 negative-cost cycle，则最短路可能不存在。</li><li>DAG 最短路不怕负边，因为没有环，不可能反复降低。</li></ul><h5 id="9-4-路径恢复">9.4 路径恢复<a class="heading-anchor" href="#9-4-路径恢复" data-heading-id="9-4-路径恢复" aria-label="Copy section link / 复制小节链接">#</a></h5><p>最短路题常要求输出路径。</p><p>通用做法：</p><ol><li>每次松弛成功时：</li></ol><pre class="code-block language-c" data-language="c"><code>Path[W] = V;</code></pre><ol><li>输出目标点 <span class="math-inline">\(T\)</span> 的路径时，从 <span class="math-inline">\(T\)</span> 开始不断回溯：</li></ol><pre class="code-block language-text" data-language="text"><code>T -&gt; Path[T] -&gt; Path[Path[T]] -&gt; ... -&gt; S</code></pre><ol><li>最后反向输出。</li></ol><p>注意：</p><ul><li>如果 <span class="math-inline">\(Dist[T] == Infinity\)</span>，说明不可达。</li><li>如果题目要求多个最短路径中的某种特定顺序，要看邻接表顺序或 tie-breaking 规则。</li></ul><h4 id="10-易错点汇总">10. 易错点汇总<a class="heading-anchor" href="#10-易错点汇总" data-heading-id="10-易错点汇总" aria-label="Copy section link / 复制小节链接">#</a></h4><ol><li>无向图一条边会贡献两个度数；有向图入度总和和出度总和都等于边数。</li><li>邻接矩阵适合查边，邻接表适合扫边。</li><li>拓扑排序只适用于 DAG；有环就没有拓扑序。</li><li>拓扑序不唯一，queue 和 stack 可能得到不同合法答案。</li><li>BFS 的无权最短路成立，是因为所有边权都等价于 1。</li><li>Dijkstra 的前提是边权非负。</li><li>给所有边加同一个常数不能解决负边问题。</li><li>DAG 最短路可以有负边，因为拓扑序保证不会反复回到前面的点。</li><li>AOV 是 activity on vertex，AOE 是 activity on edge。</li><li>Critical path 由 zero-slack edges 组成，不一定只有一条。</li><li>Hamiltonian cycle 要访问每个顶点一次并回到起点，不等于普通 cycle。</li></ol></div>
+              </div>
+              <div class="post-jump-nav" aria-label="文章跳转">
+                <button type="button" id="post-jump-top">回到顶部</button>
+              </div>
+              <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
+                
+                <a href="../../post/2026-05-03-algorithm-list-stack-queue-%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span>Older / 更早</span><strong>Algorithm / List / Stack / Queue 复习笔记</strong></a>
+              </nav>
+              <section class="post-comments" id="post-comments" aria-label="Comments / 评论区" hidden></section>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" aria-label="Site information / 站点信息">
+        <p>© 2025-2026 qqqzj@Crane</p>
+        <p>qqqzj 的个人笔记、生活记录与学习档案。</p>
+        <p><a href="../../rss.xml">RSS 订阅</a></p>
+      </footer>
+    </div>
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <script src="../../comments-config.js"></script>
+    <script src="../../comments.js"></script>
+    <script>
+      window.CraneComments?.render(document.querySelector("#post-comments"), {
+        slug: "2026-05-03-graph",
+        title: "Graph",
+        commentTerm: "post:2026-05-03-graph",
+      });
+
+      const readingProgress = document.querySelector("#reading-progress");
+      function updateReadingProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max <= 0 ? 1 : Math.min(1, Math.max(0, window.scrollY / max));
+        readingProgress.style.transform = `scaleX(${progress})`;
+      }
+      window.addEventListener("scroll", updateReadingProgress, { passive: true });
+      window.addEventListener("resize", updateReadingProgress);
+      updateReadingProgress();
+
+      document.querySelector("#post-jump-top")?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-comments")?.addEventListener("click", () => {
+        window.CraneComments?.focus(document.querySelector("#post-comments"));
+      });
+
+      const toc = document.querySelector(".post-toc");
+      const tocLinks = toc ? [...toc.querySelectorAll("a[data-heading-id]")] : [];
+      const tocSections = tocLinks
+        .map((link) => findHeadingById(document, link.dataset.headingId))
+        .filter(Boolean);
+      let tocClickLockUntil = 0;
+
+      toc?.addEventListener("click", (event) => {
+        const link = event.target.closest("a[data-heading-id]");
+        if (link) {
+          const heading = findHeadingById(document, link.dataset.headingId);
+          if (!heading) return;
+          event.preventDefault();
+          scrollToHeading(heading);
+          activateTocLink(heading.id);
+          tocClickLockUntil = Date.now() + 900;
+          if (heading.id) history.pushState(null, "", `#${heading.id}`);
+          toc.classList.remove("is-open");
+          return;
+        }
+        toc.classList.toggle("is-open");
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!toc || toc.contains(event.target)) return;
+        toc.classList.remove("is-open");
+      });
+
+      function activateTocLink(id) {
+        tocLinks.forEach((link) => {
+          const active = link.dataset.headingId === id;
+          link.classList.toggle("is-active", active);
+          if (active) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function findHeadingById(root, id) {
+        if (!root || !id) return null;
+        const escapedId = window.CSS?.escape ? window.CSS.escape(id) : id.replaceAll('"', '\"');
+        return root.querySelector(`#${escapedId}`);
+      }
+
+      function scrollToHeading(heading) {
+        const topbarHeight = document.querySelector(".topbar")?.getBoundingClientRect().height || 0;
+        const offset = topbarHeight + 8;
+        const top = heading.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
+
+      if (tocSections.length) {
+        activateTocLink(tocSections[0].id);
+
+        if ("IntersectionObserver" in window) {
+          const visibleSections = new Map();
+          const observer = new IntersectionObserver((entries) => {
+            if (Date.now() < tocClickLockUntil) return;
+
+            entries.forEach((entry) => {
+              visibleSections.set(entry.target.id, entry.isIntersecting);
+            });
+
+            const current = tocSections.find((section) => visibleSections.get(section.id))
+              || [...tocSections].reverse().find((section) => section.getBoundingClientRect().top <= 140)
+              || tocSections[0];
+
+            activateTocLink(current.id);
+          }, {
+            rootMargin: "-18% 0px -68% 0px",
+            threshold: [0, 1],
+          });
+
+          tocSections.forEach((section) => observer.observe(section));
+        }
+      }
+    </script>
+  </body>
+</html>

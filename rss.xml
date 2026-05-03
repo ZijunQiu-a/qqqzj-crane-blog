@@ -6,7 +6,14 @@
     <link>https://qqqzj.cn/</link>
     <description>qqqzj 的个人笔记、生活记录与学习档案。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 03 May 2026 05:42:26 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2026 05:43:33 GMT</lastBuildDate>
+    <item>
+      <title>Graph</title>
+      <link>https://qqqzj.cn/post/2026-05-03-graph/</link>
+      <guid>https://qqqzj.cn/post/2026-05-03-graph/</guid>
+      <pubDate>Sun, 03 May 2026 00:00:00 GMT</pubDate>
+      <description>图专题复习笔记 0. 总览 图专题在这门课里主要按以下顺序展开： 1. Graph definitions：图、无向图、有向图、路径、连通性、度、DAG。 2. Representation of graphs：邻接矩阵、邻接表、逆邻接表、...</description>
+    </item>
     <item>
       <title>Algorithm / List / Stack / Queue 复习笔记</title>
       <link>https://qqqzj.cn/post/2026-05-03-algorithm-list-stack-queue-%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
@@ -139,13 +146,6 @@
       <guid>https://qqqzj.cn/post/2026-04-26-%E8%BF%99%E4%B8%AA%E5%90%8E%E7%AB%AF%E6%8E%A8%E9%80%81%E7%BB%99%E6%88%91%E5%BC%84%E6%AD%BB%E4%BA%86/</guid>
       <pubDate>Sun, 26 Apr 2026 00:00:00 GMT</pubDate>
       <description>我真花了一早上 现在午饭还没吃 又玩了一早上AI 两点了还没吃</description>
-    </item>
-    <item>
-      <title>真好，又浪费了一天</title>
-      <link>https://qqqzj.cn/post/2026-04-25-%E7%9C%9F%E5%A5%BD-%E5%8F%88%E6%B5%AA%E8%B4%B9%E4%BA%86%E4%B8%80%E5%A4%A9/</link>
-      <guid>https://qqqzj.cn/post/2026-04-25-%E7%9C%9F%E5%A5%BD-%E5%8F%88%E6%B5%AA%E8%B4%B9%E4%BA%86%E4%B8%80%E5%A4%A9/</guid>
-      <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
-      <description>我真服了 今天的 Chatgpt 让我很恼火，今天的 General Physics 更是火上浇油 一边复习，一边对着电脑和他互动。不仅复习不成，功能也没给我正确实现（我已急哭） 好在最后也是成功优化了 UI 界面，不过下周三要考普物期中了...</description>
     </item>
   </channel>
 </rss>
