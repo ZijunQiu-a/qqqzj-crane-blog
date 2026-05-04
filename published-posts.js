@@ -308,7 +308,7 @@ window.PUBLISHED_POSTS = {
       "url": "",
       "previewImage": null,
       "excerpt": "计数原理专题笔记 / Counting Principles Notes 主线说明 / Main line: 本笔记按离散数学教材常见顺序整理计数原理：有限集合基数规则、基本计数法、排列组合、二项式与多项式、容斥、鸽巢、星棒法、多重集合、错...",
-      "readingMinutes": 19,
+      "readingMinutes": 24,
       "createdAt": "2026-04-29T00:00:00.000Z"
     },
     {
