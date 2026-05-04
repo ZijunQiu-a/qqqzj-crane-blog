@@ -371,7 +371,7 @@ window.PUBLISHED_POSTS = {
       "title": "并查集专题复习笔记",
       "publishedIndex": 31,
       "stage": "Notes 笔记",
-      "tag": "随笔",
+      "tag": "programming",
       "author": "qqqzj-crane",
       "url": "",
       "previewImage": null,
