@@ -6,7 +6,14 @@
     <link>https://qqqzj.cn/</link>
     <description>qqqzj 的个人笔记、生活记录与学习档案。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 05 May 2026 05:28:48 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2026 13:12:00 GMT</lastBuildDate>
+    <item>
+      <title>啥意思</title>
+      <link>https://qqqzj.cn/post/2026-05-05-%E5%95%A5%E6%84%8F%E6%80%9D/</link>
+      <guid>https://qqqzj.cn/post/2026-05-05-%E5%95%A5%E6%84%8F%E6%80%9D/</guid>
+      <pubDate>Tue, 05 May 2026 00:00:00 GMT</pubDate>
+      <description>Sys1部分笔记 这份笔记按“编码与逻辑基础 - 功能部件 - ISA - CPU - 存储与 I/O - 程序运行链路”的主线组织，将概念、手算例题、Verilog 模板、RISC-V 细节和实验相关知识放在对应章节中。阅读时可以先看每章...</description>
+    </item>
     <item>
       <title>Relation</title>
       <link>https://qqqzj.cn/post/2026-05-05-relation/</link>
@@ -139,13 +146,6 @@
       <guid>https://qqqzj.cn/post/2026-04-27-site-app-performance-update/</guid>
       <pubDate>Mon, 27 Apr 2026 00:00:00 GMT</pubDate>
       <description>这两天 qqqzj@Crane 又往前推了一截。对访客来说，它现在更像一个可以长期打开、长期阅读、长期回看的个人站：入口更清楚，页面更轻，文章和附件也更适合在手机和电脑上慢慢看。 这一轮更新主要集中在几个前台体验上。 域名和 App 化 主...</description>
-    </item>
-    <item>
-      <title>实现app</title>
-      <link>https://qqqzj.cn/post/2026-04-27-%E5%AE%9E%E7%8E%B0app/</link>
-      <guid>https://qqqzj.cn/post/2026-04-27-%E5%AE%9E%E7%8E%B0app/</guid>
-      <pubDate>Mon, 27 Apr 2026 00:00:00 GMT</pubDate>
-      <description>ai王朝了我说</description>
     </item>
   </channel>
 </rss>

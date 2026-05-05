@@ -395,6 +395,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "关系专题笔记 / Relations Notes 0. 关系题总策略 / General Strategy for Relation Problems 0.1 关系的本质 / What a Relation Really Is Core i...",
       "readingMinutes": 22,
       "createdAt": "2026-05-05T00:00:00.000Z"
+    },
+    {
+      "id": "notes/随笔/2026-05-05-啥意思.md",
+      "slug": "2026-05-05-啥意思",
+      "dataPath": "post-data/2026-05-05-%E5%95%A5%E6%84%8F%E6%80%9D.json",
+      "source": "post",
+      "kind": "notes",
+      "title": "啥意思",
+      "publishedIndex": 33,
+      "stage": "Notes 笔记",
+      "tag": "随笔",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "Sys1部分笔记 这份笔记按“编码与逻辑基础 - 功能部件 - ISA - CPU - 存储与 I/O - 程序运行链路”的主线组织，将概念、手算例题、Verilog 模板、RISC-V 细节和实验相关知识放在对应章节中。阅读时可以先看每章...",
+      "readingMinutes": 32,
+      "createdAt": "2026-05-05T00:00:00.000Z"
     }
   ],
   "videos": [
