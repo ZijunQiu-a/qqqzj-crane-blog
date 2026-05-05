@@ -378,6 +378,23 @@ window.PUBLISHED_POSTS = {
       "excerpt": "并查集专题复习笔记 0. 总览 并查集这一章在课程 PPT 中的主线是： 1. Equivalence Relations：等价关系、等价类。 2. Dynamic Equivalence Problem：动态判断两个元素是否等价。 3....",
       "readingMinutes": 8,
       "createdAt": "2026-05-03T00:00:00.000Z"
+    },
+    {
+      "id": "notes/math/2026-05-05-relation.md",
+      "slug": "2026-05-05-relation",
+      "dataPath": "post-data/2026-05-05-relation.json",
+      "source": "post",
+      "kind": "notes",
+      "title": "Relation",
+      "publishedIndex": 32,
+      "stage": "Notes 笔记",
+      "tag": "数学",
+      "author": "qqqzj-crane",
+      "url": "",
+      "previewImage": null,
+      "excerpt": "关系专题笔记 / Relations Notes 0. 关系题总策略 / General Strategy for Relation Problems 0.1 关系的本质 / What a Relation Really Is Core i...",
+      "readingMinutes": 22,
+      "createdAt": "2026-05-05T00:00:00.000Z"
     }
   ],
   "videos": [

@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relation · qqqzj@Crane</title>
+    <meta name="description" content="关系专题笔记 / Relations Notes 0. 关系题总策略 / General Strategy for Relation Problems 0.1 关系的本质 / What a Relation Really Is Core i..." />
+    <link rel="canonical" href="https://qqqzj.cn/post/2026-05-05-relation/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Relation · qqqzj@Crane" />
+    <meta property="og:description" content="关系专题笔记 / Relations Notes 0. 关系题总策略 / General Strategy for Relation Problems 0.1 关系的本质 / What a Relation Really Is Core i..." />
+    <meta property="og:url" content="https://qqqzj.cn/post/2026-05-05-relation/" />
+    <meta property="og:image" content="https://qqqzj.cn/assets/blog-studio-og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f3f7f8" />
+    <meta name="application-name" content="qqqzj@Crane" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="qqqzj@Crane" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="manifest" href="../../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../../assets/site-icon-192.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="../../assets/site-icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="../../assets/site-icon-512.png" />
+    <link rel="alternate" type="application/rss+xml" title="qqqzj@Crane RSS" href="../../rss.xml" />
+    <link rel="icon" href="../../assets/site-icon-192.png" type="image/png" />
+    <script>
+      (() => {
+        const key = "qqqzj-crane-theme";
+        const modes = ["pneuma", "ousia", "auto"];
+        let preference = "auto";
+        try {
+          const stored = window.localStorage.getItem(key);
+          preference = modes.includes(stored) ? stored : "auto";
+        } catch {
+          preference = "auto";
+        }
+
+        const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const state = preference === "auto" ? (prefersDark ? "ousia" : "pneuma") : preference;
+        document.documentElement.dataset.themePreference = preference;
+        document.documentElement.dataset.themeState = state;
+        document.documentElement.style.colorScheme = state === "ousia" ? "dark" : "light";
+      })();
+    </script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <script defer src="../../theme.js"></script>
+    <script>
+      window.BLOG_MATH_OPTIONS = {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
+        throwOnError: false,
+      };
+      window.BLOG_ASSET_LOADERS = {};
+      window.loadBlogStylesheet = (href) => {
+        if (document.querySelector(`link[href="${href}"]`)) return Promise.resolve();
+        window.BLOG_ASSET_LOADERS[href] ||= new Promise((resolve, reject) => {
+          const link = document.createElement("link");
+          link.rel = "stylesheet";
+          link.href = href;
+          link.crossOrigin = "anonymous";
+          link.onload = resolve;
+          link.onerror = reject;
+          document.head.append(link);
+        });
+        return window.BLOG_ASSET_LOADERS[href];
+      };
+      window.loadBlogScript = (src) => {
+        if (document.querySelector(`script[src="${src}"]`)) return Promise.resolve();
+        window.BLOG_ASSET_LOADERS[src] ||= new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = src;
+          script.defer = true;
+          script.crossOrigin = "anonymous";
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.append(script);
+        });
+        return window.BLOG_ASSET_LOADERS[src];
+      };
+      window.hasBlogMath = (root = document.body) => {
+        const text = root?.textContent || "";
+        return /(\$\$?[^$\n]+?\$\$?|\\\(|\\\[)/.test(text);
+      };
+      window.ensureBlogMath = async () => {
+        await window.loadBlogStylesheet("https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css");
+        await window.loadBlogScript("https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js");
+        await window.loadBlogScript("https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js");
+      };
+      window.renderBlogMath = async (root = document.body) => {
+        if (!root || !window.hasBlogMath(root)) return;
+        await window.ensureBlogMath();
+        if (window.renderMathInElement) window.renderMathInElement(root, window.BLOG_MATH_OPTIONS);
+      };
+      window.renderBlogMermaid = async (root = document.body) => {
+        if (!root) return;
+        const nodes = [...root.querySelectorAll(".mermaid:not([data-processed])")];
+        if (!nodes.length) return;
+        await window.loadBlogScript("https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js");
+        if (!window.mermaid) return;
+        window.mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: "default" });
+        try {
+          await window.mermaid.run({ nodes });
+        } catch (error) {
+          console.warn("Mermaid render failed", error);
+        }
+      };
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        let hadController = Boolean(navigator.serviceWorker.controller);
+        let reloadingForUpdate = false;
+        const activateWaitingServiceWorker = (worker) => {
+          if (!worker || !navigator.serviceWorker.controller) return;
+          worker.postMessage({ type: "SKIP_WAITING" });
+        };
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (!hadController) {
+            hadController = true;
+            return;
+          }
+          if (reloadingForUpdate) return;
+          reloadingForUpdate = true;
+          window.location.reload();
+        });
+        window.addEventListener("load", async () => {
+          try {
+            const registration = await navigator.serviceWorker.register("/service-worker.js", {
+              updateViaCache: "none",
+            });
+            activateWaitingServiceWorker(registration.waiting);
+            registration.addEventListener("updatefound", () => {
+              const worker = registration.installing;
+              if (!worker) return;
+              worker.addEventListener("statechange", () => {
+                if (worker.state === "installed") {
+                  activateWaitingServiceWorker(worker);
+                }
+              });
+            });
+            await registration.update();
+          } catch {}
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="../../index.html#home" aria-label="Back to home / 回到首页">
+          <span class="brand-mark brand-avatar" aria-hidden="true">
+            <img
+              src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
+              data-theme-asset
+              data-pneuma-src="../../assets/furina-avatar-pneuma.webp?v=20260425-1"
+              data-ousia-src="../../assets/furina-avatar-ousia.webp"
+              data-fallback-src="../../assets/furina-avatar.webp"
+              alt=""
+            />
+          </span>
+          <span>qqqzj@Crane</span>
+        </a>
+        <div class="topbar-actions">
+          <nav class="nav-links" aria-label="Primary navigation / 主导航">
+            <a href="../../index.html#about">About me</a>
+            <a href="../../index.html#growth">News 动态</a>
+            <a href="../../index.html#notes">Notes 笔记</a>
+            <a href="../../index.html#life">Life 生活</a>
+            <a href="../../index.html#archive">Archive 归档</a>
+            <a href="../../rss.xml">RSS</a>
+          </nav>
+          <div class="theme-switcher" data-theme-switcher aria-label="Theme mode / 主题模式">
+            <button class="theme-trigger" type="button" data-theme-trigger aria-haspopup="menu" aria-expanded="false" title="选择主题模式">
+              <span class="theme-trigger-icon" data-theme-current-icon aria-hidden="true">A</span>
+              <span data-theme-current-label>自动</span>
+            </button>
+            <div class="theme-options" role="menu" aria-label="Theme choices / 主题选项">
+              <button type="button" role="menuitemradio" data-theme-mode="pneuma" aria-checked="false" aria-pressed="false" title="固定白天主题">
+                <span aria-hidden="true">☀</span>
+                白天
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="ousia" aria-checked="false" aria-pressed="false" title="固定黑夜主题">
+                <span aria-hidden="true">☾</span>
+                黑夜
+              </button>
+              <button type="button" role="menuitemradio" data-theme-mode="auto" aria-checked="false" aria-pressed="false" title="跟随系统">
+                <span aria-hidden="true">A</span>
+                自动
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="home">
+        <section class="post-detail-section">
+          <div class="post-detail-shell">
+            <a class="back-link" href="../../index.html#home">Back to home / 返回首页</a>
+            <article class="post-detail-card">
+              <div class="post-detail-kicker">
+                <p class="eyebrow">Notes 笔记</p>
+                <button class="post-comment-jump" id="post-jump-comments" type="button">发布评论</button>
+              </div>
+              <h1>Relation</h1>
+              <div class="post-detail-meta">
+                <time datetime="2026-05-05T00:00:00.000Z">2026年5月05日</time>
+                <span>数学</span>
+                <span class="author-chip">作者 qqqzj-crane</span>
+                <span>约 22 分钟</span>
+              </div>
+              <nav class="post-toc" aria-label="Table of contents / 文章目录">
+                <strong>Contents 目录</strong>
+                <div>
+                  <a class="toc-level-3" href="#关系专题笔记-relations-notes" data-heading-id="关系专题笔记-relations-notes">关系专题笔记 / Relations Notes</a><a class="toc-level-4" href="#0-关系题总策略-general-strategy-for-relation-problems" data-heading-id="0-关系题总策略-general-strategy-for-relation-problems">0. 关系题总策略 / General Strategy for Relation Problems</a><a class="toc-level-5" href="#0-1-关系的本质-what-a-relation-really-is" data-heading-id="0-1-关系的本质-what-a-relation-really-is">0.1 关系的本质 / What a Relation Really Is</a><a class="toc-level-5" href="#0-2-标准问题-standard-questions" data-heading-id="0-2-标准问题-standard-questions">0.2 标准问题 / Standard Questions</a><a class="toc-level-5" href="#0-3-方法表-method-checklist" data-heading-id="0-3-方法表-method-checklist">0.3 方法表 / Method Checklist</a><a class="toc-level-4" href="#1-relations-and-their-properties-关系及其性质" data-heading-id="1-relations-and-their-properties-关系及其性质">1. Relations and Their Properties / 关系及其性质</a><a class="toc-level-5" href="#1-1-二元关系-binary-relation" data-heading-id="1-1-二元关系-binary-relation">1.1 二元关系 / Binary Relation</a><a class="toc-level-5" href="#1-2-定义域-陪域-值域-domain-codomain-range" data-heading-id="1-2-定义域-陪域-值域-domain-codomain-range">1.2 定义域、陪域、值域 / Domain, Codomain, Range</a><a class="toc-level-5" href="#1-3-像与原像-image-and-preimage" data-heading-id="1-3-像与原像-image-and-preimage">1.3 像与原像 / Image and Preimage</a><a class="toc-level-5" href="#1-4-集合上关系的例子-examples-of-relations-on-a-set" data-heading-id="1-4-集合上关系的例子-examples-of-relations-on-a-set">1.4 集合上关系的例子 / Examples of Relations on a Set</a><a class="toc-level-5" href="#1-5-函数是特殊关系-functions-as-special-relations" data-heading-id="1-5-函数是特殊关系-functions-as-special-relations">1.5 函数是特殊关系 / Functions as Special Relations</a><a class="toc-level-5" href="#1-6-单射-满射-双射-injective-surjective-bijective" data-heading-id="1-6-单射-满射-双射-injective-surjective-bijective">1.6 单射、满射、双射 / Injective, Surjective, Bijective</a><a class="toc-level-5" href="#1-7-常见特殊关系-common-special-relations" data-heading-id="1-7-常见特殊关系-common-special-relations">1.7 常见特殊关系 / Common Special Relations</a><a class="toc-level-5" href="#1-8-关系的基本性质-basic-properties-of-relations" data-heading-id="1-8-关系的基本性质-basic-properties-of-relations">1.8 关系的基本性质 / Basic Properties of Relations</a><a class="toc-level-5" href="#1-9-性质定义表-property-table" data-heading-id="1-9-性质定义表-property-table">1.9 性质定义表 / Property Table</a><a class="toc-level-5" href="#1-10-自反与反自反-reflexive-and-irreflexive" data-heading-id="1-10-自反与反自反-reflexive-and-irreflexive">1.10 自反与反自反 / Reflexive and Irreflexive</a><a class="toc-level-5" href="#1-11-对称-反对称-非对称-symmetric-antisymmetric-and-asymmetric" data-heading-id="1-11-对称-反对称-非对称-symmetric-antisymmetric-and-asymmetric">1.11 对称、反对称、非对称 / Symmetric, Antisymmetric, and Asymmetric</a><a class="toc-level-5" href="#1-12-传递-transitive" data-heading-id="1-12-传递-transitive">1.12 传递 / Transitive</a><a class="toc-level-5" href="#1-13-性质判定例题-example-checking-properties" data-heading-id="1-13-性质判定例题-example-checking-properties">1.13 性质判定例题 / Example: Checking Properties</a><a class="toc-level-5" href="#1-14-关系的数量-counting-relations" data-heading-id="1-14-关系的数量-counting-relations">1.14 关系的数量 / Counting Relations</a><a class="toc-level-5" href="#1-15-所有关系的数量-number-of-all-relations" data-heading-id="1-15-所有关系的数量-number-of-all-relations">1.15 所有关系的数量 / Number of All Relations</a><a class="toc-level-5" href="#1-16-集合上关系的数量-relations-on-one-set" data-heading-id="1-16-集合上关系的数量-relations-on-one-set">1.16 集合上关系的数量 / Relations on One Set</a><a class="toc-level-5" href="#1-17-常见性质关系的计数-counting-relations-with-common-properties" data-heading-id="1-17-常见性质关系的计数-counting-relations-with-common-properties">1.17 常见性质关系的计数 / Counting Relations with Common Properties</a><a class="toc-level-5" href="#1-18-关系复合与关系幂-composition-and-powers-of-relations" data-heading-id="1-18-关系复合与关系幂-composition-and-powers-of-relations">1.18 关系复合与关系幂 / Composition and Powers of Relations</a><a class="toc-level-5" href="#1-19-关系复合-composition-of-relations" data-heading-id="1-19-关系复合-composition-of-relations">1.19 关系复合 / Composition of Relations</a><a class="toc-level-5" href="#1-20-复合例题-example-of-composition" data-heading-id="1-20-复合例题-example-of-composition">1.20 复合例题 / Example of Composition</a><a class="toc-level-5" href="#1-21-关系幂-powers-of-a-relation" data-heading-id="1-21-关系幂-powers-of-a-relation">1.21 关系幂 / Powers of a Relation</a><a class="toc-level-5" href="#1-22-关系的并-交-差和补-union-intersection-difference-and-complement" data-heading-id="1-22-关系的并-交-差和补-union-intersection-difference-and-complement">1.22 关系的并、交、差和补 / Union, Intersection, Difference, and Complement</a><a class="toc-level-4" href="#2-n-ary-relations-and-their-applications-n-元关系及其应用" data-heading-id="2-n-ary-relations-and-their-applications-n-元关系及其应用">2. n-ary Relations and Their Applications / n 元关系及其应用</a><a class="toc-level-5" href="#2-1-n-元关系-n-ary-relations" data-heading-id="2-1-n-元关系-n-ary-relations">2.1 n 元关系 / n-ary Relations</a><a class="toc-level-5" href="#2-2-选择-投影-连接-selection-projection-and-join" data-heading-id="2-2-选择-投影-连接-selection-projection-and-join">2.2 选择、投影、连接 / Selection, Projection, and Join</a><a class="toc-level-4" href="#3-representing-relations-关系的表示" data-heading-id="3-representing-relations-关系的表示">3. Representing Relations / 关系的表示</a><a class="toc-level-5" href="#3-1-有序对表示-ordered-pair-representation" data-heading-id="3-1-有序对表示-ordered-pair-representation">3.1 有序对表示 / Ordered Pair Representation</a><a class="toc-level-5" href="#3-2-矩阵表示-matrix-representation" data-heading-id="3-2-矩阵表示-matrix-representation">3.2 矩阵表示 / Matrix Representation</a><a class="toc-level-5" href="#3-3-有向图表示-digraph-representation" data-heading-id="3-3-有向图表示-digraph-representation">3.3 有向图表示 / Digraph Representation</a><a class="toc-level-5" href="#3-4-邻接矩阵与走路计数矩阵-adjacency-matrix-and-walk-counting-matrix" data-heading-id="3-4-邻接矩阵与走路计数矩阵-adjacency-matrix-and-walk-counting-matrix">3.4 邻接矩阵与走路计数矩阵 / Adjacency Matrix and Walk Counting Matrix</a><a class="toc-level-4" href="#4-closures-of-relations-关系闭包" data-heading-id="4-closures-of-relations-关系闭包">4. Closures of Relations / 关系闭包</a><a class="toc-level-5" href="#4-1-闭包的定义-definition-of-closure" data-heading-id="4-1-闭包的定义-definition-of-closure">4.1 闭包的定义 / Definition of Closure</a><a class="toc-level-5" href="#4-2-自反闭包-reflexive-closure" data-heading-id="4-2-自反闭包-reflexive-closure">4.2 自反闭包 / Reflexive Closure</a><a class="toc-level-5" href="#4-3-对称闭包-symmetric-closure" data-heading-id="4-3-对称闭包-symmetric-closure">4.3 对称闭包 / Symmetric Closure</a><a class="toc-level-5" href="#4-4-传递闭包-transitive-closure" data-heading-id="4-4-传递闭包-transitive-closure">4.4 传递闭包 / Transitive Closure</a><a class="toc-level-5" href="#4-5-闭包例题-closure-example" data-heading-id="4-5-闭包例题-closure-example">4.5 闭包例题 / Closure Example</a><a class="toc-level-5" href="#4-6-warshall-算法目标-goal-of-warshall-s-algorithm" data-heading-id="4-6-warshall-算法目标-goal-of-warshall-s-algorithm">4.6 Warshall 算法目标 / Goal of Warshall&#039;s Algorithm</a><a class="toc-level-5" href="#4-7-更新公式-update-formula" data-heading-id="4-7-更新公式-update-formula">4.7 更新公式 / Update Formula</a><a class="toc-level-5" href="#4-8-证明思路-proof-idea" data-heading-id="4-8-证明思路-proof-idea">4.8 证明思路 / Proof Idea</a><a class="toc-level-5" href="#4-9-手算模板-hand-calculation-template" data-heading-id="4-9-手算模板-hand-calculation-template">4.9 手算模板 / Hand Calculation Template</a><a class="toc-level-4" href="#5-equivalence-relations-等价关系" data-heading-id="5-equivalence-relations-等价关系">5. Equivalence Relations / 等价关系</a><a class="toc-level-5" href="#5-1-定义-definition" data-heading-id="5-1-定义-definition">5.1 定义 / Definition</a><a class="toc-level-5" href="#5-2-标准例子-standard-examples" data-heading-id="5-2-标准例子-standard-examples">5.2 标准例子 / Standard Examples</a><a class="toc-level-5" href="#5-3-等价类-equivalence-classes" data-heading-id="5-3-等价类-equivalence-classes">5.3 等价类 / Equivalence Classes</a><a class="toc-level-5" href="#5-4-等价关系与划分-equivalence-relations-and-partitions" data-heading-id="5-4-等价关系与划分-equivalence-relations-and-partitions">5.4 等价关系与划分 / Equivalence Relations and Partitions</a><a class="toc-level-5" href="#5-5-模同余例题-example-congruence-classes" data-heading-id="5-5-模同余例题-example-congruence-classes">5.5 模同余例题 / Example: Congruence Classes</a><a class="toc-level-5" href="#5-6-由函数产生的等价关系-equivalence-relation-induced-by-a-function" data-heading-id="5-6-由函数产生的等价关系-equivalence-relation-induced-by-a-function">5.6 由函数产生的等价关系 / Equivalence Relation Induced by a Function</a><a class="toc-level-5" href="#5-7-强连通关系-strong-connectivity-relation" data-heading-id="5-7-强连通关系-strong-connectivity-relation">5.7 强连通关系 / Strong Connectivity Relation</a><a class="toc-level-4" href="#6-partial-orderings-偏序" data-heading-id="6-partial-orderings-偏序">6. Partial Orderings / 偏序</a><a class="toc-level-5" href="#6-1-定义-definition" data-heading-id="6-1-定义-definition">6.1 定义 / Definition</a><a class="toc-level-5" href="#6-2-strict-partial-order-与-weak-partial-order" data-heading-id="6-2-strict-partial-order-与-weak-partial-order">6.2 strict partial order 与 weak partial order</a><a class="toc-level-5" href="#6-3-标准例子-standard-examples" data-heading-id="6-3-标准例子-standard-examples">6.3 标准例子 / Standard Examples</a><a class="toc-level-5" href="#6-4-偏序证明模板-template-for-proving-a-partial-order" data-heading-id="6-4-偏序证明模板-template-for-proving-a-partial-order">6.4 偏序证明模板 / Template for Proving a Partial Order</a><a class="toc-level-5" href="#6-5-整除关系例题-example-divisibility" data-heading-id="6-5-整除关系例题-example-divisibility">6.5 整除关系例题 / Example: Divisibility</a><a class="toc-level-5" href="#6-6-可比较与全序-comparable-and-total-order" data-heading-id="6-6-可比较与全序-comparable-and-total-order">6.6 可比较与全序 / Comparable and Total Order</a><a class="toc-level-5" href="#6-7-极大-最大-极小-最小-maximal-maximum-minimal-minimum" data-heading-id="6-7-极大-最大-极小-最小-maximal-maximum-minimal-minimum">6.7 极大、最大、极小、最小 / Maximal, Maximum, Minimal, Minimum</a><a class="toc-level-5" href="#6-8-上界-下界-最小上界-最大下界-bounds-lub-and-glb" data-heading-id="6-8-上界-下界-最小上界-最大下界-bounds-lub-and-glb">6.8 上界、下界、最小上界、最大下界 / Bounds, LUB, and GLB</a><a class="toc-level-5" href="#6-9-格-lattice" data-heading-id="6-9-格-lattice">6.9 格 / Lattice</a><a class="toc-level-5" href="#6-10-链-反链和-dilworth-型结论-chains-antichains-and-dilworth-type-results" data-heading-id="6-10-链-反链和-dilworth-型结论-chains-antichains-and-dilworth-type-results">6.10 链、反链和 Dilworth 型结论 / Chains, Antichains, and Dilworth-Type Results</a><a class="toc-level-5" href="#6-11-hasse-图的画法-how-to-draw-a-hasse-diagram" data-heading-id="6-11-hasse-图的画法-how-to-draw-a-hasse-diagram">6.11 Hasse 图的画法 / How to Draw a Hasse Diagram</a><a class="toc-level-5" href="#6-12-覆盖关系-cover-relation" data-heading-id="6-12-覆盖关系-cover-relation">6.12 覆盖关系 / Cover Relation</a><a class="toc-level-5" href="#6-13-整除偏序-hasse-图例题-example-divisibility-poset" data-heading-id="6-13-整除偏序-hasse-图例题-example-divisibility-poset">6.13 整除偏序 Hasse 图例题 / Example: Divisibility Poset</a><a class="toc-level-5" href="#6-14-子集偏序例题-example-subset-poset" data-heading-id="6-14-子集偏序例题-example-subset-poset">6.14 子集偏序例题 / Example: Subset Poset</a><a class="toc-level-5" href="#6-15-拓扑排序-topological-sorting" data-heading-id="6-15-拓扑排序-topological-sorting">6.15 拓扑排序 / Topological Sorting</a><a class="toc-level-5" href="#6-16-定理-theorem" data-heading-id="6-16-定理-theorem">6.16 定理 / Theorem</a><a class="toc-level-5" href="#6-17-算法模板-algorithm-template" data-heading-id="6-17-算法模板-algorithm-template">6.17 算法模板 / Algorithm Template</a><a class="toc-level-4" href="#7-常见证明模板-common-proof-templates" data-heading-id="7-常见证明模板-common-proof-templates">7. 常见证明模板 / Common Proof Templates</a><a class="toc-level-5" href="#7-1-证明等价关系-proving-an-equivalence-relation" data-heading-id="7-1-证明等价关系-proving-an-equivalence-relation">7.1 证明等价关系 / Proving an Equivalence Relation</a><a class="toc-level-5" href="#7-2-证明不是等价关系-proving-not-an-equivalence-relation" data-heading-id="7-2-证明不是等价关系-proving-not-an-equivalence-relation">7.2 证明不是等价关系 / Proving Not an Equivalence Relation</a><a class="toc-level-5" href="#7-3-证明偏序-proving-a-partial-order" data-heading-id="7-3-证明偏序-proving-a-partial-order">7.3 证明偏序 / Proving a Partial Order</a><a class="toc-level-5" href="#7-4-证明不是偏序-proving-not-a-partial-order" data-heading-id="7-4-证明不是偏序-proving-not-a-partial-order">7.4 证明不是偏序 / Proving Not a Partial Order</a><a class="toc-level-5" href="#7-5-求闭包-finding-closures" data-heading-id="7-5-求闭包-finding-closures">7.5 求闭包 / Finding Closures</a><a class="toc-level-5" href="#7-6-找-hasse-图-drawing-a-hasse-diagram" data-heading-id="7-6-找-hasse-图-drawing-a-hasse-diagram">7.6 找 Hasse 图 / Drawing a Hasse Diagram</a><a class="toc-level-4" href="#8-易错点-common-pitfalls" data-heading-id="8-易错点-common-pitfalls">8. 易错点 / Common Pitfalls</a><a class="toc-level-5" href="#8-1-反对称不是不对称-antisymmetric-is-not-asymmetric" data-heading-id="8-1-反对称不是不对称-antisymmetric-is-not-asymmetric">8.1 反对称不是不对称 / Antisymmetric Is Not Asymmetric</a><a class="toc-level-5" href="#8-2-对称和反对称可以同时成立-symmetric-and-antisymmetric-can-both-hold" data-heading-id="8-2-对称和反对称可以同时成立-symmetric-and-antisymmetric-can-both-hold">8.2 对称和反对称可以同时成立 / Symmetric and Antisymmetric Can Both Hold</a><a class="toc-level-5" href="#8-3-空关系的性质-properties-of-the-empty-relation" data-heading-id="8-3-空关系的性质-properties-of-the-empty-relation">8.3 空关系的性质 / Properties of the Empty Relation</a><a class="toc-level-5" href="#8-4-传递性要检查所有两步链-transitivity-requires-all-two-step-chains" data-heading-id="8-4-传递性要检查所有两步链-transitivity-requires-all-two-step-chains">8.4 传递性要检查所有两步链 / Transitivity Requires All Two-Step Chains</a><a class="toc-level-5" href="#8-5-最大元和极大元不要混-do-not-confuse-maximum-and-maximal" data-heading-id="8-5-最大元和极大元不要混-do-not-confuse-maximum-and-maximal">8.5 最大元和极大元不要混 / Do Not Confuse Maximum and Maximal</a><a class="toc-level-5" href="#8-6-闭包不是随便补边-closure-is-not-arbitrary-edge-adding" data-heading-id="8-6-闭包不是随便补边-closure-is-not-arbitrary-edge-adding">8.6 闭包不是随便补边 / Closure Is Not Arbitrary Edge Adding</a><a class="toc-level-4" href="#9-综合例题-mixed-examples" data-heading-id="9-综合例题-mixed-examples">9. 综合例题 / Mixed Examples</a><a class="toc-level-5" href="#9-1-判断关系性质-checking-relation-properties" data-heading-id="9-1-判断关系性质-checking-relation-properties">9.1 判断关系性质 / Checking Relation Properties</a><a class="toc-level-5" href="#9-2-求传递闭包-finding-a-transitive-closure" data-heading-id="9-2-求传递闭包-finding-a-transitive-closure">9.2 求传递闭包 / Finding a Transitive Closure</a><a class="toc-level-5" href="#9-3-偏序中的上下界-bounds-in-a-poset" data-heading-id="9-3-偏序中的上下界-bounds-in-a-poset">9.3 偏序中的上下界 / Bounds in a Poset</a><a class="toc-level-4" href="#10-公式索引-formula-index" data-heading-id="10-公式索引-formula-index">10. 公式索引 / Formula Index</a><a class="toc-level-5" href="#10-1-关系数量-number-of-relations" data-heading-id="10-1-关系数量-number-of-relations">10.1 关系数量 / Number of Relations</a><a class="toc-level-5" href="#10-2-特殊关系计数-counting-special-relations" data-heading-id="10-2-特殊关系计数-counting-special-relations">10.2 特殊关系计数 / Counting Special Relations</a><a class="toc-level-5" href="#10-3-闭包-closures" data-heading-id="10-3-闭包-closures">10.3 闭包 / Closures</a><a class="toc-level-5" href="#10-4-warshall-更新式-warshall-update" data-heading-id="10-4-warshall-更新式-warshall-update">10.4 Warshall 更新式 / Warshall Update</a><a class="toc-level-5" href="#10-5-关系类型-relation-types" data-heading-id="10-5-关系类型-relation-types">10.5 关系类型 / Relation Types</a><a class="toc-level-4" href="#11-中英术语表-bilingual-glossary" data-heading-id="11-中英术语表-bilingual-glossary">11. 中英术语表 / Bilingual Glossary</a>
+                </div>
+              </nav>
+              <div class="post-detail-body">
+                <div class="entry-body"><h4 id="关系专题笔记-relations-notes">关系专题笔记 / Relations Notes<a class="heading-anchor" href="#关系专题笔记-relations-notes" data-heading-id="关系专题笔记-relations-notes" aria-label="Copy section link / 复制小节链接">#</a></h4><h4 id="0-关系题总策略-general-strategy-for-relation-problems">0. 关系题总策略 / General Strategy for Relation Problems<a class="heading-anchor" href="#0-关系题总策略-general-strategy-for-relation-problems" data-heading-id="0-关系题总策略-general-strategy-for-relation-problems" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="0-1-关系的本质-what-a-relation-really-is">0.1 关系的本质 / What a Relation Really Is<a class="heading-anchor" href="#0-1-关系的本质-what-a-relation-really-is" data-heading-id="0-1-关系的本质-what-a-relation-really-is" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Core idea / 核心思想</strong></p><p>关系不是一种神秘的新对象，它就是笛卡尔积中的某些有序对。</p><p>A relation is not a mysterious new object. It is simply a chosen subset of a Cartesian product.</p><p>若 $R$ 是从 $A$ 到 $B$ 的关系，则：</p><div class="math-display">$$
+R\subseteq A\times B.
+$$</div><p>若 $R$ 是集合 $A$ 上的关系，则：</p><div class="math-display">$$
+R\subseteq A\times A.
+$$</div><p><strong>Notation / 记号</strong></p><p>$(a,b)\in R$ 常写作：</p><div class="math-display">$$
+aRb.
+$$</div><p>The notation $aRb$ means that $a$ is related to $b$ by $R$. Direction matters, so $aRb$ and $bRa$ are usually different statements.</p><h5 id="0-2-标准问题-standard-questions">0.2 标准问题 / Standard Questions<a class="heading-anchor" href="#0-2-标准问题-standard-questions" data-heading-id="0-2-标准问题-standard-questions" aria-label="Copy section link / 复制小节链接">#</a></h5><ol><li>关系在哪两个集合之间？/ What are the domain and codomain?</li><li>关系是否在同一个集合上？/ Is it a relation on one set?</li><li>有序对的方向是否重要？/ Does direction matter?</li><li>要判断的是哪种性质？/ Which property is being tested?</li><li>能否用矩阵或图表示？/ Can it be represented by a matrix or a digraph?</li><li>题目要的是原关系、闭包、等价类还是偏序结构？/ Does the problem ask for the relation itself, a closure, equivalence classes, or a poset structure?</li><li>要证明“所有元素都满足”，还是找一个反例即可？/ Do we need a universal proof or only one counterexample?</li></ol><h5 id="0-3-方法表-method-checklist">0.3 方法表 / Method Checklist<a class="heading-anchor" href="#0-3-方法表-method-checklist" data-heading-id="0-3-方法表-method-checklist" aria-label="Copy section link / 复制小节链接">#</a></h5><div class="table-scroll"><table><thead><tr><th>题目特征 / Feature</th><th>方法 / Method</th></tr></thead><tbody><tr><td>给出若干有序对 / relation listed by ordered pairs</td><td>直接按定义检查性质 / check properties from definitions</td></tr><tr><td>给出矩阵 / matrix representation</td><td>看主对角线、对称性、布尔积 / inspect diagonal, symmetry, Boolean products</td></tr><tr><td>给出有向图 / digraph representation</td><td>看自环、反向边、路径 / inspect loops, reverse edges, paths</td></tr><tr><td>要自反闭包 / reflexive closure</td><td>加所有缺少的 $(a,a)$ / add missing diagonal pairs</td></tr><tr><td>要对称闭包 / symmetric closure</td><td>每条边补反向边 / add reverse pairs</td></tr><tr><td>要传递闭包 / transitive closure</td><td>用路径、关系幂或 Warshall / use paths, powers, or Warshall</td></tr><tr><td>自反 + 对称 + 传递 / reflexive + symmetric + transitive</td><td>等价关系 / equivalence relation</td></tr><tr><td>等价关系题 / equivalence relation problem</td><td>找等价类和划分 / find equivalence classes and partition</td></tr><tr><td>自反 + 反对称 + 传递 / reflexive + antisymmetric + transitive</td><td>偏序 / partial order</td></tr><tr><td>偏序题 / poset problem</td><td>画 Hasse 图，找极大/极小/上下界 / draw Hasse diagram, find extrema and bounds</td></tr><tr><td>任务依赖、有向无环图 / prerequisite relation or DAG</td><td>拓扑排序 / topological sorting</td></tr><tr><td>要找像、原像 / image or preimage</td><td>固定一边元素，看关系连到哪里 / fix one side and inspect related elements</td></tr><tr><td>要反关系或补关系 / inverse or complement relation</td><td>反关系交换有序对；补关系在全集关系中取差 / swap ordered pairs or subtract from universal relation</td></tr></tbody></table></div><h4 id="1-relations-and-their-properties-关系及其性质">1. Relations and Their Properties / 关系及其性质<a class="heading-anchor" href="#1-relations-and-their-properties-关系及其性质" data-heading-id="1-relations-and-their-properties-关系及其性质" aria-label="Copy section link / 复制小节链接">#</a></h4><blockquote>对应 Rosen 9.1。本节先给出 relation 的基本定义和英文词汇，再整理 relation properties、relation counting、combining relations、composition 和 powers。</blockquote><h5 id="1-1-二元关系-binary-relation">1.1 二元关系 / Binary Relation<a class="heading-anchor" href="#1-1-二元关系-binary-relation" data-heading-id="1-1-二元关系-binary-relation" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Definition / 定义</strong></p><p>从集合 $A$ 到集合 $B$ 的二元关系是 $A\times B$ 的一个子集：</p><div class="math-display">$$
+R\subseteq A\times B.
+$$</div><p>A binary relation from $A$ to $B$ is a subset of $A\times B$.</p><p>若 $A=B$，则称 $R$ 是 $A$ 上的关系：</p><div class="math-display">$$
+R\subseteq A\times A.
+$$</div><p><strong>Example / 例子</strong></p><p>设：</p><div class="math-display">$$
+A=\{1,2,3\},\qquad B=\{a,b\}.
+$$</div><p>则：</p><div class="math-display">$$
+R=\{(1,a),(2,a),(2,b)\}
+$$</div><p>是从 $A$ 到 $B$ 的关系。</p><p><strong>Use / 怎么用</strong></p><p>看到关系题时，第一步一定要确认底层集合。很多性质依赖底层集合，而不只依赖列出的有序对。</p><p>The first step is always to identify the underlying sets. Many properties depend on the whole set, not only on the listed pairs.</p><p>关系 $R\subseteq A\times B$ 也可以直接画成从 $A$ 指向 $B$ 的箭头图。若 $(a,b)\in R$，就画一条 arrow from $a$ to $b$。</p><p>A relation can be viewed as an arrow diagram: $(a,b)\in R$ means an arrow from $a$ to $b$.</p><p>这个图像化理解的好处是：</p><ul><li>函数 / function = 每个输入点至多一条箭头出去。</li><li>全关系性质 / totality = 每个输入点至少一条箭头出去。</li><li>单射 / injective = 每个目标点至多一条箭头进来。</li><li>满射 / surjective = 每个目标点至少一条箭头进来。</li></ul><h5 id="1-2-定义域-陪域-值域-domain-codomain-range">1.2 定义域、陪域、值域 / Domain, Codomain, Range<a class="heading-anchor" href="#1-2-定义域-陪域-值域-domain-codomain-range" data-heading-id="1-2-定义域-陪域-值域-domain-codomain-range" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Domain / 定义域</strong></p><p>若 $R\subseteq A\times B$，则 $A$ 称为关系的定义域 / domain。</p><p>The domain is the set of possible first coordinates.</p><p><strong>Codomain / 陪域</strong></p><p>若 $R\subseteq A\times B$，则 $B$ 称为关系的陪域 / codomain。</p><p>The codomain is the set of possible second coordinates.</p><p><strong>Range / 值域</strong></p><p>关系 $R$ 的值域 / range 是实际被关系连到的 $B$ 中元素：</p><div class="math-display">$$
+\operatorname{range}(R)=\{b\in B\mid \exists a\in A,\ (a,b)\in R\}.
+$$</div><p>The range is the set of elements of $B$ that actually appear as outputs or targets.</p><p><strong>Warning / 注意</strong></p><p>陪域 / codomain 不一定等于值域 / range。陪域是允许出现的目标集合，值域是实际出现的目标集合。</p><p>The codomain is allowed targets; the range is actual targets.</p><p><strong>Example / 例子</strong></p><p>设：</p><div class="math-display">$$
+A=\{1,2,3\},\quad B=\{x,y,z\},
+$$</div><div class="math-display">$$
+R=\{(1,x),(2,x),(3,y)\}.
+$$</div><p>则：</p><div class="math-display">$$
+\operatorname{domain}=A,\qquad \operatorname{codomain}=B,\qquad \operatorname{range}(R)=\{x,y\}.
+$$</div><p>这里 $z$ 在陪域中，但不在值域中。</p><h5 id="1-3-像与原像-image-and-preimage">1.3 像与原像 / Image and Preimage<a class="heading-anchor" href="#1-3-像与原像-image-and-preimage" data-heading-id="1-3-像与原像-image-and-preimage" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Image of an element / 元素的像</strong></p><p>对 $a\in A$，$a$ 在关系 $R$ 下的像 / image 是：</p><div class="math-display">$$
+R(a)=\{b\in B\mid aRb\}.
+$$</div><p>如果 $R$ 是函数，$R(a)$ 至多只有一个元素；如果 $R$ 是一般关系，$R(a)$ 可以有多个元素。</p><p><strong>Image of a set / 集合的像</strong></p><p>对 $S\subseteq A$，$S$ 的像 / image 为：</p><div class="math-display">$$
+R(S)=\{b\in B\mid \exists a\in S,\ aRb\}.
+$$</div><p><strong>Preimage / 原像</strong></p><p>对 $T\subseteq B$，$T$ 的原像 / preimage 为：</p><div class="math-display">$$
+R^{-1}(T)=\{a\in A\mid \exists b\in T,\ aRb\}.
+$$</div><p><strong>Use / 怎么用</strong></p><p>像 / image 是“从左往右能到哪里”；原像 / preimage 是“从右往左看哪些元素能到这里”。</p><p>Image asks where elements go; preimage asks which elements can reach a target set.</p><h5 id="1-4-集合上关系的例子-examples-of-relations-on-a-set">1.4 集合上关系的例子 / Examples of Relations on a Set<a class="heading-anchor" href="#1-4-集合上关系的例子-examples-of-relations-on-a-set" data-heading-id="1-4-集合上关系的例子-examples-of-relations-on-a-set" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Equality / 相等关系</strong></p><p>在任意集合 $A$ 上：</p><div class="math-display">$$
+R=\{(a,a)\mid a\in A\}.
+$$</div><p>This is the equality relation.</p><p><strong>Less than or equal to / 小于等于</strong></p><p>在 $\mathbb{R}$ 上：</p><div class="math-display">$$
+xRy \Longleftrightarrow x\le y.
+$$</div><p><strong>Divisibility / 整除</strong></p><p>在正整数集 $\mathbb{Z}^+$ 上：</p><div class="math-display">$$
+aRb \Longleftrightarrow a\mid b.
+$$</div><p><strong>Congruence / 同余</strong></p><p>在整数集 $\mathbb{Z}$ 上：</p><div class="math-display">$$
+aRb \Longleftrightarrow a\equiv b\pmod m.
+$$</div><h5 id="1-5-函数是特殊关系-functions-as-special-relations">1.5 函数是特殊关系 / Functions as Special Relations<a class="heading-anchor" href="#1-5-函数是特殊关系-functions-as-special-relations" data-heading-id="1-5-函数是特殊关系-functions-as-special-relations" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Definition / 定义</strong></p><p>关系 $R\subseteq A\times B$ 是函数，当且仅当每个 $a\in A$ 至多对应一个 $b\in B$。</p><p>A relation $R\subseteq A\times B$ is a function if every $a\in A$ is related to at most one element of $B$.</p><p>若还要求每个 $a\in A$ 至少对应一个 $b\in B$，则它是全函数 / total function。</p><p><strong>Function condition / 函数条件</strong></p><p>若 $aRb_1$ 且 $aRb_2$，则必须有：</p><div class="math-display">$$
+b_1=b_2.
+$$</div><p><strong>Example / 例题</strong></p><p>设：</p><div class="math-display">$$
+A=\{1,2,3\},\quad B=\{x,y\},
+$$</div><div class="math-display">$$
+R_1=\{(1,x),(2,y),(3,y)\},
+$$</div><div class="math-display">$$
+R_2=\{(1,x),(1,y),(2,x)\}.
+$$</div><p>$R_1$ 是从 $A$ 到 $B$ 的全函数；$R_2$ 不是函数，因为 $1$ 同时对应 $x$ 和 $y$。</p><p><strong>Use / 怎么用</strong></p><p>函数题可以翻译成关系题：函数要求“每个输入至多一个输出”；全函数要求“每个输入恰好一个输出”。</p><h5 id="1-6-单射-满射-双射-injective-surjective-bijective">1.6 单射、满射、双射 / Injective, Surjective, Bijective<a class="heading-anchor" href="#1-6-单射-满射-双射-injective-surjective-bijective" data-heading-id="1-6-单射-满射-双射-injective-surjective-bijective" aria-label="Copy section link / 复制小节链接">#</a></h5><p>把函数看成关系时，很多英文词汇都可以用“箭头”理解。</p><p>When a function is viewed as a relation, the standard function terms can be understood by arrows.</p><p><strong>Total / 全的</strong></p><p>关系 $R\subseteq A\times B$ 是 total，若每个 $a\in A$ 至少有一个箭头出去：</p><div class="math-display">$$
+\forall a\in A,\ \exists b\in B,\ aRb.
+$$</div><p><strong>Injective / 单射的 / one-to-one</strong></p><p>关系 $R\subseteq A\times B$ 是 injective，若每个 $b\in B$ 至多有一个 $a\in A$ 指向它：</p><div class="math-display">$$
+(a_1Rb\land a_2Rb)\Rightarrow a_1=a_2.
+$$</div><p>Injective 也常叫 one-to-one。</p><p><strong>Surjective / 满射的 / onto</strong></p><p>关系 $R\subseteq A\times B$ 是 surjective，若每个 $b\in B$ 至少被一个 $a\in A$ 指向：</p><div class="math-display">$$
+\forall b\in B,\ \exists a\in A,\ aRb.
+$$</div><p>Surjective 也常叫 onto。</p><p><strong>Bijective / 双射的</strong></p><p>一个 total function 若同时 injective 和 surjective，则称为 bijective / bijection。</p><p><strong>Counting use / 计数用途</strong></p><p>若 $A,B$ 有限：</p><ul><li>total injection / 全单射 给出 $|A|\le |B|$。</li><li>surjective function / 满射函数 给出 $|A|\ge |B|$。</li><li>bijection / 双射 给出 $|A|=|B|$。</li></ul><h5 id="1-7-常见特殊关系-common-special-relations">1.7 常见特殊关系 / Common Special Relations<a class="heading-anchor" href="#1-7-常见特殊关系-common-special-relations" data-heading-id="1-7-常见特殊关系-common-special-relations" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设 $R$ 是集合 $A$ 上的关系。</p><p><strong>Identity relation / 恒等关系</strong></p><div class="math-display">$$
+I_A=\{(a,a)\mid a\in A\}.
+$$</div><p>Identity relation 只包含所有自环，是“相等关系”的集合表示。</p><p><strong>Universal relation / 全关系</strong></p><div class="math-display">$$
+U_A=A\times A.
+$$</div><p>Universal relation 包含所有可能的有序对。</p><p><strong>Empty relation / 空关系</strong></p><div class="math-display">$$
+\varnothing.
+$$</div><p>Empty relation 不包含任何有序对。</p><p><strong>Inverse relation / 逆关系</strong></p><p>若 $R\subseteq A\times B$，则逆关系 / inverse relation 为：</p><div class="math-display">$$
+R^{-1}=\{(b,a)\in B\times A\mid (a,b)\in R\}.
+$$</div><p>逆关系把每个有序对的方向反过来。</p><p><strong>Complement relation / 补关系</strong></p><p>若 $R\subseteq A\times B$，则补关系 / complement relation 为：</p><div class="math-display">$$
+\overline{R}=(A\times B)-R.
+$$</div><p>Complement relation 依赖底层全集 $A\times B$，所以必须先确认 domain 和 codomain。</p><p><strong>Restriction / 限制</strong></p><p>若 $S\subseteq A$，则 $R$ 在 $S$ 上的限制 / restriction 常写为：</p><div class="math-display">$$
+R|_S=R\cap(S\times S).
+$$</div><p>Restriction means we only keep pairs whose coordinates lie in the smaller set.</p><h5 id="1-8-关系的基本性质-basic-properties-of-relations">1.8 关系的基本性质 / Basic Properties of Relations<a class="heading-anchor" href="#1-8-关系的基本性质-basic-properties-of-relations" data-heading-id="1-8-关系的基本性质-basic-properties-of-relations" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设 $R$ 是集合 $A$ 上的关系。</p><h5 id="1-9-性质定义表-property-table">1.9 性质定义表 / Property Table<a class="heading-anchor" href="#1-9-性质定义表-property-table" data-heading-id="1-9-性质定义表-property-table" aria-label="Copy section link / 复制小节链接">#</a></h5><div class="table-scroll"><table><thead><tr><th>性质 / Property</th><th>定义 / Definition</th><th>图像理解 / Graph intuition</th></tr></thead><tbody><tr><td>自反 / reflexive</td><td>$\forall a\in A,\ aRa$</td><td>每个点都有自环 / every vertex has a loop</td></tr><tr><td>反自反 / irreflexive</td><td>$\forall a\in A,\ \neg aRa$</td><td>没有任何自环 / no loops</td></tr><tr><td>对称 / symmetric</td><td>$aRb\Rightarrow bRa$</td><td>每条边都有反向边 / every edge has reverse edge</td></tr><tr><td>反对称 / antisymmetric</td><td>$(aRb\land bRa)\Rightarrow a=b$</td><td>不同点之间不能双向 / no two-way edges between distinct vertices</td></tr><tr><td>非对称 / asymmetric</td><td>$aRb\Rightarrow \neg bRa$</td><td>有边就不能有反向边，也不能有自环 / no reverse edges and no loops</td></tr><tr><td>传递 / transitive</td><td>$(aRb\land bRc)\Rightarrow aRc$</td><td>有长度 2 的路径就要有捷径边 / every two-step path has a shortcut</td></tr></tbody></table></div><h5 id="1-10-自反与反自反-reflexive-and-irreflexive">1.10 自反与反自反 / Reflexive and Irreflexive<a class="heading-anchor" href="#1-10-自反与反自反-reflexive-and-irreflexive" data-heading-id="1-10-自反与反自反-reflexive-and-irreflexive" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Reflexive / 自反</strong></p><div class="math-display">$$
+\forall a\in A,\ (a,a)\in R.
+$$</div><p><strong>Irreflexive / 反自反</strong></p><div class="math-display">$$
+\forall a\in A,\ (a,a)\notin R.
+$$</div><p><strong>Important / 注意</strong></p><p>一个非空集合上的关系不可能同时自反和反自反。</p><p>On a nonempty set, a relation cannot be both reflexive and irreflexive.</p><p><strong>Example / 例子</strong></p><p>在 $\mathbb{Z}$ 上，$\le$ 是自反的，因为 $a\le a$。  <br />在 $\mathbb{Z}$ 上，$&lt;$ 是反自反的，因为不存在 $a&lt;a$。</p><h5 id="1-11-对称-反对称-非对称-symmetric-antisymmetric-and-asymmetric">1.11 对称、反对称、非对称 / Symmetric, Antisymmetric, and Asymmetric<a class="heading-anchor" href="#1-11-对称-反对称-非对称-symmetric-antisymmetric-and-asymmetric" data-heading-id="1-11-对称-反对称-非对称-symmetric-antisymmetric-and-asymmetric" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Symmetric / 对称</strong></p><div class="math-display">$$
+aRb\Rightarrow bRa.
+$$</div><p><strong>Antisymmetric / 反对称</strong></p><div class="math-display">$$
+(aRb\land bRa)\Rightarrow a=b.
+$$</div><p><strong>Asymmetric / 非对称</strong></p><div class="math-display">$$
+aRb\Rightarrow \neg bRa.
+$$</div><p><strong>Key distinction / 核心区别</strong></p><p>反对称不是“没有反向边”。反对称允许 $(a,a)$，也允许单向边 $(a,b)$。它只禁止不同元素之间同时出现 $(a,b)$ 和 $(b,a)$。</p><p>Antisymmetric does not mean &quot;no reverse edges at all.&quot; It only forbids two-way edges between distinct elements.</p><p>非对称更强：如果有 $aRb$，就不能有 $bRa$。因此非对称关系一定反自反。</p><p>Asymmetry is stronger: if $aRb$, then $bRa$ is impossible. Hence every asymmetric relation is irreflexive.</p><h5 id="1-12-传递-transitive">1.12 传递 / Transitive<a class="heading-anchor" href="#1-12-传递-transitive" data-heading-id="1-12-传递-transitive" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Definition / 定义</strong></p><div class="math-display">$$
+(aRb\land bRc)\Rightarrow aRc.
+$$</div><p><strong>Graph intuition / 图像理解</strong></p><p>若存在 $a\to b$ 和 $b\to c$，就必须存在 $a\to c$。</p><p>If there is a directed path of length $2$ from $a$ to $c$, then the shortcut edge $a\to c$ must be present.</p><p><strong>Important / 注意</strong></p><p>传递性不是说“有 $a\to c$ 就必须存在中间点”。它只检查已经存在的两步链。</p><p>Transitivity does not say that every edge must come from a two-step path. It says that every existing two-step path must have the corresponding shortcut.</p><h5 id="1-13-性质判定例题-example-checking-properties">1.13 性质判定例题 / Example: Checking Properties<a class="heading-anchor" href="#1-13-性质判定例题-example-checking-properties" data-heading-id="1-13-性质判定例题-example-checking-properties" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设：</p><div class="math-display">$$
+A=\{1,2,3\},
+$$</div><div class="math-display">$$
+R=\{(1,1),(2,2),(3,3),(1,2),(2,1),(2,3),(1,3)\}.
+$$</div><p><strong>Reflexive / 自反</strong></p><p>有 $(1,1),(2,2),(3,3)$，所以自反。</p><p><strong>Symmetric / 对称</strong></p><p>有 $(2,3)$，但没有 $(3,2)$，所以不对称。</p><p><strong>Antisymmetric / 反对称</strong></p><p>有 $(1,2)$ 和 $(2,1)$，且 $1\ne2$，所以不反对称。</p><p><strong>Transitive / 传递</strong></p><p>需要逐项检查两步链。例如 $(1,2)$ 与 $(2,3)$ 要求 $(1,3)$，已存在；$(2,1)$ 与 $(1,2)$ 要求 $(2,2)$，已存在。检查所有两步链后可知它是传递的。</p><p><strong>Use / 怎么用</strong></p><p>有限集合上判断传递性时，不要只看一两个例子。系统做法是列出所有 $aRb$ 和 $bRc$ 的组合，或用矩阵布尔平方检查。</p><h5 id="1-14-关系的数量-counting-relations">1.14 关系的数量 / Counting Relations<a class="heading-anchor" href="#1-14-关系的数量-counting-relations" data-heading-id="1-14-关系的数量-counting-relations" aria-label="Copy section link / 复制小节链接">#</a></h5><h5 id="1-15-所有关系的数量-number-of-all-relations">1.15 所有关系的数量 / Number of All Relations<a class="heading-anchor" href="#1-15-所有关系的数量-number-of-all-relations" data-heading-id="1-15-所有关系的数量-number-of-all-relations" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Theorem / 定理</strong></p><p>若 $|A|=m$，$|B|=n$，则从 $A$ 到 $B$ 的关系共有：</p><div class="math-display">$$
+2^{mn}
+$$</div><p>个。</p><p>If $|A|=m$ and $|B|=n$, then there are $2^{mn}$ relations from $A$ to $B$.</p><p><strong>Proof / 证明</strong></p><p>$A\times B$ 中共有 $mn$ 个有序对。一个关系就是从这些有序对中任意选择一部分，因此关系数等于幂集大小：</p><div class="math-display">$$
+|\mathcal{P}(A\times B)|=2^{mn}.
+$$</div><p>A relation is any subset of $A\times B$, so the number of relations is the number of subsets of a set with $mn$ elements.</p><h5 id="1-16-集合上关系的数量-relations-on-one-set">1.16 集合上关系的数量 / Relations on One Set<a class="heading-anchor" href="#1-16-集合上关系的数量-relations-on-one-set" data-heading-id="1-16-集合上关系的数量-relations-on-one-set" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若 $|A|=n$，则 $A$ 上的关系共有：</p><div class="math-display">$$
+2^{n^2}
+$$</div><p>个。</p><p>因为 $A\times A$ 中有 $n^2$ 个有序对。</p><h5 id="1-17-常见性质关系的计数-counting-relations-with-common-properties">1.17 常见性质关系的计数 / Counting Relations with Common Properties<a class="heading-anchor" href="#1-17-常见性质关系的计数-counting-relations-with-common-properties" data-heading-id="1-17-常见性质关系的计数-counting-relations-with-common-properties" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设 $|A|=n$。</p><p><strong>Reflexive relations / 自反关系</strong></p><p>自反关系必须包含所有 $(a,a)$，共 $n$ 个。其余 $n^2-n$ 个有序对可选或不选：</p><div class="math-display">$$
+2^{n^2-n}.
+$$</div><p><strong>Irreflexive relations / 反自反关系</strong></p><p>反自反关系不能包含任何 $(a,a)$。其余 $n^2-n$ 个有序对可选或不选：</p><div class="math-display">$$
+2^{n^2-n}.
+$$</div><p><strong>Symmetric relations / 对称关系</strong></p><p>主对角线上的 $n$ 个有序对各自独立；每一对不同元素 $\{a,b\}$ 对应 $(a,b)$ 和 $(b,a)$，要么都选，要么都不选。不同元素无序对有 $\binom n2$ 个，所以：</p><div class="math-display">$$
+2^{n+\binom n2}=2^{n(n+1)/2}.
+$$</div><p><strong>Reflexive and symmetric relations / 自反且对称关系</strong></p><p>主对角线必须全选；不同元素无序对仍各自独立：</p><div class="math-display">$$
+2^{\binom n2}.
+$$</div><p><strong>Use / 怎么用</strong></p><p>计数关系时先数“自由选择的单位”。普通关系的单位是单个有序对；对称关系的单位是一个无序二元组对应的一对方向。</p><p>When counting relations, first identify the independent choice units. For arbitrary relations, the units are ordered pairs. For symmetric relations, the units are unordered pairs of distinct elements.</p><h5 id="1-18-关系复合与关系幂-composition-and-powers-of-relations">1.18 关系复合与关系幂 / Composition and Powers of Relations<a class="heading-anchor" href="#1-18-关系复合与关系幂-composition-and-powers-of-relations" data-heading-id="1-18-关系复合与关系幂-composition-and-powers-of-relations" aria-label="Copy section link / 复制小节链接">#</a></h5><h5 id="1-19-关系复合-composition-of-relations">1.19 关系复合 / Composition of Relations<a class="heading-anchor" href="#1-19-关系复合-composition-of-relations" data-heading-id="1-19-关系复合-composition-of-relations" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Definition / 定义</strong></p><p>若：</p><div class="math-display">$$
+R\subseteq A\times B,\qquad S\subseteq B\times C,
+$$</div><p>则复合关系 $S\circ R\subseteq A\times C$ 定义为：</p><div class="math-display">$$
+a(S\circ R)c
+\Longleftrightarrow
+\exists b\in B\,(aRb\land bSc).
+$$</div><p>In words, $a$ is related to $c$ by $S\circ R$ if we can go from $a$ to some $b$ using $R$, then from $b$ to $c$ using $S$.</p><p><strong>Order warning / 顺序警告</strong></p><p>$S\circ R$ 表示先走 $R$，再走 $S$。这和函数复合的读法一致：</p><div class="math-display">$$
+(S\circ R)(a)=S(R(a)).
+$$</div><h5 id="1-20-复合例题-example-of-composition">1.20 复合例题 / Example of Composition<a class="heading-anchor" href="#1-20-复合例题-example-of-composition" data-heading-id="1-20-复合例题-example-of-composition" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设：</p><div class="math-display">$$
+A=\{1,2\},\quad B=\{x,y\},\quad C=\{p,q\},
+$$</div><div class="math-display">$$
+R=\{(1,x),(1,y),(2,y)\},
+$$</div><div class="math-display">$$
+S=\{(x,p),(y,q)\}.
+$$</div><p>则：</p><div class="math-display">$$
+S\circ R=\{(1,p),(1,q),(2,q)\}.
+$$</div><p>因为 $1$ 可经 $x$ 到 $p$，也可经 $y$ 到 $q$；$2$ 可经 $y$ 到 $q$。</p><h5 id="1-21-关系幂-powers-of-a-relation">1.21 关系幂 / Powers of a Relation<a class="heading-anchor" href="#1-21-关系幂-powers-of-a-relation" data-heading-id="1-21-关系幂-powers-of-a-relation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设 $R$ 是集合 $A$ 上的关系。</p><p><strong>Definition / 定义</strong></p><div class="math-display">$$
+R^1=R,
+$$</div><div class="math-display">$$
+R^{n+1}=R^n\circ R.
+$$</div><p><strong>Path interpretation / 路径解释</strong></p><p>$(a,b)\in R^n$ 当且仅当从 $a$ 到 $b$ 存在长度为 $n$ 的有向走路。</p><p>$(a,b)\in R^n$ iff there is a directed walk of length $n$ from $a$ to $b$.</p><p><strong>Use / 怎么用</strong></p><p>关系幂用于把“多步可达”翻译成代数形式。传递闭包就是所有正长度路径的并。</p><h5 id="1-22-关系的并-交-差和补-union-intersection-difference-and-complement">1.22 关系的并、交、差和补 / Union, Intersection, Difference, and Complement<a class="heading-anchor" href="#1-22-关系的并-交-差和补-union-intersection-difference-and-complement" data-heading-id="1-22-关系的并-交-差和补-union-intersection-difference-and-complement" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若 $R_1,R_2$ 都是从 $A$ 到 $B$ 的关系，则可以像集合一样组合它们：</p><div class="math-display">$$
+R_1\cup R_2,\qquad R_1\cap R_2,\qquad R_1-R_2,\qquad \overline{R_1}.
+$$</div><p>Because relations are sets of ordered pairs, union, intersection, difference, and complement are ordinary set operations on ordered pairs.</p><p><strong>Complement / 补关系</strong></p><p>补关系必须相对于同一个全集 $A\times B$：</p><div class="math-display">$$
+\overline{R_1}=(A\times B)-R_1.
+$$</div><p><strong>Use / 怎么用</strong></p><p>题目若说“关系的 complement”，必须先看清楚 relation from $A$ to $B$ 的 $A,B$ 是什么。</p><h4 id="2-n-ary-relations-and-their-applications-n-元关系及其应用">2. n-ary Relations and Their Applications / n 元关系及其应用<a class="heading-anchor" href="#2-n-ary-relations-and-their-applications-n-元关系及其应用" data-heading-id="2-n-ary-relations-and-their-applications-n-元关系及其应用" aria-label="Copy section link / 复制小节链接">#</a></h4><blockquote>对应 Rosen 9.2。数据库表、selection、projection、join 等内容放在这里。</blockquote><h5 id="2-1-n-元关系-n-ary-relations">2.1 n 元关系 / n-ary Relations<a class="heading-anchor" href="#2-1-n-元关系-n-ary-relations" data-heading-id="2-1-n-元关系-n-ary-relations" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Definition / 定义</strong></p><p>$n$ 元关系是笛卡尔积：</p><div class="math-display">$$
+A_1\times A_2\times\cdots\times A_n
+$$</div><p>的子集。</p><p>An $n$-ary relation is a subset of $A_1\times A_2\times\cdots\times A_n$.</p><p>数据库表可以看成 $n$ 元关系：每一行是一个 $n$ 元组，每一列对应一个属性。</p><p>A database table can be viewed as an $n$-ary relation: each row is an $n$-tuple, and each column is an attribute.</p><p><strong>Tuple / 元组</strong></p><p>表中的一行称为 tuple / 元组。例如学生表中一行：</p><div class="math-display">$$
+(\text{student id},\text{name},\text{major},\text{grade})
+$$</div><p>就是一个 $4$-tuple。</p><p><strong>Attribute / 属性</strong></p><p>表中的一列称为 attribute / 属性，例如 name、major、grade。</p><p><strong>Primary key / 主键</strong></p><p>能唯一确定一行的属性或属性组称为 primary key / 主键。Rosen 的数据库关系题常要求判断某些属性能否唯一标识 tuple。</p><h5 id="2-2-选择-投影-连接-selection-projection-and-join">2.2 选择、投影、连接 / Selection, Projection, and Join<a class="heading-anchor" href="#2-2-选择-投影-连接-selection-projection-and-join" data-heading-id="2-2-选择-投影-连接-selection-projection-and-join" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Selection / 选择</strong></p><p>选择操作按条件筛选行。</p><p>Selection keeps rows satisfying a condition.</p><p><strong>Projection / 投影</strong></p><p>投影操作保留某些列，丢弃其他列。关系模型中重复行通常只保留一份。</p><p>Projection keeps selected columns and discards the rest. Duplicate rows are usually removed in the relation model.</p><p><strong>Join / 连接</strong></p><p>连接操作按共同属性把两个关系的行匹配并合并。</p><p>Join combines rows from two relations by matching common attributes.</p><p><strong>Use / 怎么用</strong></p><p>数据库题通常不是让你写 SQL，而是把表操作翻译成集合、元组和关系操作。</p><p>Database-style problems usually ask you to translate table operations into set, tuple, and relation operations.</p><h4 id="3-representing-relations-关系的表示">3. Representing Relations / 关系的表示<a class="heading-anchor" href="#3-representing-relations-关系的表示" data-heading-id="3-representing-relations-关系的表示" aria-label="Copy section link / 复制小节链接">#</a></h4><blockquote>对应 Rosen 9.3。重点是 ordered pairs、zero-one matrices、directed graphs，以及如何从表示中判断性质。</blockquote><h5 id="3-1-有序对表示-ordered-pair-representation">3.1 有序对表示 / Ordered Pair Representation<a class="heading-anchor" href="#3-1-有序对表示-ordered-pair-representation" data-heading-id="3-1-有序对表示-ordered-pair-representation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>最直接的表示方法是列出所有属于关系的有序对。</p><p>The most direct representation is listing all ordered pairs in the relation.</p><p><strong>Example / 例子</strong></p><div class="math-display">$$
+R=\{(1,1),(1,2),(2,3)\}.
+$$</div><p>这种表示适合小集合，但集合较大时不够直观。</p><h5 id="3-2-矩阵表示-matrix-representation">3.2 矩阵表示 / Matrix Representation<a class="heading-anchor" href="#3-2-矩阵表示-matrix-representation" data-heading-id="3-2-矩阵表示-matrix-representation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设：</p><div class="math-display">$$
+A=\{a_1,a_2,\ldots,a_m\},\qquad B=\{b_1,b_2,\ldots,b_n\}.
+$$</div><p>关系 $R\subseteq A\times B$ 的矩阵 $M_R$ 定义为：</p><div class="math-display">$$
+(M_R)_{ij}=
+\begin{cases}
+1, &amp; (a_i,b_j)\in R,\\
+0, &amp; (a_i,b_j)\notin R.
+\end{cases}
+$$</div><p>若 $R$ 是 $A$ 上的关系，则 $M_R$ 是 $n\times n$ 方阵。</p><p><strong>Property checks by matrix / 用矩阵判断性质</strong></p><ul><li>自反 / reflexive: 主对角线全为 $1$。</li><li>反自反 / irreflexive: 主对角线全为 $0$。</li><li>对称 / symmetric: $M_R=M_R^T$。</li><li>反对称 / antisymmetric: 若 $i\ne j$，不能同时有 $m_{ij}=m_{ji}=1$。</li><li>传递 / transitive: 若布尔积 $M_R\odot M_R$ 中 $(i,j)$ 为 $1$，则 $M_R$ 中 $(i,j)$ 也必须为 $1$。</li></ul><h5 id="3-3-有向图表示-digraph-representation">3.3 有向图表示 / Digraph Representation<a class="heading-anchor" href="#3-3-有向图表示-digraph-representation" data-heading-id="3-3-有向图表示-digraph-representation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>集合 $A$ 上的关系可以看成一个有向图：</p><ul><li>顶点是 $A$ 中元素 / vertices are elements of $A$.</li><li>若 $(a,b)\in R$，则画边 $a\to b$ / draw an edge $a\to b$.</li></ul><p><strong>Graph checks / 用图判断</strong></p><ul><li>自反：每个点有自环。</li><li>对称：每条边都有反向边。</li><li>反对称：不同点之间没有双向边。</li><li>传递：每条长度为 $2$ 的路径都有对应捷径边。</li></ul><p><strong>Use / 怎么用</strong></p><p>矩阵适合计算，图适合理解结构。闭包和传递性常在两种表示之间切换。</p><p>Matrices are good for computation; graphs are good for structure. Closure and transitivity often become clearer by switching between the two.</p><h5 id="3-4-邻接矩阵与走路计数矩阵-adjacency-matrix-and-walk-counting-matrix">3.4 邻接矩阵与走路计数矩阵 / Adjacency Matrix and Walk Counting Matrix<a class="heading-anchor" href="#3-4-邻接矩阵与走路计数矩阵-adjacency-matrix-and-walk-counting-matrix" data-heading-id="3-4-邻接矩阵与走路计数矩阵-adjacency-matrix-and-walk-counting-matrix" aria-label="Copy section link / 复制小节链接">#</a></h5><p>关系矩阵也可以用于数 walks / 走路。若 $A_G$ 是有向图 $G$ 的 adjacency matrix / 邻接矩阵，则：</p><div class="math-display">$$
+(A_G^k)_{ij}
+$$</div><p>等于从顶点 $i$ 到顶点 $j$ 的长度为 $k$ 的 walk 的数量。</p><p>The $(i,j)$ entry of $A_G^k$ counts the number of length-$k$ walks from $i$ to $j$.</p><p><strong>Proof idea / 证明思路</strong></p><p>长度 $k+m$ 的 walk 可以唯一拆成：先走长度 $k$ 到某个中间点 $r$，再从 $r$ 走长度 $m$ 到终点。因此：</p><div class="math-display">$$
+(A_G^{k+m})_{ij}
+=
+\sum_r (A_G^k)_{ir}(A_G^m)_{rj},
+$$</div><p>这正是矩阵乘法。</p><p><strong>Boolean version / 布尔版本</strong></p><p>若把矩阵普通加法和乘法换成布尔或 / or 与布尔与 / and，就不再计算 walk 的数量，而是判断是否存在可达路径。</p><h4 id="4-closures-of-relations-关系闭包">4. Closures of Relations / 关系闭包<a class="heading-anchor" href="#4-closures-of-relations-关系闭包" data-heading-id="4-closures-of-relations-关系闭包" aria-label="Copy section link / 复制小节链接">#</a></h4><blockquote>对应 Rosen 9.4。自反闭包、对称闭包、传递闭包和 Warshall 算法放在同一节。</blockquote><h5 id="4-1-闭包的定义-definition-of-closure">4.1 闭包的定义 / Definition of Closure<a class="heading-anchor" href="#4-1-闭包的定义-definition-of-closure" data-heading-id="4-1-闭包的定义-definition-of-closure" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Definition / 定义</strong></p><p>设 $P$ 是某种关系性质。关系 $R$ 关于性质 $P$ 的闭包是包含 $R$ 的、满足 $P$ 的最小关系。</p><p>The closure of $R$ with respect to a property $P$ is the smallest relation that contains $R$ and has property $P$.</p><p>“最小”指的是按集合包含关系最小，不是有序对个数随便少。</p><p>&quot;Smallest&quot; means smallest under set inclusion.</p><h5 id="4-2-自反闭包-reflexive-closure">4.2 自反闭包 / Reflexive Closure<a class="heading-anchor" href="#4-2-自反闭包-reflexive-closure" data-heading-id="4-2-自反闭包-reflexive-closure" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设 $R$ 是 $A$ 上的关系。自反闭包为：</p><div class="math-display">$$
+R\cup I_A,
+$$</div><p>其中：</p><div class="math-display">$$
+I_A=\{(a,a)\mid a\in A\}.
+$$</div><p><strong>Matrix view / 矩阵表示</strong></p><p>把主对角线全改为 $1$。</p><p><strong>Graph view / 图表示</strong></p><p>给每个顶点加自环。</p><h5 id="4-3-对称闭包-symmetric-closure">4.3 对称闭包 / Symmetric Closure<a class="heading-anchor" href="#4-3-对称闭包-symmetric-closure" data-heading-id="4-3-对称闭包-symmetric-closure" aria-label="Copy section link / 复制小节链接">#</a></h5><p>对称闭包为：</p><div class="math-display">$$
+R\cup R^{-1},
+$$</div><p>其中：</p><div class="math-display">$$
+R^{-1}=\{(b,a)\mid (a,b)\in R\}.
+$$</div><p><strong>Matrix view / 矩阵表示</strong></p><div class="math-display">$$
+M_R\lor M_R^T.
+$$</div><p><strong>Graph view / 图表示</strong></p><p>每条有向边都补一条反向边。</p><h5 id="4-4-传递闭包-transitive-closure">4.4 传递闭包 / Transitive Closure<a class="heading-anchor" href="#4-4-传递闭包-transitive-closure" data-heading-id="4-4-传递闭包-transitive-closure" aria-label="Copy section link / 复制小节链接">#</a></h5><p>传递闭包记作 $R^+$，表示所有正长度路径的可达关系。</p><p>若 $A$ 有 $N$ 个元素，则：</p><div class="math-display">$$
+R^+=R\cup R^2\cup\cdots\cup R^N.
+$$</div><p>若还要自反传递闭包，则：</p><div class="math-display">$$
+R^*=I_A\cup R\cup R^2\cup\cdots\cup R^N.
+$$</div><p><strong>Why stop at $N$? / 为什么到 $N$ 为止？</strong></p><p>在 $N$ 个顶点的有限图中，若存在一条从 $a$ 到 $b$ 的路径，则存在一条不重复顶点的简单路径，长度至多为 $N-1$；如果考虑自环或走路，超过 $N$ 的信息已经不会产生新的可达性。</p><p>In a finite graph with $N$ vertices, reachability can be witnessed by a simple path of length at most $N-1$. Longer walks do not create new reachability information.</p><p>若 $G$ 是一个有向图，则 walk relation / 可走关系 $G^*$ 定义为：</p><div class="math-display">$$
+uG^*v \Longleftrightarrow \text{there is a walk from }u\text{ to }v.
+$$</div><p>positive walk relation / 正长度可走关系 $G^+$ 定义为：</p><div class="math-display">$$
+uG^+v \Longleftrightarrow \text{there is a positive-length walk from }u\text{ to }v.
+$$</div><p>在 relation 语言中，$G^+$ 就是边关系的 transitive closure，$G^*$ 是 reflexive transitive closure。</p><h5 id="4-5-闭包例题-closure-example">4.5 闭包例题 / Closure Example<a class="heading-anchor" href="#4-5-闭包例题-closure-example" data-heading-id="4-5-闭包例题-closure-example" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设：</p><div class="math-display">$$
+A=\{1,2,3\},
+$$</div><div class="math-display">$$
+R=\{(1,2),(2,3)\}.
+$$</div><p><strong>Reflexive closure / 自反闭包</strong></p><div class="math-display">$$
+R\cup\{(1,1),(2,2),(3,3)\}.
+$$</div><p><strong>Symmetric closure / 对称闭包</strong></p><div class="math-display">$$
+\{(1,2),(2,3),(2,1),(3,2)\}.
+$$</div><p><strong>Transitive closure / 传递闭包</strong></p><p>因为 $(1,2)$ 和 $(2,3)$ 给出路径 $1\to2\to3$，需要加入 $(1,3)$：</p><div class="math-display">$$
+R^+=\{(1,2),(2,3),(1,3)\}.
+$$</div><h5 id="4-6-warshall-算法目标-goal-of-warshall-s-algorithm">4.6 Warshall 算法目标 / Goal of Warshall&#039;s Algorithm<a class="heading-anchor" href="#4-6-warshall-算法目标-goal-of-warshall-s-algorithm" data-heading-id="4-6-warshall-算法目标-goal-of-warshall-s-algorithm" aria-label="Copy section link / 复制小节链接">#</a></h5><p>Warshall 算法用于从关系矩阵求传递闭包矩阵。</p><p>Warshall&#039;s algorithm computes the matrix of the transitive closure of a relation.</p><p>输入是 $n\times n$ 的 $0$-$1$ 矩阵 $W^{(0)}=M_R$。</p><h5 id="4-7-更新公式-update-formula">4.7 更新公式 / Update Formula<a class="heading-anchor" href="#4-7-更新公式-update-formula" data-heading-id="4-7-更新公式-update-formula" aria-label="Copy section link / 复制小节链接">#</a></h5><p>逐个允许顶点 $1,2,\ldots,k$ 作为中间点：</p><div class="math-display">$$
+W_{ij}^{(k)}
+=
+W_{ij}^{(k-1)}
+\lor
+\left(W_{ik}^{(k-1)}\land W_{kj}^{(k-1)}\right).
+$$</div><p><strong>Meaning / 含义</strong></p><p>从 $i$ 到 $j$ 的路径若只允许使用前 $k$ 个顶点作为中间点，则它要么不经过第 $k$ 个点，要么可以拆成：</p><div class="math-display">$$
+i\to k,\qquad k\to j.
+$$</div><h5 id="4-8-证明思路-proof-idea">4.8 证明思路 / Proof Idea<a class="heading-anchor" href="#4-8-证明思路-proof-idea" data-heading-id="4-8-证明思路-proof-idea" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Proof / 证明</strong></p><p>考虑所有从 $i$ 到 $j$ 且中间点只来自 $\{1,\ldots,k\}$ 的路径。</p><p>若路径不经过 $k$，则它已经在 $W^{(k-1)}$ 中被记录。</p><p>若路径经过 $k$，则可以把第一次到达 $k$ 前后的路径分成两段：从 $i$ 到 $k$，以及从 $k$ 到 $j$。这两段的中间点都只来自 $\{1,\ldots,k-1\}$，所以由：</p><div class="math-display">$$
+W_{ik}^{(k-1)}\land W_{kj}^{(k-1)}
+$$</div><p>记录。</p><p>两种情况取逻辑或，得到更新式。</p><h5 id="4-9-手算模板-hand-calculation-template">4.9 手算模板 / Hand Calculation Template<a class="heading-anchor" href="#4-9-手算模板-hand-calculation-template" data-heading-id="4-9-手算模板-hand-calculation-template" aria-label="Copy section link / 复制小节链接">#</a></h5><ol><li>写出初始矩阵 $W^{(0)}=M_R$。</li><li>对 $k=1,2,\ldots,n$ 逐轮更新。</li><li>第 $k$ 轮只关心所有满足 $i\to k$ 且 $k\to j$ 的位置，把 $i\to j$ 置为 $1$。</li><li>最终 $W^{(n)}$ 就是传递闭包矩阵。</li></ol><p><strong>Use / 怎么用</strong></p><p>手算时不要机械枚举所有 $i,j$。更快的方法是：第 $k$ 轮找“能到 $k$ 的行”和“$k$ 能到的列”，这些交叉位置都改成 $1$。</p><p>When doing it by hand, find the rows that can reach $k$ and the columns reachable from $k$; set their intersections to $1$.</p><h4 id="5-equivalence-relations-等价关系">5. Equivalence Relations / 等价关系<a class="heading-anchor" href="#5-equivalence-relations-等价关系" data-heading-id="5-equivalence-relations-等价关系" aria-label="Copy section link / 复制小节链接">#</a></h4><blockquote>对应 Rosen 9.5。重点是 equivalence classes、partitions 和 quotient set。</blockquote><h5 id="5-1-定义-definition">5.1 定义 / Definition<a class="heading-anchor" href="#5-1-定义-definition" data-heading-id="5-1-定义-definition" aria-label="Copy section link / 复制小节链接">#</a></h5><p>关系 $R$ 是集合 $A$ 上的等价关系，当且仅当它满足：</p><ol><li>自反 / reflexive.</li><li>对称 / symmetric.</li><li>传递 / transitive.</li></ol><p>An equivalence relation captures the idea of &quot;being the same in some relevant sense.&quot;</p><p>它可以理解为“像等号一样”的关系，用来表示某种意义下的 sameness / 相同或 equivalence / 等价。</p><h5 id="5-2-标准例子-standard-examples">5.2 标准例子 / Standard Examples<a class="heading-anchor" href="#5-2-标准例子-standard-examples" data-heading-id="5-2-标准例子-standard-examples" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Congruence modulo $m$ / 模 $m$ 同余</strong></p><p>在 $\mathbb{Z}$ 上：</p><div class="math-display">$$
+aRb \Longleftrightarrow a\equiv b\pmod m.
+$$</div><p>这是等价关系。</p><p><strong>Same length / 字符串同长度</strong></p><p>在所有字符串集合上：</p><div class="math-display">$$
+xRy \Longleftrightarrow |x|=|y|.
+$$</div><p>这是等价关系。</p><p><strong>Same connected component / 同一连通分量</strong></p><p>在无向图顶点集上：</p><div class="math-display">$$
+uRv \Longleftrightarrow u\text{ and }v\text{ are in the same connected component}.
+$$</div><p>这是等价关系。</p><h5 id="5-3-等价类-equivalence-classes">5.3 等价类 / Equivalence Classes<a class="heading-anchor" href="#5-3-等价类-equivalence-classes" data-heading-id="5-3-等价类-equivalence-classes" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Definition / 定义</strong></p><p>若 $R$ 是 $A$ 上的等价关系，则 $a$ 的等价类为：</p><div class="math-display">$$
+[a]=\{x\in A\mid xRa\}.
+$$</div><p>有些教材也写成：</p><div class="math-display">$$
+[a]=\{x\in A\mid aRx\}.
+$$</div><p>对于等价关系，由于对称性，这两种写法等价。</p><p><strong>Use / 怎么用</strong></p><p>等价类就是“和 $a$ 等价的所有元素组成的集合”。找等价类时，通常先找判定标准：同余的余数、字符串长度、连通分量编号等。</p><h5 id="5-4-等价关系与划分-equivalence-relations-and-partitions">5.4 等价关系与划分 / Equivalence Relations and Partitions<a class="heading-anchor" href="#5-4-等价关系与划分-equivalence-relations-and-partitions" data-heading-id="5-4-等价关系与划分-equivalence-relations-and-partitions" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Theorem / 定理</strong></p><p>集合 $A$ 上的每个等价关系都决定 $A$ 的一个划分；反过来，$A$ 的每个划分都定义一个等价关系。</p><p>Every equivalence relation on $A$ determines a partition of $A$, and every partition of $A$ defines an equivalence relation.</p><p><strong>Proof / 证明</strong></p><p>先设 $R$ 是等价关系。</p><p>自反性说明每个元素 $a$ 都属于自己的等价类 $[a]$，所以所有等价类覆盖 $A$。</p><p>若两个等价类有交集，设：</p><div class="math-display">$$
+z\in [a]\cap [b].
+$$</div><p>则 $zRa$ 且 $zRb$。由对称性得 $aRz$，再由传递性和 $zRb$ 得 $aRb$。接下来可证 $[a]=[b]$：若 $x\in[a]$，则 $xRa$，又 $aRb$，所以 $xRb$，即 $x\in[b]$；反向同理。因此两个等价类要么相等，要么不相交。</p><p>所以等价类构成 $A$ 的划分。</p><p>反过来，若给定 $A$ 的一个划分，定义：</p><div class="math-display">$$
+aRb \Longleftrightarrow a,b\text{ belong to the same block}.
+$$</div><p>同一个元素必在同一块中，所以自反；同块关系不分顺序，所以对称；若 $a,b$ 同块且 $b,c$ 同块，则 $a,c$ 同块，所以传递。因此 $R$ 是等价关系。</p><h5 id="5-5-模同余例题-example-congruence-classes">5.5 模同余例题 / Example: Congruence Classes<a class="heading-anchor" href="#5-5-模同余例题-example-congruence-classes" data-heading-id="5-5-模同余例题-example-congruence-classes" aria-label="Copy section link / 复制小节链接">#</a></h5><p>在 $\mathbb{Z}$ 上定义：</p><div class="math-display">$$
+aRb \Longleftrightarrow a\equiv b\pmod 4.
+$$</div><p><strong>Equivalence classes / 等价类</strong></p><p>共有四个等价类：</p><div class="math-display">$$
+[0]=\{\ldots,-8,-4,0,4,8,\ldots\},
+$$</div><div class="math-display">$$
+[1]=\{\ldots,-7,-3,1,5,9,\ldots\},
+$$</div><div class="math-display">$$
+[2]=\{\ldots,-6,-2,2,6,10,\ldots\},
+$$</div><div class="math-display">$$
+[3]=\{\ldots,-5,-1,3,7,11,\ldots\}.
+$$</div><p>这些等价类按除以 $4$ 的余数划分整数集。</p><p><strong>Use / 怎么用</strong></p><p>题目问商集 / quotient set 时，答案通常是所有等价类构成的集合：</p><div class="math-display">$$
+\mathbb{Z}/4\mathbb{Z}=\{[0],[1],[2],[3]\}.
+$$</div><h5 id="5-6-由函数产生的等价关系-equivalence-relation-induced-by-a-function">5.6 由函数产生的等价关系 / Equivalence Relation Induced by a Function<a class="heading-anchor" href="#5-6-由函数产生的等价关系-equivalence-relation-induced-by-a-function" data-heading-id="5-6-由函数产生的等价关系-equivalence-relation-induced-by-a-function" aria-label="Copy section link / 复制小节链接">#</a></h5><p>任意 total function / 全函数 都会自然诱导一个 equivalence relation / 等价关系。</p><p>设 $f:A\to B$ 是 total function，定义：</p><div class="math-display">$$
+a\equiv_f a&#039;
+\Longleftrightarrow
+f(a)=f(a&#039;).
+$$</div><p>则 $\equiv_f$ 是 $A$ 上的等价关系。</p><p><strong>Proof / 证明</strong></p><p>因为相等关系 $=$ 自反、对称、传递：</p><ul><li>自反：$f(a)=f(a)$，所以 $a\equiv_f a$。</li><li>对称：若 $f(a)=f(a&#039;)$，则 $f(a&#039;)=f(a)$。</li><li>传递：若 $f(a)=f(a&#039;)$ 且 $f(a&#039;)=f(a&#039;&#039;)$，则 $f(a)=f(a&#039;&#039;)$。</li></ul><p><strong>Use / 怎么用</strong></p><p>这说明很多等价关系本质上是在问“某个不变量是否相同”。例如：</p><ul><li>$a\equiv b\pmod m$ 等价于“余数函数的值相同”。</li><li>两个字符串长度相同，等价于“length function 的值相同”。</li><li>图中同一连通分量，等价于“component label 的值相同”。</li></ul><h5 id="5-7-强连通关系-strong-connectivity-relation">5.7 强连通关系 / Strong Connectivity Relation<a class="heading-anchor" href="#5-7-强连通关系-strong-connectivity-relation" data-heading-id="5-7-强连通关系-strong-connectivity-relation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>在有向图中常用 strong connectivity relation / 强连通关系：</p><div class="math-display">$$
+uSv
+\Longleftrightarrow
+(uG^*v)\land(vG^*u).
+$$</div><p>也就是说，$u$ 能到 $v$，且 $v$ 也能到 $u$。</p><p>在有向图中，strong connectivity relation 是等价关系；它的等价类就是 strongly connected components / 强连通分量。</p><h4 id="6-partial-orderings-偏序">6. Partial Orderings / 偏序<a class="heading-anchor" href="#6-partial-orderings-偏序" data-heading-id="6-partial-orderings-偏序" aria-label="Copy section link / 复制小节链接">#</a></h4><blockquote>对应 Rosen 9.6。偏序、全序、Hasse 图、极大/极小、上下界、格、链、反链和拓扑排序都放在这里。</blockquote><h5 id="6-1-定义-definition">6.1 定义 / Definition<a class="heading-anchor" href="#6-1-定义-definition" data-heading-id="6-1-定义-definition" aria-label="Copy section link / 复制小节链接">#</a></h5><p>关系 $R$ 是集合 $A$ 上的偏序，当且仅当它满足：</p><ol><li>自反 / reflexive.</li><li>反对称 / antisymmetric.</li><li>传递 / transitive.</li></ol><p>偏序通常记作 $\preceq$。</p><p>A partial order captures an ordering in which not every two elements need to be comparable.</p><p>若 $R$ 是 $A$ 上的偏序，则 $(A,R)$ 称为偏序集 / partially ordered set, poset。</p><h5 id="6-2-strict-partial-order-与-weak-partial-order">6.2 strict partial order 与 weak partial order<a class="heading-anchor" href="#6-2-strict-partial-order-与-weak-partial-order" data-heading-id="6-2-strict-partial-order-与-weak-partial-order" aria-label="Copy section link / 复制小节链接">#</a></h5><p>partial ordering 通常指自反、反对称、传递的关系。进一步区分时，可把偏序分成 strict partial order / 严格偏序 和 weak partial order / 弱偏序。</p><p><strong>Strict partial order / 严格偏序</strong></p><p>严格偏序满足：</p><ol><li>irreflexive / 反自反。</li><li>transitive / 传递。</li></ol><p>等价地，也可说它满足 transitive + asymmetric。</p><p>典型例子：</p><div class="math-display">$$
+&lt;,\qquad \subset,\qquad \text{proper prerequisite relation}.
+$$</div><p><strong>Weak partial order / 弱偏序</strong></p><p>弱偏序满足：</p><ol><li>reflexive / 自反。</li><li>antisymmetric / 反对称。</li><li>transitive / 传递。</li></ol><p>这就是本章 partial ordering 的主要定义。</p><p>典型例子：</p><div class="math-display">$$
+\le,\qquad \subseteq,\qquad \mid.
+$$</div><p><strong>Connection / 联系</strong></p><p>若 $&lt;$ 是严格偏序，则加入所有自环得到弱偏序：</p><div class="math-display">$$
+a\le b
+\Longleftrightarrow
+(a&lt;b)\lor(a=b).
+$$</div><p>若 $\le$ 是弱偏序，则去掉相等部分得到严格偏序：</p><div class="math-display">$$
+a&lt;b
+\Longleftrightarrow
+(a\le b)\land(a\ne b).
+$$</div><h5 id="6-3-标准例子-standard-examples">6.3 标准例子 / Standard Examples<a class="heading-anchor" href="#6-3-标准例子-standard-examples" data-heading-id="6-3-标准例子-standard-examples" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Subset order / 子集偏序</strong></p><div class="math-display">$$
+(\mathcal{P}(S),\subseteq).
+$$</div><p><strong>Divisibility order / 整除偏序</strong></p><div class="math-display">$$
+(\mathbb{Z}^+,\mid).
+$$</div><p><strong>Prerequisite order / 先修关系</strong></p><p>若课程 $a$ 必须在课程 $b$ 前完成，可写作：</p><div class="math-display">$$
+a\preceq b.
+$$</div><p>当依赖图没有环时，这给出偏序。</p><p>若 $G$ 是 DAG / directed acyclic graph，则：</p><div class="math-display">$$
+u\preceq v
+\Longleftrightarrow
+\text{there is a walk from }u\text{ to }v
+$$</div><p>定义了一个 weak partial order。</p><p>若只允许 positive-length walk，则得到 strict partial order：</p><div class="math-display">$$
+u\prec v
+\Longleftrightarrow
+\text{there is a positive-length walk from }u\text{ to }v.
+$$</div><p>这个观点常用于 prerequisite graph / 先修关系图 和 scheduling / 调度问题。</p><h5 id="6-4-偏序证明模板-template-for-proving-a-partial-order">6.4 偏序证明模板 / Template for Proving a Partial Order<a class="heading-anchor" href="#6-4-偏序证明模板-template-for-proving-a-partial-order" data-heading-id="6-4-偏序证明模板-template-for-proving-a-partial-order" aria-label="Copy section link / 复制小节链接">#</a></h5><p>要证明 $\preceq$ 是偏序，依次证明：</p><p><strong>Reflexive / 自反</strong></p><p>任取 $a\in A$，证明：</p><div class="math-display">$$
+a\preceq a.
+$$</div><p><strong>Antisymmetric / 反对称</strong></p><p>任取 $a,b\in A$，假设：</p><div class="math-display">$$
+a\preceq b,\qquad b\preceq a.
+$$</div><p>推出：</p><div class="math-display">$$
+a=b.
+$$</div><p><strong>Transitive / 传递</strong></p><p>任取 $a,b,c\in A$，假设：</p><div class="math-display">$$
+a\preceq b,\qquad b\preceq c.
+$$</div><p>推出：</p><div class="math-display">$$
+a\preceq c.
+$$</div><h5 id="6-5-整除关系例题-example-divisibility">6.5 整除关系例题 / Example: Divisibility<a class="heading-anchor" href="#6-5-整除关系例题-example-divisibility" data-heading-id="6-5-整除关系例题-example-divisibility" aria-label="Copy section link / 复制小节链接">#</a></h5><p>在 $\mathbb{Z}^+$ 上定义：</p><div class="math-display">$$
+a\preceq b \Longleftrightarrow a\mid b.
+$$</div><p><strong>Proof / 证明</strong></p><p>自反：对任意 $a\in\mathbb{Z}^+$，有 $a\mid a$，因为 $a=1\cdot a$。</p><p>反对称：若 $a\mid b$ 且 $b\mid a$，则存在正整数 $m,n$ 使：</p><div class="math-display">$$
+b=ma,\qquad a=nb.
+$$</div><p>代入得：</p><div class="math-display">$$
+a=nma.
+$$</div><p>因为 $a&gt;0$，所以 $nm=1$。正整数中只有 $n=m=1$，于是 $a=b$。</p><p>传递：若 $a\mid b$ 且 $b\mid c$，则存在正整数 $m,n$ 使：</p><div class="math-display">$$
+b=ma,\qquad c=nb.
+$$</div><p>所以：</p><div class="math-display">$$
+c=nma,
+$$</div><p>因此 $a\mid c$。</p><p>所以整除关系是偏序。</p><h5 id="6-6-可比较与全序-comparable-and-total-order">6.6 可比较与全序 / Comparable and Total Order<a class="heading-anchor" href="#6-6-可比较与全序-comparable-and-total-order" data-heading-id="6-6-可比较与全序-comparable-and-total-order" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设 $(P,\preceq)$ 是偏序集，$S\subseteq P$。</p><p><strong>Comparable / 可比较</strong></p><p>元素 $a,b$ 可比较，当且仅当：</p><div class="math-display">$$
+a\preceq b\quad\text{or}\quad b\preceq a.
+$$</div><p><strong>Incomparable / 不可比较</strong></p><p>若二者都不成立，则 $a,b$ 不可比较。</p><p><strong>Total order / 全序</strong></p><p>若 $P$ 中任意两个元素都可比较，则 $\preceq$ 是全序 / total order 或 linear order。</p><p><strong>Example / 例子</strong></p><p>$(\mathbb{Z},\le)$ 是全序。  <br />$(\mathcal{P}(\{1,2\}),\subseteq)$ 不是全序，因为 $\{1\}$ 和 $\{2\}$ 不可比较。</p><p><strong>Linear extension / 线性扩张</strong></p><p>若一个全序 $\le_L$ 保留偏序 $\preceq$ 中所有原有比较关系，即：</p><div class="math-display">$$
+a\preceq b \Rightarrow a\le_L b,
+$$</div><p>则称 $\le_L$ 是 $\preceq$ 的 linear extension / 线性扩张。</p><p>拓扑排序就是有限偏序或 DAG 的一种 linear extension。</p><p><strong>Lexicographic order / 字典序</strong></p><p>Rosen 偏序部分常出现 lexicographic order / 字典序。对有序对 $(a_1,a_2)$ 和 $(b_1,b_2)$，字典序先比较第一坐标，第一坐标相同再比较第二坐标：</p><div class="math-display">$$
+(a_1,a_2)&lt;_{\text{lex}}(b_1,b_2)
+$$</div><p>当且仅当：</p><div class="math-display">$$
+a_1&lt;b_1
+\quad\text{or}\quad
+(a_1=b_1\land a_2&lt;b_2).
+$$</div><p>字典序通常是 total order / 全序，只要每个坐标上的原顺序是全序。</p><h5 id="6-7-极大-最大-极小-最小-maximal-maximum-minimal-minimum">6.7 极大、最大、极小、最小 / Maximal, Maximum, Minimal, Minimum<a class="heading-anchor" href="#6-7-极大-最大-极小-最小-maximal-maximum-minimal-minimum" data-heading-id="6-7-极大-最大-极小-最小-maximal-maximum-minimal-minimum" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Maximal element / 极大元</strong></p><p>$m\in S$ 是极大元，若不存在 $s\in S$ 使：</p><div class="math-display">$$
+m\prec s.
+$$</div><p>也就是说，在 $S$ 中没有比它更大的可比较元素。</p><p><strong>Maximum element / 最大元</strong></p><p>$M\in S$ 是最大元，若对所有 $s\in S$：</p><div class="math-display">$$
+s\preceq M.
+$$</div><p><strong>Minimal element / 极小元</strong></p><p>$m\in S$ 是极小元，若不存在 $s\in S$ 使：</p><div class="math-display">$$
+s\prec m.
+$$</div><p><strong>Minimum element / 最小元</strong></p><p>$m\in S$ 是最小元，若对所有 $s\in S$：</p><div class="math-display">$$
+m\preceq s.
+$$</div><p><strong>Key distinction / 核心区别</strong></p><p>最大元一定是极大元，但极大元不一定是最大元。最大元若存在则唯一；极大元可以有多个。</p><p>A maximum element is always maximal, but a maximal element need not be maximum. A maximum, if it exists, is unique; maximal elements may be multiple.</p><h5 id="6-8-上界-下界-最小上界-最大下界-bounds-lub-and-glb">6.8 上界、下界、最小上界、最大下界 / Bounds, LUB, and GLB<a class="heading-anchor" href="#6-8-上界-下界-最小上界-最大下界-bounds-lub-and-glb" data-heading-id="6-8-上界-下界-最小上界-最大下界-bounds-lub-and-glb" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Upper bound / 上界</strong></p><p>$u\in P$ 是 $S$ 的上界，若对所有 $s\in S$：</p><div class="math-display">$$
+s\preceq u.
+$$</div><p><strong>Lower bound / 下界</strong></p><p>$\ell\in P$ 是 $S$ 的下界，若对所有 $s\in S$：</p><div class="math-display">$$
+\ell\preceq s.
+$$</div><p><strong>Least upper bound / 最小上界</strong></p><p>$S$ 的最小上界是所有上界中的最小者，记作：</p><div class="math-display">$$
+\operatorname{lub}(S)
+$$</div><p>或 join。</p><p><strong>Greatest lower bound / 最大下界</strong></p><p>$S$ 的最大下界是所有下界中的最大者，记作：</p><div class="math-display">$$
+\operatorname{glb}(S)
+$$</div><p>或 meet。</p><h5 id="6-9-格-lattice">6.9 格 / Lattice<a class="heading-anchor" href="#6-9-格-lattice" data-heading-id="6-9-格-lattice" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Definition / 定义</strong></p><p>若偏序集中任意两个元素都有最小上界和最大下界，则称该偏序集为格 / lattice。</p><p>A poset is a lattice if every pair of elements has both a least upper bound and a greatest lower bound.</p><p><strong>Examples / 例子</strong></p><p>在 $(\mathcal{P}(A),\subseteq)$ 中：</p><div class="math-display">$$
+\operatorname{lub}(B,C)=B\cup C,
+$$</div><div class="math-display">$$
+\operatorname{glb}(B,C)=B\cap C.
+$$</div><p>在正整数的整除偏序中：</p><div class="math-display">$$
+\operatorname{lub}(a,b)=\operatorname{lcm}(a,b),
+$$</div><div class="math-display">$$
+\operatorname{glb}(a,b)=\gcd(a,b).
+$$</div><h5 id="6-10-链-反链和-dilworth-型结论-chains-antichains-and-dilworth-type-results">6.10 链、反链和 Dilworth 型结论 / Chains, Antichains, and Dilworth-Type Results<a class="heading-anchor" href="#6-10-链-反链和-dilworth-型结论-chains-antichains-and-dilworth-type-results" data-heading-id="6-10-链-反链和-dilworth-型结论-chains-antichains-and-dilworth-type-results" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Chain / 链</strong></p><p>偏序集中的 chain / 链 是一个子集，其中任意两个元素都可比较。</p><p>A chain is a subset in which every two elements are comparable.</p><p><strong>Antichain / 反链</strong></p><p>偏序集中的 antichain / 反链 是一个子集，其中任意两个不同元素都不可比较。</p><p>An antichain is a subset in which no two distinct elements are comparable.</p><p>在 DAG scheduling / DAG 调度中：</p><ul><li>chain 表示一串必须依次完成的任务。</li><li>antichain 表示一批彼此没有先后依赖、原则上可并行的任务。</li><li>critical path / 关键路径 是最长依赖链，决定无限处理器下的最短并行时间。</li></ul><p><strong>Dilworth-type statement / Dilworth 型结论</strong></p><p>一个常用的 Dilworth-type statement / Dilworth 型结论是：若一个 DAG 有 $n$ 个顶点，则对任意 $t&gt;0$，它要么有长度大于 $t$ 的 chain，要么有大小至少 $n/t$ 的 antichain。</p><p>取 $t=\sqrt n$，可得：</p><div class="math-display">$$
+\text{Every DAG with }n\text{ vertices has a chain of size }&gt;\sqrt n
+\text{ or an antichain of size at least }\sqrt n.
+$$</div><p>这类结论常用于证明“要么有很长的依赖链，要么有很大的可并行集合”。</p><h5 id="6-11-hasse-图的画法-how-to-draw-a-hasse-diagram">6.11 Hasse 图的画法 / How to Draw a Hasse Diagram<a class="heading-anchor" href="#6-11-hasse-图的画法-how-to-draw-a-hasse-diagram" data-heading-id="6-11-hasse-图的画法-how-to-draw-a-hasse-diagram" aria-label="Copy section link / 复制小节链接">#</a></h5><p>Hasse 图是偏序的简化图。</p><p>A Hasse diagram is a simplified diagram of a finite poset.</p><p>画法：</p><ol><li>去掉所有自环 / remove all loops.</li><li>去掉由传递性推出的边 / remove transitive edges.</li><li>若 $a\prec b$，把 $b$ 画在 $a$ 上方 / draw larger elements higher.</li><li>边默认向上，不再画箭头 / edges are understood to point upward.</li></ol><h5 id="6-12-覆盖关系-cover-relation">6.12 覆盖关系 / Cover Relation<a class="heading-anchor" href="#6-12-覆盖关系-cover-relation" data-heading-id="6-12-覆盖关系-cover-relation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若 $a\prec b$，且不存在 $c$ 使：</p><div class="math-display">$$
+a\prec c\prec b,
+$$</div><p>则称 $b$ 覆盖 $a$，记作 $a\lessdot b$。</p><p>Hasse 图只画覆盖关系。</p><p>The Hasse diagram draws only cover relations.</p><h5 id="6-13-整除偏序-hasse-图例题-example-divisibility-poset">6.13 整除偏序 Hasse 图例题 / Example: Divisibility Poset<a class="heading-anchor" href="#6-13-整除偏序-hasse-图例题-example-divisibility-poset" data-heading-id="6-13-整除偏序-hasse-图例题-example-divisibility-poset" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设：</p><div class="math-display">$$
+P=\{1,2,3,6\},
+$$</div><p>按整除关系排序。</p><p>覆盖关系为：</p><div class="math-display">$$
+1\lessdot2,\qquad 1\lessdot3,\qquad 2\lessdot6,\qquad 3\lessdot6.
+$$</div><p>不画 $1\to6$，因为 $1\mid2$ 且 $2\mid6$，它由传递性推出。</p><p><strong>Structure / 结构</strong></p><ul><li>最小元 / minimum: $1$.</li><li>最大元 / maximum: $6$.</li><li>$2$ 与 $3$ 不可比较 / $2$ and $3$ are incomparable.</li></ul><h5 id="6-14-子集偏序例题-example-subset-poset">6.14 子集偏序例题 / Example: Subset Poset<a class="heading-anchor" href="#6-14-子集偏序例题-example-subset-poset" data-heading-id="6-14-子集偏序例题-example-subset-poset" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设：</p><div class="math-display">$$
+P=\mathcal{P}(\{1,2\}).
+$$</div><p>元素为：</p><div class="math-display">$$
+\varnothing,\quad \{1\},\quad \{2\},\quad \{1,2\}.
+$$</div><p>覆盖关系为：</p><div class="math-display">$$
+\varnothing\lessdot\{1\},\quad
+\varnothing\lessdot\{2\},\quad
+\{1\}\lessdot\{1,2\},\quad
+\{2\}\lessdot\{1,2\}.
+$$</div><p>这是一个菱形结构。</p><h5 id="6-15-拓扑排序-topological-sorting">6.15 拓扑排序 / Topological Sorting<a class="heading-anchor" href="#6-15-拓扑排序-topological-sorting" data-heading-id="6-15-拓扑排序-topological-sorting" aria-label="Copy section link / 复制小节链接">#</a></h5><p>拓扑排序是把偏序或 DAG 中的元素排成一个线性序，使得所有依赖关系都被保留。</p><p>A topological ordering is a linear ordering of a poset or DAG that respects all precedence constraints.</p><p>若 $a\preceq b$，则在线性序中 $a$ 必须出现在 $b$ 之前或相同位置对应的元素本身。</p><h5 id="6-16-定理-theorem">6.16 定理 / Theorem<a class="heading-anchor" href="#6-16-定理-theorem" data-heading-id="6-16-定理-theorem" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Theorem / 定理</strong></p><p>每个有限偏序都可以扩展成一个全序。等价地，每个有限 DAG 都有拓扑排序。</p><p>Every finite partial order can be extended to a total order. Equivalently, every finite DAG has a topological ordering.</p><p><strong>Proof / 证明</strong></p><p>对有限 DAG 证明。若图非空，则一定存在入度为 $0$ 的顶点；否则从任意顶点不断沿入边往前走，因为顶点有限，最终会重复顶点，从而形成有向环，矛盾。</p><p>取一个入度为 $0$ 的顶点作为排序第一个元素，删除它和从它出发的边。剩余图仍是 DAG，对剩余图归纳即可。</p><h5 id="6-17-算法模板-algorithm-template">6.17 算法模板 / Algorithm Template<a class="heading-anchor" href="#6-17-算法模板-algorithm-template" data-heading-id="6-17-算法模板-algorithm-template" aria-label="Copy section link / 复制小节链接">#</a></h5><ol><li>计算每个顶点的入度。</li><li>选一个入度为 $0$ 的顶点输出。</li><li>删除该顶点及其出边。</li><li>更新入度，重复直到所有顶点输出。</li><li>若过程中没有入度为 $0$ 的顶点但仍有顶点未输出，则存在环，不是 DAG。</li></ol><p><strong>Use / 怎么用</strong></p><p>课程先修、任务调度、编译依赖、项目构建顺序都可以抽象成拓扑排序。</p><h4 id="7-常见证明模板-common-proof-templates">7. 常见证明模板 / Common Proof Templates<a class="heading-anchor" href="#7-常见证明模板-common-proof-templates" data-heading-id="7-常见证明模板-common-proof-templates" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="7-1-证明等价关系-proving-an-equivalence-relation">7.1 证明等价关系 / Proving an Equivalence Relation<a class="heading-anchor" href="#7-1-证明等价关系-proving-an-equivalence-relation" data-heading-id="7-1-证明等价关系-proving-an-equivalence-relation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>要证明 $R$ 是等价关系：</p><p><strong>Reflexive / 自反</strong></p><p>任取 $a\in A$，证明 $aRa$。</p><p><strong>Symmetric / 对称</strong></p><p>任取 $a,b\in A$，假设 $aRb$，证明 $bRa$。</p><p><strong>Transitive / 传递</strong></p><p>任取 $a,b,c\in A$，假设 $aRb$ 且 $bRc$，证明 $aRc$。</p><p><strong>Then / 然后</strong></p><p>若题目继续问等价类，就找 $[a]$ 的描述；若问划分，就列出所有不同等价类。</p><h5 id="7-2-证明不是等价关系-proving-not-an-equivalence-relation">7.2 证明不是等价关系 / Proving Not an Equivalence Relation<a class="heading-anchor" href="#7-2-证明不是等价关系-proving-not-an-equivalence-relation" data-heading-id="7-2-证明不是等价关系-proving-not-an-equivalence-relation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>只需找一个性质失败。</p><p>To show a relation is not an equivalence relation, one failed property is enough.</p><p>常见反例格式：</p><ul><li>不自反：找 $a\in A$ 使 $(a,a)\notin R$。</li><li>不对称：找 $a,b$ 使 $aRb$ 但 $\neg bRa$。</li><li>不传递：找 $a,b,c$ 使 $aRb$ 且 $bRc$，但 $\neg aRc$。</li></ul><h5 id="7-3-证明偏序-proving-a-partial-order">7.3 证明偏序 / Proving a Partial Order<a class="heading-anchor" href="#7-3-证明偏序-proving-a-partial-order" data-heading-id="7-3-证明偏序-proving-a-partial-order" aria-label="Copy section link / 复制小节链接">#</a></h5><p>要证明 $R$ 是偏序：</p><ol><li>证明自反。</li><li>证明反对称。</li><li>证明传递。</li></ol><p>最容易漏的是反对称。反对称必须从 $aRb$ 和 $bRa$ 推出 $a=b$，不能只说“看起来没有对称边”。</p><p>The most commonly missed part is antisymmetry. You must prove that $aRb$ and $bRa$ force $a=b$.</p><h5 id="7-4-证明不是偏序-proving-not-a-partial-order">7.4 证明不是偏序 / Proving Not a Partial Order<a class="heading-anchor" href="#7-4-证明不是偏序-proving-not-a-partial-order" data-heading-id="7-4-证明不是偏序-proving-not-a-partial-order" aria-label="Copy section link / 复制小节链接">#</a></h5><p>只需找一个性质失败：</p><ul><li>不自反：缺少某个 $(a,a)$。</li><li>不反对称：存在 $a\ne b$ 且 $aRb,bRa$。</li><li>不传递：存在 $aRb,bRc$ 但没有 $aRc$。</li></ul><h5 id="7-5-求闭包-finding-closures">7.5 求闭包 / Finding Closures<a class="heading-anchor" href="#7-5-求闭包-finding-closures" data-heading-id="7-5-求闭包-finding-closures" aria-label="Copy section link / 复制小节链接">#</a></h5><p><strong>Reflexive closure / 自反闭包</strong></p><p>加缺少的所有 $(a,a)$。</p><p><strong>Symmetric closure / 对称闭包</strong></p><p>对每个 $(a,b)$ 加 $(b,a)$。</p><p><strong>Transitive closure / 传递闭包</strong></p><p>可以用三种方法：</p><ol><li>路径法：图中所有可达对。</li><li>幂法：$R^+=R\cup R^2\cup\cdots\cup R^N$。</li><li>Warshall：矩阵动态更新。</li></ol><h5 id="7-6-找-hasse-图-drawing-a-hasse-diagram">7.6 找 Hasse 图 / Drawing a Hasse Diagram<a class="heading-anchor" href="#7-6-找-hasse-图-drawing-a-hasse-diagram" data-heading-id="7-6-找-hasse-图-drawing-a-hasse-diagram" aria-label="Copy section link / 复制小节链接">#</a></h5><ol><li>先确认是偏序。</li><li>列出所有比较关系。</li><li>去掉自反边。</li><li>去掉传递边。</li><li>小的在下，大的在上。</li><li>只保留覆盖边。</li></ol><h4 id="8-易错点-common-pitfalls">8. 易错点 / Common Pitfalls<a class="heading-anchor" href="#8-易错点-common-pitfalls" data-heading-id="8-易错点-common-pitfalls" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="8-1-反对称不是不对称-antisymmetric-is-not-asymmetric">8.1 反对称不是不对称 / Antisymmetric Is Not Asymmetric<a class="heading-anchor" href="#8-1-反对称不是不对称-antisymmetric-is-not-asymmetric" data-heading-id="8-1-反对称不是不对称-antisymmetric-is-not-asymmetric" aria-label="Copy section link / 复制小节链接">#</a></h5><p>反对称允许自环；非对称不允许自环。</p><p>Antisymmetric relations may have loops; asymmetric relations cannot have loops.</p><p>例如 $\le$ 是反对称的，但不是非对称的，因为 $a\le a$。</p><h5 id="8-2-对称和反对称可以同时成立-symmetric-and-antisymmetric-can-both-hold">8.2 对称和反对称可以同时成立 / Symmetric and Antisymmetric Can Both Hold<a class="heading-anchor" href="#8-2-对称和反对称可以同时成立-symmetric-and-antisymmetric-can-both-hold" data-heading-id="8-2-对称和反对称可以同时成立-symmetric-and-antisymmetric-can-both-hold" aria-label="Copy section link / 复制小节链接">#</a></h5><p>相等关系 $=$ 同时对称和反对称。</p><p>Equality is both symmetric and antisymmetric.</p><p>原因是：若 $a=b$，则反向当然成立；若 $aRb$ 且 $bRa$，也只能说明 $a=b$。</p><h5 id="8-3-空关系的性质-properties-of-the-empty-relation">8.3 空关系的性质 / Properties of the Empty Relation<a class="heading-anchor" href="#8-3-空关系的性质-properties-of-the-empty-relation" data-heading-id="8-3-空关系的性质-properties-of-the-empty-relation" aria-label="Copy section link / 复制小节链接">#</a></h5><p>在非空集合 $A$ 上，空关系 $\varnothing$：</p><ul><li>不是自反 / not reflexive.</li><li>是反自反 / irreflexive.</li><li>是对称 / symmetric.</li><li>是反对称 / antisymmetric.</li><li>是传递 / transitive.</li></ul><p>后面三个成立是因为没有反例，属于 vacuous truth / 空真。</p><h5 id="8-4-传递性要检查所有两步链-transitivity-requires-all-two-step-chains">8.4 传递性要检查所有两步链 / Transitivity Requires All Two-Step Chains<a class="heading-anchor" href="#8-4-传递性要检查所有两步链-transitivity-requires-all-two-step-chains" data-heading-id="8-4-传递性要检查所有两步链-transitivity-requires-all-two-step-chains" aria-label="Copy section link / 复制小节链接">#</a></h5><p>只检查一个链不够。只要存在一个：</p><div class="math-display">$$
+aRb,\quad bRc,\quad \text{but not }aRc,
+$$</div><p>就不传递。</p><h5 id="8-5-最大元和极大元不要混-do-not-confuse-maximum-and-maximal">8.5 最大元和极大元不要混 / Do Not Confuse Maximum and Maximal<a class="heading-anchor" href="#8-5-最大元和极大元不要混-do-not-confuse-maximum-and-maximal" data-heading-id="8-5-最大元和极大元不要混-do-not-confuse-maximum-and-maximal" aria-label="Copy section link / 复制小节链接">#</a></h5><p>最大元要和所有元素比较；极大元只要求没有比它更大的元素。</p><p>A maximum must dominate every element. A maximal element merely has no larger comparable element.</p><h5 id="8-6-闭包不是随便补边-closure-is-not-arbitrary-edge-adding">8.6 闭包不是随便补边 / Closure Is Not Arbitrary Edge Adding<a class="heading-anchor" href="#8-6-闭包不是随便补边-closure-is-not-arbitrary-edge-adding" data-heading-id="8-6-闭包不是随便补边-closure-is-not-arbitrary-edge-adding" aria-label="Copy section link / 复制小节链接">#</a></h5><p>闭包要满足两个条件：</p><ol><li>包含原关系。</li><li>在满足目标性质的关系中最小。</li></ol><p>如果多加了不必要的边，就不是闭包。</p><h4 id="9-综合例题-mixed-examples">9. 综合例题 / Mixed Examples<a class="heading-anchor" href="#9-综合例题-mixed-examples" data-heading-id="9-综合例题-mixed-examples" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="9-1-判断关系性质-checking-relation-properties">9.1 判断关系性质 / Checking Relation Properties<a class="heading-anchor" href="#9-1-判断关系性质-checking-relation-properties" data-heading-id="9-1-判断关系性质-checking-relation-properties" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设：</p><div class="math-display">$$
+A=\{1,2,3,4\},
+$$</div><div class="math-display">$$
+R=\{(1,1),(2,2),(3,3),(4,4),(1,2),(2,1),(3,4),(4,3)\}.
+$$</div><p><strong>Question / 问题</strong></p><p>判断 $R$ 是否为等价关系或偏序。</p><p><strong>Solution / 解法</strong></p><p>自反：所有 $(a,a)$ 都在 $R$ 中，所以自反。</p><p>对称：$(1,2)$ 与 $(2,1)$ 同时存在，$(3,4)$ 与 $(4,3)$ 同时存在，所以对称。</p><p>传递：关系把 $A$ 分成 $\{1,2\}$ 和 $\{3,4\}$ 两组，组内所有元素互相关联，包括自环，因此传递。</p><p>所以 $R$ 是等价关系。</p><p>但它不是偏序，因为 $(1,2)$ 和 $(2,1)$ 都存在，而 $1\ne2$，违反反对称。</p><p>等价类为：</p><div class="math-display">$$
+[1]=[2]=\{1,2\},
+$$</div><div class="math-display">$$
+[3]=[4]=\{3,4\}.
+$$</div><h5 id="9-2-求传递闭包-finding-a-transitive-closure">9.2 求传递闭包 / Finding a Transitive Closure<a class="heading-anchor" href="#9-2-求传递闭包-finding-a-transitive-closure" data-heading-id="9-2-求传递闭包-finding-a-transitive-closure" aria-label="Copy section link / 复制小节链接">#</a></h5><p>设：</p><div class="math-display">$$
+A=\{a,b,c,d\},
+$$</div><div class="math-display">$$
+R=\{(a,b),(b,c),(c,d)\}.
+$$</div><p><strong>Solution / 解法</strong></p><p>路径可达对包括：</p><p>长度 $1$：</p><div class="math-display">$$
+(a,b),(b,c),(c,d).
+$$</div><p>长度 $2$：</p><div class="math-display">$$
+(a,c),(b,d).
+$$</div><p>长度 $3$：</p><div class="math-display">$$
+(a,d).
+$$</div><p>所以：</p><div class="math-display">$$
+R^+=\{(a,b),(b,c),(c,d),(a,c),(b,d),(a,d)\}.
+$$</div><h5 id="9-3-偏序中的上下界-bounds-in-a-poset">9.3 偏序中的上下界 / Bounds in a Poset<a class="heading-anchor" href="#9-3-偏序中的上下界-bounds-in-a-poset" data-heading-id="9-3-偏序中的上下界-bounds-in-a-poset" aria-label="Copy section link / 复制小节链接">#</a></h5><p>在正整数整除偏序中，考虑：</p><div class="math-display">$$
+S=\{6,10\}.
+$$</div><p><strong>Upper bounds / 上界</strong></p><p>上界是同时被 $6$ 和 $10$ 整除的正整数，即 $30$ 的倍数：</p><div class="math-display">$$
+30,60,90,\ldots
+$$</div><p>最小上界为：</p><div class="math-display">$$
+\operatorname{lub}(6,10)=\operatorname{lcm}(6,10)=30.
+$$</div><p><strong>Lower bounds / 下界</strong></p><p>下界是同时整除 $6$ 和 $10$ 的正整数：</p><div class="math-display">$$
+1,2.
+$$</div><p>最大下界为：</p><div class="math-display">$$
+\operatorname{glb}(6,10)=\gcd(6,10)=2.
+$$</div><h4 id="10-公式索引-formula-index">10. 公式索引 / Formula Index<a class="heading-anchor" href="#10-公式索引-formula-index" data-heading-id="10-公式索引-formula-index" aria-label="Copy section link / 复制小节链接">#</a></h4><h5 id="10-1-关系数量-number-of-relations">10.1 关系数量 / Number of Relations<a class="heading-anchor" href="#10-1-关系数量-number-of-relations" data-heading-id="10-1-关系数量-number-of-relations" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若 $|A|=m, |B|=n$：</p><div class="math-display">$$
+\#\{R\subseteq A\times B\}=2^{mn}.
+$$</div><p>若 $|A|=n$：</p><div class="math-display">$$
+\#\{\text{relations on }A\}=2^{n^2}.
+$$</div><h5 id="10-2-特殊关系计数-counting-special-relations">10.2 特殊关系计数 / Counting Special Relations<a class="heading-anchor" href="#10-2-特殊关系计数-counting-special-relations" data-heading-id="10-2-特殊关系计数-counting-special-relations" aria-label="Copy section link / 复制小节链接">#</a></h5><p>若 $|A|=n$：</p><div class="math-display">$$
+\#\{\text{reflexive relations}\}=2^{n^2-n}.
+$$</div><div class="math-display">$$
+\#\{\text{irreflexive relations}\}=2^{n^2-n}.
+$$</div><div class="math-display">$$
+\#\{\text{symmetric relations}\}=2^{n(n+1)/2}.
+$$</div><div class="math-display">$$
+\#\{\text{reflexive and symmetric relations}\}=2^{\binom n2}.
+$$</div><h5 id="10-3-闭包-closures">10.3 闭包 / Closures<a class="heading-anchor" href="#10-3-闭包-closures" data-heading-id="10-3-闭包-closures" aria-label="Copy section link / 复制小节链接">#</a></h5><div class="math-display">$$
+\text{Reflexive closure}=R\cup I_A.
+$$</div><div class="math-display">$$
+\text{Symmetric closure}=R\cup R^{-1}.
+$$</div><div class="math-display">$$
+R^+=R\cup R^2\cup\cdots\cup R^N.
+$$</div><div class="math-display">$$
+R^*=I_A\cup R\cup R^2\cup\cdots\cup R^N.
+$$</div><h5 id="10-4-warshall-更新式-warshall-update">10.4 Warshall 更新式 / Warshall Update<a class="heading-anchor" href="#10-4-warshall-更新式-warshall-update" data-heading-id="10-4-warshall-更新式-warshall-update" aria-label="Copy section link / 复制小节链接">#</a></h5><div class="math-display">$$
+W_{ij}^{(k)}
+=
+W_{ij}^{(k-1)}
+\lor
+\left(W_{ik}^{(k-1)}\land W_{kj}^{(k-1)}\right).
+$$</div><h5 id="10-5-关系类型-relation-types">10.5 关系类型 / Relation Types<a class="heading-anchor" href="#10-5-关系类型-relation-types" data-heading-id="10-5-关系类型-relation-types" aria-label="Copy section link / 复制小节链接">#</a></h5><div class="math-display">$$
+\text{Equivalence relation}
+=
+\text{reflexive}+\text{symmetric}+\text{transitive}.
+$$</div><div class="math-display">$$
+\text{Partial order}
+=
+\text{reflexive}+\text{antisymmetric}+\text{transitive}.
+$$</div><h4 id="11-中英术语表-bilingual-glossary">11. 中英术语表 / Bilingual Glossary<a class="heading-anchor" href="#11-中英术语表-bilingual-glossary" data-heading-id="11-中英术语表-bilingual-glossary" aria-label="Copy section link / 复制小节链接">#</a></h4><div class="table-scroll"><table><thead><tr><th>English</th><th>中文</th></tr></thead><tbody><tr><td>relation</td><td>关系</td></tr><tr><td>binary relation</td><td>二元关系</td></tr><tr><td>relation on a set</td><td>集合上的关系</td></tr><tr><td>ordered pair</td><td>有序对</td></tr><tr><td>Cartesian product</td><td>笛卡尔积</td></tr><tr><td>domain</td><td>定义域</td></tr><tr><td>codomain</td><td>陪域</td></tr><tr><td>range</td><td>值域</td></tr><tr><td>image</td><td>像</td></tr><tr><td>preimage</td><td>原像</td></tr><tr><td>function</td><td>函数</td></tr><tr><td>total function</td><td>全函数</td></tr><tr><td>injective</td><td>单射的</td></tr><tr><td>surjective</td><td>满射的</td></tr><tr><td>bijective</td><td>双射的</td></tr><tr><td>one-to-one</td><td>一一的，单射的</td></tr><tr><td>onto</td><td>到上的，满射的</td></tr><tr><td>identity relation</td><td>恒等关系</td></tr><tr><td>universal relation</td><td>全关系</td></tr><tr><td>empty relation</td><td>空关系</td></tr><tr><td>complement relation</td><td>补关系</td></tr><tr><td>restriction</td><td>限制</td></tr><tr><td>reflexive</td><td>自反的</td></tr><tr><td>irreflexive</td><td>反自反的</td></tr><tr><td>symmetric</td><td>对称的</td></tr><tr><td>antisymmetric</td><td>反对称的</td></tr><tr><td>asymmetric</td><td>非对称的</td></tr><tr><td>transitive</td><td>传递的</td></tr><tr><td>tuple</td><td>元组</td></tr><tr><td>attribute</td><td>属性</td></tr><tr><td>primary key</td><td>主键</td></tr><tr><td>matrix representation</td><td>矩阵表示</td></tr><tr><td>zero-one matrix</td><td>零一矩阵</td></tr><tr><td>adjacency matrix</td><td>邻接矩阵</td></tr><tr><td>walk counting matrix</td><td>走路计数矩阵</td></tr><tr><td>digraph representation</td><td>有向图表示</td></tr><tr><td>directed graph</td><td>有向图</td></tr><tr><td>walk</td><td>走路</td></tr><tr><td>path</td><td>路径</td></tr><tr><td>reachability relation</td><td>可达关系</td></tr><tr><td>walk relation</td><td>可走关系</td></tr><tr><td>positive walk relation</td><td>正长度可走关系</td></tr><tr><td>inverse relation</td><td>逆关系</td></tr><tr><td>composition</td><td>复合</td></tr><tr><td>power of a relation</td><td>关系幂</td></tr><tr><td>closure</td><td>闭包</td></tr><tr><td>reflexive closure</td><td>自反闭包</td></tr><tr><td>symmetric closure</td><td>对称闭包</td></tr><tr><td>transitive closure</td><td>传递闭包</td></tr><tr><td>Warshall&#039;s algorithm</td><td>Warshall 算法</td></tr><tr><td>equivalence relation</td><td>等价关系</td></tr><tr><td>equivalence class</td><td>等价类</td></tr><tr><td>partition</td><td>划分</td></tr><tr><td>quotient set</td><td>商集</td></tr><tr><td>partial order</td><td>偏序</td></tr><tr><td>strict partial order</td><td>严格偏序</td></tr><tr><td>weak partial order</td><td>弱偏序</td></tr><tr><td>poset</td><td>偏序集</td></tr><tr><td>DAG</td><td>有向无环图</td></tr><tr><td>comparable</td><td>可比较的</td></tr><tr><td>incomparable</td><td>不可比较的</td></tr><tr><td>total order</td><td>全序</td></tr><tr><td>linear order</td><td>线性序</td></tr><tr><td>linear extension</td><td>线性扩张</td></tr><tr><td>lexicographic order</td><td>字典序</td></tr><tr><td>maximal element</td><td>极大元</td></tr><tr><td>maximum element</td><td>最大元</td></tr><tr><td>minimal element</td><td>极小元</td></tr><tr><td>minimum element</td><td>最小元</td></tr><tr><td>upper bound</td><td>上界</td></tr><tr><td>lower bound</td><td>下界</td></tr><tr><td>least upper bound</td><td>最小上界</td></tr><tr><td>greatest lower bound</td><td>最大下界</td></tr><tr><td>lattice</td><td>格</td></tr><tr><td>Hasse diagram</td><td>Hasse 图</td></tr><tr><td>cover relation</td><td>覆盖关系</td></tr><tr><td>chain</td><td>链</td></tr><tr><td>antichain</td><td>反链</td></tr><tr><td>critical path</td><td>关键路径</td></tr><tr><td>strong connectivity relation</td><td>强连通关系</td></tr><tr><td>strongly connected component</td><td>强连通分量</td></tr><tr><td>topological sorting</td><td>拓扑排序</td></tr></tbody></table></div></div>
+              </div>
+              <div class="post-jump-nav" aria-label="文章跳转">
+                <button type="button" id="post-jump-top">回到顶部</button>
+              </div>
+              <nav class="post-neighbor-nav" aria-label="Adjacent posts / 相邻文章">
+                
+                <a href="../../post/2026-05-03-%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span>Older / 更早</span><strong>并查集专题复习笔记</strong></a>
+              </nav>
+              <section class="post-comments" id="post-comments" aria-label="Comments / 评论区" hidden></section>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" aria-label="Site information / 站点信息">
+        <p>© 2025-2026 qqqzj@Crane</p>
+        <p>qqqzj 的个人笔记、生活记录与学习档案。</p>
+        <p><a href="../../rss.xml">RSS 订阅</a></p>
+      </footer>
+    </div>
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <script src="../../comments-config.js"></script>
+    <script src="../../comments.js"></script>
+    <script>
+      window.CraneComments?.render(document.querySelector("#post-comments"), {
+        slug: "2026-05-05-relation",
+        title: "Relation",
+        commentTerm: "post:2026-05-05-relation",
+      });
+      const detailBody = document.querySelector(".post-detail-body");
+      window.renderBlogMath?.(detailBody).catch?.(() => {});
+      window.renderBlogMermaid?.(detailBody).catch?.(() => {});
+
+      const readingProgress = document.querySelector("#reading-progress");
+      function updateReadingProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max <= 0 ? 1 : Math.min(1, Math.max(0, window.scrollY / max));
+        readingProgress.style.transform = `scaleX(${progress})`;
+      }
+      window.addEventListener("scroll", updateReadingProgress, { passive: true });
+      window.addEventListener("resize", updateReadingProgress);
+      updateReadingProgress();
+
+      document.querySelector("#post-jump-top")?.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelector("#post-jump-comments")?.addEventListener("click", () => {
+        window.CraneComments?.focus(document.querySelector("#post-comments"));
+      });
+
+      const toc = document.querySelector(".post-toc");
+      const tocLinks = toc ? [...toc.querySelectorAll("a[data-heading-id]")] : [];
+      const tocSections = tocLinks
+        .map((link) => findHeadingById(document, link.dataset.headingId))
+        .filter(Boolean);
+      let tocClickLockUntil = 0;
+
+      toc?.addEventListener("click", (event) => {
+        const link = event.target.closest("a[data-heading-id]");
+        if (link) {
+          const heading = findHeadingById(document, link.dataset.headingId);
+          if (!heading) return;
+          event.preventDefault();
+          scrollToHeading(heading);
+          activateTocLink(heading.id);
+          tocClickLockUntil = Date.now() + 900;
+          if (heading.id) history.pushState(null, "", `#${heading.id}`);
+          toc.classList.remove("is-open");
+          return;
+        }
+        toc.classList.toggle("is-open");
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!toc || toc.contains(event.target)) return;
+        toc.classList.remove("is-open");
+      });
+
+      function activateTocLink(id) {
+        tocLinks.forEach((link) => {
+          const active = link.dataset.headingId === id;
+          link.classList.toggle("is-active", active);
+          if (active) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function findHeadingById(root, id) {
+        if (!root || !id) return null;
+        const escapedId = window.CSS?.escape ? window.CSS.escape(id) : id.replaceAll('"', '\"');
+        return root.querySelector(`#${escapedId}`);
+      }
+
+      function scrollToHeading(heading) {
+        const topbarHeight = document.querySelector(".topbar")?.getBoundingClientRect().height || 0;
+        const offset = topbarHeight + 8;
+        const top = heading.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
+
+      if (tocSections.length) {
+        activateTocLink(tocSections[0].id);
+
+        if ("IntersectionObserver" in window) {
+          const visibleSections = new Map();
+          const observer = new IntersectionObserver((entries) => {
+            if (Date.now() < tocClickLockUntil) return;
+
+            entries.forEach((entry) => {
+              visibleSections.set(entry.target.id, entry.isIntersecting);
+            });
+
+            const current = tocSections.find((section) => visibleSections.get(section.id))
+              || [...tocSections].reverse().find((section) => section.getBoundingClientRect().top <= 140)
+              || tocSections[0];
+
+            activateTocLink(current.id);
+          }, {
+            rootMargin: "-18% 0px -68% 0px",
+            threshold: [0, 1],
+          });
+
+          tocSections.forEach((section) => observer.observe(section));
+        }
+      }
+    </script>
+  </body>
+</html>
