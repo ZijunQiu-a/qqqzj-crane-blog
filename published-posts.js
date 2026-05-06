@@ -402,15 +402,15 @@ window.PUBLISHED_POSTS = {
       "dataPath": "post-data/2026-05-05-%E5%95%A5%E6%84%8F%E6%80%9D.json",
       "source": "post",
       "kind": "notes",
-      "title": "sys1",
+      "title": "计算机系统1",
       "publishedIndex": 33,
       "stage": "Notes 笔记",
       "tag": "系统",
       "author": "qqqzj-crane",
       "url": "",
       "previewImage": null,
-      "excerpt": "Sys1部分笔记 这份笔记按“编码与逻辑基础 - 功能部件 - ISA - CPU - 存储与 I/O - 程序运行链路”的主线组织，将概念、手算例题、Verilog 模板、RISC-V 细节和实验相关知识放在对应章节中。阅读时可以先看每章...",
-      "readingMinutes": 32,
+      "excerpt": "计算机系统一 0. 总体主线 数字逻辑与计算机组成可以从两条线一起理解：一条是“硬件从门电路长成 CPU”，另一条是“程序从高级语言落到机器指令并在硬件上运行”。 text 二进制编码 - 数字逻辑基础 - 组合逻辑电路 - 时序逻辑电路...",
+      "readingMinutes": 43,
       "createdAt": "2026-05-05T00:00:00.000Z"
     }
   ],
